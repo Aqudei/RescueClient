@@ -16,17 +16,19 @@
             <Button Command="{Binding RegisterCommand}">Register Person</Button>
         </StackPanel>
 
-        <ItemsControl ItemsSource="{Binding People}" Grid.Row="1">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical" Margin="5">
-                        <TextBlock FontWeight="Bold" 
-                                   Text="{Binding FullName}" />
-                        <TextBlock FontStyle="Italic" 
-                                   Text="{Binding Address}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding People}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Margin="5">
+                            <TextBlock FontWeight="Bold" 
+                                Text="{Binding FullName}" />
+                            <TextBlock FontStyle="Italic" 
+                                Text="{Binding Address}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>

@@ -96,12 +96,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\AddEditMessage.cs" />
+    <Compile Include="Messages\AddEditResultMessage.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />
     <Compile Include="Models\HasId.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="RescueClient.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewServices\DialogService.cs" />
     <Compile Include="Views\AddEditPerson.xaml.cs">
       <DependentUpon>AddEditPerson.xaml</DependentUpon>
     </Compile>

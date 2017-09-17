@@ -30,8 +30,8 @@ namespace RescueApp.Views
             Messenger.Default.Register<AddEditMessage<Person>>(this, (p) =>
             {
                 var frm = new AddEditPerson();
-                (frm.DataContext as AddEditPersonVM).Person = p.Entity;
                 var win = new Window();
+                win.SizeToContent = SizeToContent.WidthAndHeight;
                 win.Content = frm;
                 win.ShowDialog();
             });

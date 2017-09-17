@@ -29,13 +29,7 @@ namespace RescueApp.Views
                 {
                     //MessengerInstance.Send(new Person());
                     Person p = new Person();
-                    Messenger.Default.Send(new AddEditMessage<Person>(p, () =>
-                    {
-                        GalaSoft.MvvmLight.Threading.DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                        {
-                            People.Add(p);
-                        });
-                    }));
+                    Messenger.Default.Send(new AddEditMessage<Person>(p));
                 }));
             }
         }
@@ -97,6 +91,21 @@ namespace RescueApp.Views
             }
             else
             {
+                MessengerInstance.Register<AddEditResultMessage<Person>>(this, (rslt) =>
+                {
+                    if (rslt.Error == null)
+                    {
+                        var _p = People.FirstOrDefault(p => p.Id == rslt.Entity.Id);
+
+                        GalaSoft.MvvmLight.Threading.DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            if (_p != null)
+                                People.Remove(_p);
+                            People.Add(rslt.Entity);
+                        });
+                    }
+                });
+
                 _rescueClient = client;
                 client.GetPeople((err, rslt) =>
                {

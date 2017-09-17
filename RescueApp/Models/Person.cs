@@ -34,7 +34,7 @@ namespace RescueApp.Models
             }
         }
 
-        public string Address { get; internal set; }
+        public string Address { get;  set; }
 
     }
 }

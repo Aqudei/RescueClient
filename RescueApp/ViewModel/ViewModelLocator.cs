@@ -16,6 +16,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using RescueApp.Views;
+using RescueApp.ViewServices;
 
 namespace RescueApp.ViewModel
 {
@@ -42,6 +43,7 @@ namespace RescueApp.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
+            SimpleIoc.Default.Register<DialogService>();
             SimpleIoc.Default.Register<AddEditPersonVM>();
             SimpleIoc.Default.Register<RescueClient>();
             SimpleIoc.Default.Register<MainViewModel>();
