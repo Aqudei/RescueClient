@@ -1,0 +1,14 @@
+﻿<Controls:MetroWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RescueApp"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:Views="clr-namespace:RescueApp.Views" x:Class="RescueApp.MainWindow"
+        mc:Ignorable="d" DataContext="{Binding Main, Source={StaticResource Locator}}"
+        Title="{Binding AppTitle}" Height="350" Width="525" WindowState="Maximized">
+    <Grid>
+        <Views:People/>
+    </Grid>
+</Controls:MetroWindow>
