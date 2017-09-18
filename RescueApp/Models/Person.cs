@@ -14,6 +14,7 @@ namespace RescueApp.Models
         DateTime? birthday;
         String bloodType;
 
+        public string Photo { get; set; }
 
         public string FirstName { get => firstName; set => firstName = value; }
         public string MiddleName { get => middleName; set => middleName = value; }
@@ -34,7 +35,7 @@ namespace RescueApp.Models
             }
         }
 
-        public string Address { get;  set; }
+        public string Address { get; set; }
 
     }
 }
