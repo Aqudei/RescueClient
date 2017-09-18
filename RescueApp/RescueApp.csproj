@@ -102,6 +102,7 @@
     <Compile Include="Messages\AddEditMessage.cs" />
     <Compile Include="Messages\AddEditResultMessage.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />
+    <Compile Include="Models\Center.cs" />
     <Compile Include="Models\HasId.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="RescueClient.cs" />
@@ -115,9 +116,14 @@
     <Compile Include="Views\DialogHost.xaml.cs">
       <DependentUpon>DialogHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EvacuationList.xaml.cs">
+      <DependentUpon>EvacuationList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EvacuationListVM.cs" />
     <Compile Include="Views\MissionStatement.xaml.cs">
       <DependentUpon>MissionStatement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MissionStatementVM.cs" />
     <Compile Include="Views\People.xaml.cs">
       <DependentUpon>People.xaml</DependentUpon>
     </Compile>
@@ -139,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DialogHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EvacuationList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

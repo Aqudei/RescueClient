@@ -35,6 +35,47 @@ namespace RescueApp
             });
         }
 
+        public void GetCenters(Action<Exception, List<Center>> callback)
+        {
+            var request = new RestRequest("/api/centers/", Method.GET);
+            _client.ExecuteAsync<List<Center>>(request, (rslt) =>
+            {
+                if (rslt.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    callback(new Exception("" + rslt.StatusDescription), null);
+                    return;
+                }
+
+                callback(rslt.ErrorException, rslt.Data);
+            });
+        }
+
+        public void AddCenter(Center center, Action<Exception, Center> callback, string photo = "")
+        {
+            var request = new RestRequest("/api/centers/", Method.POST);
+            request.AlwaysMultipartFormData = true;
+            
+            if (photo != "")
+            {
+                request.AddFile("Photo", photo);
+            }
+
+            request.AddParameter("CenterName", center.CenterName);
+            request.AddParameter("Address", center.Address);
+            request.AddParameter("Limit", center.Limit);
+         
+            _client.ExecuteAsync<Center>(request, rslt =>
+            {
+                if (rslt.StatusCode != System.Net.HttpStatusCode.Created)
+                {
+                    callback(new Exception("" + rslt.StatusDescription), null);
+                    return;
+                }
+
+                callback(rslt.ErrorException, rslt.Data);
+            });
+        }
+
         public void AddPerson(Person person, Action<Exception, Person> callback, string photo = "")
         {
             var request = new RestRequest("/api/people/", Method.POST);
@@ -44,7 +85,7 @@ namespace RescueApp
             {
                 request.AddFile("Photo", photo);
             }
-            
+
             request.AddParameter("Birthday", person.Birthday);
             request.AddParameter("FirstName", person.FirstName);
             request.AddParameter("MiddleName", person.MiddleName);

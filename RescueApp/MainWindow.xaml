@@ -8,7 +8,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         x:Class="RescueApp.MainWindow"
         mc:Ignorable="d" DataContext="{Binding Main, Source={StaticResource Locator}}"
-        Title="{Binding AppTitle}" Height="350" Width="525" WindowState="Maximized">
+        Title="{Binding AppTitle}" Height="350" Width="600.853" WindowState="Maximized">
     <Controls:MetroWindow.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Controls:MetroWindow.Resources>
@@ -18,15 +18,32 @@
                 <views:People/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type x:NullExtension}" >
+            <DataTemplate DataType="{x:Type views:EvacuationListVM}" >
+                <views:EvacuationList/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type views:MissionStatementVM}" >
                 <views:MissionStatement/>
             </DataTemplate>
         </Grid.Resources>
-        <DockPanel>
 
+        <Controls:MetroAnimatedSingleRowTabControl ItemsSource="{Binding Screens}">
+            <Controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Title}" />
+                </DataTemplate>
+            </Controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
+            <Controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding}" />
+                </DataTemplate>
+            </Controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
+        </Controls:MetroAnimatedSingleRowTabControl>
+
+        <!--<DockPanel>
             <StackPanel DockPanel.Dock="Left">
                 <Button Margin="3" Command="{Binding ToPeopleCommand, Mode=OneWay}">People</Button>
-                <Button Margin="3">Evacuation Centers</Button>
+                <Button Margin="3" Command="{Binding ToEvacuationCentersCommand, Mode=OneWay}">Evacuation Centers</Button>
                 <Button Margin="3">Incidents</Button>
                 <Button Margin="3">Assignments</Button>
                 <Button Margin="3">Check-ins</Button>
@@ -41,6 +58,6 @@
                                 HorizontalAlignment="Stretch"
                                 Content="{Binding CurrentScreen}"/>
             </Grid>
-        </DockPanel>
+        </DockPanel>-->
     </Grid>
 </Controls:MetroWindow>

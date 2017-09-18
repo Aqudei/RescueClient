@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"  DataContext="{Binding MissionStatementVM, Source={StaticResource Locator}}"
              d:DesignHeight="636.507" d:DesignWidth="422.426">
     <Grid>
 
-        <FlowDocumentReader ViewingMode="Scroll">
+        <FlowDocumentReader ViewingMode="Scroll" Zoom="200">
             <FlowDocument>
                 <Paragraph FontWeight="Bold">
                     Mission Statement

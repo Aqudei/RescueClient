@@ -56,6 +56,8 @@ namespace RescueApp.Views
         }
 
 
+        public string Title { get; set; } = "People";
+
         public PeopleVM(RescueClient client)
         {
             if (IsInDesignModeStatic)

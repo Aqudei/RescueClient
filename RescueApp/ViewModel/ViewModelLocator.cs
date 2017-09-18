@@ -43,14 +43,22 @@ namespace RescueApp.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
+
             SimpleIoc.Default.Register<DialogService>();
+            SimpleIoc.Default.Register<MissionStatementVM>();
+            SimpleIoc.Default.Register<EvacuationListVM>();
             SimpleIoc.Default.Register<AddEditPersonVM>();
             SimpleIoc.Default.Register<RescueClient>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<PeopleVM>();
         }
 
-
+        public MissionStatementVM MissionStatementVM {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MissionStatementVM>();
+            }
+        }
 
         public AddEditPersonVM AddEditPersonVM
         {
@@ -60,6 +68,13 @@ namespace RescueApp.ViewModel
             }
         }
 
+        public EvacuationListVM EvacuationListVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<EvacuationListVM>();
+            }
+        }
 
         public MainViewModel Main
         {

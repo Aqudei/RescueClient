@@ -21,7 +21,7 @@ namespace RescueApp.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        
+
 
         public string AppTitle { get; set; } = "DISASTER+RISK REDUCTION MANAGEMENT SYSTEM";
 
@@ -48,7 +48,6 @@ namespace RescueApp.ViewModel
         }
 
         private RelayCommand _toPeopleCommand;
-
         public RelayCommand ToPeopleCommand
         {
             get
@@ -60,9 +59,31 @@ namespace RescueApp.ViewModel
             }
         }
 
+        private RelayCommand _toEvacuationCentersCommand;
+        public RelayCommand ToEvacuationCentersCommand
+        {
+            get
+            {
+                return _toEvacuationCentersCommand ?? (_toEvacuationCentersCommand = new RelayCommand(() =>
+                {
+                    CurrentScreen = SimpleIoc.Default.GetInstance<EvacuationListVM>();
+                }));
+            }
+        }
+
+        public List<ViewModelBase> Screens { get; set; } = new List<ViewModelBase>
+        {
+            SimpleIoc.Default.GetInstance<MissionStatementVM>(),
+            SimpleIoc.Default.GetInstance<PeopleVM>(),
+            SimpleIoc.Default.GetInstance<EvacuationListVM>()
+        };
+
         public bool ShowMissionStatement
         {
             get { return CurrentScreen == null; }
         }
+
+
+
     }
 }

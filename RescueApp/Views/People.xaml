@@ -9,19 +9,23 @@
              mc:Ignorable="d" DataContext="{Binding PeopleVM, Source={StaticResource Locator}}"
              d:DesignHeight="402.339" d:DesignWidth="643.621">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom">
+        <StackPanel Grid.Column="1" Orientation="Horizontal"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top">
             <Button Command="{Binding RegisterCommand}">Register Person</Button>
         </StackPanel>
 
-        <ScrollViewer HorizontalAlignment="Center">
+        <ScrollViewer HorizontalAlignment="Left">
             <ItemsControl x:Name="peopleList" ItemsSource="{Binding People}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -38,10 +42,8 @@
                                 Text="{Binding Address}" FontSize="18" />
                             </StackPanel>
 
-
-
-                            <Button VerticalAlignment="Center" Margin="16,5,5,5"
-                                    Grid.Column="1" 
+                            <Button VerticalAlignment="Center" Padding="8"
+                                    Grid.Column="1" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
                                     Command="{Binding DataContext.DeleteCommand, ElementName=peopleList, Mode=OneWay}" 
                                     CommandParameter="{Binding Mode=OneWay}">
                                 <iconPacks:PackIconMaterial Kind="Delete"/>
