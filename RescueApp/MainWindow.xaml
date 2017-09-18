@@ -4,11 +4,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RescueApp"
+        xmlns:views="clr-namespace:RescueApp.Views"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:Views="clr-namespace:RescueApp.Views" x:Class="RescueApp.MainWindow"
+        x:Class="RescueApp.MainWindow"
         mc:Ignorable="d" DataContext="{Binding Main, Source={StaticResource Locator}}"
         Title="{Binding AppTitle}" Height="350" Width="525" WindowState="Maximized">
+    <Controls:MetroWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Controls:MetroWindow.Resources>
     <Grid>
-        <Views:People/>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type views:PeopleVM}" >
+                <views:People/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type x:NullExtension}" >
+                <views:MissionStatement/>
+            </DataTemplate>
+        </Grid.Resources>
+        <DockPanel>
+
+            <StackPanel DockPanel.Dock="Left">
+                <Button Margin="3" Command="{Binding ToPeopleCommand, Mode=OneWay}">People</Button>
+                <Button Margin="3">Evacuation Centers</Button>
+                <Button Margin="3">Incidents</Button>
+                <Button Margin="3">Assignments</Button>
+                <Button Margin="3">Check-ins</Button>
+            </StackPanel>
+
+            <Grid DockPanel.Dock="Right">
+                <views:MissionStatement VerticalAlignment="Stretch" 
+                                        HorizontalAlignment="Stretch" 
+                                        Visibility="{Binding ShowMissionStatement, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"/>
+
+                <ContentControl VerticalAlignment="Stretch" 
+                                HorizontalAlignment="Stretch"
+                                Content="{Binding CurrentScreen}"/>
+            </Grid>
+        </DockPanel>
     </Grid>
 </Controls:MetroWindow>

@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="RescueApp.Views.MissionStatement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RescueApp.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="636.507" d:DesignWidth="422.426">
+    <Grid>
+
+        <FlowDocumentReader ViewingMode="Scroll">
+            <FlowDocument>
+                <Paragraph FontWeight="Bold">
+                    Mission Statement
+                </Paragraph>
+                <Paragraph  TextAlignment="Justify">
+                    Northern Samar, which houses 0.63% of the Philippine population, 
+                    has been suffering largely from natural disasters. 
+                    It is one of the most disaster-prone region in the country given 
+                    the fact that its coasts are facing the Pacific Ocean. Therefore,
+                    disaster risk reduction programs and plans should always be in place. 
+                    Hence, the need for an improved and more reliable data collection system arises.
+
+                </Paragraph>
+                <Paragraph TextAlignment="Justify">
+                    The Community-Based Risk Response System (CBRRS) in its action to address 
+                    the current situation attempts to supply an organized way of collecting 
+                    and maintaining information at the local level for use of 
+                    Local Government Units, National Government Agencies, 
+                    Non-government organization, civil society and development partner
+                    agencies for planning, implementing and monitoring disaster risk 
+                    reduction programs.
+
+                </Paragraph>
+                <Paragraph FontWeight="Bold">
+                    Objectives
+                </Paragraph>
+                <Paragraph TextAlignment="Justify">
+                    For the attainment of its mission, the CBRRS establishes its objectives:
+Provide reliable information base through generating household and individual level data.
+Easy access of reports and updates for assessment, evaluation and decision-making.
+Effective inter-office and inter-agency exchange of data and information.
+Facilitate effective transfer of reliable information from the local to the central office.
+                </Paragraph>
+            </FlowDocument>
+        </FlowDocumentReader>
+    </Grid>
+</UserControl>

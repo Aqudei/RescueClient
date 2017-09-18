@@ -1,4 +1,8 @@
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
+using RescueApp.Views;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace RescueApp.ViewModel
@@ -25,16 +29,40 @@ namespace RescueApp.ViewModel
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel(RescueClient rescueClient)
-        {
+        { }
 
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+        private ViewModelBase _currentScreen;
+
+        private ViewModelBase _previouseScreen;
+
+        public ViewModelBase CurrentScreen
+        {
+            get { return _currentScreen; }
+            set
+            {
+                _previouseScreen = _currentScreen;
+
+                Set(ref _currentScreen, value);
+                RaisePropertyChanged(() => ShowMissionStatement);
+            }
+        }
+
+        private RelayCommand _toPeopleCommand;
+
+        public RelayCommand ToPeopleCommand
+        {
+            get
+            {
+                return _toPeopleCommand ?? (_toPeopleCommand = new RelayCommand(() =>
+                {
+                    CurrentScreen = SimpleIoc.Default.GetInstance<PeopleVM>();
+                }));
+            }
+        }
+
+        public bool ShowMissionStatement
+        {
+            get { return CurrentScreen == null; }
         }
     }
 }

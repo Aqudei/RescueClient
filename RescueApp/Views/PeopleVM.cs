@@ -18,8 +18,7 @@ namespace RescueApp.Views
             = new ObservableCollection<Person>();
 
         private readonly RescueClient _rescueClient;
-
-
+        
         private RelayCommand _registerCommand;
         public RelayCommand RegisterCommand
         {

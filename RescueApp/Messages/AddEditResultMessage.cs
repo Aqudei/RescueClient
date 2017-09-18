@@ -15,7 +15,6 @@ namespace RescueApp.Messages
         {
             Error = err;
             Entity = entity;
-
         }
     }
 }

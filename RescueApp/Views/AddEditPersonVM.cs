@@ -13,6 +13,15 @@ namespace RescueApp.Views
 {
     public class AddEditPersonVM : ViewModelBase
     {
+        private string _choosenPhoto;
+
+        public string ChoosenPhoto
+        {
+            get { return _choosenPhoto; }
+            set { Set(ref _choosenPhoto, value); }
+        }
+
+
         private readonly RescueClient _rescueClient;
         private readonly DialogService _dialogService;
 
@@ -24,11 +33,26 @@ namespace RescueApp.Views
         public string BloodType { get; set; }
         public string Address { get; set; }
 
-        public AddEditPersonVM(RescueClient client, DialogService dialogService)
+
+        public AddEditPersonVM(RescueClient client,
+            DialogService dialogService)
         {
             _rescueClient = client;
             _dialogService = dialogService;
         }
+
+        private RelayCommand _browsePhotoCommand;
+        public RelayCommand BrowsePhotoCommand
+        {
+            get
+            {
+                return _browsePhotoCommand ?? (_browsePhotoCommand = new RelayCommand(() =>
+                {
+                    ChoosenPhoto = _dialogService.ShowOpenFileDialog();
+                }));
+            }
+        }
+
 
         private RelayCommand _saveCommand;
         public RelayCommand SaveCommand
@@ -61,7 +85,6 @@ namespace RescueApp.Views
                             }
                         });
                     }
-
                 }));
             }
         }

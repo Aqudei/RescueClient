@@ -5,12 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views" 
              mc:Ignorable="d" DataContext="{Binding AddEditPersonVM, Source={StaticResource Locator}}"
-             d:DesignHeight="351.483" Width="366.102">
+             d:DesignHeight="345.022" Width="578.026">
     <UserControl.Resources>
 
     </UserControl.Resources>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="1" Source="{Binding ChoosenPhoto}"/>
         <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">First Name:</Label>
@@ -28,8 +33,8 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Photo:</Label>
-                <TextBox x:Name="txtPhoto" Width="200" Text="{Binding LastName}"/>
-                <Button Click="Button_Click" Margin="5,0,0,0" >Browse</Button>
+                <TextBox x:Name="txtPhoto" Width="200" Text="{Binding ChoosenPhoto}"/>
+                <Button Command="{Binding BrowsePhotoCommand}" Margin="5,0,0,0" >Browse</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Birthday:</Label>

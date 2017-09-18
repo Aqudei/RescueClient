@@ -109,6 +109,12 @@
       <DependentUpon>AddEditPerson.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddEditPersonVM.cs" />
+    <Compile Include="Views\DialogHost.xaml.cs">
+      <DependentUpon>DialogHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MissionStatement.xaml.cs">
+      <DependentUpon>MissionStatement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\People.xaml.cs">
       <DependentUpon>People.xaml</DependentUpon>
     </Compile>
@@ -126,6 +132,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AddEditPerson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MissionStatement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,7 +1,4 @@
-﻿using GalaSoft.MvvmLight.Messaging;
-using RescueApp.Messages;
-using RescueApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,25 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace RescueApp.Views
 {
     /// <summary>
-    /// Interaction logic for People.xaml
+    /// Interaction logic for DialogHost.xaml
     /// </summary>
-    public partial class People : UserControl
+    public partial class DialogHost
     {
-        public People()
+        public DialogHost()
         {
             InitializeComponent();
+        }
 
-            Messenger.Default.Register<AddEditMessage<Person>>(this, (p) =>
-            {
-                var dialog = new DialogHost(new AddEditPerson());
-                dialog.ShowDialog();
-            });
+        public DialogHost(UserControl child) : this()
+        {
+            Content = child;
         }
     }
 }
