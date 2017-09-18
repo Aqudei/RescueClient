@@ -13,14 +13,13 @@ namespace RescueApp.Views
 {
     public class AddEditPersonVM : ViewModelBase
     {
-        private string _choosenPhoto;
+        private string _choosenPhoto  = "";
 
         public string ChoosenPhoto
         {
             get { return _choosenPhoto; }
             set { Set(ref _choosenPhoto, value); }
         }
-
 
         private readonly RescueClient _rescueClient;
         private readonly DialogService _dialogService;
@@ -53,7 +52,6 @@ namespace RescueApp.Views
             }
         }
 
-
         private RelayCommand _saveCommand;
         public RelayCommand SaveCommand
         {
@@ -83,7 +81,7 @@ namespace RescueApp.Views
                             {
                                 MessengerInstance.Send(new AddEditResultMessage<Person>(err, p));
                             }
-                        });
+                        }, ChoosenPhoto);
                     }
                 }));
             }

@@ -35,12 +35,27 @@ namespace RescueApp
             });
         }
 
-        public void AddPerson(Person person, Action<Exception, Person> callback)
+        public void AddPerson(Person person, Action<Exception, Person> callback, string photo = "")
         {
             var request = new RestRequest("/api/people/", Method.POST);
-            request.RequestFormat = DataFormat.Json;
+            request.AlwaysMultipartFormData = true;
+            request.DateFormat = @"yyyy-MM-ddTHH\:mm\:ss.fffffffzzz";
+            if (photo != "")
+            {
+                request.AddFile("Photo", photo);
+            }
 
-            request.AddBody(person);
+            if (person.Birthday.HasValue)
+            {
+                request.AddParameter("Birthday", person.Birthday.Value.ToShortDateString());
+            }
+
+            request.AddParameter("FirstName", person.FirstName);
+            request.AddParameter("MiddleName", person.MiddleName);
+            request.AddParameter("LastName", person.LastName);
+            request.AddParameter("BloodType", person.BloodType);
+            request.AddParameter("Address", person.Address);
+
             _client.ExecuteAsync<Person>(request, rslt =>
             {
                 if (rslt.StatusCode != System.Net.HttpStatusCode.Created)
@@ -58,7 +73,14 @@ namespace RescueApp
             var request = new RestRequest("/api/people/" + id + "/", Method.DELETE);
             _client.ExecuteAsync(request, rslt =>
             {
-                callback(null);
+                if (rslt.StatusCode == System.Net.HttpStatusCode.NoContent)
+                {
+                    callback(null);
+                }
+                else
+                {
+                    callback(new Exception("Error on Delete"));
+                }
             });
         }
     }
