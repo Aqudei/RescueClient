@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
              mc:Ignorable="d" DataContext="{Binding PeopleVM, Source={StaticResource Locator}}"
-             d:DesignHeight="208.475" d:DesignWidth="300">
+             d:DesignHeight="335.666" d:DesignWidth="341.029">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,15 +17,29 @@
         </StackPanel>
 
         <ScrollViewer Grid.Row="1">
-            <ItemsControl ItemsSource="{Binding People}">
+            <ItemsControl x:Name="peopleList" ItemsSource="{Binding People}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical" Margin="5">
-                            <TextBlock FontWeight="Bold" 
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical" Margin="5">
+                                <TextBlock FontWeight="Bold" 
                                 Text="{Binding FullName}" />
-                            <TextBlock FontStyle="Italic" 
+                                <TextBlock FontStyle="Italic" 
                                 Text="{Binding Address}" />
-                        </StackPanel>
+                            </StackPanel>
+
+                            <Button VerticalAlignment="Center" Margin="5"
+                                    Grid.Column="1" 
+                                    Command="{Binding DataContext.DeleteCommand, ElementName=peopleList, Mode=OneWay}" 
+                                    CommandParameter="{Binding Mode=OneWay}">Delete
+                            </Button>
+                        </Grid>
+
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

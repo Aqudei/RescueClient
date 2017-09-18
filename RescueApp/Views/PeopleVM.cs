@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
 using RescueApp.Messages;
 using RescueApp.Models;
 using System;
@@ -18,7 +19,7 @@ namespace RescueApp.Views
             = new ObservableCollection<Person>();
 
         private readonly RescueClient _rescueClient;
-        
+
         private RelayCommand _registerCommand;
         public RelayCommand RegisterCommand
         {
@@ -29,6 +30,27 @@ namespace RescueApp.Views
                     //MessengerInstance.Send(new Person());
                     Person p = new Person();
                     Messenger.Default.Send(new AddEditMessage<Person>(p));
+                }));
+            }
+        }
+
+        private RelayCommand<Person> _deleteCommand;
+        public RelayCommand<Person> DeleteCommand
+        {
+            get
+            {
+                return _deleteCommand ?? (_deleteCommand = new RelayCommand<Person>((p) =>
+                {
+                    _rescueClient.DeletePerson(p.Id, (err) =>
+                    {
+                        if (err == null)
+                        {
+                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                            {
+                                People.Remove(p);
+                            });
+                        }
+                    });
                 }));
             }
         }

@@ -39,7 +39,7 @@ namespace RescueApp
         {
             var request = new RestRequest("/api/people/", Method.POST);
             request.RequestFormat = DataFormat.Json;
-          
+
             request.AddBody(person);
             _client.ExecuteAsync<Person>(request, rslt =>
             {
@@ -50,6 +50,15 @@ namespace RescueApp
                 }
 
                 callback(rslt.ErrorException, rslt.Data);
+            });
+        }
+
+        public void DeletePerson(int id, Action<Exception> callback)
+        {
+            var request = new RestRequest("/api/people/" + id + "/", Method.DELETE);
+            _client.ExecuteAsync(request, rslt =>
+            {
+                callback(null);
             });
         }
     }
