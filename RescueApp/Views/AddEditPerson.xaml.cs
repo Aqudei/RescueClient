@@ -26,14 +26,9 @@ namespace RescueApp.Views
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CloseButtonClicked(object sender, RoutedEventArgs e)
         {
-            var ofd = new OpenFileDialog();
-            ofd.Multiselect = false;
-            if (ofd.ShowDialog() == true)
-            {
-                txtPhoto.Text = ofd.FileName;
-            }
+            (Parent as Window).Close();
         }
     }
 }

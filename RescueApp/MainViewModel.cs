@@ -21,14 +21,14 @@ namespace RescueApp.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private readonly RescueClient _rescueClient;
+        
 
         public string AppTitle { get; set; } = "DISASTER+RISK REDUCTION MANAGEMENT SYSTEM";
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(RescueClient rescueClient)
+        public MainViewModel()
         { }
 
         private ViewModelBase _currentScreen;

@@ -11,7 +11,7 @@ namespace RescueApp.Models
         String firstName;
         String middleName;
         String lastName;
-        DateTime? birthday;
+        string birthday;
         String bloodType;
 
         public string Photo { get; set; }
@@ -19,7 +19,7 @@ namespace RescueApp.Models
         public string FirstName { get => firstName; set => firstName = value; }
         public string MiddleName { get => middleName; set => middleName = value; }
         public string LastName { get => lastName; set => lastName = value; }
-        public DateTime? Birthday { get => birthday; set => birthday = value; }
+        public string Birthday { get => birthday; set => birthday = value; }
         public string BloodType { get => bloodType; set => bloodType = value; }
 
         public override string ToString()

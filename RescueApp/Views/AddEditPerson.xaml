@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views" 
              mc:Ignorable="d" DataContext="{Binding AddEditPersonVM, Source={StaticResource Locator}}"
-             d:DesignHeight="345.022" Width="578.026">
+             d:DesignHeight="364.405" Width="646.513">
     <UserControl.Resources>
 
     </UserControl.Resources>
@@ -19,21 +19,22 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">First Name:</Label>
-                <TextBox Width="200" Text="{Binding FirstName}"/>
+                <TextBox CharacterCasing="Upper" Width="200" Text="{Binding FirstName}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label x:Name="midNamelabel">Middle Name:</Label>
-                <TextBox Width="200" Text="{Binding MiddleName}" />
+                <TextBox CharacterCasing="Upper" Width="200" Text="{Binding MiddleName}" />
 
 
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Last Name:</Label>
-                <TextBox Width="200" Text="{Binding LastName}"/>
+                <TextBox CharacterCasing="Upper" Width="200" Text="{Binding LastName}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Photo:</Label>
-                <TextBox x:Name="txtPhoto" Width="200" Text="{Binding ChoosenPhoto}"/>
+                <TextBox x:Name="txtPhoto" Width="200" IsReadOnly="True"
+                         Text="{Binding ChoosenPhoto}"/>
                 <Button Command="{Binding BrowsePhotoCommand}" Margin="5,0,0,0" >Browse</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
@@ -42,7 +43,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Blood Type:</Label>
-                <ComboBox Width="200" Text="{Binding BloodType}" >
+                <ComboBox Width="200" Text="{Binding BloodType}" SelectedIndex="0">
                     <ComboBoxItem>A-</ComboBoxItem>
                     <ComboBoxItem>A+</ComboBoxItem>
                     <ComboBoxItem>B-</ComboBoxItem>
@@ -55,11 +56,15 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Address:</Label>
-                <TextBox MinLines="3" Width="200" Text="{Binding Address}" Height="73"/>
+                <TextBox MinLines="3" 
+                         Width="200" 
+                         CharacterCasing="Upper"
+                         Text="{Binding Address}" 
+                         Height="80"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Button Margin="3" Command="{Binding SaveCommand, Mode=OneWay}">Save</Button>
-                <Button Margin="3">Cancel</Button>
+                <Button Click="CloseButtonClicked" Margin="3">Cancel</Button>
             </StackPanel>
         </StackPanel>
     </Grid>

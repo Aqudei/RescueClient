@@ -62,7 +62,7 @@ namespace RescueApp.Views
                     var person = new Person
                     {
                         Address = Address,
-                        Birthday = Birthday,
+                        Birthday = Birthday.HasValue ? Birthday.Value.ToShortDateString() : "",
                         BloodType = BloodType,
                         FirstName = FirstName,
                         LastName = LastName,

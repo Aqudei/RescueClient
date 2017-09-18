@@ -44,12 +44,8 @@ namespace RescueApp
             {
                 request.AddFile("Photo", photo);
             }
-
-            if (person.Birthday.HasValue)
-            {
-                request.AddParameter("Birthday", person.Birthday.Value.ToShortDateString());
-            }
-
+            
+            request.AddParameter("Birthday", person.Birthday);
             request.AddParameter("FirstName", person.FirstName);
             request.AddParameter("MiddleName", person.MiddleName);
             request.AddParameter("LastName", person.LastName);

@@ -66,7 +66,7 @@ namespace RescueApp.Views
                     MiddleName = "Espe",
                     LastName = "Cortez",
                     Address = "Port Area, Tacloban City",
-                    Birthday = new DateTime(1989, 12, 22)
+                    Birthday = "12/31/2017"
                 });
 
                 People.Add(new Person
@@ -75,7 +75,7 @@ namespace RescueApp.Views
                     MiddleName = "Espe",
                     LastName = "Airbytes",
                     Address = "Port Area, Tacloban City",
-                    Birthday = new DateTime(1989, 12, 22)
+                    Birthday = "12/31/2017"
                 });
                 People.Add(new Person
                 {
@@ -83,7 +83,7 @@ namespace RescueApp.Views
                     MiddleName = "Espe",
                     LastName = "Airbytes",
                     Address = "Port Area, Tacloban City",
-                    Birthday = new DateTime(1989, 12, 22)
+                    Birthday = "12/31/2017"
                 });
                 People.Add(new Person
                 {
@@ -91,7 +91,7 @@ namespace RescueApp.Views
                     MiddleName = "Espe",
                     LastName = "Airbytes",
                     Address = "Port Area, Tacloban City",
-                    Birthday = new DateTime(1989, 12, 22)
+                    Birthday = "12/31/2017"
                 });
                 People.Add(new Person
                 {
@@ -99,7 +99,7 @@ namespace RescueApp.Views
                     MiddleName = "Espe",
                     LastName = "Airbytes",
                     Address = "Port Area, Tacloban City",
-                    Birthday = new DateTime(1989, 12, 22)
+                    Birthday = "12/31/2017"
                 });
                 People.Add(new Person
                 {
@@ -107,7 +107,7 @@ namespace RescueApp.Views
                     MiddleName = "Espe",
                     LastName = "Airbytes",
                     Address = "Port Area, Tacloban City",
-                    Birthday = new DateTime(1989, 12, 22)
+                    Birthday = "12/31/2017"
                 });
             }
             else
