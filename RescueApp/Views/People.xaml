@@ -49,19 +49,17 @@
                                     <TextBlock Text="Blood Type: " />
                                     <TextBlock Text="{Binding BloodType}" />
                                 </StackPanel>
-                                
+
                                 <StackPanel Orientation="Horizontal">
-                                    <Button HorizontalAlignment="Left" Margin="8" Padding="8"
+                                    <Button HorizontalAlignment="Left" Margin="4,8" Padding="8"
                                     Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
                                     Command="{Binding DataContext.DeleteCommand, ElementName=peopleList, Mode=OneWay}" 
                                     CommandParameter="{Binding Mode=OneWay}">
                                         <iconPacks:PackIconMaterial Kind="Delete"/>
                                     </Button>
 
-                                    <Button HorizontalAlignment="Left" Margin="8" Padding="8"
-                                    Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
-                                    Command="{Binding DataContext.DeleteCommand, ElementName=peopleList, Mode=OneWay}" 
-                                    CommandParameter="{Binding Mode=OneWay}">
+                                    <Button HorizontalAlignment="Left" Margin="4,8" Padding="8"
+                                    Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}">
                                         <iconPacks:PackIconMaterial Kind="AccountEdit"/>
                                     </Button>
                                 </StackPanel>

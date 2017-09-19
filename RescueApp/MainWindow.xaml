@@ -38,7 +38,7 @@
         <Controls:MetroAnimatedSingleRowTabControl ItemsSource="{Binding Screens}">
             <Controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Title}" />
+                    <TextBlock Text="{Binding Title}" Margin="16,0" />
                 </DataTemplate>
             </Controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
             <Controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
