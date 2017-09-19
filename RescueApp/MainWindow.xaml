@@ -28,11 +28,11 @@
             <DataTemplate DataType="{x:Type views:IncidentsVM}" >
                 <views:Incidents/>
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type views:MonitoringVM}" >
                 <views:Monitoring/>
             </DataTemplate>
-            
+
         </Grid.Resources>
 
         <Controls:MetroAnimatedSingleRowTabControl ItemsSource="{Binding Screens}">
@@ -43,7 +43,20 @@
             </Controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
             <Controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
                 <DataTemplate>
-                    <ContentControl Content="{Binding}" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding Title}" FontSize="48"
+                                   FontWeight="Bold"
+                                   Margin="16,16,0,32"
+                                   VerticalAlignment="Center" 
+                                   Foreground="#FF706F6F" 
+                                   Opacity="0.8" 
+                                   TextDecorations="Underline"/>
+                        <ContentControl Content="{Binding}" Grid.Row="1" />
+                    </Grid>
                 </DataTemplate>
             </Controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
         </Controls:MetroAnimatedSingleRowTabControl>

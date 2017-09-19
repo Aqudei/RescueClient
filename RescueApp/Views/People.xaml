@@ -7,7 +7,7 @@
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" DataContext="{Binding PeopleVM, Source={StaticResource Locator}}"
-             d:DesignHeight="402.339" d:DesignWidth="797.456">
+             d:DesignHeight="800.339" d:DesignWidth="797.456">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -38,11 +38,12 @@
 
                             <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
                                 <TextBlock FontWeight="Bold" 
-                                    Text="{Binding FullName}" FontSize="24" />
+                                    Text="{Binding FullName}" FontSize="18" />
                                 <TextBlock FontStyle="Italic" 
-                                    Text="{Binding Address}" FontSize="18" />
+                                    Text="{Binding Address}" FontSize="12" />
 
                                 <StackPanel Orientation="Horizontal">
+                                
                                     <TextBlock Text="Age: " />
                                     <TextBlock Text="{Binding Age}" />
                                     <TextBlock Text="|" Margin="4,0" />

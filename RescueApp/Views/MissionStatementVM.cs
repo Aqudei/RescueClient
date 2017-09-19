@@ -9,6 +9,6 @@ namespace RescueApp.Views
 {
     public class MissionStatementVM : ViewModelBase
     {
-        public string Title { get; set; } = "Mission Statement";
+        public string Title { get; set; } = "About Us";
     }
 }

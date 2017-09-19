@@ -8,7 +8,7 @@
              d:DesignHeight="636.507" d:DesignWidth="422.426">
     <Grid>
 
-        <FlowDocumentReader ViewingMode="Scroll" Zoom="180">
+        <FlowDocumentReader ViewingMode="Scroll" Zoom="120">
             <FlowDocument>
                 <Paragraph FontWeight="Bold">
                     Mission Statement

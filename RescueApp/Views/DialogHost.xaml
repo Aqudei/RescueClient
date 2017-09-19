@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RescueApp.Views"
-        mc:Ignorable="d" SizeToContent="WidthAndHeight"
+        mc:Ignorable="d" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
         Title="DialogHost" Height="300" Width="300" WindowStyle="None" ShowCloseButton="False" ShowMaxRestoreButton="False" ShowMinButton="False">
     <Grid>
 
