@@ -30,15 +30,16 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
 
-                            <Image Width="256" 
+                            <Border Margin="8" BorderThickness="1" 
+                                    CornerRadius="1">
+                                <Border.Effect>
+                                    <DropShadowEffect/>
+                                </Border.Effect>
+                                <Image Width="256" 
                                 Height="384" 
                                 Stretch="UniformToFill" 
-                                Source="{Binding Photo}"
-                                Margin="8">
-                                <Image.Effect>
-                                    <DropShadowEffect/>
-                                </Image.Effect>
-                            </Image>
+                                Source="{Binding Photo}" />
+                            </Border>
 
                             <StackPanel Orientation="Vertical" 
                                 Grid.Column="1" 
