@@ -75,7 +75,9 @@ namespace RescueApp.ViewModel
         {
             SimpleIoc.Default.GetInstance<MissionStatementVM>(),
             SimpleIoc.Default.GetInstance<PeopleVM>(),
-            SimpleIoc.Default.GetInstance<EvacuationListVM>()
+            SimpleIoc.Default.GetInstance<EvacuationListVM>(),
+            SimpleIoc.Default.GetInstance<IncidentsVM>(),
+            SimpleIoc.Default.GetInstance<MonitoringVM>()
         };
 
         public bool ShowMissionStatement

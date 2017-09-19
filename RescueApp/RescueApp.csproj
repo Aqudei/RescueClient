@@ -78,6 +78,7 @@
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.1.66\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -120,10 +121,18 @@
       <DependentUpon>EvacuationList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EvacuationListVM.cs" />
+    <Compile Include="Views\Incidents.xaml.cs">
+      <DependentUpon>Incidents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IncidentsVM.cs" />
     <Compile Include="Views\MissionStatement.xaml.cs">
       <DependentUpon>MissionStatement.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MissionStatementVM.cs" />
+    <Compile Include="Views\MonitoringVM.cs" />
+    <Compile Include="Views\Monitoring.xaml.cs">
+      <DependentUpon>Monitoring.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\People.xaml.cs">
       <DependentUpon>People.xaml</DependentUpon>
     </Compile>
@@ -152,7 +161,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Incidents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MissionStatement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Monitoring.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,6 +204,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\snail-under-construction.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Website-Under-Construction.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

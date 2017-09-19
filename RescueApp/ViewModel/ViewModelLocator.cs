@@ -46,11 +46,29 @@ namespace RescueApp.ViewModel
 
             SimpleIoc.Default.Register<DialogService>();
             SimpleIoc.Default.Register<MissionStatementVM>();
+            SimpleIoc.Default.Register<IncidentsVM>();
+            SimpleIoc.Default.Register<MonitoringVM>();
             SimpleIoc.Default.Register<EvacuationListVM>();
             SimpleIoc.Default.Register<AddEditPersonVM>();
             SimpleIoc.Default.Register<RescueClient>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<PeopleVM>();
+        }
+
+        public IncidentsVM IncidentsVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IncidentsVM>();
+            }
+        }
+
+        public MonitoringVM MonitoringVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MonitoringVM>();
+            }
         }
 
         public MissionStatementVM MissionStatementVM {
