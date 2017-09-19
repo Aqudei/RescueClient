@@ -6,11 +6,22 @@
              xmlns:local="clr-namespace:RescueApp.Views"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" DataContext="{Binding EvacuationListVM, Source={StaticResource Locator}}"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <HeaderedContentControl Header="Evacualtion List">
-        <DockPanel>
-            <Button DockPanel.Dock="Right" VerticalAlignment="Top" Content="Add New" Command="{Binding AddNewCommand, Mode=OneWay}"/>
-            <ItemsControl ItemsSource="{Binding Centers}" DockPanel.Dock="Left">
+             d:DesignHeight="793.322" d:DesignWidth="748.577">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+
+        <Button VerticalAlignment="Bottom"  
+                Grid.Column="1"
+                Content="Add New" HorizontalAlignment="Right"
+                Command="{Binding AddNewCommand, Mode=OneWay}"/>
+
+        <ScrollViewer DockPanel.Dock="Left">
+            <ItemsControl ItemsSource="{Binding Centers}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -19,19 +30,40 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
 
-                            <Image Width="128" 
-                                   Height="128" 
-                                   Stretch="UniformToFill" 
-                                   Source="{Binding Photo}"/>
+                            <Image Width="256" 
+                                Height="384" 
+                                Stretch="UniformToFill" 
+                                Source="{Binding Photo}"
+                                Margin="8">
+                                <Image.Effect>
+                                    <DropShadowEffect/>
+                                </Image.Effect>
+                            </Image>
 
-                            <StackPanel Orientation="Vertical" Grid.Column="1">
-                                <TextBlock FontSize="16"
-                                       FontWeight="Bold"
-                                       Text="{Binding CenterName}"/>
-                                <TextBlock FontSize="12"
-                                       Text="{Binding Address}"/>
+                            <StackPanel Orientation="Vertical" 
+                                Grid.Column="1" 
+                                VerticalAlignment="Center" 
+                                Margin="8,8,32,8">
+
+                                <TextBlock FontSize="24"
+                                    FontWeight="Bold"
+                                    Text="{Binding CenterName}"/>
+                                <TextBlock FontSize="18"
+                                    Text="{Binding Address}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18"
+                                        Text="Capacity: "/>
+                                    <TextBlock FontSize="18"
+                                        Text="{Binding Limit}"/>
+                                    <TextBlock FontSize="18"
+                                        Text="|" Margin="16,0"/>
+                                    <TextBlock FontSize="18"
+                                        Text="Occupancy: "/>
+                                    <TextBlock FontSize="18"
+                                        Text="50"/>
+                                </StackPanel>
                                 <Button HorizontalAlignment="Left" 
-                                    Style="{DynamicResource MetroCircleButtonStyle}" Padding="8" 
+                                    Style="{DynamicResource MetroCircleButtonStyle}" Padding="16" 
                                     Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
                                     CommandParameter="{Binding Mode=OneWay}">
                                     <iconPacks:PackIconModern Kind="Delete"/>
@@ -41,6 +73,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </DockPanel>
-    </HeaderedContentControl>
+        </ScrollViewer>
+
+    </Grid>
 </UserControl>
