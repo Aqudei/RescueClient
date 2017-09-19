@@ -63,6 +63,26 @@ namespace RescueApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icon_stayinside_shelterinside {
+            get {
+                object obj = ResourceManager.GetObject("icon_stayinside_shelterinside", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap question_sign_on_person_head {
+            get {
+                object obj = ResourceManager.GetObject("question_sign_on_person_head", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap snail_under_construction {
             get {
                 object obj = ResourceManager.GetObject("snail_under_construction", resourceCulture);

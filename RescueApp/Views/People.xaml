@@ -7,54 +7,69 @@
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" DataContext="{Binding PeopleVM, Source={StaticResource Locator}}"
-             d:DesignHeight="402.339" d:DesignWidth="643.621">
+             d:DesignHeight="402.339" d:DesignWidth="797.456">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
         <StackPanel Grid.Column="1" Orientation="Horizontal"
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top">
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Bottom" Margin="0,0,8,8">
             <Button Command="{Binding RegisterCommand}">Register Person</Button>
         </StackPanel>
 
-        <ScrollViewer HorizontalAlignment="Left">
-            <ItemsControl x:Name="peopleList" ItemsSource="{Binding People}">
+        <ScrollViewer>
+            <ItemsControl x:Name="peopleList" ItemsSource="{Binding People}" 
+                ScrollViewer.CanContentScroll="True">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Orientation="Vertical" Margin="5">
-                                <TextBlock FontWeight="Bold" 
-                                Text="{Binding FullName}" FontSize="18" />
-                                <TextBlock FontStyle="Italic" 
-                                Text="{Binding Address}" FontSize="18" />
-                            </StackPanel>
+                            <Image Width="128" Margin="8"
+                                Height="128"
+                                Source="{Binding Photo}" />
 
-                            <Button VerticalAlignment="Center" Padding="8"
-                                    Grid.Column="1" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
+                                <TextBlock FontWeight="Bold" 
+                                    Text="{Binding FullName}" FontSize="24" />
+                                <TextBlock FontStyle="Italic" 
+                                    Text="{Binding Address}" FontSize="18" />
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Age: " />
+                                    <TextBlock Text="{Binding Age}" />
+                                    <TextBlock Text="|" Margin="4,0" />
+                                    <TextBlock Text="Blood Type: " />
+                                    <TextBlock Text="{Binding BloodType}" />
+                                </StackPanel>
+                                
+                                <StackPanel Orientation="Horizontal">
+                                    <Button HorizontalAlignment="Left" Margin="8" Padding="8"
+                                    Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
                                     Command="{Binding DataContext.DeleteCommand, ElementName=peopleList, Mode=OneWay}" 
                                     CommandParameter="{Binding Mode=OneWay}">
-                                <iconPacks:PackIconMaterial Kind="Delete"/>
-                            </Button>
+                                        <iconPacks:PackIconMaterial Kind="Delete"/>
+                                    </Button>
+
+                                    <Button HorizontalAlignment="Left" Margin="8" Padding="8"
+                                    Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                                    Command="{Binding DataContext.DeleteCommand, ElementName=peopleList, Mode=OneWay}" 
+                                    CommandParameter="{Binding Mode=OneWay}">
+                                        <iconPacks:PackIconMaterial Kind="AccountEdit"/>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
                         </Grid>
-
-
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-
     </Grid>
 </UserControl>

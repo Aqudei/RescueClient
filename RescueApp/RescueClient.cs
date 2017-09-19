@@ -76,6 +76,22 @@ namespace RescueApp
             });
         }
 
+        public void DeleteCenter(int id, Action<Exception> callback)
+        {
+            var request = new RestRequest("/api/centers/" + id + "/", Method.DELETE);
+            _client.ExecuteAsync(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.NoContent)
+                {
+                    callback(null);
+                }
+                else
+                {
+                    callback(new Exception("Error on Delete"));
+                }
+            });
+        }
+
         public void AddPerson(Person person, Action<Exception, Person> callback, string photo = "")
         {
             var request = new RestRequest("/api/people/", Method.POST);
@@ -120,5 +136,7 @@ namespace RescueApp
                 }
             });
         }
+
+
     }
 }

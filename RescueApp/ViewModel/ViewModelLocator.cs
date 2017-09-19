@@ -12,6 +12,7 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using System;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
@@ -53,6 +54,28 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.Register<RescueClient>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<PeopleVM>();
+            SimpleIoc.Default.Register<AddEditEvacuationVM>();
+            
+            if (!ViewModelBase.IsInDesignModeStatic)
+            {
+                InitializeDialogs();
+            }
+        }
+
+        private void InitializeDialogs()
+        {
+            var dialogService = SimpleIoc.Default.GetInstance<DialogService>();
+            dialogService.RegisterDialog<AddEditPerson>("AddEditPerson");
+            dialogService.RegisterDialog<AddEditEvacuation>("AddEditEvacuation");
+        }
+
+
+        public AddEditEvacuationVM AddEditEvacuationVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddEditEvacuationVM>();
+            }
         }
 
         public IncidentsVM IncidentsVM
@@ -71,7 +94,8 @@ namespace RescueApp.ViewModel
             }
         }
 
-        public MissionStatementVM MissionStatementVM {
+        public MissionStatementVM MissionStatementVM
+        {
             get
             {
                 return ServiceLocator.Current.GetInstance<MissionStatementVM>();

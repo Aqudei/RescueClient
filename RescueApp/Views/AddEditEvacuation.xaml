@@ -1,0 +1,28 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RescueApp.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" x:Class="RescueApp.Views.AddEditEvacuation"
+             mc:Ignorable="d" DataContext="{Binding AddEditEvacuationVM, Source={StaticResource Locator}}"
+             d:DesignHeight="394" Width="683.72">
+    <Grid Margin="8">
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="23,41,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="105,41,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="270"/>
+        <Label Content="Address:" HorizontalAlignment="Left" Margin="23,87,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="93" Margin="105,87,0,0" TextWrapping="Wrap" Text="{Binding Address}" VerticalAlignment="Top" Width="270" MinLines="3"/>
+        <Label Content="Capacity:" HorizontalAlignment="Left" Margin="23,194,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="105,194,0,0" TextWrapping="Wrap" Text="{Binding Capacity}" VerticalAlignment="Top" Width="270"/>
+        <Label Content="Photo:" HorizontalAlignment="Left" Margin="23,238,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="105,238,0,0" TextWrapping="Wrap" Text="{Binding ChoosenPhoto}" VerticalAlignment="Top" Width="270">
+
+        </TextBox>
+        <Image HorizontalAlignment="Left" Height="223" Margin="409,41,0,0" VerticalAlignment="Top" Width="213" Source="{Binding ChoosenPhoto}"/>
+        <Button HorizontalAlignment="Left" Margin="43,341,0,0" VerticalAlignment="Top" Width="75" Content="Save" Command="{Binding SaveCommand, Mode=OneWay}"/>
+        <Button Content="Close" Click="Button_Click" HorizontalAlignment="Left" Margin="145,341,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Browse" Margin="300,282.7,308.72,0" VerticalAlignment="Top" Command="{Binding BrosePhotoCommand, Mode=OneWay}"/>
+
+
+    </Grid>
+</UserControl>

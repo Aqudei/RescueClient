@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using RescueApp.Messages;
 using RescueApp.Models;
+using RescueApp.ViewServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,14 +28,14 @@ namespace RescueApp.Views
             {
                 return _registerCommand ?? (_registerCommand = new RelayCommand(() =>
                 {
-                    //MessengerInstance.Send(new Person());
-                    Person p = new Person();
-                    Messenger.Default.Send(new AddEditMessage<Person>(p));
+                    _dialogService.ShowDialog("AddEditPerson");
                 }));
             }
         }
 
         private RelayCommand<Person> _deleteCommand;
+        private DialogService _dialogService;
+
         public RelayCommand<Person> DeleteCommand
         {
             get
@@ -58,8 +59,10 @@ namespace RescueApp.Views
 
         public string Title { get; set; } = "People";
 
-        public PeopleVM(RescueClient client)
+        public PeopleVM(RescueClient client, DialogService dialogService)
         {
+            _dialogService = dialogService;
+
             if (IsInDesignModeStatic)
             {
                 People.Add(new Person
@@ -120,7 +123,7 @@ namespace RescueApp.Views
                     {
                         var _p = People.FirstOrDefault(p => p.Id == rslt.Entity.Id);
 
-                        GalaSoft.MvvmLight.Threading.DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
                         {
                             if (_p != null)
                                 People.Remove(_p);
@@ -131,18 +134,18 @@ namespace RescueApp.Views
 
                 _rescueClient = client;
                 client.GetPeople((err, rslt) =>
-               {
-                   if (err == null)
-                   {
-                       foreach (var item in rslt)
-                       {
-                           GalaSoft.MvvmLight.Threading.DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                           {
-                               People.Add(item);
-                           });
-                       }
-                   }
-               });
+                {
+                    if (err == null)
+                    {
+                        foreach (var item in rslt)
+                        {
+                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                            {
+                                People.Add(item);
+                            });
+                        }
+                    }
+                });
 
             }
         }

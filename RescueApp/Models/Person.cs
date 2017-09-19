@@ -37,5 +37,19 @@ namespace RescueApp.Models
 
         public string Address { get; set; }
 
+        public string Age
+        {
+            get
+            {
+                if (false == string.IsNullOrEmpty(birthday))
+                {
+                    var date = DateTime.Parse(birthday);
+                    return "" + Math.Floor(((DateTime.Now - date).TotalDays / 365));
+                }
+
+                return "";
+            }
+        }
+
     }
 }

@@ -4,9 +4,43 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
-             mc:Ignorable="d" DataContext="{Binding EvacuationList, Source={StaticResource Locator}}"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" DataContext="{Binding EvacuationListVM, Source={StaticResource Locator}}"
              d:DesignHeight="300" d:DesignWidth="300">
     <HeaderedContentControl Header="Evacualtion List">
+        <DockPanel>
+            <Button DockPanel.Dock="Right" VerticalAlignment="Top" Content="Add New" Command="{Binding AddNewCommand, Mode=OneWay}"/>
+            <ItemsControl ItemsSource="{Binding Centers}" DockPanel.Dock="Left">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
+                            <Image Width="128" 
+                                   Height="128" 
+                                   Stretch="UniformToFill" 
+                                   Source="{Binding Photo}"/>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <TextBlock FontSize="16"
+                                       FontWeight="Bold"
+                                       Text="{Binding CenterName}"/>
+                                <TextBlock FontSize="12"
+                                       Text="{Binding Address}"/>
+                                <Button HorizontalAlignment="Left" 
+                                    Style="{DynamicResource MetroCircleButtonStyle}" Padding="8" 
+                                    Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
+                                    CommandParameter="{Binding Mode=OneWay}">
+                                    <iconPacks:PackIconModern Kind="Delete"/>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </DockPanel>
     </HeaderedContentControl>
 </UserControl>
