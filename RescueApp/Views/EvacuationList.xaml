@@ -10,17 +10,10 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-
-        <Button VerticalAlignment="Bottom"  
-                Grid.Column="1"
-                Content="Add New" HorizontalAlignment="Right"
-                Command="{Binding AddNewCommand, Mode=OneWay}"/>
-
-        <ScrollViewer DockPanel.Dock="Left">
+        <ScrollViewer>
             <ItemsControl ItemsSource="{Binding Centers}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

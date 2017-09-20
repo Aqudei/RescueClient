@@ -17,7 +17,7 @@
         <StackPanel Grid.Column="1" Orientation="Horizontal"
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Bottom" Margin="0,0,8,8">
-            <Button Command="{Binding RegisterCommand}">Register Person</Button>
+            <Button Command="{Binding CreateItemCommand, Mode=OneWay}">Register Person</Button>
         </StackPanel>
 
         <ScrollViewer x:Name="scrollViewer" HorizontalScrollBarVisibility="Disabled"
@@ -60,7 +60,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Button HorizontalAlignment="Left" Margin="4,8" Padding="8"
                                     Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
-                                    Command="{Binding DataContext.DeleteCommand, ElementName=peopleList, Mode=OneWay}" 
+                                    Command="{Binding DataContext.DeleteItemCommand, ElementName=peopleList, Mode=OneWay}" 
                                     CommandParameter="{Binding Mode=OneWay}">
                                         <iconPacks:PackIconMaterial Kind="Delete"/>
                                     </Button>

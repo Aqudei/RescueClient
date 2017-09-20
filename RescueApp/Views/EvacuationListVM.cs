@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class EvacuationListVM : ViewModelBase
+    public class EvacuationListVM : ViewModelBase, ICrudVM<Center>
     {
         public string Title { get; set; } = "Evacuation Centers";
 
@@ -86,20 +86,7 @@ namespace RescueApp.Views
             }
         }
 
-        private RelayCommand _addNewCommand;
-
-        public RelayCommand AddNewCommand
-        {
-            get
-            {
-                return _addNewCommand ?? (_addNewCommand = new RelayCommand(() =>
-                {
-                    dialogService.ShowDialog("AddEditEvacuation");
-                }));
-            }
-        }
-
-
+        
         private readonly RescueClient _rescueClient;
         private readonly DialogService dialogService;
         private RelayCommand<Center> _deleteItemCommand;
@@ -122,5 +109,10 @@ namespace RescueApp.Views
                 }));
             }
         }
+
+        public RelayCommand CreateItemCommand => new RelayCommand(() =>
+        {
+            dialogService.ShowDialog("AddEditEvacuation");
+        });
     }
 }

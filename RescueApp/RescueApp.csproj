@@ -100,6 +100,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ICrudVM.cs" />
     <Compile Include="Messages\AddEditMessage.cs" />
     <Compile Include="Messages\AddEditResultMessage.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />
@@ -141,6 +142,7 @@
       <DependentUpon>People.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PeopleVM.cs" />
+    <Compile Include="WPF\NullVisibilityConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

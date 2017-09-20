@@ -4,6 +4,8 @@ using GalaSoft.MvvmLight.Ioc;
 using RescueApp.Views;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
+using System.Linq;
 
 namespace RescueApp.ViewModel
 {
@@ -21,8 +23,6 @@ namespace RescueApp.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-
-
         public string AppTitle { get; set; } = "DISASTER+RISK REDUCTION MANAGEMENT SYSTEM";
 
         /// <summary>
@@ -30,46 +30,6 @@ namespace RescueApp.ViewModel
         /// </summary>
         public MainViewModel()
         { }
-
-        private ViewModelBase _currentScreen;
-
-        private ViewModelBase _previouseScreen;
-
-        public ViewModelBase CurrentScreen
-        {
-            get { return _currentScreen; }
-            set
-            {
-                _previouseScreen = _currentScreen;
-
-                Set(ref _currentScreen, value);
-                RaisePropertyChanged(() => ShowMissionStatement);
-            }
-        }
-
-        private RelayCommand _toPeopleCommand;
-        public RelayCommand ToPeopleCommand
-        {
-            get
-            {
-                return _toPeopleCommand ?? (_toPeopleCommand = new RelayCommand(() =>
-                {
-                    CurrentScreen = SimpleIoc.Default.GetInstance<PeopleVM>();
-                }));
-            }
-        }
-
-        private RelayCommand _toEvacuationCentersCommand;
-        public RelayCommand ToEvacuationCentersCommand
-        {
-            get
-            {
-                return _toEvacuationCentersCommand ?? (_toEvacuationCentersCommand = new RelayCommand(() =>
-                {
-                    CurrentScreen = SimpleIoc.Default.GetInstance<EvacuationListVM>();
-                }));
-            }
-        }
 
         public List<ViewModelBase> Screens { get; set; } = new List<ViewModelBase>
         {
@@ -80,12 +40,31 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.GetInstance<MonitoringVM>()
         };
 
-        public bool ShowMissionStatement
+        private ViewModelBase _selectedScreen;
+
+        public ViewModelBase SelectedScreen
         {
-            get { return CurrentScreen == null; }
+            get { return _selectedScreen; }
+            set
+            {
+                _selectedScreen = value;
+                RaisePropertyChanged(() => VMCanAddItem);
+            }
         }
 
 
+        public bool VMCanAddItem
+        {
+            get
+            {
+                if (SelectedScreen != null)
+                {
+                    return SelectedScreen.GetType().GetInterfaces().Any(x => x.IsGenericType &&
+                    x.GetGenericTypeDefinition() == typeof(ICrudVM<>));
+                }
 
+                return false;
+            }
+        }
     }
 }

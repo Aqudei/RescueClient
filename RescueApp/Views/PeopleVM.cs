@@ -14,50 +14,45 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class PeopleVM : ViewModelBase
+    public class PeopleVM : ViewModelBase, ICrudVM<Person>
     {
         public ObservableCollection<Person> People { get; set; }
             = new ObservableCollection<Person>();
 
         private readonly RescueClient _rescueClient;
 
-        private RelayCommand _registerCommand;
-        public RelayCommand RegisterCommand
-        {
-            get
-            {
-                return _registerCommand ?? (_registerCommand = new RelayCommand(() =>
-                {
-                    _dialogService.ShowDialog("AddEditPerson");
-                }));
-            }
-        }
-
-        private RelayCommand<Person> _deleteCommand;
         private DialogService _dialogService;
 
-        public RelayCommand<Person> DeleteCommand
-        {
-            get
-            {
-                return _deleteCommand ?? (_deleteCommand = new RelayCommand<Person>((p) =>
-                {
-                    _rescueClient.DeletePerson(p.Id, (err) =>
-                    {
-                        if (err == null)
-                        {
-                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                            {
-                                People.Remove(p);
-                            });
-                        }
-                    });
-                }));
-            }
-        }
-
-
         public string Title { get; set; } = "People";
+
+        public RelayCommand CreateItemCommand => new RelayCommand(() =>
+        {
+            CreateItem();
+        });
+
+        private void CreateItem()
+        {
+            _dialogService.ShowDialog("AddEditPerson");
+        }
+        
+        public RelayCommand<Person> DeleteItemCommand => new RelayCommand<Person>((person) =>
+        {
+            DeleteItem(person);
+        });
+
+        private void DeleteItem(Person person)
+        {
+            _rescueClient.DeletePerson(person.Id, (err) =>
+            {
+                if (err == null)
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                    {
+                        People.Remove(person);
+                    });
+                }
+            });
+        }
 
         public PeopleVM(RescueClient client, DialogService dialogService)
         {

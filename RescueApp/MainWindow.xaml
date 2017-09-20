@@ -5,14 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RescueApp"
         xmlns:views="clr-namespace:RescueApp.Views"
+        xmlns:iconPacks ="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:WPF="clr-namespace:RescueApp.WPF"
         x:Class="RescueApp.MainWindow"
-        mc:Ignorable="d" DataContext="{Binding Main, Source={StaticResource Locator}}"
+        mc:Ignorable="d"
         Title="{Binding AppTitle}" Height="350" Width="1200.853" WindowState="Maximized">
     <Controls:MetroWindow.Resources>
+        <WPF:NullVisibilityConverter x:Key="NullVisibilityConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Controls:MetroWindow.Resources>
-    <Grid>
+    <Controls:MetroWindow.DataContext>
+        <Binding Path="Main" Source="{StaticResource Locator}"/>
+    </Controls:MetroWindow.DataContext>
+    <Grid x:Name="_root" >
         <Grid.Resources>
             <DataTemplate DataType="{x:Type views:PeopleVM}" >
                 <views:People/>
@@ -35,10 +41,10 @@
 
         </Grid.Resources>
 
-        <Controls:MetroAnimatedSingleRowTabControl ItemsSource="{Binding Screens}">
+        <Controls:MetroAnimatedSingleRowTabControl SelectedItem="{Binding SelectedScreen}" ItemsSource="{Binding Screens}">
             <Controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Title}" Margin="16,0" />
+                    <TextBlock Text="{Binding Title}" Margin="16,0,16,0" />
                 </DataTemplate>
             </Controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
             <Controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
@@ -48,13 +54,22 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding Title}" FontSize="48"
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Title}" FontSize="48"
                                    FontWeight="Bold"
                                    Margin="16,16,0,32"
                                    VerticalAlignment="Center" 
                                    Foreground="#FF706F6F" 
                                    Opacity="0.8" 
                                    TextDecorations="Underline"/>
+                            <Button VerticalAlignment="Center" 
+                                    Style="{DynamicResource MetroCircleButtonStyle}" 
+                                    Margin="32,0" Visibility="{Binding DataContext.VMCanAddItem, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=_root, Mode=OneWay}"
+                                    Padding="20" Command="{Binding CreateItemCommand, Mode=OneWay}">
+                                <iconPacks:PackIconModern Kind="Add" Width="32" Height="32"/>
+                            </Button>
+                        </StackPanel>
+
                         <ContentControl Content="{Binding}" Grid.Row="1" />
                     </Grid>
                 </DataTemplate>
