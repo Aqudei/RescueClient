@@ -13,7 +13,7 @@ namespace RescueApp.Views
 {
     public class AddEditPersonVM : ViewModelBase
     {
-        private string _choosenPhoto  = "";
+        private string _choosenPhoto = "";
 
         public string ChoosenPhoto
         {
@@ -59,16 +59,8 @@ namespace RescueApp.Views
             {
                 return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
                 {
-                    var person = new Person
-                    {
-                        Address = Address,
-                        Birthday = Birthday.HasValue ? Birthday.Value.ToShortDateString() : "",
-                        BloodType = BloodType,
-                        FirstName = FirstName,
-                        LastName = LastName,
-                        MiddleName = MiddleName
-                    };
-
+                    var person = AutoMapper.Mapper.Map<Person>(this);
+                    
                     if (Id > 0)
                     {
                         person.Id = Id;
@@ -87,5 +79,25 @@ namespace RescueApp.Views
             }
         }
 
+        private String _contact;
+        public String Contact
+        {
+            get { return _contact; }
+            set { Set(ref _contact, value); }
+        }
+
+        private String _sickness;
+        public String Sickness
+        {
+            get { return _sickness; }
+            set { Set(ref _sickness, value); }
+        }
+
+        private String _members;
+        public String Members
+        {
+            get { return _members; }
+            set { Set(ref _members, value); }
+        }
     }
 }

@@ -6,7 +6,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RescueApp.Views"
         mc:Ignorable="d" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
-        Title="DialogHost" Height="300" Width="300" WindowStyle="None" ShowCloseButton="False" ShowMaxRestoreButton="False" ShowMinButton="False">
+        Title="DialogHost" Height="300" Width="300" ShowCloseButton="False" ShowMaxRestoreButton="False" ShowMinButton="False" controls:ControlsHelper.ContentCharacterCasing="Upper" BorderBrush="Black">
+    <controls:MetroWindow.Effect>
+        <DropShadowEffect/>
+    </controls:MetroWindow.Effect>
     <Grid>
 
     </Grid>

@@ -18,6 +18,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using RescueApp.Views;
 using RescueApp.ViewServices;
+using RescueApp.Models;
 
 namespace RescueApp.ViewModel
 {
@@ -45,6 +46,11 @@ namespace RescueApp.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Views.AddEditPersonVM, Person>();
+            });
+
             SimpleIoc.Default.Register<DialogService>();
             SimpleIoc.Default.Register<MissionStatementVM>();
             SimpleIoc.Default.Register<IncidentsVM>();
@@ -55,7 +61,7 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<PeopleVM>();
             SimpleIoc.Default.Register<AddEditEvacuationVM>();
-            
+
             if (!ViewModelBase.IsInDesignModeStatic)
             {
                 InitializeDialogs();

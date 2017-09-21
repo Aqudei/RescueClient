@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views" 
              mc:Ignorable="d" DataContext="{Binding AddEditPersonVM, Source={StaticResource Locator}}"
-             d:DesignHeight="364.405" Width="646.513">
+             d:DesignHeight="524.405" Width="646.513">
     <UserControl.Resources>
 
     </UserControl.Resources>
@@ -60,7 +60,25 @@
                          Width="200" 
                          CharacterCasing="Upper"
                          Text="{Binding Address}" 
-                         Height="80"/>
+                         Height="80" TextWrapping="WrapWithOverflow"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Contact:</Label>
+                <TextBox Width="200" 
+                         Text="{Binding Contact}" CharacterCasing="Upper"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Sickness:</Label>
+                <TextBox Width="200" 
+                         Text="{Binding Sickness}" CharacterCasing="Upper"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Family:</Label>
+                <TextBox MinLines="3" 
+                         Width="200" 
+                         CharacterCasing="Upper"
+                         Text="{Binding Members}" 
+                         Height="80" TextWrapping="WrapWithOverflow"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Button Margin="3" Command="{Binding SaveCommand, Mode=OneWay}">Save</Button>

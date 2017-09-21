@@ -96,18 +96,21 @@ namespace RescueApp
         {
             var request = new RestRequest("/api/people/", Method.POST);
             request.AlwaysMultipartFormData = true;
-            request.DateFormat = @"yyyy-MM-ddTHH\:mm\:ss.fffffffzzz";
+            
             if (photo != "")
             {
                 request.AddFile("Photo", photo);
             }
-
+            
             request.AddParameter("Birthday", person.Birthday);
             request.AddParameter("FirstName", person.FirstName);
             request.AddParameter("MiddleName", person.MiddleName);
             request.AddParameter("LastName", person.LastName);
             request.AddParameter("BloodType", person.BloodType);
             request.AddParameter("Address", person.Address);
+            request.AddParameter("Sickness", person.Sickness);
+            request.AddParameter("Contact", person.Contact);
+            request.AddParameter("Members", person.Members);
 
             _client.ExecuteAsync<Person>(request, rslt =>
             {

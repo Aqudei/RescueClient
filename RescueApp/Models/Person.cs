@@ -51,5 +51,20 @@ namespace RescueApp.Models
             }
         }
 
+        public string Sickness { get; set; }
+        public string Contact { get; set; }
+        public string Members { get; set; }
+
+        public List<String> FamilyMembers
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Members))
+                    return null;
+
+                return Members.Split(";".ToCharArray()).ToList();
+            }
+        }
+
     }
 }
