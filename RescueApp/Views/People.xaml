@@ -9,21 +9,19 @@
              mc:Ignorable="d" DataContext="{Binding PeopleVM, Source={StaticResource Locator}}"
              d:DesignHeight="800.339" d:DesignWidth="797.456">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="1" Orientation="Horizontal"
-                    HorizontalAlignment="Right" 
-                    VerticalAlignment="Bottom" Margin="0,0,8,8">
-            <Button Command="{Binding CreateItemCommand, Mode=OneWay}">Register Person</Button>
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
         <ScrollViewer x:Name="scrollViewer" HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto">
             <ItemsControl x:Name="peopleList" ItemsSource="{Binding People}" 
                 ScrollViewer.CanContentScroll="True">
+                <ItemsControl.Resources>
+                    <BitmapImage x:Key="_whoImage" 
+                                 UriSource="/RescueApp;component/Resources/question_sign_on_person_head.png"/>
+                </ItemsControl.Resources>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"/>
@@ -35,24 +33,28 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
                             <Border HorizontalAlignment="Stretch" 
                                     Grid.ColumnSpan="3"
                                     VerticalAlignment="Stretch" 
-                                    BorderBrush="#66323131" BorderThickness="1" CornerRadius="5">
+                                    BorderBrush="Black"
+                                    BorderThickness="1" 
+                                    CornerRadius="5">
+
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8"/>
+                                    <DropShadowEffect/>
                                 </Border.Effect>
                             </Border>
 
                             <Image Width="128" Margin="8"
                                     Height="128"
-                                    Source="{Binding Photo}" />
+                                    Source="{Binding Photo, TargetNullValue={StaticResource _whoImage}}" />
 
-                            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
-                                <TextBlock FontWeight="Bold" 
+                            <StackPanel Grid.Column="1" 
+                                        Orientation="Vertical" 
+                                        Margin="5" Width="240">
+                                <TextBlock FontWeight="Bold" TextWrapping="WrapWithOverflow" 
                                         Text="{Binding FullName}" FontSize="18" />
                                 <TextBlock FontStyle="Italic" 
                                         Text="{Binding Address}" FontSize="12" />
@@ -65,6 +67,16 @@
                                     <TextBlock Text="Blood Type: " />
                                     <TextBlock Text="{Binding BloodType}" />
                                 </StackPanel>
+                                
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Sickness: " />
+                                    <TextBlock Text="{Binding Sickness}" />
+                                </StackPanel>
+                                
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Contact #: " />
+                                    <TextBlock Text="{Binding Contact}" />
+                                </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <Button HorizontalAlignment="Left" Margin="4,8" Padding="8"
@@ -72,7 +84,7 @@
                                             Command="{Binding DataContext.DeleteItemCommand, ElementName=peopleList, Mode=OneWay}" 
                                             CommandParameter="{Binding Mode=OneWay}">
                                         <iconPacks:PackIconMaterial Kind="Delete"/>
-                                    </Button>
+                                </Button>
 
                                     <Button HorizontalAlignment="Left" Margin="4,8" Padding="8"
                                             Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}">

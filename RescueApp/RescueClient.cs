@@ -54,7 +54,7 @@ namespace RescueApp
         {
             var request = new RestRequest("/api/centers/", Method.POST);
             request.AlwaysMultipartFormData = true;
-            
+
             if (photo != "")
             {
                 request.AddFile("Photo", photo);
@@ -63,7 +63,7 @@ namespace RescueApp
             request.AddParameter("CenterName", center.CenterName);
             request.AddParameter("Address", center.Address);
             request.AddParameter("Limit", center.Limit);
-         
+
             _client.ExecuteAsync<Center>(request, rslt =>
             {
                 if (rslt.StatusCode != System.Net.HttpStatusCode.Created)
@@ -96,12 +96,12 @@ namespace RescueApp
         {
             var request = new RestRequest("/api/people/", Method.POST);
             request.AlwaysMultipartFormData = true;
-            
-            if (photo != "")
+
+            if (string.IsNullOrEmpty(photo) == false)
             {
                 request.AddFile("Photo", photo);
             }
-            
+
             request.AddParameter("Birthday", person.Birthday);
             request.AddParameter("FirstName", person.FirstName);
             request.AddParameter("MiddleName", person.MiddleName);

@@ -60,6 +60,7 @@ namespace RescueApp.Views
                 return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
                 {
                     var person = AutoMapper.Mapper.Map<Person>(this);
+                    person.Birthday = Birthday.HasValue ? Birthday.Value.ToShortDateString() : null;
                     
                     if (Id > 0)
                     {
