@@ -20,11 +20,30 @@ namespace RescueApp.Views
             set { Set(ref _choosenPhoto, value); }
         }
 
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public int Capacity { get; set; }
+        private string _name;
 
+        public string Name
+        {
+            get { return _name; }
+            set { Set(ref _name, value); }
+        }
 
+        private string _address;
+
+        public string Address
+        {
+            get { return _address; }
+            set { Set(ref _address, value); }
+        }
+
+        private int _capacity;
+
+        public int Capacity
+        {
+            get { return _capacity; }
+            set { Set(ref _capacity, value); }
+        }
+        
         private readonly RescueClient rescueClient;
         private readonly DialogService dialogService;
 
@@ -71,14 +90,24 @@ namespace RescueApp.Views
                         Id = Id
                     }, (ex, center) =>
                     {
+                        if (ex == null)
+                        {
+                            ClearFields();
+                        }
 
                         MessengerInstance.Send(new Messages.AddEditResultMessage<Center>(ex, center));
-
                     }, ChoosenPhoto);
                 }));
             }
         }
 
-
+        private void ClearFields()
+        {
+            Address = "";
+            Id = 0;
+            Name = "";
+            ChoosenPhoto = null;
+            Capacity = 0;
+        }
     }
 }

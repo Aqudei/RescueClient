@@ -14,7 +14,6 @@ namespace RescueApp.Views
     public class AddEditPersonVM : ViewModelBase
     {
         private string _choosenPhoto;
-
         public string ChoosenPhoto
         {
             get { return _choosenPhoto; }
@@ -61,23 +60,54 @@ namespace RescueApp.Views
                 {
                     var person = AutoMapper.Mapper.Map<Person>(this);
                     person.Birthday = Birthday.HasValue ? Birthday.Value.ToShortDateString() : null;
-                    
+
                     if (Id > 0)
                     {
                         person.Id = Id;
                     }
                     else
                     {
-                        _rescueClient.AddPerson(person, (err, p) =>
+                        _rescueClient.AddPerson(person, (ex, p) =>
                         {
-                            if (err == null)
+                            if (ex == null)
                             {
-                                MessengerInstance.Send(new AddEditResultMessage<Person>(err, p));
+                                ClearFields();
                             }
+
+                            MessengerInstance.Send(new AddEditResultMessage<Person>(ex, p));
                         }, ChoosenPhoto);
                     }
                 }));
             }
+        }
+
+        private void ClearFields()
+        {
+            ChoosenPhoto = null;
+
+            FirstName = "";
+            RaisePropertyChanged(() => FirstName);
+
+            MiddleName = "";
+            RaisePropertyChanged(() => MiddleName);
+
+            LastName = "";
+            RaisePropertyChanged(() => LastName);
+
+            Id = 0;
+            RaisePropertyChanged(() => Id);
+
+            Birthday = DateTime.Now;
+            RaisePropertyChanged(() => Birthday);
+
+            Address = "";
+            RaisePropertyChanged(() => Address);
+
+            Sickness = "";
+            RaisePropertyChanged(() => Sickness);
+
+            Contact = "";
+            RaisePropertyChanged(() => Contact);
         }
 
         private String _contact;

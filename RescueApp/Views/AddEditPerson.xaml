@@ -21,31 +21,31 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">First Name:</Label>
-                <TextBox CharacterCasing="Upper" Width="200" Text="{Binding FirstName}"/>
+                <TextBox CharacterCasing="Upper" Width="200" Text="{Binding FirstName, Mode=TwoWay}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label x:Name="midNamelabel">Middle Name:</Label>
-                <TextBox CharacterCasing="Upper" Width="200" Text="{Binding MiddleName}" />
+                <TextBox CharacterCasing="Upper" Width="200" Text="{Binding MiddleName, Mode=TwoWay}" />
 
 
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Last Name:</Label>
-                <TextBox CharacterCasing="Upper" Width="200" Text="{Binding LastName}"/>
+                <TextBox CharacterCasing="Upper" Width="200" Text="{Binding LastName, Mode=TwoWay}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Photo:</Label>
                 <TextBox x:Name="txtPhoto" Width="200" IsReadOnly="True"
-                         Text="{Binding ChoosenPhoto}"/>
+                         Text="{Binding ChoosenPhoto, Mode=TwoWay}"/>
                 <Button Command="{Binding BrowsePhotoCommand}" Margin="5,0,0,0" >Browse</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Birthday:</Label>
-                <DatePicker Width="200" SelectedDate="{Binding Birthday}"/>
+                <DatePicker Width="200" SelectedDate="{Binding Birthday, Mode=TwoWay}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Blood Type:</Label>
-                <ComboBox Width="200" Text="{Binding BloodType}" SelectedIndex="0">
+                <ComboBox Width="200" Text="{Binding BloodType, Mode=TwoWay}" SelectedIndex="0">
                     <ComboBoxItem>A-</ComboBoxItem>
                     <ComboBoxItem>A+</ComboBoxItem>
                     <ComboBoxItem>B-</ComboBoxItem>
@@ -61,7 +61,7 @@
                 <TextBox MinLines="3" 
                          Width="200" 
                          CharacterCasing="Upper"
-                         Text="{Binding Address}" 
+                         Text="{Binding Address, Mode=TwoWay}" 
                          Height="80" TextWrapping="WrapWithOverflow"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5">
