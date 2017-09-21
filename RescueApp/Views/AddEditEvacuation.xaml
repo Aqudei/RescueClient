@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" xmlns:Custom1="http://metro.mahapps.com/winfx/xaml/controls" x:Class="RescueApp.Views.AddEditEvacuation"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" xmlns:Custom1="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" x:Class="RescueApp.Views.AddEditEvacuation"
              mc:Ignorable="d" DataContext="{Binding AddEditEvacuationVM, Source={StaticResource Locator}}"
              d:DesignHeight="394" Width="683.72" Custom1:ControlsHelper.ContentCharacterCasing="Upper">
     <Grid Margin="8">
@@ -17,8 +18,18 @@
         <Label Content="Photo:" HorizontalAlignment="Left" Margin="23,238,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="105,238,0,0" TextWrapping="Wrap" Text="{Binding ChoosenPhoto}" VerticalAlignment="Top" Width="270"/>
         <Image HorizontalAlignment="Left" Height="223" Margin="409,41,0,0" VerticalAlignment="Top" Width="213" Source="{Binding ChoosenPhoto}"/>
-        <Button HorizontalAlignment="Left" Margin="43,341,0,0" VerticalAlignment="Top" Width="75" Content="Save" Command="{Binding SaveCommand, Mode=OneWay}"/>
-        <Button Content="Close" Click="Button_Click" HorizontalAlignment="Left" Margin="145,341,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button HorizontalAlignment="Left" Margin="43,341,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand, Mode=OneWay}">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconModern Kind="Save"/>
+                <TextBlock Padding="0" Margin="4,0,0,0">SAVE</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Click="Button_Click" HorizontalAlignment="Left" Margin="145,341,0,0" VerticalAlignment="Top" Width="75">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconModern Kind="Close"/>
+                <TextBlock Padding="0" Margin="4,0,0,0">CLOSE</TextBlock>
+            </StackPanel>
+        </Button>
         <Button Content="Browse" Margin="300,282.7,308.72,0" VerticalAlignment="Top" Command="{Binding BrosePhotoCommand, Mode=OneWay}"/>
 
 

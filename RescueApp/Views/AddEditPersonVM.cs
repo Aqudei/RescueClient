@@ -13,7 +13,7 @@ namespace RescueApp.Views
 {
     public class AddEditPersonVM : ViewModelBase
     {
-        private string _choosenPhoto = "";
+        private string _choosenPhoto;
 
         public string ChoosenPhoto
         {

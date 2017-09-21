@@ -10,7 +10,10 @@
     <controls:MetroWindow.Effect>
         <DropShadowEffect/>
     </controls:MetroWindow.Effect>
-    <Grid>
+
+    <Grid x:Name="_container"
+          Margin="48">
 
     </Grid>
+
 </controls:MetroWindow>

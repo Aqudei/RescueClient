@@ -39,7 +39,8 @@ namespace RescueApp.ViewServices
                 return;
 
             var view = Activator.CreateInstance(_dialogs[dialogName]);
-            _container.Content = view;
+            _container._container.Children.Clear();
+            _container._container.Children.Add(view as UIElement);
             _container.ShowDialog();
         }
 
@@ -50,7 +51,7 @@ namespace RescueApp.ViewServices
             {
                 return ofd.FileName;
             }
-            return "";
+            return null;
         }
     }
 }

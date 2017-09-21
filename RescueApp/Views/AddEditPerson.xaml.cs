@@ -28,7 +28,7 @@ namespace RescueApp.Views
 
         private void CloseButtonClicked(object sender, RoutedEventArgs e)
         {
-            (Parent as Window).Close();
+            Window.GetWindow(this).Close();
         }
     }
 }
