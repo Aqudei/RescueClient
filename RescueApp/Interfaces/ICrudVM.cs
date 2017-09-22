@@ -11,5 +11,6 @@ namespace RescueApp
     {
         RelayCommand CreateItemCommand { get; }
         RelayCommand<T> DeleteItemCommand { get;  }
+        RelayCommand<T> EditItemCommand { get; }
     }
 }

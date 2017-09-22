@@ -1,7 +1,4 @@
-﻿using Microsoft.Win32;
-using RescueApp.Interfaces;
-using RescueApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,18 +16,13 @@ using System.Windows.Shapes;
 namespace RescueApp.Views
 {
     /// <summary>
-    /// Interaction logic for AddEditPerson.xaml
+    /// Interaction logic for Households.xaml
     /// </summary>
-    public partial class AddEditPerson : UserControl
+    public partial class Households : UserControl
     {
-        public AddEditPerson()
+        public Households()
         {
             InitializeComponent();
-        }
-
-        private void CloseButtonClicked(object sender, RoutedEventArgs e)
-        {
-            Window.GetWindow(this).Close();
         }
     }
 }

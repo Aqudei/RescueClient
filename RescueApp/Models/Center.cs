@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Models
 {
-    public class Center : HasId
+    public class Center : Entity
     {
 
         string _address;

@@ -6,15 +6,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Models
 {
-    public abstract class HasId
+    public class Household : Entity
     {
-        private int id;
-
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
-
     }
 }

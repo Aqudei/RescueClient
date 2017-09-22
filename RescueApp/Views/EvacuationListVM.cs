@@ -114,5 +114,7 @@ namespace RescueApp.Views
         {
             dialogService.ShowDialog("AddEditEvacuation");
         });
+
+        public RelayCommand<Center> EditItemCommand => throw new NotImplementedException();
     }
 }

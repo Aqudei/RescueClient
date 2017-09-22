@@ -86,7 +86,10 @@
                                 </Button>
 
                                 <Button HorizontalAlignment="Left" Margin="4,8" Padding="8"
-                                            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}">
+                                        Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
+                                        CommandParameter="{Binding Mode=OneWay}" 
+                                        Command="{Binding DataContext.EditItemCommand, ElementName=peopleList, Mode=OneWay}">
+                                    
                                     <iconPacks:PackIconMaterial Kind="AccountEdit"/>
                                 </Button>
                             </StackPanel>

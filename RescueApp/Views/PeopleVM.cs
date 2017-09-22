@@ -34,11 +34,26 @@ namespace RescueApp.Views
         {
             _dialogService.ShowDialog("AddEditPerson");
         }
-        
+
         public RelayCommand<Person> DeleteItemCommand => new RelayCommand<Person>((person) =>
         {
             DeleteItem(person);
         });
+
+        private RelayCommand<Person> _editItemCommand;
+
+        public RelayCommand<Person> EditItemCommand
+        {
+            get
+            {
+                return _editItemCommand ?? (_editItemCommand = new RelayCommand<Person>((p) =>
+                {
+                    _dialogService.ShowDialog("AddEditPerson", p);
+                }));
+            }
+        }
+
+
 
         private void DeleteItem(Person person)
         {

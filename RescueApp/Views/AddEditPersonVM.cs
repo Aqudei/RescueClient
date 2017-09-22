@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using RescueApp.Interfaces;
 using RescueApp.Messages;
 using RescueApp.Models;
 using RescueApp.ViewServices;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class AddEditPersonVM : ViewModelBase
+    public class AddEditPersonVM : ViewModelBase, IEditor<Person>
     {
         private string _choosenPhoto;
         public string ChoosenPhoto
@@ -24,13 +25,46 @@ namespace RescueApp.Views
         private readonly DialogService _dialogService;
 
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public DateTime? Birthday { get; set; }
-        public string BloodType { get; set; }
-        public string Address { get; set; }
+        private string _firstName;
 
+        public string FirstName
+        {
+            get { return _firstName; }
+            set { Set(ref _firstName, value); }
+        }
+
+        private string _middleName;
+
+        public string MiddleName
+        {
+            get { return _middleName; }
+            set { Set(ref _middleName, value); }
+        }
+
+        private string _lastName;
+
+        public string LastName
+        {
+            get { return _lastName; }
+            set { Set(ref _lastName, value); }
+        }
+
+        public DateTime? Birthday { get; set; }
+        private string _bloodType;
+
+        public string BloodType
+        {
+            get { return _bloodType; }
+            set { Set(ref _bloodType, value); }
+        }
+
+        private string _address;
+
+        public string Address
+        {
+            get { return _address; }
+            set { Set(ref _address, value); }
+        }
 
         public AddEditPersonVM(RescueClient client,
             DialogService dialogService)
@@ -84,30 +118,29 @@ namespace RescueApp.Views
         private void ClearFields()
         {
             ChoosenPhoto = null;
-
             FirstName = "";
-            RaisePropertyChanged(() => FirstName);
-
             MiddleName = "";
-            RaisePropertyChanged(() => MiddleName);
-
             LastName = "";
-            RaisePropertyChanged(() => LastName);
-
             Id = 0;
-            RaisePropertyChanged(() => Id);
-
             Birthday = DateTime.Now;
-            RaisePropertyChanged(() => Birthday);
-
             Address = "";
-            RaisePropertyChanged(() => Address);
-
             Sickness = "";
-            RaisePropertyChanged(() => Sickness);
-
             Contact = "";
-            RaisePropertyChanged(() => Contact);
+        }
+
+        public void Edit(Person item)
+        {
+            FirstName = item.FirstName;
+            MiddleName = item.MiddleName;
+            LastName = item.LastName;
+            Id = item.Id;
+            Sickness = item.Sickness;
+            Contact = item.Contact;
+            Address = item.Address;
+            ChoosenPhoto = item.Photo;
+            if (string.IsNullOrEmpty(item.Birthday))
+                return;
+            Birthday = DateTime.Parse(item.Birthday);
         }
 
         private String _contact;

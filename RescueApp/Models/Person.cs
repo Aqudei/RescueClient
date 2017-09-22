@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Models
 {
-    public class Person : HasId
+    public class Person : Entity
     {
         String firstName;
         String middleName;

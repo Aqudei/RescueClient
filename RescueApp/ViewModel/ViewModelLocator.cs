@@ -48,7 +48,10 @@ namespace RescueApp.ViewModel
 
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Views.AddEditPersonVM, Person>();
+                cfg.CreateMap<AddEditPersonVM, Person>();
+                cfg.CreateMap<Person, AddEditPersonVM>();
+                cfg.CreateMap<AddEditEvacuationVM, Center>();
+                cfg.CreateMap<Center, AddEditEvacuationVM>();
             });
 
             SimpleIoc.Default.Register<DialogService>();
@@ -61,12 +64,14 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<PeopleVM>();
             SimpleIoc.Default.Register<AddEditEvacuationVM>();
+            SimpleIoc.Default.Register<HouseholdsVM>();
 
             if (!ViewModelBase.IsInDesignModeStatic)
             {
                 InitializeDialogs();
             }
         }
+
 
         private void InitializeDialogs()
         {
@@ -75,6 +80,13 @@ namespace RescueApp.ViewModel
             dialogService.RegisterDialog<AddEditEvacuation>("AddEditEvacuation");
         }
 
+        public HouseholdsVM HouseholdsVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<HouseholdsVM>();
+            }
+        }
 
         public AddEditEvacuationVM AddEditEvacuationVM
         {

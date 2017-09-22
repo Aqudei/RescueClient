@@ -103,12 +103,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ICrudVM.cs" />
+    <Compile Include="Interfaces\ICrudVM.cs" />
+    <Compile Include="Interfaces\IEditor.cs" />
     <Compile Include="Messages\AddEditMessage.cs" />
     <Compile Include="Messages\AddEditResultMessage.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />
     <Compile Include="Models\Center.cs" />
-    <Compile Include="Models\HasId.cs" />
+    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\Household.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="RescueClient.cs" />
     <Compile Include="MainViewModel.cs" />
@@ -129,6 +131,10 @@
       <DependentUpon>EvacuationList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EvacuationListVM.cs" />
+    <Compile Include="Views\Households.xaml.cs">
+      <DependentUpon>Households.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HouseholdsVM.cs" />
     <Compile Include="Views\Incidents.xaml.cs">
       <DependentUpon>Incidents.xaml</DependentUpon>
     </Compile>
@@ -171,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EvacuationList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Households.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,6 +253,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
