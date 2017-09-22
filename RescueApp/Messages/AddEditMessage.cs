@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Messages
 {
-    public class AddEditMessage<T> where T : Entity
+    public class AddEditMessage<T> where T : WithID
     {
         public T Entity { get; set; }
         

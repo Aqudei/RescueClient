@@ -1,0 +1,51 @@
+*Personal Profile* pag add mga tawo, magawas tanan nga tawo
+National ID:
+Fname:
+Mname:
+Lname:
+Extension Name:
+Birthdate:
+Address:
+Civil Status: drop box
+Occupation: n/a or kung ano ang trabaho
+Contact Information:
+	Cellphone Number:
+	E-mail Address:
+Blood Type:
+Vulnerability: n/a or PWD or Senior Citizen or PWD + Senior Citizen 
+		(tapos mayaon box bubutangan sa kanra ID number)
+Highest Educational Attainement: drop box (college grad, post grad, hs grad, elementary grad) 
+Medical History:
+	Allergies: Yes/No (type kun nanu.)
+	Medical Condition: (type kun nanu)
+Akon la ine suggestion para masayaon la pagdetect kun nanu iya position  sa Household
+Position in the House: (Family Head or House member)
+Tapos igbubutang kun diin sya household number or belong..
+
+kruyag nira sa may lower right portion mayda number
+na nag iindicate kun pira tanan na an nkaRegister
+
+
+
+*Household Profile* mga family head la an magawas..
+pag Gncllick magawas an information. ..  . .
+Barangay: Cawayan
+Address:
+Houshold Number: (kun nanu nga number)
+Family Number: (kun pira sira sa kanra family)
+Head of the Family: (kun sino an head)
+Family Members:
+	1.kun 
+	2. sira sino
+	3. an kanya family members
+House Category: (wara pa nira ig explain pero mayda pa sine)
+House Location: safe zone or danger zone (kruyag nira na dedetect kun iton nga address is safe or danger zoene)
+Picture:(mayda ine picture sa bahay)
+Vulnerable Family members: (kun pira an vulnerable sa kanra)
+Check Box: House and Lot Owner (nka check kun karna an balay and tuna)
+
+
+
+Others:
+changefont style
+tab sa household
