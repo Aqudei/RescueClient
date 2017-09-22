@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Models
 {
-    public abstract class HasId
+    public abstract class WithID
     {
         private int id;
 

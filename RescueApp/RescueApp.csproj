@@ -108,7 +108,8 @@
     <Compile Include="Messages\AddEditResultMessage.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />
     <Compile Include="Models\Center.cs" />
-    <Compile Include="Models\HasId.cs" />
+    <Compile Include="Models\WithID.cs" />
+    <Compile Include="Models\Household.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="RescueClient.cs" />
     <Compile Include="MainViewModel.cs" />

@@ -108,10 +108,7 @@ namespace RescueApp
             request.AddParameter("LastName", person.LastName);
             request.AddParameter("BloodType", person.BloodType);
             request.AddParameter("Address", person.Address);
-            request.AddParameter("Sickness", person.Sickness);
             request.AddParameter("Contact", person.Contact);
-            request.AddParameter("Members", person.Members);
-
             _client.ExecuteAsync<Person>(request, rslt =>
             {
                 if (rslt.StatusCode != System.Net.HttpStatusCode.Created)
@@ -140,6 +137,9 @@ namespace RescueApp
             });
         }
 
-
+        public void AddHousehold(Household household, Action<Exception> callback)
+        {
+            
+        }
     }
 }

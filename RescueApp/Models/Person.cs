@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Models
 {
-    public class Person : HasId
+    public class Person : WithID
     {
         String firstName;
         String middleName;
@@ -14,13 +14,23 @@ namespace RescueApp.Models
         string birthday;
         String bloodType;
 
-        public string Photo { get; set; }
-
         public string FirstName { get => firstName; set => firstName = value; }
         public string MiddleName { get => middleName; set => middleName = value; }
         public string LastName { get => lastName; set => lastName = value; }
         public string Birthday { get => birthday; set => birthday = value; }
         public string BloodType { get => bloodType; set => bloodType = value; }
+        public string Photo { get; set; }
+        public string Contact { get; set; }
+        public string Email { get; set; }
+        public string Vulnerabilities { get; set; }
+        public string NationalIdNumber { get; set; }
+        public int _Household { get; set; }
+        public bool IsHead { get; set; }
+        public string Gender { get; set; }
+        public string EducationalAttainment { get; set; }
+        public string Allergies { get; set; }
+        public string MedicalCondition { get; set; }
+        public string MedicineRequired { get; set; }
 
         public override string ToString()
         {
@@ -37,6 +47,13 @@ namespace RescueApp.Models
 
         public string Address { get; set; }
 
+        public bool IsVulnerable
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(Vulnerabilities);
+            }
+        }
         public string Age
         {
             get
@@ -48,21 +65,6 @@ namespace RescueApp.Models
                 }
 
                 return "";
-            }
-        }
-
-        public string Sickness { get; set; }
-        public string Contact { get; set; }
-        public string Members { get; set; }
-
-        public List<String> FamilyMembers
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(Members))
-                    return null;
-
-                return Members.Split(";".ToCharArray()).ToList();
             }
         }
 
