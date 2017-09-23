@@ -34,64 +34,6 @@ namespace RescueApp
                 callback(rslt.ErrorException, rslt.Data);
             });
         }
-
-        public void GetCenters(Action<Exception, List<Center>> callback)
-        {
-            var request = new RestRequest("/api/centers/", Method.GET);
-            _client.ExecuteAsync<List<Center>>(request, (rslt) =>
-            {
-                if (rslt.StatusCode != System.Net.HttpStatusCode.OK)
-                {
-                    callback(new Exception("" + rslt.StatusDescription), null);
-                    return;
-                }
-
-                callback(rslt.ErrorException, rslt.Data);
-            });
-        }
-
-        public void AddCenter(Center center, Action<Exception, Center> callback, string photo = "")
-        {
-            var request = new RestRequest("/api/centers/", Method.POST);
-            request.AlwaysMultipartFormData = true;
-
-            if (photo != "")
-            {
-                request.AddFile("Photo", photo);
-            }
-
-            request.AddParameter("CenterName", center.CenterName);
-            request.AddParameter("Address", center.Address);
-            request.AddParameter("Limit", center.Limit);
-
-            _client.ExecuteAsync<Center>(request, rslt =>
-            {
-                if (rslt.StatusCode != System.Net.HttpStatusCode.Created)
-                {
-                    callback(new Exception("" + rslt.StatusDescription), null);
-                    return;
-                }
-
-                callback(rslt.ErrorException, rslt.Data);
-            });
-        }
-
-        public void DeleteCenter(int id, Action<Exception> callback)
-        {
-            var request = new RestRequest("/api/centers/" + id + "/", Method.DELETE);
-            _client.ExecuteAsync(request, rslt =>
-            {
-                if (rslt.StatusCode == System.Net.HttpStatusCode.NoContent)
-                {
-                    callback(null);
-                }
-                else
-                {
-                    callback(new Exception("Error on Delete"));
-                }
-            });
-        }
-
         public void AddPerson(Person person, Action<Exception, Person> callback, string choosenPhoto = "")
         {
             var request = new RestRequest("/api/people/", Method.POST);
@@ -127,48 +69,6 @@ namespace RescueApp
                 callback(null, rslt.Data);
             });
         }
-
-        private string NormalizeUri(string uri)
-        {
-            if (uri.StartsWith("/"))
-            {
-                return _client.BaseUrl.ToString() + uri.TrimStart("/".ToCharArray());
-            }
-            return uri;
-        }
-
-        public void DeleteHousehold(int id, Action<Exception> callback)
-        {
-            var request = new RestRequest("/api/households/" + id + "/", Method.DELETE);
-            _client.ExecuteAsync(request, rslt =>
-            {
-                if (rslt.StatusCode == System.Net.HttpStatusCode.NoContent)
-                {
-                    callback(null);
-                }
-                else
-                {
-                    callback(new Exception("Error on Delete"));
-                }
-            });
-        }
-
-        public void DeletePerson(int id, Action<Exception> callback)
-        {
-            var request = new RestRequest("/api/people/" + id + "/", Method.DELETE);
-            _client.ExecuteAsync(request, rslt =>
-            {
-                if (rslt.StatusCode == System.Net.HttpStatusCode.NoContent)
-                {
-                    callback(null);
-                }
-                else
-                {
-                    callback(new Exception("Error on Delete"));
-                }
-            });
-        }
-
         public void UpdatePerson(PersonMinusPhoto person,
             Action<Exception, Person> callback, string choosenPhoto = "")
         {
@@ -202,7 +102,106 @@ namespace RescueApp
                 }
             });
         }
+        public void DeletePerson(int id, Action<Exception> callback)
+        {
+            var request = new RestRequest("/api/people/" + id + "/", Method.DELETE);
+            _client.ExecuteAsync(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.NoContent)
+                {
+                    callback(null);
+                }
+                else
+                {
+                    callback(new Exception("Error on Delete"));
+                }
+            });
+        }
 
+        public void GetCenters(Action<Exception, List<Center>> callback)
+        {
+            var request = new RestRequest("/api/centers/", Method.GET);
+            _client.ExecuteAsync<List<Center>>(request, (rslt) =>
+            {
+                if (rslt.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    callback(new Exception("" + rslt.StatusDescription), null);
+                    return;
+                }
+
+                callback(rslt.ErrorException, rslt.Data);
+            });
+        }
+        public void AddCenter(Center center, Action<Exception, Center> callback, string photo = "")
+        {
+            var request = new RestRequest("/api/centers/", Method.POST);
+            request.AlwaysMultipartFormData = true;
+
+            if (photo != "")
+            {
+                request.AddFile("Photo", photo);
+            }
+
+            request.AddParameter("CenterName", center.CenterName);
+            request.AddParameter("Address", center.Address);
+            request.AddParameter("Limit", center.Limit);
+
+            _client.ExecuteAsync<Center>(request, rslt =>
+            {
+                if (rslt.StatusCode != System.Net.HttpStatusCode.Created)
+                {
+                    callback(new Exception("" + rslt.StatusDescription), null);
+                    return;
+                }
+
+                callback(rslt.ErrorException, rslt.Data);
+            });
+        }
+        public void DeleteCenter(int id, Action<Exception> callback)
+        {
+            var request = new RestRequest("/api/centers/" + id + "/", Method.DELETE);
+            _client.ExecuteAsync(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.NoContent)
+                {
+                    callback(null);
+                }
+                else
+                {
+                    callback(new Exception("Error on Delete"));
+                }
+            });
+        }
+
+        public void GetHouseholds(Action<Exception, List<Household>> callback)
+        {
+            var request = new RestRequest("/api/households/", Method.GET);
+            _client.ExecuteAsync<List<Household>>(request, (rslt) =>
+            {
+                if (rslt.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    callback(new Exception("" + rslt.StatusDescription), null);
+                    return;
+                }
+
+                callback(rslt.ErrorException, rslt.Data);
+            });
+        }
+        public void DeleteHousehold(int id, Action<Exception> callback)
+        {
+            var request = new RestRequest("/api/households/" + id + "/", Method.DELETE);
+            _client.ExecuteAsync(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.NoContent)
+                {
+                    callback(null);
+                }
+                else
+                {
+                    callback(new Exception("Error on Delete"));
+                }
+            });
+        }
         public void AddHousehold(Household household, Action<Exception,
             Household> callback, string choosenPhoto = "")
         {
@@ -240,8 +239,6 @@ namespace RescueApp
                 callback(null, rslt.Data);
             });
         }
-
-
         public void UpdateHousehold(Household household, Action<Exception,
             Household> callback, string choosenPhoto = "")
         {
@@ -294,6 +291,14 @@ namespace RescueApp
             {
                 return false;
             }
+        }
+        private string NormalizeUri(string uri)
+        {
+            if (uri.StartsWith("/"))
+            {
+                return _client.BaseUrl.ToString() + uri.TrimStart("/".ToCharArray());
+            }
+            return uri;
         }
     }
 }

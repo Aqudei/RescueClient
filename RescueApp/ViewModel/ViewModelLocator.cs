@@ -54,7 +54,8 @@ namespace RescueApp.ViewModel
                 cfg.CreateMap<Center, AddEditEvacuationVM>();
                 cfg.CreateMap<Person, PersonMinusPhoto>();
             });
-
+            SimpleIoc.Default.Register<AddEditHouseholdVM>();
+            SimpleIoc.Default.Register<HouseholdsVM>();
             SimpleIoc.Default.Register<DialogService>();
             SimpleIoc.Default.Register<MissionStatementVM>();
             SimpleIoc.Default.Register<IncidentsVM>();
@@ -65,7 +66,7 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<PeopleVM>();
             SimpleIoc.Default.Register<AddEditEvacuationVM>();
-            SimpleIoc.Default.Register<HouseholdsVM>();
+            
 
             if (!ViewModelBase.IsInDesignModeStatic)
             {
@@ -74,11 +75,12 @@ namespace RescueApp.ViewModel
         }
 
 
-        private void InitializeDialogs()
+        public AddEditHouseholdVM AddEditHouseholdVM
         {
-            var dialogService = SimpleIoc.Default.GetInstance<DialogService>();
-            dialogService.RegisterDialog<AddEditPerson>("AddEditPerson");
-            dialogService.RegisterDialog<AddEditEvacuation>("AddEditEvacuation");
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddEditHouseholdVM>();
+            }
         }
 
         public HouseholdsVM HouseholdsVM
@@ -156,6 +158,13 @@ namespace RescueApp.ViewModel
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
+        }
+
+        private void InitializeDialogs()
+        {
+            var dialogService = SimpleIoc.Default.GetInstance<DialogService>();
+            dialogService.RegisterDialog<AddEditPerson>("AddEditPerson");
+            dialogService.RegisterDialog<AddEditEvacuation>("AddEditEvacuation");
         }
     }
 }

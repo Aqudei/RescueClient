@@ -10,7 +10,7 @@
         xmlns:WPF="clr-namespace:RescueApp.WPF"
         x:Class="RescueApp.MainWindow"
         mc:Ignorable="d"
-        Title="{Binding AppTitle}" Height="350" Width="1200.853" WindowState="Maximized">
+        Title="{Binding AppTitle}" Height="694" Width="1200.853" WindowState="Maximized">
     <Controls:MetroWindow.Resources>
         <WPF:NullVisibilityConverter x:Key="NullVisibilityConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -19,16 +19,16 @@
         <Binding Path="Main" Source="{StaticResource Locator}"/>
     </Controls:MetroWindow.DataContext>
     <Grid x:Name="_root" >
+
         <Grid.Resources>
-            
             <DataTemplate DataType="{x:Type views:PeopleVM}" >
                 <views:People/>
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type views:HouseholdsVM}" >
                 <views:Households/>
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type views:EvacuationListVM}" >
                 <views:EvacuationList/>
             </DataTemplate>
@@ -45,8 +45,43 @@
             </DataTemplate>
 
         </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <Controls:MetroAnimatedSingleRowTabControl SelectedItem="{Binding SelectedScreen}" ItemsSource="{Binding Screens}">
+        <GroupBox Header="Important Numbers" 
+                  VerticalAlignment="Center"
+                  Margin="8" FontSize="18">
+
+            <StackPanel >
+                <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                    <TextBlock FontWeight="Bold" Text="Bureau Of Fire Protection"/>
+                    <TextBlock HorizontalAlignment="Center" Text="+000-765-098" Margin="33,0,34,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                    <TextBlock FontWeight="Bold" Text="Ambulance" HorizontalAlignment="Center" Margin="6,0,7,0"/>
+                    <TextBlock HorizontalAlignment="Center" Text="+874-098-098"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                    <TextBlock FontWeight="Bold" Text="MDRRMO" HorizontalAlignment="Center" Margin="23,0,22,0"/>
+                    <TextBlock HorizontalAlignment="Center" Text="+0936-03939-0393"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                    <TextBlock FontWeight="Bold" Text="DSWD" HorizontalAlignment="Center" Margin="26,0"/>
+                    <TextBlock HorizontalAlignment="Center" Text="+7843-039-0393"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                    <TextBlock FontWeight="Bold" Text="Deparment of Health" HorizontalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center" Text="+1124-044-0122" Margin="15,0,16,0"/>
+                </StackPanel>
+            </StackPanel>
+
+        </GroupBox>
+
+        <Controls:MetroAnimatedSingleRowTabControl SelectedItem="{Binding SelectedScreen}" 
+                                                   ItemsSource="{Binding Screens}"
+                                                   Grid.Column="1">
             <Controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Title}" Margin="16,0,16,0" />
