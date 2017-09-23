@@ -19,6 +19,7 @@ using Microsoft.Practices.ServiceLocation;
 using RescueApp.Views;
 using RescueApp.ViewServices;
 using RescueApp.Models;
+using RescueApp.Views.Dialogs;
 
 namespace RescueApp.ViewModel
 {
@@ -166,6 +167,7 @@ namespace RescueApp.ViewModel
             dialogService.RegisterDialog<AddEditPerson>("AddEditPerson");
             dialogService.RegisterDialog<AddEditEvacuation>("AddEditEvacuation");
             dialogService.RegisterDialog<AddEditHousehold>("AddEditHousehold");
+            dialogService.RegisterDialog<Camera>("Camera");
         }
     }
 }

@@ -102,7 +102,7 @@ namespace RescueApp.Views
             {
                 return _openCameraCommand ?? (_openCameraCommand = new RelayCommand(() =>
                 {
-
+                    _dialogService.ShowDialog("Camera");
                 }));
             }
         }

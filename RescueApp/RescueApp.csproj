@@ -133,6 +133,9 @@
     <Compile Include="Views\DialogHost.xaml.cs">
       <DependentUpon>DialogHost.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dialogs\Camera.xaml.cs">
+      <DependentUpon>Camera.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EvacuationList.xaml.cs">
       <DependentUpon>EvacuationList.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DialogHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\Camera.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -264,7 +271,10 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Dialogs\" />
+    <Content Include="C:\Program Files %28x86%29\Luxand\FaceSDK\bin\win32\facesdk.dll">
+      <Link>facesdk.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimpleLuxCamera\SimpleLuxCamera.csproj">

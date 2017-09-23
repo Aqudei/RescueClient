@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Luxand;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +15,10 @@ namespace SimpleLuxCamera
 
         public Camera() : base()
         {
-
+            var lic = File.ReadAllText("lux.txt");
+            FSDK.ActivateLibrary(lic);
+            FSDK.InitializeLibrary();
+            FSDKCam.InitializeCapturing();
         }
     }
 }
