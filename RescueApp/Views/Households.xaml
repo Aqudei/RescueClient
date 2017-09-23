@@ -8,6 +8,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ListView ItemsSource="{Binding Households}"></ListView>
+        <ListView ItemsSource="{Binding Households}" ItemTemplate="{DynamicResource DataTemplate1}">
+            <ListView.Resources>
+                <DataTemplate x:Key="DataTemplate1">
+                    <Grid>
+                        <TextBlock Text="{Binding HouseNumber, Mode=TwoWay}" 
+                                   TextWrapping="Wrap" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.Resources>
+
+        </ListView>
     </Grid>
 </UserControl>
