@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RescueApp", "RescueApp\RescueApp.csproj", "{7A805E18-1791-47C5-AC49-A38D303FF188}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLuxCamera", "SimpleLuxCamera\SimpleLuxCamera.csproj", "{F0BF484B-DA92-41E0-B443-EE2EE3A5D574}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7A805E18-1791-47C5-AC49-A38D303FF188}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A805E18-1791-47C5-AC49-A38D303FF188}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A805E18-1791-47C5-AC49-A38D303FF188}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0BF484B-DA92-41E0-B443-EE2EE3A5D574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0BF484B-DA92-41E0-B443-EE2EE3A5D574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0BF484B-DA92-41E0-B443-EE2EE3A5D574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0BF484B-DA92-41E0-B443-EE2EE3A5D574}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

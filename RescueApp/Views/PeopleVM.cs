@@ -14,10 +14,10 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class PeopleVM : ViewModelBase, ICrudVM<Person>
+    public class PeopleVM : ViewModelBase, ICrudVM<DownloadPersonModel>
     {
-        public ObservableCollection<Person> People { get; set; }
-            = new ObservableCollection<Person>();
+        public ObservableCollection<DownloadPersonModel> People { get; set; }
+            = new ObservableCollection<DownloadPersonModel>();
 
         private readonly RescueClient _rescueClient;
 
@@ -35,18 +35,18 @@ namespace RescueApp.Views
             _dialogService.ShowDialog("AddEditPerson");
         }
 
-        public RelayCommand<Person> DeleteItemCommand => new RelayCommand<Person>((person) =>
+        public RelayCommand<DownloadPersonModel> DeleteItemCommand => new RelayCommand<DownloadPersonModel>((person) =>
         {
             DeleteItem(person);
         });
 
-        private RelayCommand<Person> _editItemCommand;
+        private RelayCommand<DownloadPersonModel> _editItemCommand;
 
-        public RelayCommand<Person> EditItemCommand
+        public RelayCommand<DownloadPersonModel> EditItemCommand
         {
             get
             {
-                return _editItemCommand ?? (_editItemCommand = new RelayCommand<Person>((p) =>
+                return _editItemCommand ?? (_editItemCommand = new RelayCommand<DownloadPersonModel>((p) =>
                 {
                     _dialogService.ShowDialog("AddEditPerson", p);
                 }));
@@ -55,7 +55,7 @@ namespace RescueApp.Views
 
 
 
-        private void DeleteItem(Person person)
+        private void DeleteItem(DownloadPersonModel person)
         {
             _rescueClient.DeletePerson(person.Id, (err) =>
             {
@@ -75,59 +75,53 @@ namespace RescueApp.Views
 
             if (IsInDesignModeStatic)
             {
-                People.Add(new Person
+                People.Add(new DownloadPersonModel
                 {
                     FirstName = "Archie",
                     MiddleName = "Espe",
                     LastName = "Cortez",
-                    Address = "Port Area, Tacloban City",
                     Birthday = "12/31/2017"
                 });
 
-                People.Add(new Person
+                People.Add(new DownloadPersonModel
                 {
                     FirstName = "Kram",
                     MiddleName = "Espe",
                     LastName = "Airbytes",
-                    Address = "Port Area, Tacloban City",
                     Birthday = "12/31/2017"
                 });
-                People.Add(new Person
+                People.Add(new DownloadPersonModel
                 {
                     FirstName = "Kram",
                     MiddleName = "Espe",
                     LastName = "Airbytes",
-                    Address = "Port Area, Tacloban City",
                     Birthday = "12/31/2017"
                 });
-                People.Add(new Person
+                People.Add(new DownloadPersonModel
                 {
                     FirstName = "Kram",
                     MiddleName = "Espe",
                     LastName = "Airbytes",
-                    Address = "Port Area, Tacloban City",
                     Birthday = "12/31/2017"
                 });
-                People.Add(new Person
+                People.Add(new DownloadPersonModel
                 {
                     FirstName = "Kram",
                     MiddleName = "Espe",
                     LastName = "Airbytes",
-                    Address = "Port Area, Tacloban City",
                     Birthday = "12/31/2017"
                 });
-                People.Add(new Person
+                People.Add(new DownloadPersonModel
                 {
                     FirstName = "Kram",
                     MiddleName = "Espe",
                     LastName = "Airbytes",
-                    Address = "Port Area, Tacloban City",
                     Birthday = "12/31/2017"
                 });
             }
             else
             {
-                MessengerInstance.Register<AddEditResultMessage<Person>>(this, (rslt) =>
+                MessengerInstance.Register<AddEditResultMessage<DownloadPersonModel>>(this, (rslt) =>
                 {
                     if (rslt.Error == null)
                     {

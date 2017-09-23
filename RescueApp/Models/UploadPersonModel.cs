@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Models
 {
-    public class Person : WithID
+    public class UploadPersonModel : WithID
     {
         String firstName;
         String middleName;
@@ -19,7 +19,6 @@ namespace RescueApp.Models
         public string LastName { get => lastName; set => lastName = value; }
         public string Birthday { get => birthday; set => birthday = value; }
         public string BloodType { get => bloodType; set => bloodType = value; }
-        public string Photo { get; set; }
         public string Contact { get; set; }
         public string Email { get; set; }
         public string Vulnerabilities { get; set; }
@@ -31,6 +30,8 @@ namespace RescueApp.Models
         public string Allergies { get; set; }
         public string MedicalCondition { get; set; }
         public string MedicineRequired { get; set; }
+        public string CivilStatus { get; set; }
+        public string Occupation { get; set; }
 
         public override string ToString()
         {
@@ -44,8 +45,6 @@ namespace RescueApp.Models
                 return ToString();
             }
         }
-
-        public string Address { get; set; }
 
         public bool IsVulnerable
         {

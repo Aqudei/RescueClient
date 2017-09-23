@@ -18,14 +18,19 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="2" Orientation="Vertical">
-            <Image Margin="8"
-                Source="{Binding ChoosenPhoto, TargetNullValue={StaticResource defaultImage}}"/>
 
-            <Button Command="{Binding BrowsePhotoCommand}" 
-                        Margin="8,0" Content="Browse" HorizontalAlignment="Center" />
+        <GroupBox Header="PHOTO" Grid.Column="2" Margin="8">
+            <StackPanel Grid.Column="2" Orientation="Vertical">
+                <Image Width="300" Stretch="UniformToFill"
+                    Source="{Binding ChoosenPhoto, TargetNullValue={StaticResource defaultImage}}" Margin="8"/>
 
-        </StackPanel>
+                <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
+                    <Button Margin="4,0" Command="{Binding BrowsePhotoCommand}" Content="Browse" />
+                    <Button  Margin="4,0"  Command="{Binding OpenCameraCommand}" Content="Open Camera" />
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+
         <StackPanel>
             <GroupBox Header="Personal Information" Margin="8">
                 <StackPanel Orientation="Vertical" >
@@ -50,6 +55,13 @@
                             <ComboBoxItem>FEMALE</ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Civil Status:"/>
+                        <ComboBox Width="200" SelectedIndex="0" Text="{Binding CivilStatus, Mode=TwoWay}">
+                            <ComboBoxItem>SINGLE</ComboBoxItem>
+                            <ComboBoxItem>MARRIED</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Birthday:"/>
@@ -62,7 +74,7 @@
                          Width="200" 
                          CharacterCasing="Upper"
                          Text="{Binding Address, Mode=TwoWay}" 
-                         Height="80" TextWrapping="WrapWithOverflow"/>
+                         Height="62" TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
@@ -121,8 +133,13 @@
             <GroupBox Header="Other Information" Margin="8">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <TextBlock Text="Educational Attainment: " Width="{Binding ActualWidth, ElementName=label}" TextWrapping="Wrap"/>
-                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding Education, Mode=TwoWay}"/>
+                        <TextBlock x:Name="textBlock1" Text="Educational Attainment: " Width="{Binding ActualWidth, ElementName=label}" TextWrapping="Wrap"/>
+                        <ComboBox Width="200" Text="{Binding Education, Mode=TwoWay}">
+                            <ComboBoxItem>ELEMENTARY</ComboBoxItem>
+                            <ComboBoxItem>HIGHSCHOOL</ComboBoxItem>
+                            <ComboBoxItem>COLLEGE</ComboBoxItem>
+                            <ComboBoxItem>MASTERS</ComboBoxItem>
+                        </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="National ID #: "/>
@@ -131,6 +148,10 @@
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label x:Name="label" Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Vulnerabilities: "/>
                         <TextBox CharacterCasing="Upper" Width="200" Text="{Binding Vulnerabilities, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label   Content="Occupation: " Width="{Binding ActualWidth, ElementName=textBlock1}"/>
+                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding Occupation, Mode=TwoWay}"/>
                     </StackPanel>
                     <CheckBox Content="Is Family Head" HorizontalAlignment="Right"/>
 

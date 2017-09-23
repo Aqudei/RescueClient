@@ -9,18 +9,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using GalaSoft.MvvmLight.CommandWpf;
+using RescueApp.ViewServices;
 
 namespace RescueApp.Views
 {
-    public class HouseholdsVM : ViewModelBase
+    public class HouseholdsVM : ViewModelBase, ICrudVM<Models.DownloadHouseholdModel>
     {
         public String Title { get; set; } = "Households";
 
-        public ObservableCollection<Household> _households
-            = new ObservableCollection<Household>();
+        public ObservableCollection<DownloadHouseholdModel> _households
+            = new ObservableCollection<DownloadHouseholdModel>();
         private readonly RescueClient rescueClient;
 
         private ICollectionView _householdsView;
+        private readonly DialogService dialogService;
+
         public ICollectionView Households
         {
             get
@@ -29,23 +33,79 @@ namespace RescueApp.Views
             }
         }
 
-        public HouseholdsVM(RescueClient rescueClient)
+        public RelayCommand CreateItemCommand => new RelayCommand(() =>
         {
-            this.rescueClient = rescueClient;
+            dialogService.ShowDialog("AddEditHousehold");
+        });
 
-            rescueClient.GetHouseholds((ex, hous) =>
+        public RelayCommand<DownloadHouseholdModel> DeleteItemCommand => new RelayCommand<DownloadHouseholdModel>(h =>
+        {
+            rescueClient.DeleteHousehold(h.Id, ex =>
             {
                 if (ex == null)
                 {
-                    foreach (var item in hous)
+                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
                     {
-                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                        {
-                            _households.Add(item);
-                        });
-                    }
+                        _households.Remove(h);
+                    });
                 }
             });
+        });
+
+        public RelayCommand<DownloadHouseholdModel> EditItemCommand => new RelayCommand<DownloadHouseholdModel>((h) =>
+        {
+            dialogService.ShowDialog<DownloadHouseholdModel>("AddEditHousehold", h);
+        });
+
+        public HouseholdsVM(RescueClient rescueClient, DialogService dialogService)
+        {
+            this.dialogService = dialogService;
+
+            this.rescueClient = rescueClient;
+            if (IsInDesignModeStatic)
+            {
+                _households.Add(new DownloadHouseholdModel
+                {
+                    Address = "Catbalogan City",
+                    EconomicStatus = "Mayaman",
+                    HouseNumber = "001",
+                    IsOwned = true,
+                    members = new List<DownloadPersonModel>
+                    {
+                        new DownloadPersonModel{
+                            FirstName = "arhcie",
+                            IsHead = true,
+                            Contact = "1234",
+                            MiddleName = "Espe",
+                            LastName = "Cortez"
+                        }
+                    }
+                });
+
+                _households.Add(new DownloadHouseholdModel
+                {
+                    Address = "Catbalogan City",
+                    EconomicStatus = "Mayaman",
+                    HouseNumber = "001",
+                    IsOwned = true
+                });
+            }
+            else
+            {
+                rescueClient.GetHouseholds((ex, hous) =>
+                {
+                    if (ex == null)
+                    {
+                        foreach (var item in hous)
+                        {
+                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                            {
+                                _households.Add(item);
+                            });
+                        }
+                    }
+                });
+            }
         }
     }
 }

@@ -35,6 +35,11 @@ namespace RescueApp.ViewServices
             _dialogs.Add(dialogName, typeof(T));
         }
 
+        public void ShowCamera()
+        {
+
+        }
+
         public void ShowDialog(string dialogName)
         {
             if (_dialogs.ContainsKey(dialogName) == false)

@@ -16,7 +16,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -109,10 +109,11 @@
     <Compile Include="Messages\AddEditResultMessage.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />
     <Compile Include="Models\Center.cs" />
-    <Compile Include="Models\PersonMinusPhoto.cs" />
+    <Compile Include="Models\UploadHouseholdModel.cs" />
+    <Compile Include="Models\UploadPersonModel.cs" />
     <Compile Include="Models\WithID.cs" />
-    <Compile Include="Models\Household.cs" />
-    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\DownloadHouseholdModel.cs" />
+    <Compile Include="Models\DownloadPersonModel.cs" />
     <Compile Include="RescueClient.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -261,6 +262,15 @@
     <Resource Include="Resources\about.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Dialogs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleLuxCamera\SimpleLuxCamera.csproj">
+      <Project>{f0bf484b-da92-41e0-b443-ee2ee3a5d574}</Project>
+      <Name>SimpleLuxCamera</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

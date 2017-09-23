@@ -20,10 +20,10 @@ namespace RescueApp
             _client.BaseUrl = new Uri("http://localhost:8000");
         }
 
-        public void GetPeople(Action<Exception, List<Person>> callback)
+        public void GetPeople(Action<Exception, List<DownloadPersonModel>> callback)
         {
             var request = new RestRequest("/api/people/", Method.GET);
-            _client.ExecuteAsync<List<Person>>(request, (rslt) =>
+            _client.ExecuteAsync<List<DownloadPersonModel>>(request, (rslt) =>
             {
                 if (rslt.StatusCode != System.Net.HttpStatusCode.OK)
                 {
@@ -34,15 +34,15 @@ namespace RescueApp
                 callback(rslt.ErrorException, rslt.Data);
             });
         }
-        public void AddPerson(Person person, Action<Exception, Person> callback, string choosenPhoto = "")
+        public void AddPerson(DownloadPersonModel person, Action<Exception, DownloadPersonModel> callback, string choosenPhoto = "")
         {
             var request = new RestRequest("/api/people/", Method.POST);
             request.RequestFormat = DataFormat.Json;
 
             request.AddJsonBody(person);
-            _client.ExecuteAsync<Person>(request, rslt =>
+            _client.ExecuteAsync<DownloadPersonModel>(request, rslt =>
             {
-                if (rslt.StatusCode != System.Net.HttpStatusCode.Created)
+                if (rslt.StatusCode != System.Net.HttpStatusCode.Created || rslt.ErrorException != null)
                 {
                     callback(new Exception("" + rslt.StatusDescription), null);
                     return;
@@ -52,7 +52,7 @@ namespace RescueApp
                 {
                     var reqUpload = new RestRequest("/api/people/" + rslt.Data.Id + "/upload/", Method.PATCH);
                     reqUpload.AddFile("Photo", choosenPhoto);
-                    _client.ExecuteAsync<Person>(reqUpload, rsltUpload =>
+                    _client.ExecuteAsync<DownloadPersonModel>(reqUpload, rsltUpload =>
                     {
                         if (rsltUpload.StatusCode == System.Net.HttpStatusCode.OK)
                         {
@@ -69,13 +69,13 @@ namespace RescueApp
                 callback(null, rslt.Data);
             });
         }
-        public void UpdatePerson(PersonMinusPhoto person,
-            Action<Exception, Person> callback, string choosenPhoto = "")
+        public void UpdatePerson(UploadPersonModel person,
+            Action<Exception, DownloadPersonModel> callback, string choosenPhoto = "")
         {
             var request = new RestRequest("/api/people/" + person.Id + "/", Method.PATCH);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(person);
-            _client.ExecuteAsync<Person>(request, rslt =>
+            _client.ExecuteAsync<DownloadPersonModel>(request, rslt =>
             {
                 if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -85,7 +85,7 @@ namespace RescueApp
                         var uploadRequest = new RestRequest("/api/people/" + person.Id + "/upload/", Method.PATCH);
                         uploadRequest.AddFile("Photo", choosenPhoto);
 
-                        _client.ExecuteAsync<Person>(uploadRequest, r =>
+                        _client.ExecuteAsync<DownloadPersonModel>(uploadRequest, r =>
                         {
                             if (r.StatusCode == System.Net.HttpStatusCode.OK)
                             {
@@ -173,10 +173,10 @@ namespace RescueApp
             });
         }
 
-        public void GetHouseholds(Action<Exception, List<Household>> callback)
+        public void GetHouseholds(Action<Exception, List<DownloadHouseholdModel>> callback)
         {
             var request = new RestRequest("/api/households/", Method.GET);
-            _client.ExecuteAsync<List<Household>>(request, (rslt) =>
+            _client.ExecuteAsync<List<DownloadHouseholdModel>>(request, (rslt) =>
             {
                 if (rslt.StatusCode != System.Net.HttpStatusCode.OK)
                 {
@@ -202,14 +202,14 @@ namespace RescueApp
                 }
             });
         }
-        public void AddHousehold(Household household, Action<Exception,
-            Household> callback, string choosenPhoto = "")
+        public void AddHousehold(DownloadHouseholdModel household, Action<Exception,
+            DownloadHouseholdModel> callback, string choosenPhoto = "")
         {
             var request = new RestRequest("/api/households/", Method.POST);
             request.RequestFormat = DataFormat.Json;
 
             request.AddJsonBody(household);
-            _client.ExecuteAsync<Household>(request, rslt =>
+            _client.ExecuteAsync<DownloadHouseholdModel>(request, rslt =>
             {
                 if (rslt.StatusCode != System.Net.HttpStatusCode.Created)
                 {
@@ -221,7 +221,7 @@ namespace RescueApp
                 {
                     var uploadRequest = new RestRequest("/api/household/" + rslt.Data.Id + "/upload/", Method.PATCH);
                     uploadRequest.AddFile("Photo", choosenPhoto);
-                    _client.ExecuteAsync<Household>(uploadRequest, rsltUpload =>
+                    _client.ExecuteAsync<DownloadHouseholdModel>(uploadRequest, rsltUpload =>
                     {
                         if (rsltUpload.StatusCode == System.Net.HttpStatusCode.OK)
                         {
@@ -239,8 +239,8 @@ namespace RescueApp
                 callback(null, rslt.Data);
             });
         }
-        public void UpdateHousehold(Household household, Action<Exception,
-            Household> callback, string choosenPhoto = "")
+        public void UpdateHousehold(DownloadHouseholdModel household, Action<Exception,
+            DownloadHouseholdModel> callback, string choosenPhoto = "")
         {
             var request = new RestRequest("/api/households/" + household.Id + "/", Method.PATCH);
 
@@ -249,7 +249,7 @@ namespace RescueApp
             request.AddParameter("HouseNumber", household.HouseNumber);
             request.AddParameter("IsOwned", household.IsOwned);
 
-            _client.ExecuteAsync<Household>(request, rslt =>
+            _client.ExecuteAsync<DownloadHouseholdModel>(request, rslt =>
             {
                 if (rslt.StatusCode != System.Net.HttpStatusCode.Created)
                 {
@@ -262,7 +262,7 @@ namespace RescueApp
                 {
                     var uploadRequest = new RestRequest("/api/household/" + rslt.Data.Id + "/upload/", Method.PATCH);
                     uploadRequest.AddFile("Photo", choosenPhoto);
-                    _client.ExecuteAsync<Household>(uploadRequest, rsltUpload =>
+                    _client.ExecuteAsync<DownloadHouseholdModel>(uploadRequest, rsltUpload =>
                     {
                         if (rsltUpload.StatusCode == System.Net.HttpStatusCode.OK)
                         {

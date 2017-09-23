@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Models
 {
-    public class Household : WithID
+    public class UploadHouseholdModel : WithID
     {
         public String Address { get; set; }
         public string EconomicStatus { get; set; }
         public string HouseNumber { get; set; }
         public bool IsOwned { get; set; }
-        public string Photo { get; set; }
-        
     }
+
 }

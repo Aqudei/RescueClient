@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class AddEditPersonVM : ViewModelBase, IEditor<Person>
+    public class AddEditPersonVM : ViewModelBase, IEditor<DownloadPersonModel>
     {
         private string _choosenPhoto;
         public string ChoosenPhoto
@@ -94,6 +94,20 @@ namespace RescueApp.Views
             }
         }
 
+        private RelayCommand _openCameraCommand;
+
+        public RelayCommand OpenCameraCommand
+        {
+            get
+            {
+                return _openCameraCommand ?? (_openCameraCommand = new RelayCommand(() =>
+                {
+
+                }));
+            }
+        }
+
+
         private RelayCommand _saveCommand;
         public RelayCommand SaveCommand
         {
@@ -101,13 +115,13 @@ namespace RescueApp.Views
             {
                 return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
                 {
-                    var person = AutoMapper.Mapper.Map<Person>(this);
+                    var person = AutoMapper.Mapper.Map<DownloadPersonModel>(this);
                     person.Birthday = Birthday.HasValue ? Birthday.Value.ToShortDateString() : null;
 
                     if (Id > 0)
                     {
                         person.Id = Id;
-                        var personMinusPhoto = AutoMapper.Mapper.Map<PersonMinusPhoto>(person);
+                        var personMinusPhoto = AutoMapper.Mapper.Map<UploadPersonModel>(person);
                         _rescueClient.UpdatePerson(personMinusPhoto, (ex, rslt) =>
                         {
                             if (ex == null)
@@ -115,7 +129,7 @@ namespace RescueApp.Views
                                 ClearFields();
                             }
 
-                            MessengerInstance.Send(new AddEditResultMessage<Person>(ex, rslt));
+                            MessengerInstance.Send(new AddEditResultMessage<DownloadPersonModel>(ex, rslt));
                         }, ChoosenPhoto);
                     }
                     else
@@ -127,7 +141,7 @@ namespace RescueApp.Views
                                 ClearFields();
                             }
 
-                            MessengerInstance.Send(new AddEditResultMessage<Person>(ex, p));
+                            MessengerInstance.Send(new AddEditResultMessage<DownloadPersonModel>(ex, p));
                         }, ChoosenPhoto);
                     }
                 }));
@@ -141,21 +155,25 @@ namespace RescueApp.Views
             MiddleName = "";
             LastName = "";
             Id = 0;
-            Birthday = DateTime.Now;
+            Birthday = null;
             Address = "";
             Contact = "";
+            CivilStatus = "";
+            Occupation = "";
+            MedicalCondition = "";
+            MedicineRequired = "";
+            Vulnerabilities = "";
         }
 
 
 
-        public void Edit(Person item)
+        public void Edit(DownloadPersonModel item)
         {
             FirstName = item.FirstName;
             MiddleName = item.MiddleName;
             LastName = item.LastName;
             Id = item.Id;
             Contact = item.Contact;
-            Address = item.Address;
             ChoosenPhoto = item.Photo;
             if (string.IsNullOrEmpty(item.Birthday))
                 return;
@@ -224,5 +242,21 @@ namespace RescueApp.Views
             get { return _medicineRequired; }
             set { Set(ref _medicineRequired, value); }
         }
+
+        private string _occupation;
+        public string Occupation
+        {
+            get { return _occupation; }
+            set { Set(ref _occupation, value); }
+        }
+
+        private string _civilStatus;
+
+        public string CivilStatus
+        {
+            get { return _civilStatus; }
+            set { Set(ref _civilStatus, value); }
+        }
+
     }
 }
