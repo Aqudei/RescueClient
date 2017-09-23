@@ -6,6 +6,7 @@ using RescueApp.Models;
 using RescueApp.ViewServices;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,6 +67,14 @@ namespace RescueApp.Views
             set { Set(ref _address, value); }
         }
 
+
+        private string _gender;
+        public string Gender
+        {
+            get { return _gender; }
+            set { Set(ref _gender, value); }
+        }
+
         public AddEditPersonVM(RescueClient client,
             DialogService dialogService)
         {
@@ -98,6 +107,16 @@ namespace RescueApp.Views
                     if (Id > 0)
                     {
                         person.Id = Id;
+                        var personMinusPhoto = AutoMapper.Mapper.Map<PersonMinusPhoto>(person);
+                        _rescueClient.UpdatePerson(personMinusPhoto, (ex, rslt) =>
+                        {
+                            if (ex == null)
+                            {
+                                ClearFields();
+                            }
+
+                            MessengerInstance.Send(new AddEditResultMessage<Person>(ex, rslt));
+                        }, ChoosenPhoto);
                     }
                     else
                     {
@@ -124,9 +143,10 @@ namespace RescueApp.Views
             Id = 0;
             Birthday = DateTime.Now;
             Address = "";
-            Sickness = "";
             Contact = "";
         }
+
+
 
         public void Edit(Person item)
         {
@@ -134,7 +154,6 @@ namespace RescueApp.Views
             MiddleName = item.MiddleName;
             LastName = item.LastName;
             Id = item.Id;
-            Sickness = item.Sickness;
             Contact = item.Contact;
             Address = item.Address;
             ChoosenPhoto = item.Photo;
@@ -150,18 +169,60 @@ namespace RescueApp.Views
             set { Set(ref _contact, value); }
         }
 
-        private String _sickness;
-        public String Sickness
+        private string _email;
+        public string Email
         {
-            get { return _sickness; }
-            set { Set(ref _sickness, value); }
+            get { return _email; }
+            set { Set(ref _email, value); }
         }
 
-        private String _members;
-        public String Members
+        private bool _isHead;
+        public bool IsFamilyHead
         {
-            get { return _members; }
-            set { Set(ref _members, value); }
+            get { return _isHead; }
+            set { Set(ref _isHead, value); }
+        }
+
+        private string _nationalIdNumber;
+        public string NationalIdNumber
+        {
+            get { return _nationalIdNumber; }
+            set { Set(ref _nationalIdNumber, value); }
+        }
+
+        private string _vulnerabilities;
+        public string Vulnerabilities
+        {
+            get { return _vulnerabilities; }
+            set { Set(ref _vulnerabilities, value); }
+        }
+
+        private string _education;
+        public string Education
+        {
+            get { return _education; }
+            set { Set(ref _education, value); }
+        }
+
+        private string _allergies;
+        public string Allergies
+        {
+            get { return _allergies; }
+            set { Set(ref _allergies, value); }
+        }
+
+        private string _medicalCondition;
+        public string MedicalCondition
+        {
+            get { return _medicalCondition; }
+            set { Set(ref _medicalCondition, value); }
+        }
+
+        private string _medicineRequired;
+        public string MedicineRequired
+        {
+            get { return _medicineRequired; }
+            set { Set(ref _medicineRequired, value); }
         }
     }
 }

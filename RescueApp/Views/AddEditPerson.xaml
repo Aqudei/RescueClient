@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views" 
              xmlns:iconPacks ="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:maha ="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" DataContext="{Binding AddEditPersonVM, Source={StaticResource Locator}}"
-             d:DesignHeight="524.405" Width="646.513">
+             d:DesignHeight="524.405">
     <UserControl.Resources>
         <BitmapImage x:Key="defaultImage" UriSource="/RescueApp;component/Resources/question_sign_on_person_head.png" />
     </UserControl.Resources>
@@ -14,89 +15,145 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Image Grid.Column="1" Margin="8"
-               Source="{Binding ChoosenPhoto, TargetNullValue={StaticResource defaultImage}}"/>
+        <StackPanel Grid.Column="2" Orientation="Vertical">
+            <Image Margin="8"
+                Source="{Binding ChoosenPhoto, TargetNullValue={StaticResource defaultImage}}"/>
+
+            <Button Command="{Binding BrowsePhotoCommand}" 
+                        Margin="8,0" Content="Browse" HorizontalAlignment="Center" />
+
+        </StackPanel>
         <StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">First Name:</Label>
-                <TextBox CharacterCasing="Upper" Width="200" Text="{Binding FirstName, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Label x:Name="midNamelabel">Middle Name:</Label>
-                <TextBox CharacterCasing="Upper" Width="200" Text="{Binding MiddleName, Mode=TwoWay}" />
+            <GroupBox Header="Personal Information" Margin="8">
+                <StackPanel Orientation="Vertical" >
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="First Name:"/>
+                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding FirstName, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label x:Name="midNamelabel" Content="Middle Name:"/>
+                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding MiddleName, Mode=TwoWay}" />
 
 
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Last Name:</Label>
-                <TextBox CharacterCasing="Upper" Width="200" Text="{Binding LastName, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Photo:</Label>
-                <TextBox x:Name="txtPhoto" Width="200" IsReadOnly="True"
-                         Text="{Binding ChoosenPhoto, Mode=TwoWay}"/>
-                <Button Command="{Binding BrowsePhotoCommand}" Margin="5,0,0,0" >Browse</Button>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Birthday:</Label>
-                <DatePicker Width="200" SelectedDate="{Binding Birthday, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Blood Type:</Label>
-                <ComboBox Width="200" Text="{Binding BloodType, Mode=TwoWay}" SelectedIndex="0">
-                    <ComboBoxItem>A-</ComboBoxItem>
-                    <ComboBoxItem>A+</ComboBoxItem>
-                    <ComboBoxItem>B-</ComboBoxItem>
-                    <ComboBoxItem>B+</ComboBoxItem>
-                    <ComboBoxItem>O-</ComboBoxItem>
-                    <ComboBoxItem>O+</ComboBoxItem>
-                    <ComboBoxItem>AB-</ComboBoxItem>
-                    <ComboBoxItem>AB+</ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Address:</Label>
-                <TextBox MinLines="3" 
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Last Name:"/>
+                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding LastName, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Gender:"/>
+                        <ComboBox Width="200" SelectedIndex="0" Text="{Binding Gender, Mode=TwoWay}">
+                            <ComboBoxItem>MALE</ComboBoxItem>
+                            <ComboBoxItem>FEMALE</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Birthday:"/>
+                        <DatePicker Width="200" SelectedDate="{Binding Birthday, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Address:"/>
+                        <TextBox MinLines="3" 
                          Width="200" 
                          CharacterCasing="Upper"
                          Text="{Binding Address, Mode=TwoWay}" 
                          Height="80" TextWrapping="WrapWithOverflow"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Contact:</Label>
-                <TextBox Width="200" 
-                         Text="{Binding Contact}" CharacterCasing="Upper"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Sickness:</Label>
-                <TextBox Width="200" 
-                         Text="{Binding Sickness}" CharacterCasing="Upper"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Label Width="{Binding ActualWidth, ElementName=midNamelabel}">Family:</Label>
-                <TextBox MinLines="3" 
-                         Width="200" 
-                         CharacterCasing="Upper"
-                         Text="{Binding Members}" 
-                         Height="80" TextWrapping="WrapWithOverflow"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Contact Details" Margin="8">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Contact:"/>
+                        <TextBox Width="200" 
+                         Text="{Binding Contact, Mode=TwoWay}" CharacterCasing="Upper"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Email:"/>
+                        <TextBox Width="200" 
+                         Text="{Binding Email, Mode=TwoWay}" CharacterCasing="Upper"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <GroupBox Header="Medical Records" Margin="8">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock x:Name="textBlock" Text="Blood Type: "/>
+                        <ComboBox Width="200" Text="{Binding BloodType, Mode=TwoWay}" SelectedIndex="0">
+                            <ComboBoxItem Content="A-"/>
+                            <ComboBoxItem Content="A+"/>
+                            <ComboBoxItem Content="B-"/>
+                            <ComboBoxItem Content="B+"/>
+                            <ComboBoxItem Content="O-"/>
+                            <ComboBoxItem Content="O+"/>
+                            <ComboBoxItem Content="AB-"/>
+                            <ComboBoxItem Content="AB+"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Width="{Binding ActualWidth, ElementName=textBlock}" Text="Allergies:"/>
+                        <TextBox CharacterCasing="Upper" Width="200" MinLines="2"
+                            Text="{Binding Allergies, Mode=TwoWay}" Height="42" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Width="{Binding ActualWidth, ElementName=textBlock}" TextWrapping="Wrap"><Run Text="Medical Condition:"/></TextBlock>
+                        <TextBox CharacterCasing="Upper" Width="200" MinLines="1"
+                            Text="{Binding MedicalCondition, Mode=TwoWay}" Height="42"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock TextWrapping="Wrap" 
+                            Width="{Binding ActualWidth, ElementName=textBlock}" Text="Required Medicines:"/>
+                        <TextBox CharacterCasing="Upper" Width="200" MinLines="2"
+                            Text="{Binding MedicineRequired, Mode=TwoWay}" Height="42"/>
+                    </StackPanel>
+                </StackPanel>
+
+            </GroupBox>
+            <GroupBox Header="Other Information" Margin="8">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Text="Educational Attainment: " Width="{Binding ActualWidth, ElementName=label}" TextWrapping="Wrap"/>
+                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding Education, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="National ID #: "/>
+                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding NationalIdNumber, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label x:Name="label" Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Vulnerabilities: "/>
+                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding Vulnerabilities, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <CheckBox Content="Is Family Head" HorizontalAlignment="Right"/>
+
+                </StackPanel>
+            </GroupBox>
+            <StackPanel 
+                    Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="32">
+
                 <Button Margin="3" 
                         Command="{Binding SaveCommand, Mode=OneWay}">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconModern Kind="Save"/>
-                        <TextBlock Padding="0" Margin="4,0,0,0">SAVE</TextBlock>
+                        <TextBlock Padding="0" Margin="4,0,0,0"><Run Text="SAVE"/></TextBlock>
                     </StackPanel>
                 </Button>
                 <Button Click="CloseButtonClicked" Margin="3">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconModern Kind="Close"/>
-                        <TextBlock Padding="0" Margin="4,0,0,0">CLOSE</TextBlock>
+                        <TextBlock Padding="0" Margin="4,0,0,0"><Run Text="CLOSE"/></TextBlock>
                     </StackPanel>
                 </Button>
             </StackPanel>
+
         </StackPanel>
     </Grid>
 </UserControl>

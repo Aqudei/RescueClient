@@ -12,5 +12,6 @@ namespace RescueApp.Models
         public string EconomicStatus { get; set; }
         public string HouseNumber { get; set; }
         public bool IsOwned { get; set; }
+        public string Photo { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Models
 {
-    public class Person : WithID
+    public class PersonMinusPhoto : WithID
     {
         String firstName;
         String middleName;
@@ -19,7 +19,6 @@ namespace RescueApp.Models
         public string LastName { get => lastName; set => lastName = value; }
         public string Birthday { get => birthday; set => birthday = value; }
         public string BloodType { get => bloodType; set => bloodType = value; }
-        public string Photo { get; set; }
         public string Contact { get; set; }
         public string Email { get; set; }
         public string Vulnerabilities { get; set; }

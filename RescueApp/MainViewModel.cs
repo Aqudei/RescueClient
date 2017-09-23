@@ -34,6 +34,7 @@ namespace RescueApp.ViewModel
         public List<ViewModelBase> Screens { get; set; } = new List<ViewModelBase>
         {
             SimpleIoc.Default.GetInstance<MissionStatementVM>(),
+            SimpleIoc.Default.GetInstance<HouseholdsVM>(),
             SimpleIoc.Default.GetInstance<PeopleVM>(),
             SimpleIoc.Default.GetInstance<EvacuationListVM>(),
             SimpleIoc.Default.GetInstance<IncidentsVM>(),

@@ -20,10 +20,15 @@
     </Controls:MetroWindow.DataContext>
     <Grid x:Name="_root" >
         <Grid.Resources>
+            
             <DataTemplate DataType="{x:Type views:PeopleVM}" >
                 <views:People/>
             </DataTemplate>
-
+            
+            <DataTemplate DataType="{x:Type views:HouseholdsVM}" >
+                <views:Households/>
+            </DataTemplate>
+            
             <DataTemplate DataType="{x:Type views:EvacuationListVM}" >
                 <views:EvacuationList/>
             </DataTemplate>

@@ -13,6 +13,8 @@ namespace RescueApp.Views
 {
     public class HouseholdsVM : ViewModelBase
     {
+        public String Title { get; set; } = "Households";
+
         private ObservableCollection<Household> _households
             = new ObservableCollection<Household>();
 

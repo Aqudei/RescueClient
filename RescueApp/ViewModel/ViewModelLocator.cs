@@ -52,6 +52,7 @@ namespace RescueApp.ViewModel
                 cfg.CreateMap<Person, AddEditPersonVM>();
                 cfg.CreateMap<AddEditEvacuationVM, Center>();
                 cfg.CreateMap<Center, AddEditEvacuationVM>();
+                cfg.CreateMap<Person, PersonMinusPhoto>();
             });
 
             SimpleIoc.Default.Register<DialogService>();
