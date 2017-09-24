@@ -14,7 +14,7 @@ using RescueApp.ViewServices;
 
 namespace RescueApp.Views
 {
-    public class HouseholdsVM : ViewModelBase, ICrudVM<Models.DownloadHouseholdModel>
+    public class HouseholdsVM : ViewModelBase, ICrudVM<DownloadHouseholdModel>
     {
         public String Title { get; set; } = "Households";
 

@@ -49,7 +49,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
             <GroupBox Header="Important Numbers" 
                   VerticalAlignment="Center"
                   Margin="8" FontSize="18">

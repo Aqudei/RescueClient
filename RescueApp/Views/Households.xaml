@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
-             xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
              DataContext="{Binding HouseholdsVM, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -13,7 +13,7 @@
 
     </UserControl.Resources>
     <Grid>
-        <ListView ItemsSource="{Binding Households}" 
+        <ListView ItemsSource="{Binding Households}" x:Name="_householdList"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -22,6 +22,9 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="HOUSE #: "/>
                                 <TextBlock Text="{Binding HouseNumber}"/>
+                                <Button Command="{Binding DataContext.EditItemCommand, ElementName=_householdList, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay}" >
+                                    <iconPacks:PackIconModern Kind="Edit"/>
+                                </Button>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="ADRESS #: "/>
