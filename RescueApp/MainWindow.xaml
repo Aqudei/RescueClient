@@ -49,36 +49,40 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-
-        <GroupBox Header="Important Numbers" 
+        <StackPanel Orientation="Vertical">
+            <GroupBox Header="Important Numbers" 
                   VerticalAlignment="Center"
                   Margin="8" FontSize="18">
 
-            <StackPanel >
-                <StackPanel Orientation="Vertical" Margin="0,0,0,8">
-                    <TextBlock FontWeight="Bold" Text="Bureau Of Fire Protection"/>
-                    <TextBlock HorizontalAlignment="Center" Text="+000-765-098" Margin="33,0,34,0"/>
+                <StackPanel >
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                        <TextBlock FontWeight="Bold" Text="Bureau Of Fire Protection"/>
+                        <TextBlock HorizontalAlignment="Center" Text="+000-765-098" Margin="33,0,34,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                        <TextBlock FontWeight="Bold" Text="Ambulance" HorizontalAlignment="Center" Margin="6,0,7,0"/>
+                        <TextBlock HorizontalAlignment="Center" Text="+874-098-098"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                        <TextBlock FontWeight="Bold" Text="MDRRMO" HorizontalAlignment="Center" Margin="23,0,22,0"/>
+                        <TextBlock HorizontalAlignment="Center" Text="+0936-03939-0393"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                        <TextBlock FontWeight="Bold" Text="DSWD" HorizontalAlignment="Center" Margin="26,0"/>
+                        <TextBlock HorizontalAlignment="Center" Text="+7843-039-0393"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,8">
+                        <TextBlock FontWeight="Bold" Text="Deparment of Health" HorizontalAlignment="Center"/>
+                        <TextBlock HorizontalAlignment="Center" Text="+1124-044-0122" Margin="15,0,16,0"/>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,0,0,8">
-                    <TextBlock FontWeight="Bold" Text="Ambulance" HorizontalAlignment="Center" Margin="6,0,7,0"/>
-                    <TextBlock HorizontalAlignment="Center" Text="+874-098-098"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,0,0,8">
-                    <TextBlock FontWeight="Bold" Text="MDRRMO" HorizontalAlignment="Center" Margin="23,0,22,0"/>
-                    <TextBlock HorizontalAlignment="Center" Text="+0936-03939-0393"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,0,0,8">
-                    <TextBlock FontWeight="Bold" Text="DSWD" HorizontalAlignment="Center" Margin="26,0"/>
-                    <TextBlock HorizontalAlignment="Center" Text="+7843-039-0393"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,0,0,8">
-                    <TextBlock FontWeight="Bold" Text="Deparment of Health" HorizontalAlignment="Center"/>
-                    <TextBlock HorizontalAlignment="Center" Text="+1124-044-0122" Margin="15,0,16,0"/>
-                </StackPanel>
-            </StackPanel>
 
-        </GroupBox>
-
+            </GroupBox>
+            <GroupBox VerticalAlignment="Center" 
+                  Margin="8">
+                <views:Statistics />
+            </GroupBox>
+        </StackPanel>
         <Controls:MetroAnimatedSingleRowTabControl SelectedItem="{Binding SelectedScreen}" 
                                                    ItemsSource="{Binding Screens}"
                                                    Grid.Column="1">

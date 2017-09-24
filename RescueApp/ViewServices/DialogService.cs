@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using RescueApp.Interfaces;
 using RescueApp.Views;
+using RescueApp.Views.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace RescueApp.ViewServices
     {
         private DialogHost _container;
         private Dictionary<string, Type> _dialogs;
+        private Window _cam;
 
         public DialogService()
         {
@@ -37,7 +39,8 @@ namespace RescueApp.ViewServices
 
         public void ShowCamera()
         {
-
+            _cam = _cam ?? new Camera();
+            _cam.ShowDialog();
         }
 
         public void ShowDialog(string dialogName)

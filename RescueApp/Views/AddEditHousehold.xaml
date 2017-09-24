@@ -8,8 +8,20 @@
              xmlns:local="clr-namespace:RescueApp.Views"
              DataContext="{Binding AddEditHouseholdVM,Source={StaticResource Locator}}"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="553.191" d:DesignWidth="563.83">
     <Grid>
+
+
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="142,10,0,0" TextWrapping="Wrap" Text="{Binding Current.HouseNumber, Mode=TwoWay}" VerticalAlignment="Top" Width="191"/>
+        <Label Content="House #:" HorizontalAlignment="Left" Margin="34,10,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="142,46,0,0" TextWrapping="Wrap" Text="{Binding Current.Address}" VerticalAlignment="Top" Width="191"/>
+        <Label Content="Address:" HorizontalAlignment="Left" Margin="34,46,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="142,84,0,0" TextWrapping="Wrap" Text="{Binding Current.EconomicStatus}" VerticalAlignment="Top" Width="191"/>
+        <Label Content="Economic Status:" HorizontalAlignment="Left" Margin="34,84,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Is Owned" HorizontalAlignment="Left" Margin="142,124,0,0" VerticalAlignment="Top" IsChecked="{Binding Current.IsOwned}"/>
+        <Button Content="SAVE" HorizontalAlignment="Left" Margin="74,179,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand, Mode=OneWay}"/>
+        <Button Content="CLOSE" HorizontalAlignment="Left" Margin="178,179,0,0" VerticalAlignment="Top" Width="75" Click="CloseButton_Click"/>
+
 
     </Grid>
 </UserControl>

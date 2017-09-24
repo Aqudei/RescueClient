@@ -54,6 +54,8 @@ namespace RescueApp.ViewModel
                 cfg.CreateMap<AddEditEvacuationVM, Center>();
                 cfg.CreateMap<Center, AddEditEvacuationVM>();
                 cfg.CreateMap<DownloadPersonModel, UploadPersonModel>();
+                cfg.CreateMap<DownloadHouseholdModel, DownloadHouseholdModel>();
+                cfg.CreateMap<DownloadHouseholdModel, UploadHouseholdModel>();
             });
             SimpleIoc.Default.Register<AddEditHouseholdVM>();
             SimpleIoc.Default.Register<HouseholdsVM>();
@@ -67,6 +69,8 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<PeopleVM>();
             SimpleIoc.Default.Register<AddEditEvacuationVM>();
+            SimpleIoc.Default.Register<StatisticsVM>();
+
 
 
             if (!ViewModelBase.IsInDesignModeStatic)
@@ -75,7 +79,13 @@ namespace RescueApp.ViewModel
             }
         }
 
-
+        public StatisticsVM StatisticsVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<StatisticsVM>();
+            }
+        }
         public AddEditHouseholdVM AddEditHouseholdVM
         {
             get
@@ -167,7 +177,6 @@ namespace RescueApp.ViewModel
             dialogService.RegisterDialog<AddEditPerson>("AddEditPerson");
             dialogService.RegisterDialog<AddEditEvacuation>("AddEditEvacuation");
             dialogService.RegisterDialog<AddEditHousehold>("AddEditHousehold");
-            dialogService.RegisterDialog<Camera>("Camera");
         }
     }
 }

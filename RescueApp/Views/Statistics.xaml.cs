@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace RescueApp.Views
 {
     /// <summary>
-    /// Interaction logic for AddEditHousehold.xaml
+    /// Interaction logic for Statistics.xaml
     /// </summary>
-    public partial class AddEditHousehold : UserControl
+    public partial class Statistics
     {
-        public AddEditHousehold()
+        public Statistics()
         {
             InitializeComponent();
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Window.GetWindow(this).Close();
         }
     }
 }

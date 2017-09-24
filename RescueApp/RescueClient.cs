@@ -202,7 +202,7 @@ namespace RescueApp
                 }
             });
         }
-        public void AddHousehold(DownloadHouseholdModel household, Action<Exception,
+        public void AddHousehold(UploadHouseholdModel household, Action<Exception,
             DownloadHouseholdModel> callback, string choosenPhoto = "")
         {
             var request = new RestRequest("/api/households/", Method.POST);

@@ -80,6 +80,11 @@ namespace RescueApp.Views
         {
             _rescueClient = client;
             _dialogService = dialogService;
+
+            MessengerInstance.Register<Dialogs.CapturedPhotoEvenArgs>(this, (p) =>
+            {
+                ChoosenPhoto = p.PhotoPath;
+            });
         }
 
         private RelayCommand _browsePhotoCommand;
@@ -102,7 +107,7 @@ namespace RescueApp.Views
             {
                 return _openCameraCommand ?? (_openCameraCommand = new RelayCommand(() =>
                 {
-                    _dialogService.ShowDialog("Camera");
+                    _dialogService.ShowCamera();
                 }));
             }
         }
