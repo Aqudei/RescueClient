@@ -16,9 +16,10 @@
         <cam:Camera x:Name="_luxCamera"/>
         <StackPanel Orientation="Horizontal" Grid.Row="1"
                     HorizontalAlignment="Center">
-            <Button x:Name="_capture" Margin="4,0" Click="_capture_Click">Capture</Button>
+            <Button x:Name="_capture" Margin="4,0" 
+                    Command="{Binding TakeSnapshot, ElementName=_luxCamera}">Capture</Button>
             <Button Margin="4,0" Click="Accept" Height="27" VerticalAlignment="Top">Accept</Button>
-            <Button Margin="4,0" Click="Retry" Height="27" VerticalAlignment="Top">Retry</Button>
+            <Button Margin="4,0" Height="27" VerticalAlignment="Top" Command="{Binding RetryCommand, ElementName=_luxCamera}">Retry</Button>
             <Button Margin="4,0" Click="Cancel" Height="27" VerticalAlignment="Top">Cancel</Button>
         </StackPanel>
     </Grid>

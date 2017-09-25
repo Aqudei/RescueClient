@@ -110,6 +110,8 @@
     <Compile Include="Messages\AddEditResultMessage.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />
     <Compile Include="Models\Center.cs" />
+    <Compile Include="Models\Incident.cs" />
+    <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\UploadHouseholdModel.cs" />
     <Compile Include="Models\UploadPersonModel.cs" />
     <Compile Include="Models\WithID.cs" />
@@ -279,12 +281,6 @@
     <Resource Include="Resources\about.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="C:\Program Files %28x86%29\Luxand\FaceSDK\bin\win32\facesdk.dll">
-      <Link>facesdk.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimpleLuxCamera\SimpleLuxCamera.csproj">

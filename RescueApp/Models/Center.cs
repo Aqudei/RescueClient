@@ -8,13 +8,13 @@ namespace RescueApp.Models
 {
     public class Center : WithID
     {
-
         string _address;
         int _limit;
         string _photo;
 
         public string CenterName { get; set; }
-        public string Address {
+        public string Address
+        {
             get
             {
                 return _address;

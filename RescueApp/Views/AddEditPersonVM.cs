@@ -170,10 +170,20 @@ namespace RescueApp.Views
             Vulnerabilities = "";
         }
 
-
-
         public void Edit(DownloadPersonModel item)
         {
+            CivilStatus = item.CivilStatus;
+            Education = item.EducationalAttainment;
+            Email = item.Email;
+            Gender = item.Gender;
+            MedicalCondition = item.MedicalCondition;
+            MedicineRequired = item.MedicineRequired;
+            NationalIdNumber = item.NationalIdNumber;
+            Occupation = item.Occupation;
+            Vulnerabilities = item.Vulnerabilities;
+            BloodType = item.BloodType;
+            Allergies = item.Allergies;
+            IsFamilyHead = item.IsHead;
             FirstName = item.FirstName;
             MiddleName = item.MiddleName;
             LastName = item.LastName;

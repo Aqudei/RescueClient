@@ -52,7 +52,6 @@ namespace RescueApp.Views.Dialogs
         {
             if ((bool)e.NewValue == true)
             {
-
                 _luxCamera.StartCamera();
             }
 
@@ -70,7 +69,7 @@ namespace RescueApp.Views.Dialogs
 
         private void Retry(object sender, RoutedEventArgs e)
         {
-            _luxCamera.Resume();
+            _luxCamera.Retry();
         }
 
         private void Cancel(object sender, RoutedEventArgs e)

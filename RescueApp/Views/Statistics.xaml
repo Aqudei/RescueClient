@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
+             DataContext="{Binding StatisticsVM, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -19,15 +20,21 @@
         </Grid.RowDefinitions>
 
         <TextBlock TextWrapping="Wrap" FontWeight="Bold" Margin="0,4" VerticalAlignment="Center">Number of Persons:</TextBlock>
-        <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">100</TextBlock>
+        <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Stats.NumberOfPerson}"/>
 
         <TextBlock TextWrapping="Wrap" Grid.Row="1" FontWeight="Bold" Margin="0,4" VerticalAlignment="Center">Number of Households:</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">100</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Stats.NumberOfHousehold}"/>
 
         <TextBlock TextWrapping="Wrap" Grid.Row="2" FontWeight="Bold" Margin="0,4" VerticalAlignment="Center">Number of  Evacuation Centers:</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">100</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Stats.NumberOfEvacuation}"/>
 
-        <TextBlock TextWrapping="Wrap" Grid.Row="3" FontWeight="Bold" Margin="0,4" VerticalAlignment="Center">Number of  Calamities/Disasters Recorded:</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">100</TextBlock>
+        <TextBlock TextWrapping="Wrap" 
+                   Grid.Row="3" FontWeight="Bold" 
+                   Margin="0,4" VerticalAlignment="Center">Number of  Calamities/Disasters Recorded:</TextBlock>
+        <TextBlock Grid.Column="1" 
+                   Grid.Row="3" 
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center" 
+                   Text="{Binding Stats.NumberOfCalamities}"/>
     </Grid>
 </UserControl>

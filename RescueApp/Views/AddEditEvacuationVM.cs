@@ -43,7 +43,7 @@ namespace RescueApp.Views
             get { return _capacity; }
             set { Set(ref _capacity, value); }
         }
-        
+
         private readonly RescueClient rescueClient;
         private readonly DialogService dialogService;
 
@@ -82,12 +82,14 @@ namespace RescueApp.Views
             {
                 return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
                 {
-                    rescueClient.AddCenter(new Models.Center
+                    rescueClient.AddCenter(new Center
                     {
                         Address = Address,
                         CenterName = Name,
                         Limit = Capacity,
-                        Id = Id
+                        Id = Id,
+                        Photo = ChoosenPhoto
+
                     }, (ex, center) =>
                     {
                         if (ex == null)
@@ -96,7 +98,7 @@ namespace RescueApp.Views
                         }
 
                         MessengerInstance.Send(new Messages.AddEditResultMessage<Center>(ex, center));
-                    }, ChoosenPhoto);
+                    });
                 }));
             }
         }

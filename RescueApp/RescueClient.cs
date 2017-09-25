@@ -80,12 +80,12 @@ namespace RescueApp
                 if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     if (string.IsNullOrEmpty(choosenPhoto) == false
-                        && IsRemoteUri(choosenPhoto) == false)
+                        && Uploadable(choosenPhoto))
                     {
-                        var uploadRequest = new RestRequest("/api/people/" + person.Id + "/upload/", Method.PATCH);
-                        uploadRequest.AddFile("Photo", choosenPhoto);
+                        var uploadPhotoRequest = new RestRequest("/api/people/" + person.Id + "/upload/", Method.PATCH);
+                        uploadPhotoRequest.AddFile("Photo", choosenPhoto);
 
-                        _client.ExecuteAsync<DownloadPersonModel>(uploadRequest, r =>
+                        _client.ExecuteAsync<DownloadPersonModel>(uploadPhotoRequest, r =>
                         {
                             if (r.StatusCode == System.Net.HttpStatusCode.OK)
                             {
@@ -132,19 +132,12 @@ namespace RescueApp
                 callback(rslt.ErrorException, rslt.Data);
             });
         }
-        public void AddCenter(Center center, Action<Exception, Center> callback, string photo = "")
+        public void AddCenter(Center center, Action<Exception, Center> callback)
         {
             var request = new RestRequest("/api/centers/", Method.POST);
-            request.AlwaysMultipartFormData = true;
+            request.RequestFormat = DataFormat.Json;
 
-            if (photo != "")
-            {
-                request.AddFile("Photo", photo);
-            }
-
-            request.AddParameter("CenterName", center.CenterName);
-            request.AddParameter("Address", center.Address);
-            request.AddParameter("Limit", center.Limit);
+            request.AddBody(center);
 
             _client.ExecuteAsync<Center>(request, rslt =>
             {
@@ -153,8 +146,29 @@ namespace RescueApp
                     callback(new Exception("" + rslt.StatusDescription), null);
                     return;
                 }
+                else
+                {
+                    if (string.IsNullOrEmpty(center.Photo) == false && Uploadable(center.Photo))
+                    {
+                        var uploadRequest = new RestRequest("/api/centers/" + rslt.Data.Id + "/upload/", Method.PATCH);
+                        uploadRequest.AddFile("Photo", center.Photo);
+                        _client.ExecuteAsync<Center>(uploadRequest, _rslt =>
+                        {
+                            if (_rslt.StatusCode == System.Net.HttpStatusCode.OK)
+                            {
+                                _rslt.Data.Photo = NormalizeUri(_rslt.Data.Photo);
+                                callback(null, _rslt.Data);
+                            }
+                            else
+                            {
+                                callback(null, rslt.Data);
+                            }
+                            return;
+                        });
+                    }
+                }
 
-                callback(rslt.ErrorException, rslt.Data);
+                callback(null, rslt.Data);
             });
         }
         public void DeleteCenter(int id, Action<Exception> callback)
@@ -258,7 +272,7 @@ namespace RescueApp
                 }
 
                 if (string.IsNullOrEmpty(choosenPhoto) == false
-                    && IsRemoteUri(choosenPhoto) == false)
+                    && Uploadable(choosenPhoto))
                 {
                     var uploadRequest = new RestRequest("/api/household/" + rslt.Data.Id + "/upload/", Method.PATCH);
                     uploadRequest.AddFile("Photo", choosenPhoto);
@@ -280,12 +294,49 @@ namespace RescueApp
             });
         }
 
-        private Boolean IsRemoteUri(String uri)
+        public void AddIncident(Incident incident, Action<Exception, Incident> callback)
+        {
+            var request = new RestRequest("/api/incidents/", Method.POST);
+            request.RequestFormat = DataFormat.Json;
+
+            request.AddJsonBody(incident);
+            _client.ExecuteAsync<Incident>(request, rslt =>
+            {
+                if (rslt.StatusCode != System.Net.HttpStatusCode.Created || rslt.ErrorException != null)
+                {
+                    callback(new Exception("" + rslt.StatusDescription), null);
+                    return;
+                }
+
+                callback(null, rslt.Data);
+            });
+        }
+        public void ToggleIncidentStatus(Action<Exception, List<Incident>> callback)
+        {
+            var request = new RestRequest("/api/incidents/", Method.PATCH);
+        }
+
+        public void GetStats(Action<Exception, Statistics> callback)
+        {
+            var request = new RestRequest("/api/statistics/", Method.GET);
+            _client.ExecuteAsync<Statistics>(request, (rslt) =>
+            {
+                if (rslt.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    callback(new Exception("" + rslt.StatusDescription), null);
+                    return;
+                }
+
+                callback(null, rslt.Data);
+            });
+        }
+
+        private Boolean Uploadable(String uri)
         {
             try
             {
                 var uriObj = new Uri(uri);
-                return !uriObj.IsFile;
+                return uriObj.IsFile;
             }
             catch
             {
