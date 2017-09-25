@@ -106,8 +106,8 @@
     </ApplicationDefinition>
     <Compile Include="Interfaces\ICrudVM.cs" />
     <Compile Include="Interfaces\IEditor.cs" />
-    <Compile Include="Messages\AddEditMessage.cs" />
     <Compile Include="Messages\AddEditResultMessage.cs" />
+    <Compile Include="Messages\StatsChangedMessage.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />
     <Compile Include="Models\Center.cs" />
     <Compile Include="Models\Incident.cs" />

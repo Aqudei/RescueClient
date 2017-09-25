@@ -48,6 +48,7 @@ namespace RescueApp.Views
                     {
                         _households.Remove(h);
                     });
+                    MessengerInstance.Send(new Messages.StatsChangedMessage());
                 }
             });
         });
@@ -103,6 +104,22 @@ namespace RescueApp.Views
                                 _households.Add(item);
                             });
                         }
+                    }
+                });
+                MessengerInstance.Register<Messages.AddEditResultMessage<DownloadHouseholdModel>>(this, (rslt) =>
+                {
+                    if (rslt.Error == null)
+                    {
+                        var oldHousehold = _households.FirstOrDefault(c => c.Id == rslt.Entity.Id);
+
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            if (oldHousehold != null)
+                                _households.Remove(oldHousehold);
+                            _households.Add(rslt.Entity);
+                        });
+
+                        MessengerInstance.Send(new Messages.StatsChangedMessage());
                     }
                 });
             }

@@ -55,19 +55,7 @@ namespace RescueApp.Views
             }
             else
             {
-                _rescueClient.GetCenters((ex, rslt) =>
-                {
-                    if (ex == null)
-                    {
-                        foreach (var item in rslt)
-                        {
-                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                            {
-                                Centers.Add(item);
-                            });
-                        }
-                    }
-                });
+                LoadEvacuationCenter();
 
                 MessengerInstance.Register<Messages.AddEditResultMessage<Center>>(this, (rslt) =>
                 {
@@ -81,12 +69,30 @@ namespace RescueApp.Views
                                 Centers.Remove(oldCenter);
                             Centers.Add(rslt.Entity);
                         });
+
+                        MessengerInstance.Send(new Messages.StatsChangedMessage());
                     }
                 });
             }
         }
 
-        
+        private void LoadEvacuationCenter()
+        {
+            _rescueClient.GetCenters((ex, rslt) =>
+            {
+                if (ex == null)
+                {
+                    foreach (var item in rslt)
+                    {
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            Centers.Add(item);
+                        });
+                    }
+                }
+            });
+        }
+
         private readonly RescueClient _rescueClient;
         private readonly DialogService dialogService;
         private RelayCommand<Center> _deleteItemCommand;

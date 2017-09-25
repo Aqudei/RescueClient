@@ -72,6 +72,7 @@ namespace RescueApp.Views
         public PeopleVM(RescueClient client, DialogService dialogService)
         {
             _dialogService = dialogService;
+            _rescueClient = client;
 
             if (IsInDesignModeStatic)
             {
@@ -121,6 +122,8 @@ namespace RescueApp.Views
             }
             else
             {
+                LoadPeople();
+
                 MessengerInstance.Register<AddEditResultMessage<DownloadPersonModel>>(this, (rslt) =>
                 {
                     if (rslt.Error == null)
@@ -133,25 +136,28 @@ namespace RescueApp.Views
                                 People.Remove(_p);
                             People.Add(rslt.Entity);
                         });
+
+                        MessengerInstance.Send(new Messages.StatsChangedMessage());
                     }
                 });
-
-                _rescueClient = client;
-                client.GetPeople((err, rslt) =>
-                {
-                    if (err == null)
-                    {
-                        foreach (var item in rslt)
-                        {
-                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                            {
-                                People.Add(item);
-                            });
-                        }
-                    }
-                });
-
             }
+        }
+
+        private void LoadPeople()
+        {
+            _rescueClient.GetPeople((err, rslt) =>
+            {
+                if (err == null)
+                {
+                    foreach (var item in rslt)
+                    {
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            People.Add(item);
+                        });
+                    }
+                }
+            });
         }
     }
 }

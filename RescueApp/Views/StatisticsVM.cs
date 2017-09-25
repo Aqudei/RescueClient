@@ -11,9 +11,23 @@ namespace RescueApp.Views
 {
     public class StatisticsVM : ViewModelBase
     {
+        private readonly RescueClient rescueClient;
+
         public Models.Statistics Stats { get; set; } = new Models.Statistics();
 
         public StatisticsVM(RescueClient rescueClient)
+        {
+            this.rescueClient = rescueClient;
+
+            ReadStatChanges();
+
+            MessengerInstance.Register<Messages.StatsChangedMessage>(this, (statChange) =>
+            {
+                ReadStatChanges();
+            });
+        }
+
+        private void ReadStatChanges()
         {
             rescueClient.GetStats((ex, stats) =>
             {
