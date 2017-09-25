@@ -4,70 +4,73 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
+             xmlns:toolkit ="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:toolkitdg="http://schemas.xceed.com/wpf/xaml/datagrid"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" DataContext="{Binding EvacuationListVM, Source={StaticResource Locator}}"
              d:DesignHeight="793.322" d:DesignWidth="748.577">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <ScrollViewer Padding="0,0,32,0">
-            <ListView ItemsSource="{Binding Centers}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
+        <DockPanel>
+            <DataGrid ItemsSource="{Binding Centers}" DockPanel.Dock="Left"/>
+            <!--<toolkitdg:DataGridControl ItemsSource="{Binding Centers}"
+                                       
+                                       DockPanel.Dock="Left"/>-->
+        </DockPanel>
+        <!--<ListView ItemsSource="{Binding Centers}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
-                            <Border Margin="8" BorderThickness="1" 
+                        <Border Margin="8" BorderThickness="1" 
                                     CornerRadius="1">
-                                <Border.Effect>
-                                    <DropShadowEffect/>
-                                </Border.Effect>
-                                <Image Width="256" 
+                            <Border.Effect>
+                                <DropShadowEffect/>
+                            </Border.Effect>
+                            <Image Width="256" 
                                 Height="384" 
                                 Stretch="UniformToFill" 
                                 Source="{Binding Photo}" />
-                            </Border>
+                        </Border>
 
-                            <StackPanel Orientation="Vertical" 
+                        <StackPanel Orientation="Vertical" 
                                 Grid.Column="1" 
                                 VerticalAlignment="Center" 
                                 Margin="8,8,32,8">
 
-                                <TextBlock FontSize="24"
+                            <TextBlock FontSize="24"
                                     FontWeight="Bold"
                                     Text="{Binding CenterName}"/>
-                                <TextBlock FontSize="18"
+                            <TextBlock FontSize="18"
                                     Text="{Binding Address}"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontSize="18"
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="18"
                                         Text="Capacity: "/>
-                                    <TextBlock FontSize="18"
+                                <TextBlock FontSize="18"
                                         Text="{Binding Limit}"/>
-                                    <TextBlock FontSize="18"
+                                <TextBlock FontSize="18"
                                         Text="|" Margin="16,0"/>
-                                    <TextBlock FontSize="18"
+                                <TextBlock FontSize="18"
                                         Text="Occupancy: "/>
-                                    <TextBlock FontSize="18"
+                                <TextBlock FontSize="18"
                                         Text="50"/>
-                                </StackPanel>
-                                <Button HorizontalAlignment="Left" 
+                            </StackPanel>
+                            <Button HorizontalAlignment="Left" 
                                     Style="{DynamicResource MetroCircleButtonStyle}" Padding="16" 
                                     Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
                                     CommandParameter="{Binding Mode=OneWay}">
-                                    <iconPacks:PackIconModern Kind="Delete"/>
-                                </Button>
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ListView>
-        </ScrollViewer>
+                                <iconPacks:PackIconModern Kind="Delete"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
 
+        
     </Grid>
 </UserControl>

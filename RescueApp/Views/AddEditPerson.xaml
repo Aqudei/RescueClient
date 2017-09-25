@@ -154,7 +154,7 @@
                         <Label   Content="Occupation: " Width="{Binding ActualWidth, ElementName=textBlock1}"/>
                         <TextBox CharacterCasing="Upper" Width="200" Text="{Binding Occupation, Mode=TwoWay}"/>
                     </StackPanel>
-                    <CheckBox Content="Is Family Head" HorizontalAlignment="Right"/>
+                    <CheckBox Content="Is Family Head" HorizontalAlignment="Right" IsChecked="{Binding IsHead}"/>
 
                 </StackPanel>
             </GroupBox>

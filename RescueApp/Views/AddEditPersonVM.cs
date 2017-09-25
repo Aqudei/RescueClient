@@ -183,7 +183,7 @@ namespace RescueApp.Views
             Vulnerabilities = item.Vulnerabilities;
             BloodType = item.BloodType;
             Allergies = item.Allergies;
-            IsFamilyHead = item.IsHead;
+            IsHead = item.IsHead;
             FirstName = item.FirstName;
             MiddleName = item.MiddleName;
             LastName = item.LastName;
@@ -210,7 +210,7 @@ namespace RescueApp.Views
         }
 
         private bool _isHead;
-        public bool IsFamilyHead
+        public bool IsHead
         {
             get { return _isHead; }
             set { Set(ref _isHead, value); }

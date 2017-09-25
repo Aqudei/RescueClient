@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Models
 {
-    public abstract class WithID : ViewModelBase
+    public abstract class WithID : ObservableObject
     {
         private int id;
 
         public int Id
         {
             get { return id; }
-            set { id = value; }
+            set { Set(ref id, value); }
         }
 
     }

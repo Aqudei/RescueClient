@@ -110,6 +110,7 @@ namespace RescueApp.Views
                             {
                                 Centers.Remove(item);
                             });
+                            MessengerInstance.Send(default(Messages.StatsChangedMessage));
                         }
                     });
                 }));

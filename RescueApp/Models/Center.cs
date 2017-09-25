@@ -8,9 +8,9 @@ namespace RescueApp.Models
 {
     public class Center : WithID
     {
-        string _address;
-        int _limit;
-        string _photo;
+        private string _address;
+        private int _limit;
+        private string _photo;
 
         public string CenterName { get; set; }
         public string Address
@@ -22,7 +22,7 @@ namespace RescueApp.Models
 
             set
             {
-                _address = value;
+                Set(ref _address, value);
             }
         }
         public int Limit

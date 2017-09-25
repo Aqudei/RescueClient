@@ -11,21 +11,25 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
+
+        <!--<DataGrid ItemsSource="{Binding People}" />-->
+
         <ListView x:Name="peopleList" ItemsSource="{Binding People}" 
                 ScrollViewer.CanContentScroll="True" 
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                  BorderBrush="{x:Null}">
             <ListView.Resources>
                 <BitmapImage x:Key="_whoImage" 
                                  UriSource="/RescueApp;component/Resources/question_sign_on_person_head.png"/>
             </ListView.Resources>
-            <ListView.ItemsPanel>
+            <!--<ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
+            </ListView.ItemsPanel>-->
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="4">
@@ -33,18 +37,6 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-
-                        <Border HorizontalAlignment="Stretch" 
-                                    Grid.ColumnSpan="3"
-                                    VerticalAlignment="Stretch" 
-                                    BorderBrush="Black"
-                                    BorderThickness="1" 
-                                    CornerRadius="5">
-
-                            <Border.Effect>
-                                <DropShadowEffect/>
-                            </Border.Effect>
-                        </Border>
 
                         <Image Width="128" Margin="8"
                                     Height="128"
@@ -89,14 +81,23 @@
                                         Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                                         CommandParameter="{Binding Mode=OneWay}" 
                                         Command="{Binding DataContext.EditItemCommand, ElementName=peopleList, Mode=OneWay}">
-                                    
+
                                     <iconPacks:PackIconMaterial Kind="AccountEdit"/>
                                 </Button>
+
                             </StackPanel>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
+
+
         </ListView>
+
+        <DockPanel>
+            <StackPanel>
+                
+            </StackPanel>
+        </DockPanel>
     </Grid>
 </UserControl>
