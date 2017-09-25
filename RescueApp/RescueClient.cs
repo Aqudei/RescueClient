@@ -69,6 +69,25 @@ namespace RescueApp
                 callback(null, rslt.Data);
             });
         }
+
+        internal void SetMembership(DownloadPersonModel person, DownloadHouseholdModel household,
+            Action<Exception, DownloadHouseholdModel> callback)
+        {
+            var request = new RestRequest("/api/people/" + person.Id + "/set_membership", Method.POST);
+            request.AddParameter("household_id", household.Id);
+            _client.ExecuteAsync<DownloadHouseholdModel>(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    callback(null, rslt.Data);
+                }
+                else
+                {
+                    callback(new Exception("Cannot Toggle Membership"), null);
+                }
+            });
+        }
+
         public void UpdatePerson(UploadPersonModel person,
             Action<Exception, DownloadPersonModel> callback, string choosenPhoto = "")
         {

@@ -10,13 +10,31 @@ using RescueApp.Models;
 using System.ComponentModel;
 using System.Windows.Data;
 using GalaSoft.MvvmLight.Threading;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace RescueApp.Views
 {
     public class FamilyMemberSelectorVM : ViewModelBase, IEditor<DownloadHouseholdModel>
     {
-        private ObservableCollection<DownloadPersonModel> _people
-            = new ObservableCollection<DownloadPersonModel>();
+        public class SelectablePerson : ObservableObject
+        {
+            public DownloadPersonModel Person { get; set; }
+            private bool _selected;
+            public bool Selected
+            {
+                get
+                {
+                    return _selected;
+                }
+                set
+                {
+                    Set(ref _selected, value);
+                }
+            }
+        }
+
+        private ObservableCollection<SelectablePerson> _people
+            = new ObservableCollection<SelectablePerson>();
 
         DownloadHouseholdModel CurrentHousehold
             = new DownloadHouseholdModel();
@@ -39,11 +57,46 @@ namespace RescueApp.Views
             set { Set(ref filterText, value); }
         }
 
+        private RelayCommand<DownloadPersonModel> _toggleMembership;
+
+        public RelayCommand<DownloadPersonModel> ToggleMembership
+        {
+            get
+            {
+                return _toggleMembership ?? (_toggleMembership = new RelayCommand<DownloadPersonModel>((person) =>
+                {
+                    rescueClient.SetMembership(person, CurrentHousehold, (ex, household) =>
+                    {
+                        if (ex == null)
+                        {
+                            AutoMapper.Mapper.Map(household, CurrentHousehold,
+                                typeof(DownloadHouseholdModel), typeof(DownloadHouseholdModel));
+                        }
+                    });
+                }));
+            }
+
+        }
+
 
         public FamilyMemberSelectorVM(RescueClient rescueClient)
         {
             this.rescueClient = rescueClient;
-            LoadPeople();
+            if (IsInDesignModeStatic)
+            {
+                _people.Add(new SelectablePerson
+                {
+                    Person = new DownloadPersonModel
+                    {
+                        FirstName = "DONATO",
+                        MiddleName = "DONATO",
+                        LastName = "DONATO"
+                    },
+                    Selected = true
+                });
+            }
+            else
+                LoadPeople();
         }
 
         private void LoadPeople()
@@ -57,7 +110,11 @@ namespace RescueApp.Views
                     {
                         DispatcherHelper.CheckBeginInvokeOnUI(() =>
                         {
-                            _people.Add(item);
+                            _people.Add(new SelectablePerson
+                            {
+                                Person = item,
+                                Selected = CurrentHousehold.members.Where(m => m.Id == item.Id).Any()
+                            });
                         });
                     }
                 }

@@ -9,8 +9,18 @@ namespace RescueApp.Models
     public class DownloadHouseholdModel : UploadHouseholdModel
     {
         public string Photo { get; set; }
-
-        public List<DownloadPersonModel> members { get; set; }
+        private List<DownloadPersonModel> _members;
+        public List<DownloadPersonModel> members
+        {
+            get
+            {
+                return _members;
+            }
+            set
+            {
+                Set(ref _members, value);
+            }
+        }
         public DownloadHouseholdModel()
         {
             members = new List<DownloadPersonModel>();

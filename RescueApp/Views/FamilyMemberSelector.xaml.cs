@@ -24,5 +24,10 @@ namespace RescueApp.Views
         {
             InitializeComponent();
         }
+
+        private void Close(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Close();
+        }
     }
 }

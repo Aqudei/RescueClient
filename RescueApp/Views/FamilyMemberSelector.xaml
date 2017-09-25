@@ -4,16 +4,47 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
+             xmlns:maha ="http://metro.mahapps.com/winfx/xaml/controls"
              DataContext="{Binding FamilyMemberSelectorVM, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <StackPanel Orientation="Horizontal" Margin="8">
+
+            <TextBox  maha:TextBoxHelper.Watermark="Please Type Search Keyword..." Text="{Binding FilterText}" Margin="0,0,4,0"/>
+            <Button Content="Search" Margin="4,0,0,0"/>
+        </StackPanel>
+
         <ItemsControl Grid.Row="1"
-                      ItemsSource="{Binding PeopleView}"  ></ItemsControl>
+                      ItemsSource="{Binding PeopleView}"  >
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" Margin="8">
+                        <TextBlock  Text="{Binding Person.FullName}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Is Family Member?" VerticalAlignment="Center" />
+                            <maha:ToggleSwitch Grid.Column="1" 
+                                               maha:ControlsHelper.ContentCharacterCasing="Upper" 
+                                               OffLabel="No" 
+                                               HorizontalAlignment="Right"
+                                               OnLabel="Yes" VerticalAlignment="Center" />
+                        </Grid>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Button Content="Done" Click="Close"/>
+        </StackPanel>
     </Grid>
 </UserControl>
