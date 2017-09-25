@@ -16,23 +16,13 @@ using System.Windows.Shapes;
 namespace RescueApp.Views
 {
     /// <summary>
-    /// Interaction logic for EvacuationList.xaml
+    /// Interaction logic for FamilyMemberSelector.xaml
     /// </summary>
-    public partial class EvacuationList : UserControl
+    public partial class FamilyMemberSelector : UserControl
     {
-        public EvacuationList()
+        public FamilyMemberSelector()
         {
             InitializeComponent();
-        }
-
-        private void GeneratingColumns(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            if (e.Column.Header.ToString().ToLower().Contains("photo") ||
-                e.Column.Header.ToString().ToLower().Equals("id"))
-
-                e.Cancel = true;
-
-            
         }
     }
 }

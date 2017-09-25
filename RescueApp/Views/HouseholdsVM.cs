@@ -58,10 +58,24 @@ namespace RescueApp.Views
             dialogService.ShowDialog<DownloadHouseholdModel>("AddEditHousehold", h);
         });
 
+        private RelayCommand<DownloadHouseholdModel> _addMemberCommand;
+
+        public RelayCommand<DownloadHouseholdModel> AddMemberCommand
+        {
+            get
+            {
+                return _addMemberCommand ?? (_addMemberCommand = new RelayCommand<DownloadHouseholdModel>((h) =>
+                {
+                    dialogService.ShowDialog("FamilyMemberSelector", h);
+                }));
+            }
+
+        }
+
+
         public HouseholdsVM(RescueClient rescueClient, DialogService dialogService)
         {
             this.dialogService = dialogService;
-
             this.rescueClient = rescueClient;
             if (IsInDesignModeStatic)
             {
@@ -93,19 +107,8 @@ namespace RescueApp.Views
             }
             else
             {
-                rescueClient.GetHouseholds((ex, hous) =>
-                {
-                    if (ex == null)
-                    {
-                        foreach (var item in hous)
-                        {
-                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                            {
-                                _households.Add(item);
-                            });
-                        }
-                    }
-                });
+                LoadHouseholds();
+
                 MessengerInstance.Register<Messages.AddEditResultMessage<DownloadHouseholdModel>>(this, (rslt) =>
                 {
                     if (rslt.Error == null)
@@ -123,6 +126,23 @@ namespace RescueApp.Views
                     }
                 });
             }
+        }
+
+        private void LoadHouseholds()
+        {
+            rescueClient.GetHouseholds((ex, hous) =>
+            {
+                if (ex == null)
+                {
+                    foreach (var item in hous)
+                    {
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            _households.Add(item);
+                        });
+                    }
+                }
+            });
         }
     }
 }

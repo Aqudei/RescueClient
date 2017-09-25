@@ -162,6 +162,10 @@
       <DependentUpon>EvacuationList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EvacuationListVM.cs" />
+    <Compile Include="Views\FamilyMemberSelector.xaml.cs">
+      <DependentUpon>FamilyMemberSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FamilyMemberSelectorVM.cs" />
     <Compile Include="Views\Households.xaml.cs">
       <DependentUpon>Households.xaml</DependentUpon>
     </Compile>
@@ -220,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EvacuationList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FamilyMemberSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -57,6 +57,7 @@ namespace RescueApp.ViewModel
                 cfg.CreateMap<DownloadHouseholdModel, DownloadHouseholdModel>();
                 cfg.CreateMap<DownloadHouseholdModel, UploadHouseholdModel>();
             });
+
             SimpleIoc.Default.Register<AddEditHouseholdVM>();
             SimpleIoc.Default.Register<HouseholdsVM>();
             SimpleIoc.Default.Register<DialogService>();
@@ -70,12 +71,22 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.Register<PeopleVM>();
             SimpleIoc.Default.Register<AddEditEvacuationVM>();
             SimpleIoc.Default.Register<StatisticsVM>();
+            SimpleIoc.Default.Register<FamilyMemberSelectorVM>();
 
 
 
             if (!ViewModelBase.IsInDesignModeStatic)
             {
                 InitializeDialogs();
+            }
+        }
+
+
+        public FamilyMemberSelectorVM FamilyMemberSelectorVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<FamilyMemberSelectorVM>();
             }
         }
 
@@ -86,6 +97,7 @@ namespace RescueApp.ViewModel
                 return ServiceLocator.Current.GetInstance<StatisticsVM>();
             }
         }
+
         public AddEditHouseholdVM AddEditHouseholdVM
         {
             get
@@ -177,6 +189,7 @@ namespace RescueApp.ViewModel
             dialogService.RegisterDialog<AddEditPerson>("AddEditPerson");
             dialogService.RegisterDialog<AddEditEvacuation>("AddEditEvacuation");
             dialogService.RegisterDialog<AddEditHousehold>("AddEditHousehold");
+            dialogService.RegisterDialog<FamilyMemberSelector>("FamilyMemberSelector");
         }
     }
 }

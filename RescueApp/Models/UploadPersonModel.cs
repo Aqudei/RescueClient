@@ -8,11 +8,11 @@ namespace RescueApp.Models
 {
     public class UploadPersonModel : WithID
     {
-        String firstName;
-        String middleName;
-        String lastName;
-        string birthday;
-        String bloodType;
+        private String firstName;
+        private String middleName;
+        private String lastName;
+        private string birthday;
+        private String bloodType;
 
         public string FirstName { get => firstName; set => firstName = value; }
         public string MiddleName { get => middleName; set => middleName = value; }

@@ -8,11 +8,15 @@
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
              DataContext="{Binding HouseholdsVM, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="400">
     <UserControl.Resources>
 
     </UserControl.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <ListView ItemsSource="{Binding Households}" x:Name="_householdList"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemTemplate>
@@ -20,29 +24,41 @@
                     <Grid Margin="12">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="HOUSE #: "/>
-                                <TextBlock Text="{Binding HouseNumber}"/>
-                                <Button Command="{Binding DataContext.EditItemCommand, ElementName=_householdList, Mode=OneWay}" CommandParameter="{Binding Mode=OneWay}" >
-                                    <iconPacks:PackIconModern Kind="Edit"/>
-                                </Button>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="ADRESS #: "/>
-                                <TextBlock Text="{Binding Address}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="FAMILY HEAD: " FontWeight="Bold"/>
                                 <TextBlock  Text="{Binding FamilyHead}" FontWeight="Bold" RenderTransformOrigin="0.264,19.145"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock><Run Text="H"/><Run Text="ouse Number"/><Run Text=":"/><Run Text=" #"/></TextBlock>
+                                <TextBlock Text="{Binding HouseNumber}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock><Run Text="Address"/><Run Text=": "/></TextBlock>
+                                <TextBlock Text="{Binding Address}"/>
+                            </StackPanel>
+                            <StackPanel Width="Auto" d:LayoutOverrides="TopPosition, BottomPosition" Orientation="Horizontal">
+                                <Button Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Padding="6"
+                                        Command="{Binding DataContext.EditItemCommand, ElementName=_householdList, Mode=OneWay}" 
+                                        CommandParameter="{Binding Mode=OneWay}" HorizontalAlignment="Left" >
+                                    <iconPacks:PackIconModern Kind="Edit"/>
+                                </Button>
+                                <Button Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Padding="6"
+                                        Command="{Binding DataContext.EditItemCommand, ElementName=_householdList, Mode=OneWay}" 
+                                        CommandParameter="{Binding Mode=OneWay}" HorizontalAlignment="Left" >
+                                    <iconPacks:PackIconModern Kind="Delete"/>
+                                </Button>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
         </ListView>
+
+        <DockPanel Grid.Column="1">
+            <StackPanel Orientation="Vertical">
+                <ItemsControl ItemsPanel="{Binding}"/>
+                <Button Command="{Binding AddMemberCommand}">Add Family Member</Button>
+            </StackPanel>
+
+        </DockPanel>
     </Grid>
 </UserControl>
