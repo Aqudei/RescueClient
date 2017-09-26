@@ -276,15 +276,11 @@ namespace RescueApp
             DownloadHouseholdModel> callback, string choosenPhoto = "")
         {
             var request = new RestRequest("/api/households/" + household.Id + "/", Method.PATCH);
-
-            request.AddParameter("Address", household.Address);
-            request.AddParameter("EconomicStatus", household.EconomicStatus);
-            request.AddParameter("HouseNumber", household.HouseNumber);
-            request.AddParameter("IsOwned", household.IsOwned);
-
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(household);
             _client.ExecuteAsync<DownloadHouseholdModel>(request, rslt =>
             {
-                if (rslt.StatusCode != System.Net.HttpStatusCode.Created)
+                if (rslt.StatusCode != System.Net.HttpStatusCode.OK)
                 {
                     callback(new Exception("" + rslt.StatusDescription), null);
                     return;
@@ -301,10 +297,12 @@ namespace RescueApp
                         {
                             rsltUpload.Data.Photo = NormalizeUri(rsltUpload.Data.Photo);
                             callback(null, rsltUpload.Data);
+                            return;
                         }
                         else
                         {
                             callback(new Exception(), null);
+                            return;
                         }
                     });
                 }
