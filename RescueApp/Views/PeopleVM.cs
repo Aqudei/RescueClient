@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using RescueApp.Messages;
 using RescueApp.Models;
+using RescueApp.Views.Helpers;
 using RescueApp.ViewServices;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class PeopleVM : ViewModelBase, ICrudVM<DownloadPersonModel>
+    public class PeopleVM : PageBase, ICrudVM<DownloadPersonModel>
     {
         public ObservableCollection<DownloadPersonModel> People { get; set; }
             = new ObservableCollection<DownloadPersonModel>();
@@ -158,6 +159,11 @@ namespace RescueApp.Views
                     }
                 }
             });
+        }
+
+        public override void OnShow<T>(T args)
+        {
+
         }
     }
 }

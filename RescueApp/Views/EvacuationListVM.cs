@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
 using RescueApp.Models;
+using RescueApp.Views.Helpers;
 using RescueApp.ViewServices;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class EvacuationListVM : ViewModelBase, ICrudVM<Center>
+    public class EvacuationListVM : PageBase, ICrudVM<Center>
     {
         public string Title { get; set; } = "Evacuation Centers";
 
@@ -91,6 +92,11 @@ namespace RescueApp.Views
                     }
                 }
             });
+        }
+
+        public override void OnShow<T>(T args)
+        {
+            
         }
 
         private readonly RescueClient _rescueClient;

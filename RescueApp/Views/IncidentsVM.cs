@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using RescueApp.Models;
+using RescueApp.Views.Helpers;
 using RescueApp.ViewServices;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class IncidentsVM : ViewModelBase
+    public class IncidentsVM : PageBase
     {
         private readonly DialogService dialogService;
         private readonly RescueClient rescueClient;
@@ -25,6 +26,11 @@ namespace RescueApp.Views
             this.rescueClient = rescueClient;
 
 
+        }
+
+        public override void OnShow<T>(T args)
+        {
+            
         }
     }
 }

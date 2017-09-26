@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using GalaSoft.MvvmLight.CommandWpf;
 using RescueApp.ViewServices;
+using RescueApp.Views.Helpers;
 
 namespace RescueApp.Views
 {
-    public class HouseholdsVM : ViewModelBase, ICrudVM<DownloadHouseholdModel>
+    public class HouseholdsVM : PageBase, ICrudVM<DownloadHouseholdModel>
     {
         public String Title { get; set; } = "Households";
 
@@ -156,6 +157,11 @@ namespace RescueApp.Views
                     }
                 }
             });
+        }
+
+        public override void OnShow<T>(T args)
+        {
+            
         }
     }
 }

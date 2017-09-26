@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Linq;
+using RescueApp.Views.Helpers;
 
 namespace RescueApp.ViewModel
 {
@@ -21,7 +22,7 @@ namespace RescueApp.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : PageBase
     {
         public string AppTitle { get; set; } = "DISASTER+RISK REDUCTION MANAGEMENT SYSTEM";
 
@@ -31,7 +32,7 @@ namespace RescueApp.ViewModel
         public MainViewModel()
         { }
 
-        public List<ViewModelBase> Screens { get; set; } = new List<ViewModelBase>
+        public List<PageBase> Screens { get; set; } = new List<PageBase>
         {
             SimpleIoc.Default.GetInstance<MissionStatementVM>(),
             SimpleIoc.Default.GetInstance<HouseholdsVM>(),
@@ -41,9 +42,9 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.GetInstance<MonitoringVM>()
         };
 
-        private ViewModelBase _selectedScreen;
+        private PageBase _selectedScreen;
 
-        public ViewModelBase SelectedScreen
+        public PageBase SelectedScreen
         {
             get { return _selectedScreen; }
             set
@@ -67,5 +68,8 @@ namespace RescueApp.ViewModel
                 return false;
             }
         }
+
+        public override void OnShow<T>(T args)
+        { }
     }
 }

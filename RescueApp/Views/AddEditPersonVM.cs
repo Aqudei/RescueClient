@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using RescueApp.Interfaces;
 using RescueApp.Messages;
 using RescueApp.Models;
+using RescueApp.Views.Helpers;
 using RescueApp.ViewServices;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class AddEditPersonVM : ViewModelBase, IEditor<DownloadPersonModel>
+    public class AddEditPersonVM : PageBase, IEditor<DownloadPersonModel>
     {
         private string _choosenPhoto;
         public string ChoosenPhoto
@@ -192,6 +193,11 @@ namespace RescueApp.Views
             if (string.IsNullOrEmpty(item.Birthday))
                 return;
             Birthday = DateTime.Parse(item.Birthday);
+        }
+
+        public override void OnShow<T>(T args)
+        {
+            
         }
 
         private String _contact;

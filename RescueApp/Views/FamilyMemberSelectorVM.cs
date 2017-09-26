@@ -11,10 +11,12 @@ using System.ComponentModel;
 using System.Windows.Data;
 using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.CommandWpf;
+using RescueApp.Views.Helpers;
+using RescueApp.Messages;
 
 namespace RescueApp.Views
 {
-    public class FamilyMemberSelectorVM : ViewModelBase, IEditor<DownloadHouseholdModel>
+    public class FamilyMemberSelectorVM : PageBase, IEditor<DownloadHouseholdModel>
     {
         private readonly RescueClient rescueClient;
 
@@ -104,6 +106,7 @@ namespace RescueApp.Views
                     {
                         if (ex == null)
                         {
+                            MessengerInstance.Send(new AddEditResultMessage<DownloadHouseholdModel>(ex, household_new));
                             Edit(household_new);
                         }
                     });
@@ -113,7 +116,6 @@ namespace RescueApp.Views
 
         private void LoadAllPeople()
         { }
-
 
         class MyComparer : IEqualityComparer<DownloadPersonModel>
         {
@@ -152,6 +154,11 @@ namespace RescueApp.Views
                     });
                 }
             });
+        }
+
+        public override void OnShow<T>(T args)
+        {
+            
         }
     }
 }

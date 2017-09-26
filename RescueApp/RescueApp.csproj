@@ -166,6 +166,7 @@
       <DependentUpon>FamilyMemberSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FamilyMemberSelectorVM.cs" />
+    <Compile Include="Views\Helpers\PageBase.cs" />
     <Compile Include="Views\Households.xaml.cs">
       <DependentUpon>Households.xaml</DependentUpon>
     </Compile>
@@ -313,6 +314,11 @@
       <Project>{f0bf484b-da92-41e0-b443-ee2ee3a5d574}</Project>
       <Name>SimpleLuxCamera</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\house-41415_960_720.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

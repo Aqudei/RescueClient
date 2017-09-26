@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using RescueApp.Models;
+using RescueApp.Views.Helpers;
 using RescueApp.ViewServices;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class AddEditEvacuationVM : ViewModelBase
+    public class AddEditEvacuationVM : PageBase
     {
         private string _choosenPhoto;
 
@@ -110,6 +111,11 @@ namespace RescueApp.Views
             Name = "";
             ChoosenPhoto = null;
             Capacity = 0;
+        }
+
+        public override void OnShow<T>(T args)
+        {
+            
         }
     }
 }

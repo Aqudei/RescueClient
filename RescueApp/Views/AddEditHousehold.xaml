@@ -8,19 +8,34 @@
              xmlns:local="clr-namespace:RescueApp.Views"
              DataContext="{Binding AddEditHouseholdVM,Source={StaticResource Locator}}"
              mc:Ignorable="d" 
-             d:DesignHeight="553.191" d:DesignWidth="563.83">
+             d:DesignHeight="350.433" d:DesignWidth="722.052">
     <Grid>
+        <Grid.Resources>
+            <BitmapImage UriSource="/RescueApp;component/Resources/house-41415_960_720.png" 
+                         x:Key="house" />
+        </Grid.Resources>
 
-
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="142,10,0,0" TextWrapping="Wrap" Text="{Binding Current.HouseNumber, Mode=TwoWay}" VerticalAlignment="Top" Width="191"/>
-        <Label Content="House #:" HorizontalAlignment="Left" Margin="34,10,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="142,46,0,0" TextWrapping="Wrap" Text="{Binding Current.Address}" VerticalAlignment="Top" Width="191"/>
-        <Label Content="Address:" HorizontalAlignment="Left" Margin="34,46,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="142,84,0,0" TextWrapping="Wrap" Text="{Binding Current.EconomicStatus}" VerticalAlignment="Top" Width="191"/>
-        <Label Content="Economic Status:" HorizontalAlignment="Left" Margin="34,84,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Is Owned" HorizontalAlignment="Left" Margin="142,124,0,0" VerticalAlignment="Top" IsChecked="{Binding Current.IsOwned}"/>
-        <Button Content="SAVE" HorizontalAlignment="Left" Margin="74,179,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand, Mode=OneWay}"/>
-        <Button Content="CLOSE" HorizontalAlignment="Left" Margin="178,179,0,0" VerticalAlignment="Top" Width="75" Click="CloseButton_Click"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="142,10,0,0" TextWrapping="Wrap" Text="{Binding Current.HouseNumber, Mode=TwoWay}" VerticalAlignment="Top" Width="220"/>
+        <Label Content="House #:" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="142,46,0,0" TextWrapping="Wrap" Text="{Binding Current.Address}" VerticalAlignment="Top" Width="220"/>
+        <Label Content="Address:" HorizontalAlignment="Left" Margin="24,46,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="142,84,0,0" TextWrapping="Wrap" Text="{Binding Current.EconomicStatus}" VerticalAlignment="Top" Width="220"/>
+        <Label Content="Economic Status:" HorizontalAlignment="Left" Margin="24,84,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Is Owned" HorizontalAlignment="Left" Margin="289,131,0,0" VerticalAlignment="Top" IsChecked="{Binding Current.IsOwned}"/>
+        <Button Content="SAVE" HorizontalAlignment="Left" Margin="103,283,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand, Mode=OneWay}"/>
+        <Button Content="CLOSE" HorizontalAlignment="Left" Margin="207,283,0,0" VerticalAlignment="Top" Width="75" Click="CloseButton_Click"/>
+        <Image HorizontalAlignment="Left" 
+               Height="300" 
+               Margin="389,10,0,0" 
+               VerticalAlignment="Top" 
+               Width="300" Source="{Binding Current.Photo, TargetNullValue={StaticResource house}}"/>
+        <Button Content="Browse" 
+                HorizontalAlignment="Left" 
+                Margin="566,254,0,0" 
+                VerticalAlignment="Top" Width="75"/>
+        <Label Content="Evacuation Center:" HorizontalAlignment="Left" Margin="24,167,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="142,167,0,0" VerticalAlignment="Top" Width="220"/>
+        <ComboBox HorizontalAlignment="Left" Margin="-218,222,0,0" VerticalAlignment="Top" Width="120"/>
 
 
     </Grid>
