@@ -33,8 +33,6 @@
                 HorizontalAlignment="Left" 
                 Margin="566,254,0,0" 
                 VerticalAlignment="Top" Width="75"/>
-        <Label Content="Evacuation Center:" HorizontalAlignment="Left" Margin="24,167,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="142,167,0,0" VerticalAlignment="Top" Width="220"/>
         <ComboBox HorizontalAlignment="Left" Margin="-218,222,0,0" VerticalAlignment="Top" Width="120"/>
 
 

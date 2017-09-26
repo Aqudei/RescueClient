@@ -33,33 +33,10 @@ namespace RescueApp.Views
         {
             this.rescueClient = rescueClient;
             this.dialogService = dialogService;
-
-            LoadEvacuationCenters();
-        }
-
-        public ObservableCollection<Center> Centers { get; set; }
-            = new ObservableCollection<Center>();
-
-        private void LoadEvacuationCenters()
-        {
-            Centers.Clear();
-
-            rescueClient.GetCenters((ex, centers) =>
-            {
-                if (ex == null)
-                {
-                    foreach (var c in centers)
-                    {
-                        Centers.Add(c);
-                    }
-                }
-            });
         }
 
         public override void OnShow<T>(T args)
-        {
-            throw new NotImplementedException();
-        }
+        { }
 
         private RelayCommand _saveCommand;
 

@@ -2,6 +2,7 @@
 using RescueApp.Interfaces;
 using RescueApp.Views;
 using RescueApp.Views.Dialogs;
+using RescueApp.Views.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,7 @@ namespace RescueApp.ViewServices
             _container._container.Children.Add(view as FrameworkElement);
             var editor = ((view as FrameworkElement).DataContext as IEditor<T>);
             editor?.Edit(old);
+            
             _container.ShowDialog();
         }
 

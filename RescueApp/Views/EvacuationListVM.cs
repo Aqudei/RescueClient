@@ -95,9 +95,7 @@ namespace RescueApp.Views
         }
 
         public override void OnShow<T>(T args)
-        {
-            
-        }
+        { }
 
         private readonly RescueClient _rescueClient;
         private readonly DialogService dialogService;

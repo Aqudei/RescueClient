@@ -151,6 +151,10 @@
       <DependentUpon>AddEditPerson.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddEditPersonVM.cs" />
+    <Compile Include="Views\CenterSelector.xaml.cs">
+      <DependentUpon>CenterSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CenterSelectorVM.cs" />
     <Compile Include="Views\DialogHost.xaml.cs">
       <DependentUpon>DialogHost.xaml</DependentUpon>
     </Compile>
@@ -213,6 +217,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddEditPerson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CenterSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

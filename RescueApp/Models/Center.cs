@@ -38,5 +38,17 @@ namespace RescueApp.Models
             get { return _photo; }
             set { _photo = value; }
         }
+
+        private List<DownloadPersonModel> _members;
+
+        public List<DownloadPersonModel> members
+        {
+            get { return _members; }
+            set
+            {
+                Set(ref _members, value);
+            }
+        }
+
     }
 }
