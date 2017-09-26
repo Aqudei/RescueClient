@@ -18,8 +18,18 @@ namespace RescueApp.Views
     {
         private readonly RescueClient rescueClient;
 
-        public DownloadHouseholdModel CurrentHousehold { get; set; }
-            = new DownloadHouseholdModel();
+        private DownloadHouseholdModel _currentHousehold;
+
+        public DownloadHouseholdModel CurrentHousehold
+        {
+            get { return _currentHousehold; }
+            set
+            {
+                Set(ref _currentHousehold, value);
+
+            }
+        }
+
 
         private ObservableCollection<DownloadPersonModel> _allPeople
             = new ObservableCollection<DownloadPersonModel>();
@@ -30,6 +40,18 @@ namespace RescueApp.Views
             get
             {
                 return _allPeopleView ?? (_allPeopleView = CollectionViewSource.GetDefaultView(_allPeople));
+            }
+        }
+
+        private ObservableCollection<DownloadPersonModel> _peopleNotMembers
+            = new ObservableCollection<DownloadPersonModel>();
+
+        private ICollectionView _peopleNotMembersView;
+        public ICollectionView PeopleNotMembersView
+        {
+            get
+            {
+                return _peopleNotMembersView ?? (_peopleNotMembersView = CollectionViewSource.GetDefaultView(_peopleNotMembers));
             }
         }
 
@@ -69,23 +91,7 @@ namespace RescueApp.Views
                     LastName = "PORPORA"
                 });
             }
-            else
-                LoadAllPeople();
         }
-
-        private ObservableCollection<DownloadPersonModel> _peopleNotMembers
-            = new ObservableCollection<DownloadPersonModel>();
-
-        private ICollectionView _peopleNotMembersView;
-
-        public ICollectionView PeopleNotMembersView
-        {
-            get
-            {
-                return _peopleNotMembersView ?? (_peopleNotMembersView = CollectionViewSource.GetDefaultView(_peopleNotMembers));
-            }
-        }
-
 
         private RelayCommand<DownloadPersonModel> _toggleMembership;
         public RelayCommand<DownloadPersonModel> ToggleMembership
@@ -96,17 +102,9 @@ namespace RescueApp.Views
                 {
                     rescueClient.ToggleMembership(p, CurrentHousehold, (ex, household_new) =>
                     {
-                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        if (ex == null)
                         {
                             Edit(household_new);
-                        });
-
-                        foreach (var item in household_new.members)
-                        {
-                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                            {
-
-                            });
                         }
                     });
                 }));
@@ -114,27 +112,46 @@ namespace RescueApp.Views
         }
 
         private void LoadAllPeople()
+        { }
+
+
+        class MyComparer : IEqualityComparer<DownloadPersonModel>
         {
-            _allPeople.Clear();
+            public bool Equals(DownloadPersonModel x, DownloadPersonModel y)
+            {
+                if (x == null || y == null)
+                    return false;
+
+                return x.Id == y.Id;
+            }
+
+            public int GetHashCode(DownloadPersonModel obj)
+            {
+                return obj.Id.GetHashCode();
+            }
+        }
+
+        MyComparer _myComparer = new MyComparer();
+
+        public void Edit(DownloadHouseholdModel item)
+        {
+            CurrentHousehold = item;
+
             rescueClient.GetPeople((ex, people) =>
             {
                 if (ex == null)
                 {
-                    foreach (var item in people)
+                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
                     {
-                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        _allPeople.Clear();
+                        var diff = people.Except(item.members, _myComparer);
+                        foreach (var person in diff)
                         {
-                            _allPeople.Add(item);
-                        });
-                    }
+                            _allPeople.Add(person);
+                        }
+                    });
                 }
             });
-        }
-
-        public void Edit(DownloadHouseholdModel item)
-        {
-            AutoMapper.Mapper.Map(item, CurrentHousehold,
-                typeof(DownloadHouseholdModel), typeof(DownloadHouseholdModel));
         }
     }
 }

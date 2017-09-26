@@ -73,7 +73,7 @@ namespace RescueApp
         public void ToggleMembership(DownloadPersonModel person, DownloadHouseholdModel household,
             Action<Exception, DownloadHouseholdModel> callback)
         {
-            var request = new RestRequest("/api/people/" + person.Id + "/toggle_membership", Method.PATCH);
+            var request = new RestRequest("/api/people/" + person.Id + "/toggle_membership/", Method.PATCH);
             request.AddParameter("household_id", household.Id);
             _client.ExecuteAsync<DownloadHouseholdModel>(request, rslt =>
             {
