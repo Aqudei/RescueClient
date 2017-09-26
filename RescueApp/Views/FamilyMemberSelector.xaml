@@ -5,10 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
              xmlns:maha ="http://metro.mahapps.com/winfx/xaml/controls"
+            xmlns:iconpacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" x:Class="RescueApp.Views.FamilyMemberSelector"
             DataContext="{Binding FamilyMemberSelectorVM, Source={StaticResource Locator}}"         
     mc:Ignorable="d" 
-             d:DesignHeight="317" d:DesignWidth="670">
+             d:DesignHeight="686.28" d:DesignWidth="670">
 
     <UserControl.Resources>
         <xcdg:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
@@ -88,7 +89,12 @@
 
 
         <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Button Content="Done" Click="Close"/>
+            <Button Click="Close">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <iconpacks:PackIconModern Kind="Close" />
+                    <TextBlock Margin="8,0,0,0">CLOSE</TextBlock>
+                </StackPanel>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>
