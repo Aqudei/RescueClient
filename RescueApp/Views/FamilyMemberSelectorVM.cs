@@ -16,57 +16,36 @@ namespace RescueApp.Views
 {
     public class FamilyMemberSelectorVM : ViewModelBase, IEditor<DownloadHouseholdModel>
     {
-        public class SelectablePerson : ObservableObject
-        {
-            public DownloadPersonModel Person { get; set; }
-
-            private bool _isFamilyMember;
-            public bool IsFamilyMember
-            {
-                get
-                {
-                    return _isFamilyMember;
-                }
-                set
-                {
-                    Set(ref _isFamilyMember, value);
-                }
-            }
-        }
-
-        private ObservableCollection<SelectablePerson> _people
-            = new ObservableCollection<SelectablePerson>();
+        private readonly RescueClient rescueClient;
 
         public DownloadHouseholdModel CurrentHousehold { get; set; }
             = new DownloadHouseholdModel();
 
-        private ICollectionView _peopleView;
-        public ICollectionView PeopleView
+        private ObservableCollection<DownloadPersonModel> _allPeople
+            = new ObservableCollection<DownloadPersonModel>();
+
+        private ICollectionView _allPeopleView;
+        public ICollectionView AllPeopleView
         {
             get
             {
-                return _peopleView ?? (_peopleView = CollectionViewSource.GetDefaultView(_people));
+                return _allPeopleView ?? (_allPeopleView = CollectionViewSource.GetDefaultView(_allPeople));
             }
         }
 
-        private readonly RescueClient rescueClient;
-
         private RelayCommand<string> _applyFilterCommand;
-
         public RelayCommand<string> ApplyFilterCommand
         {
             get
             {
                 return _applyFilterCommand ?? (_applyFilterCommand = new RelayCommand<string>((filterText) =>
                 {
-                    PeopleView.Filter = (o) =>
+                    AllPeopleView.Filter = (o) =>
                     {
-                        var p = (o as SelectablePerson);
+                        var p = (o as DownloadPersonModel);
                         if (p != null && !string.IsNullOrEmpty(filterText))
                         {
-                            return p.Person
-                                .FullName
-                                .ToLower()
+                            return p.FullName.ToLower()
                                 .Contains(filterText.ToLower());
                         }
                         return true;
@@ -75,54 +54,68 @@ namespace RescueApp.Views
             }
         }
 
-        private RelayCommand<DownloadPersonModel> _toggleMembership;
-
-        public RelayCommand<DownloadPersonModel> ToggleMembership
-        {
-            get
-            {
-                return _toggleMembership ?? (_toggleMembership = new RelayCommand<DownloadPersonModel>((person) =>
-                {
-                    rescueClient.ToggleMembership(person, CurrentHousehold, (ex, household) =>
-                    {
-                        if (ex == null)
-                        {
-                            AutoMapper.Mapper.Map(household, CurrentHousehold,
-                                typeof(DownloadHouseholdModel), typeof(DownloadHouseholdModel));
-                        }
-                    });
-                }));
-            }
-
-        }
-
-
         public FamilyMemberSelectorVM(RescueClient rescueClient)
         {
             this.rescueClient = rescueClient;
 
-
-
             if (IsInDesignModeStatic)
             {
-                _people.Add(new SelectablePerson
+                _allPeople.Add(new
+
+                    DownloadPersonModel
                 {
-                    Person = new DownloadPersonModel
-                    {
-                        FirstName = "DONATO",
-                        MiddleName = "DONATO",
-                        LastName = "DONATO"
-                    },
-                    IsFamilyMember = true
+                    FirstName = "DONATO",
+                    MiddleName = "G",
+                    LastName = "PORPORA"
                 });
             }
             else
-                LoadPeople();
+                LoadAllPeople();
         }
 
-        private void LoadPeople()
+        private ObservableCollection<DownloadPersonModel> _peopleNotMembers
+            = new ObservableCollection<DownloadPersonModel>();
+
+        private ICollectionView _peopleNotMembersView;
+
+        public ICollectionView PeopleNotMembersView
         {
-            _people.Clear();
+            get
+            {
+                return _peopleNotMembersView ?? (_peopleNotMembersView = CollectionViewSource.GetDefaultView(_peopleNotMembers));
+            }
+        }
+
+
+        private RelayCommand<DownloadPersonModel> _toggleMembership;
+        public RelayCommand<DownloadPersonModel> ToggleMembership
+        {
+            get
+            {
+                return _toggleMembership ?? (_toggleMembership = new RelayCommand<DownloadPersonModel>((p) =>
+                {
+                    rescueClient.ToggleMembership(p, CurrentHousehold, (ex, household_new) =>
+                    {
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            Edit(household_new);
+                        });
+
+                        foreach (var item in household_new.members)
+                        {
+                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                            {
+
+                            });
+                        }
+                    });
+                }));
+            }
+        }
+
+        private void LoadAllPeople()
+        {
+            _allPeople.Clear();
             rescueClient.GetPeople((ex, people) =>
             {
                 if (ex == null)
@@ -131,11 +124,7 @@ namespace RescueApp.Views
                     {
                         DispatcherHelper.CheckBeginInvokeOnUI(() =>
                         {
-                            _people.Add(new SelectablePerson
-                            {
-                                Person = item,
-                                IsFamilyMember = CurrentHousehold.members.Where(m => m.Id == item.Id).Any()
-                            });
+                            _allPeople.Add(item);
                         });
                     }
                 }

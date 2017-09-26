@@ -61,6 +61,7 @@
                 <ItemsControl ItemsPanel="{Binding}"/>
                 <Button maha:ButtonHelper.CornerRadius="5" 
                         Command="{Binding AddMemberCommand}" 
+                        CommandParameter="{Binding Households/}"
                         Width="100" Margin="8">
 
                     <TextBlock TextWrapping="Wrap">Manage Family Members</TextBlock>

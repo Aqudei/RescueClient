@@ -1,13 +1,19 @@
-﻿<UserControl x:Class="RescueApp.Views.FamilyMemberSelector"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
              xmlns:maha ="http://metro.mahapps.com/winfx/xaml/controls"
-             DataContext="{Binding FamilyMemberSelectorVM, Source={StaticResource Locator}}"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="464">
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" x:Class="RescueApp.Views.FamilyMemberSelector"
+            DataContext="{Binding FamilyMemberSelectorVM, Source={StaticResource Locator}}"         
+    mc:Ignorable="d" 
+             d:DesignHeight="317" d:DesignWidth="670">
+
+    <UserControl.Resources>
+        <xcdg:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,8 +21,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Margin="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
+        <StackPanel Orientation="Horizontal" Margin="8" Grid.ColumnSpan="3">
             <TextBox x:Name="_filterText"  maha:TextBoxHelper.Watermark="Please Type Search Keyword..."  
                       Margin="0,0,4,0" Width="236"/>
             <Button Command="{Binding ApplyFilterCommand}" 
@@ -25,32 +36,33 @@
                     Margin="4,0,0,0" />
         </StackPanel>
 
-        <ItemsControl Grid.Row="1"
-                      ItemsSource="{Binding PeopleView}"  
-                      x:Name="_peopleList">
-            <ItemsControl.ItemTemplate>
+        <ListView Grid.Row="1" Margin="8"
+                      x:Name="_peopleList_NotMembers"
+                        IsSynchronizedWithCurrentItem="True"
+                      ItemsSource="{Binding PeopleNotMembersView}">
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical" Margin="8">
-                        <TextBlock  Text="{Binding Person.FullName}" FontSize="18" FontWeight="Bold"/>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                <Button Width="100" 
-                                        Margin="4,0">
-                                    <TextBlock TextWrapping="Wrap">ADD AS FAMILY MEMBER</TextBlock>
-                                </Button>
-                                <Button Width="100" Margin="4,0">
-                                    <TextBlock TextWrapping="Wrap">REMOVE FROM FAMILY MEMBERS</TextBlock>
-                                </Button>
-                            </StackPanel>
-                        </Grid>
-                    </StackPanel>
+
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Grid.Row="1" Grid.Column="2" Margin="8"
+            x:Name="_peopleList_Members"
+            IsSynchronizedWithCurrentItem="True"
+            ItemsSource="{Binding CurrentHousehold.members}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding FullName, Mode=OneWay}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center" Grid.Row="1">
+            <Button Command="{Binding ToggleMembership, Mode=OneWay}" CommandParameter="{Binding PeopleNotMembersView.CurrentItem, Mode=OneWay}">Add As Member >></Button>
+            <Button Command="{Binding ToggleMembership, Mode=OneWay}" CommandParameter="{Binding ItemsSource/, ElementName=_peopleList_Members}">&lt;&lt;Remove As Member</Button>
+        </StackPanel>
+
+
         <StackPanel Orientation="Horizontal" Grid.Row="2">
             <Button Content="Done" Click="Close"/>
         </StackPanel>
