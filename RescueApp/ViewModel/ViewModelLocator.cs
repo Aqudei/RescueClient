@@ -54,8 +54,10 @@ namespace RescueApp.ViewModel
                 cfg.CreateMap<AddEditEvacuationVM, Center>();
                 cfg.CreateMap<Center, AddEditEvacuationVM>();
                 cfg.CreateMap<DownloadPersonModel, UploadPersonModel>();
-                cfg.CreateMap<DownloadHouseholdModel, DownloadHouseholdModel>();
+                cfg.CreateMap<DownloadPersonModel, DownloadPersonModel>();
                 cfg.CreateMap<DownloadHouseholdModel, UploadHouseholdModel>();
+                cfg.CreateMap<DownloadHouseholdModel, DownloadHouseholdModel>();
+                
             });
 
             SimpleIoc.Default.Register<AddEditHouseholdVM>();

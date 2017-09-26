@@ -7,7 +7,7 @@
              xmlns:maha ="http://metro.mahapps.com/winfx/xaml/controls"
              DataContext="{Binding FamilyMemberSelectorVM, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="464">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,27 +17,35 @@
 
         <StackPanel Orientation="Horizontal" Margin="8">
 
-            <TextBox  maha:TextBoxHelper.Watermark="Please Type Search Keyword..." Text="{Binding FilterText}" Margin="0,0,4,0"/>
-            <Button Content="Search" Margin="4,0,0,0"/>
+            <TextBox x:Name="_filterText"  maha:TextBoxHelper.Watermark="Please Type Search Keyword..."  
+                      Margin="0,0,4,0" Width="236"/>
+            <Button Command="{Binding ApplyFilterCommand}" 
+                    CommandParameter="{Binding Text, ElementName=_filterText}"
+                    Content="Search" 
+                    Margin="4,0,0,0" />
         </StackPanel>
 
         <ItemsControl Grid.Row="1"
-                      ItemsSource="{Binding PeopleView}"  >
+                      ItemsSource="{Binding PeopleView}"  
+                      x:Name="_peopleList">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical" Margin="8">
-                        <TextBlock  Text="{Binding Person.FullName}"/>
+                        <TextBlock  Text="{Binding Person.FullName}" FontSize="18" FontWeight="Bold"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="Is Family Member?" VerticalAlignment="Center" />
-                            <maha:ToggleSwitch Grid.Column="1" 
-                                               maha:ControlsHelper.ContentCharacterCasing="Upper" 
-                                               OffLabel="No" 
-                                               HorizontalAlignment="Right"
-                                               OnLabel="Yes" VerticalAlignment="Center" />
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <Button Width="100" 
+                                        Margin="4,0">
+                                    <TextBlock TextWrapping="Wrap">ADD AS FAMILY MEMBER</TextBlock>
+                                </Button>
+                                <Button Width="100" Margin="4,0">
+                                    <TextBlock TextWrapping="Wrap">REMOVE FROM FAMILY MEMBERS</TextBlock>
+                                </Button>
+                            </StackPanel>
                         </Grid>
                     </StackPanel>
                 </DataTemplate>

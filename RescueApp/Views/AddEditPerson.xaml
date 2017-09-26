@@ -101,7 +101,7 @@
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <TextBlock x:Name="textBlock" Text="Blood Type: "/>
                         <ComboBox Width="200" Text="{Binding BloodType, Mode=TwoWay}" SelectedIndex="0">
-                            <ComboBoxItem Content="Unknown"/>
+                            <ComboBoxItem Content="UNK"/>
                             <ComboBoxItem Content="A-"/>
                             <ComboBoxItem Content="A+"/>
                             <ComboBoxItem Content="B-"/>

@@ -38,20 +38,30 @@ namespace RescueApp.Views
             dialogService.ShowDialog("AddEditHousehold");
         });
 
-        public RelayCommand<DownloadHouseholdModel> DeleteItemCommand => new RelayCommand<DownloadHouseholdModel>(h =>
+
+        private RelayCommand<DownloadHouseholdModel> _deleteItemCommand;
+
+        public RelayCommand<DownloadHouseholdModel> DeleteItemCommand
         {
-            rescueClient.DeleteHousehold(h.Id, ex =>
+            get
             {
-                if (ex == null)
+                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<DownloadHouseholdModel>((h) =>
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                    rescueClient.DeleteHousehold(h.Id, ex =>
                     {
-                        _households.Remove(h);
+                        if (ex == null)
+                        {
+                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                            {
+                                _households.Remove(h);
+                            });
+                            MessengerInstance.Send(new Messages.StatsChangedMessage());
+                        }
                     });
-                    MessengerInstance.Send(new Messages.StatsChangedMessage());
-                }
-            });
-        });
+                }));
+            }
+
+        }
 
         public RelayCommand<DownloadHouseholdModel> EditItemCommand => new RelayCommand<DownloadHouseholdModel>((h) =>
         {
@@ -67,6 +77,9 @@ namespace RescueApp.Views
                 return _addMemberCommand ?? (_addMemberCommand = new RelayCommand<DownloadHouseholdModel>((h) =>
                 {
                     dialogService.ShowDialog("FamilyMemberSelector", h);
+                }, (x) =>
+                {
+                    return Households.CurrentItem != null;
                 }));
             }
 

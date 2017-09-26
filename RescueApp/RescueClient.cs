@@ -70,10 +70,10 @@ namespace RescueApp
             });
         }
 
-        internal void SetMembership(DownloadPersonModel person, DownloadHouseholdModel household,
+        public void ToggleMembership(DownloadPersonModel person, DownloadHouseholdModel household,
             Action<Exception, DownloadHouseholdModel> callback)
         {
-            var request = new RestRequest("/api/people/" + person.Id + "/set_membership", Method.POST);
+            var request = new RestRequest("/api/people/" + person.Id + "/toggle_membership", Method.PATCH);
             request.AddParameter("household_id", household.Id);
             _client.ExecuteAsync<DownloadHouseholdModel>(request, rslt =>
             {
@@ -272,7 +272,7 @@ namespace RescueApp
                 callback(null, rslt.Data);
             });
         }
-        public void UpdateHousehold(DownloadHouseholdModel household, Action<Exception,
+        public void UpdateHousehold(UploadHouseholdModel household, Action<Exception,
             DownloadHouseholdModel> callback, string choosenPhoto = "")
         {
             var request = new RestRequest("/api/households/" + household.Id + "/", Method.PATCH);

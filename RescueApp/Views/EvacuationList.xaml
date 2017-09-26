@@ -9,8 +9,11 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" DataContext="{Binding EvacuationListVM, Source={StaticResource Locator}}"
-             d:DesignHeight="793.322" d:DesignWidth="748.577">
+             d:DesignHeight="817.322" d:DesignWidth="1102.577">
 
+    <UserControl.Resources>
+        <BitmapImage UriSource="/RescueApp;component/Resources/icon_stayinside_shelterinside.png" x:Key="building"/>
+    </UserControl.Resources>
     <Grid>
         <DockPanel>
 
@@ -33,7 +36,7 @@
                                 <Image Width="256" 
                                        Height="256" 
                                         Stretch="UniformToFill" 
-                                        Source="{Binding Photo}" />
+                                        Source="{Binding Photo, TargetNullValue={StaticResource building}}" />
                             </Border>
 
                             <StackPanel Orientation="Vertical" 

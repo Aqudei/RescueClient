@@ -163,7 +163,6 @@ namespace RescueApp.Views
             Birthday = null;
             Address = "";
             Contact = "";
-            CivilStatus = "";
             Occupation = "";
             MedicalCondition = "";
             MedicineRequired = "";

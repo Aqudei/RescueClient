@@ -19,16 +19,17 @@ namespace RescueApp.Views
         public class SelectablePerson : ObservableObject
         {
             public DownloadPersonModel Person { get; set; }
-            private bool _selected;
-            public bool Selected
+
+            private bool _isFamilyMember;
+            public bool IsFamilyMember
             {
                 get
                 {
-                    return _selected;
+                    return _isFamilyMember;
                 }
                 set
                 {
-                    Set(ref _selected, value);
+                    Set(ref _isFamilyMember, value);
                 }
             }
         }
@@ -36,7 +37,7 @@ namespace RescueApp.Views
         private ObservableCollection<SelectablePerson> _people
             = new ObservableCollection<SelectablePerson>();
 
-        DownloadHouseholdModel CurrentHousehold
+        public DownloadHouseholdModel CurrentHousehold { get; set; }
             = new DownloadHouseholdModel();
 
         private ICollectionView _peopleView;
@@ -48,13 +49,30 @@ namespace RescueApp.Views
             }
         }
 
-        private string filterText;
         private readonly RescueClient rescueClient;
 
-        public string FilterText
+        private RelayCommand<string> _applyFilterCommand;
+
+        public RelayCommand<string> ApplyFilterCommand
         {
-            get { return filterText; }
-            set { Set(ref filterText, value); }
+            get
+            {
+                return _applyFilterCommand ?? (_applyFilterCommand = new RelayCommand<string>((filterText) =>
+                {
+                    PeopleView.Filter = (o) =>
+                    {
+                        var p = (o as SelectablePerson);
+                        if (p != null && !string.IsNullOrEmpty(filterText))
+                        {
+                            return p.Person
+                                .FullName
+                                .ToLower()
+                                .Contains(filterText.ToLower());
+                        }
+                        return true;
+                    };
+                }));
+            }
         }
 
         private RelayCommand<DownloadPersonModel> _toggleMembership;
@@ -65,7 +83,7 @@ namespace RescueApp.Views
             {
                 return _toggleMembership ?? (_toggleMembership = new RelayCommand<DownloadPersonModel>((person) =>
                 {
-                    rescueClient.SetMembership(person, CurrentHousehold, (ex, household) =>
+                    rescueClient.ToggleMembership(person, CurrentHousehold, (ex, household) =>
                     {
                         if (ex == null)
                         {
@@ -82,6 +100,9 @@ namespace RescueApp.Views
         public FamilyMemberSelectorVM(RescueClient rescueClient)
         {
             this.rescueClient = rescueClient;
+
+
+
             if (IsInDesignModeStatic)
             {
                 _people.Add(new SelectablePerson
@@ -92,7 +113,7 @@ namespace RescueApp.Views
                         MiddleName = "DONATO",
                         LastName = "DONATO"
                     },
-                    Selected = true
+                    IsFamilyMember = true
                 });
             }
             else
@@ -113,7 +134,7 @@ namespace RescueApp.Views
                             _people.Add(new SelectablePerson
                             {
                                 Person = item,
-                                Selected = CurrentHousehold.members.Where(m => m.Id == item.Id).Any()
+                                IsFamilyMember = CurrentHousehold.members.Where(m => m.Id == item.Id).Any()
                             });
                         });
                     }

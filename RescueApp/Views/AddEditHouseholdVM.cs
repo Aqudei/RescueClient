@@ -43,10 +43,21 @@ namespace RescueApp.Views
                 return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
                 {
                     var uploadHS = AutoMapper.Mapper.Map<UploadHouseholdModel>(Current);
-                    rescueClient.AddHousehold(uploadHS, (ex, hs) =>
+
+                    if (uploadHS.Id == 0)
                     {
-                        MessengerInstance.Send(new AddEditResultMessage<DownloadHouseholdModel>(ex, hs));
-                    });
+                        rescueClient.AddHousehold(uploadHS, (ex, hs) =>
+                        {
+                            MessengerInstance.Send(new AddEditResultMessage<DownloadHouseholdModel>(ex, hs));
+                        });
+                    }
+                    else
+                    {
+                        rescueClient.UpdateHousehold(uploadHS, (ex, hs) =>
+                        {
+                            MessengerInstance.Send(new AddEditResultMessage<DownloadHouseholdModel>(ex, hs));
+                        });
+                    }
                 }));
             }
 

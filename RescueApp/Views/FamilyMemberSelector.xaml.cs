@@ -20,6 +20,8 @@ namespace RescueApp.Views
     /// </summary>
     public partial class FamilyMemberSelector : UserControl
     {
+
+
         public FamilyMemberSelector()
         {
             InitializeComponent();
@@ -28,6 +30,11 @@ namespace RescueApp.Views
         private void Close(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();
+        }
+
+        private void ssss(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
