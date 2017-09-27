@@ -44,7 +44,7 @@ namespace RescueApp
             {
                 if (rslt.StatusCode != System.Net.HttpStatusCode.Created || rslt.ErrorException != null)
                 {
-                    callback(new Exception("" + rslt.StatusDescription), null);
+                    callback(new Exception(rslt.ErrorMessage + "\n" + rslt.StatusDescription), null);
                     return;
                 }
 
@@ -58,10 +58,12 @@ namespace RescueApp
                         {
                             rsltUpload.Data.Photo = NormalizeUri(rsltUpload.Data.Photo);
                             callback(null, rsltUpload.Data);
+                            return;
                         }
                         else
                         {
-                            callback(new Exception(), null);
+                            callback(null, rslt.Data);
+                            return;
                         }
                     });
                 }

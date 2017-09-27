@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:RescueApp.Views" 
              xmlns:iconPacks ="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:maha ="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             Dialog:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d" DataContext="{Binding AddEditPersonVM, Source={StaticResource Locator}}"
              d:DesignHeight="524.405">
     <UserControl.Resources>

@@ -20,6 +20,7 @@ using RescueApp.Views;
 using RescueApp.ViewServices;
 using RescueApp.Models;
 using RescueApp.Views.Dialogs;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace RescueApp.ViewModel
 {
@@ -57,9 +58,9 @@ namespace RescueApp.ViewModel
                 cfg.CreateMap<DownloadPersonModel, DownloadPersonModel>();
                 cfg.CreateMap<DownloadHouseholdModel, UploadHouseholdModel>();
                 cfg.CreateMap<DownloadHouseholdModel, DownloadHouseholdModel>();
-                
             });
 
+            SimpleIoc.Default.Register(() => DialogCoordinator.Instance);
             SimpleIoc.Default.Register<AddEditHouseholdVM>();
             SimpleIoc.Default.Register<HouseholdsVM>();
             SimpleIoc.Default.Register<DialogService>();

@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using MahApps.Metro.Controls.Dialogs;
 using RescueApp.Interfaces;
 using RescueApp.Messages;
 using RescueApp.Models;
@@ -25,6 +26,7 @@ namespace RescueApp.Views
 
         private readonly RescueClient _rescueClient;
         private readonly DialogService _dialogService;
+        private readonly IDialogCoordinator dialog;
 
         public int Id { get; set; }
         private string _firstName;
@@ -77,11 +79,11 @@ namespace RescueApp.Views
         }
 
         public AddEditPersonVM(RescueClient client,
-            DialogService dialogService)
+            DialogService dialogService, IDialogCoordinator dialog)
         {
             _rescueClient = client;
             _dialogService = dialogService;
-
+            this.dialog = dialog;
             MessengerInstance.Register<Dialogs.CapturedPhotoEvenArgs>(this, (p) =>
             {
                 ChoosenPhoto = p.PhotoPath;
@@ -133,6 +135,13 @@ namespace RescueApp.Views
                             if (ex == null)
                             {
                                 ClearFields();
+                                dialog.ShowMessageAsync(this, "SAVE OPERATION SUCCESSFULL",
+                                    string.Format("A person with name {0} has been saved", rslt.FullName));
+                            }
+                            else
+                            {
+                                dialog.ShowMessageAsync(this, "SAVE OPERATION FAILURE",
+                                    "Person not saved");
                             }
 
                             MessengerInstance.Send(new AddEditResultMessage<DownloadPersonModel>(ex, rslt));
@@ -145,6 +154,13 @@ namespace RescueApp.Views
                             if (ex == null)
                             {
                                 ClearFields();
+                                dialog.ShowMessageAsync(this, "SAVE OPERATION SUCCESSFULL",
+                                  string.Format("A person with name {0} has been saved", p.FullName));
+                            }
+                            else
+                            {
+                                dialog.ShowMessageAsync(this, "SAVE OPERATION FAILURE",
+                                   string.Format("Person not saved\n{0}", ex.Message));
                             }
 
                             MessengerInstance.Send(new AddEditResultMessage<DownloadPersonModel>(ex, p));
@@ -197,7 +213,7 @@ namespace RescueApp.Views
 
         public override void OnShow<T>(T args)
         {
-            
+
         }
 
         private String _contact;

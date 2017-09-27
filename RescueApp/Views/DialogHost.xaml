@@ -5,6 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RescueApp.Views"
+       
+        Title="{Binding Title, ElementName=_container}"
+    
         mc:Ignorable="d" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
         Height="300" Width="300" ShowCloseButton="False" ShowMaxRestoreButton="False" ShowMinButton="False" controls:ControlsHelper.ContentCharacterCasing="Upper" BorderBrush="Black">
     <controls:MetroWindow.Effect>

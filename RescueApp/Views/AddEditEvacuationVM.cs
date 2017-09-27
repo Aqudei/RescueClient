@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using MahApps.Metro.Controls.Dialogs;
 using RescueApp.Models;
 using RescueApp.Views.Helpers;
 using RescueApp.ViewServices;
@@ -13,6 +14,8 @@ namespace RescueApp.Views
 {
     public class AddEditEvacuationVM : PageBase
     {
+        public string Title { get; set; } = "TEST";
+
         private string _choosenPhoto;
 
         public string ChoosenPhoto
@@ -47,7 +50,7 @@ namespace RescueApp.Views
 
         private readonly RescueClient rescueClient;
         private readonly DialogService dialogService;
-
+        private readonly IDialogCoordinator dialogCoordinator;
         private RelayCommand _browsePhotoCommand;
         public RelayCommand BrosePhotoCommand
         {
@@ -61,10 +64,12 @@ namespace RescueApp.Views
             }
         }
 
-        public AddEditEvacuationVM(RescueClient rescueClient, DialogService dialogService)
+        public AddEditEvacuationVM(RescueClient rescueClient, DialogService dialogService,
+            IDialogCoordinator dialogCoordinator)
         {
             this.rescueClient = rescueClient;
             this.dialogService = dialogService;
+            this.dialogCoordinator = dialogCoordinator;
         }
 
         private int id;
@@ -96,7 +101,15 @@ namespace RescueApp.Views
                         if (ex == null)
                         {
                             ClearFields();
+                            dialogCoordinator.ShowMessageAsync(this, "Save Operation Success",
+                                string.Format("Evacuation Center named {0} has been saved.", center.CenterName));
                         }
+                        else
+                        {
+                            dialogCoordinator.ShowMessageAsync(this, "Save Operation Failed",
+                                string.Format("Evacuation Center not saved.\n{0}", ex.Message));
+                        }
+
 
                         MessengerInstance.Send(new Messages.AddEditResultMessage<Center>(ex, center));
                     });
@@ -115,7 +128,7 @@ namespace RescueApp.Views
 
         public override void OnShow<T>(T args)
         {
-            
+
         }
     }
 }
