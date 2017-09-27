@@ -33,8 +33,7 @@
                     <Grid Margin="12">
                         <StackPanel>
 
-                            <TextBlock  Text="{Binding FamilyHead}" 
-                                        Typography.Capitals="AllSmallCaps"
+                            <TextBlock  Text="{Binding FamilyHead, Converter={StaticResource ToUpperConverter}}" 
                                         FontWeight="Bold" FontSize="16"/>
 
                             <StackPanel Orientation="Horizontal">
@@ -75,8 +74,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Margin="0" FontWeight="Bold" FontSize="14.667"><Run Text="FAMILY MEMBERS:"/></TextBlock>
-                            <ItemsControl ItemsSource="{Binding members}" 
-                                          Typography.Capitals="AllSmallCaps"/>
+                            <ItemsControl ItemsSource="{Binding members}" />
                             <TextBlock Margin="0,16,0,0" FontWeight="Bold" FontSize="14.667"><Run Text="HOUSE INFO:"/></TextBlock>
                             <StackPanel Orientation="Horizontal"  >
                                 <TextBlock TextWrapping="Wrap" Text="House No. "/>

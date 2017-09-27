@@ -32,6 +32,8 @@ namespace RescueApp.Models
         public string MedicineRequired { get; set; }
         public string CivilStatus { get; set; }
         public string Occupation { get; set; }
+        public string NamePrefix { get; set; }
+        public string NameSuffix { get; set; }
 
         public override string ToString()
         {

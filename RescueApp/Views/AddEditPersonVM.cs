@@ -78,6 +78,21 @@ namespace RescueApp.Views
             set { Set(ref _gender, value); }
         }
 
+        private string _namePrefix;
+        public string NamePrefix
+        {
+            get { return _namePrefix; }
+            set { Set(ref _namePrefix, value); }
+        }
+
+        private string _nameSuffix;
+        public string NameSuffix
+        {
+            get { return _nameSuffix; }
+            set { Set(ref _nameSuffix, value); }
+        }
+
+
         public AddEditPersonVM(RescueClient client,
             DialogService dialogService, IDialogCoordinator dialog)
         {
@@ -184,6 +199,8 @@ namespace RescueApp.Views
             MedicalCondition = "";
             MedicineRequired = "";
             Vulnerabilities = "";
+            NamePrefix = "";
+            NameSuffix = "";
         }
 
         public override void DoCleanup()

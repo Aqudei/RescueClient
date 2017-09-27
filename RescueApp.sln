@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RescueApp", "RescueApp\RescueApp.csproj", "{7A805E18-1791-47C5-AC49-A38D303FF188}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLuxCamera", "SimpleLuxCamera\SimpleLuxCamera.csproj", "{F0BF484B-DA92-41E0-B443-EE2EE3A5D574}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EA0C4873-CD76-4EC8-9A60-1344859663A9}"
+	ProjectSection(SolutionItems) = preProject
+		Todo\Suggestion-sa-Rescue.txt = Todo\Suggestion-sa-Rescue.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

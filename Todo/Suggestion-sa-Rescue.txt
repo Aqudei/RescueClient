@@ -1,21 +1,21 @@
 *Personal Profile* pag add mga tawo, magawas tanan nga tawo
-National ID:
-Fname:
-Mname:
-Lname:
-Extension Name:
-Birthdate:
-Address:
-Civil Status: drop box
-Occupation: n/a or kung ano ang trabaho
-Contact Information:
++ National ID:
++ Fname:
++ Mname:
++ Lname:
++ Extension Name:
++ Birthdate:
++ Address:
++ Civil Status: drop box
++ Occupation: n/a or kung ano ang trabaho
++ Contact Information:
 	Cellphone Number:
 	E-mail Address:
-Blood Type:
-Vulnerability: n/a or PWD or Senior Citizen or PWD + Senior Citizen 
++ Blood Type:
++ Vulnerability: n/a or PWD or Senior Citizen or PWD + Senior Citizen 
 		(tapos mayaon box bubutangan sa kanra ID number)
-Highest Educational Attainement: drop box (college grad, post grad, hs grad, elementary grad) 
-Medical History:
++ Highest Educational Attainement: drop box (college grad, post grad, hs grad, elementary grad) 
++ Medical History:
 	Allergies: Yes/No (type kun nanu.)
 	Medical Condition: (type kun nanu)
 Akon la ine suggestion para masayaon la pagdetect kun nanu iya position  sa Household
