@@ -85,7 +85,8 @@ namespace RescueApp
                 }
                 else
                 {
-                    callback(new Exception("Cannot Toggle Membership"), null);
+                    callback(new Exception("Cannot Toggle Membership\n+"
+                        + rslt.Content?.Trim("[]".ToCharArray())), null);
                 }
             });
         }

@@ -21,7 +21,11 @@
             <TextBox HorizontalAlignment="Left" Height="93" Margin="105,87,0,0" TextWrapping="Wrap" Text="{Binding Address}" VerticalAlignment="Top" Width="270" MinLines="3" CharacterCasing="Upper"/>
             <Label Content="Capacity:" HorizontalAlignment="Left" Margin="23,194,0,0" VerticalAlignment="Top" FontWeight="SemiBold"/>
             <TextBox HorizontalAlignment="Left" Height="23" Margin="105,194,0,0" TextWrapping="Wrap" Text="{Binding Capacity}" VerticalAlignment="Top" Width="270"/>
-            <Image HorizontalAlignment="Left" Height="324" Margin="409,41,0,0" VerticalAlignment="Top" Width="240" Source="{Binding ChoosenPhoto, TargetNullValue={StaticResource building}}"/>
+            <Image HorizontalAlignment="Left" 
+                   Height="254" 
+                   Margin="409,41,0,0" 
+                   VerticalAlignment="Top" 
+                   Width="240" Source="{Binding ChoosenPhoto, TargetNullValue={StaticResource building}}"/>
             <Button HorizontalAlignment="Left" Margin="43,341,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand, Mode=OneWay}">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconModern Kind="Save"/>
@@ -34,7 +38,7 @@
                     <TextBlock Padding="0" Margin="4,0,0,0"><Run Text="CLOSE"/></TextBlock>
                 </StackPanel>
             </Button>
-            <Button Content="Browse" Margin="0,257.7,48.72,0" VerticalAlignment="Top" Command="{Binding BrosePhotoCommand, Mode=OneWay}" HorizontalAlignment="Right" Width="59"/>
+            <Button Content="Browse" Margin="0,309,49,0" VerticalAlignment="Top" Command="{Binding BrosePhotoCommand, Mode=OneWay}" HorizontalAlignment="Right" Width="59"/>
         </Grid>
         <TextBlock TextWrapping="Wrap" DockPanel.Dock="Top" Text="ADD/EDIT EVACUATION CENTER FORM" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Margin="2">
             <TextBlock.Background>

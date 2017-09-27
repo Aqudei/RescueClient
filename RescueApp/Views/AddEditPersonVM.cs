@@ -298,6 +298,5 @@ namespace RescueApp.Views
             get { return _civilStatus; }
             set { Set(ref _civilStatus, value); }
         }
-
     }
 }

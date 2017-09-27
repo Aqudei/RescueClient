@@ -6,10 +6,11 @@
              xmlns:local="clr-namespace:RescueApp.Views"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared" x:Class="RescueApp.Views.Households"
+             xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared" xmlns:WPF="clr-namespace:RescueApp.WPF" x:Class="RescueApp.Views.Households"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="630">
     <UserControl.Resources>
+        <WPF:NullVisibilityConverter x:Key="NullVisibilityConverter"/>
         <Custom:ToUpperConverter x:Key="ToUpperConverter"/>
         <BitmapImage x:Key="_houseImage" UriSource="/RescueApp;component/Resources/house-41415_960_720.png"/>
     </UserControl.Resources>
@@ -26,7 +27,7 @@
                   ItemsSource="{Binding Households}" 
                   x:Name="_householdList"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  BorderThickness="0">
+                  BorderThickness="0" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="12">
@@ -62,8 +63,8 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <ContentControl Grid.Column="1" 
-                        Content="{Binding Households.CurrentItem, Mode=OneWay}" 
+        <ContentControl Grid.Column="1" Visibility="{Binding ElementName=_householdList, Path=SelectedItem, Converter={StaticResource NullVisibilityConverter}}"
+                        Content ="{Binding Households.CurrentItem, Mode=OneWay}" 
                         ContentTemplate="{DynamicResource _householdTemplate}">
             <ContentControl.Resources>
                 <DataTemplate x:Key="_householdTemplate">
@@ -94,7 +95,7 @@
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="8"
                                     Orientation="Vertical">
-                            
+
                             <Image HorizontalAlignment="Left"
                                 Width="150"
                                 Height="150"

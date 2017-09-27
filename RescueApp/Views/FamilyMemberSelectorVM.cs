@@ -13,13 +13,14 @@ using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.CommandWpf;
 using RescueApp.Views.Helpers;
 using RescueApp.Messages;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace RescueApp.Views
 {
     public class FamilyMemberSelectorVM : PageBase, IEditorDialog<DownloadHouseholdModel>
     {
         private readonly RescueClient rescueClient;
-
+        private readonly IDialogCoordinator dialogCoordinator;
         private DownloadHouseholdModel _currentHousehold;
 
         public DownloadHouseholdModel CurrentHousehold
@@ -78,9 +79,11 @@ namespace RescueApp.Views
             }
         }
 
-        public FamilyMemberSelectorVM(RescueClient rescueClient)
+        public FamilyMemberSelectorVM(RescueClient rescueClient,
+            IDialogCoordinator dialogCoordinator)
         {
             this.rescueClient = rescueClient;
+            this.dialogCoordinator = dialogCoordinator;
 
             if (IsInDesignModeStatic)
             {
@@ -108,6 +111,11 @@ namespace RescueApp.Views
                         {
                             MessengerInstance.Send(new AddEditResultMessage<DownloadHouseholdModel>(ex, household_new));
                             Edit(household_new);
+                        }
+                        else
+                        {
+                            dialogCoordinator.ShowMessageAsync(this, "ERROR ADDING AS FAMILY MEMBER MEMBER",
+                                ex.Message);
                         }
                     });
                 }));

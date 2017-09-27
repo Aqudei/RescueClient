@@ -29,15 +29,15 @@
                  Text="{Binding Current.HouseNumber, Mode=TwoWay}" 
                  VerticalAlignment="Top" Width="220"/>
 
-        <Label Content="House #:" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="House #:" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBox HorizontalAlignment="Left" 
                  Height="84"
                  Margin="142,46,0,0" 
                  TextWrapping="Wrap" Text="{Binding Current.Address, Converter={StaticResource ToUpperConverter}}" 
                  VerticalAlignment="Top" Width="220" MinLines="3"/>
-        <Label Content="Address:" HorizontalAlignment="Left" Margin="24,46,0,0" VerticalAlignment="Top"/>
+        <Label Content="Address:" HorizontalAlignment="Left" Margin="24,46,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="141.573,140,0,0" TextWrapping="Wrap" Text="{Binding Current.EconomicStatus, Converter={StaticResource ToUpperConverter}}" Width="220" VerticalAlignment="Top"/>
-        <Label Content="Economic Status:" HorizontalAlignment="Left" Margin="23.573,140,0,0" VerticalAlignment="Top"/>
+        <Label Content="Economic Status:" HorizontalAlignment="Left" Margin="23.573,140,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <CheckBox Content="Is Owned" HorizontalAlignment="Left" Margin="288.573,0,0,145.433" VerticalAlignment="Bottom" IsChecked="{Binding Current.IsOwned}"/>
         <Button Content="SAVE" HorizontalAlignment="Left" Margin="103,283,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand, Mode=OneWay}"/>
         <Button Content="CLOSE" HorizontalAlignment="Left" Margin="207,283,0,0" VerticalAlignment="Top" Width="75" Click="CloseButton_Click"/>
@@ -50,7 +50,7 @@
                 HorizontalAlignment="Left" 
                 Margin="566,254,0,0" 
                 VerticalAlignment="Top" Width="75" Command="{Binding BrosePhotoCommand, Mode=OneWay}"/>
-       
+
 
 
     </Grid>
