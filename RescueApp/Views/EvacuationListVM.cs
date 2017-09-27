@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RescueApp.Views
 {
@@ -107,17 +108,23 @@ namespace RescueApp.Views
             {
                 return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<Center>((item) =>
                 {
-                    _rescueClient.DeleteCenter(item.Id, ex =>
+                    var yesNo = MessageBox.Show("Are you sure you want to delete "
+                        + item.CenterName + "?", "CONFIRM DELETE", MessageBoxButton.YesNo);
+
+                    if (yesNo == MessageBoxResult.Yes)
                     {
-                        if (ex == null)
+                        _rescueClient.DeleteCenter(item.Id, ex =>
                         {
-                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                            if (ex == null)
                             {
-                                Centers.Remove(item);
-                            });
-                            MessengerInstance.Send(default(Messages.StatsChangedMessage));
-                        }
-                    });
+                                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                                {
+                                    Centers.Remove(item);
+                                });
+                                MessengerInstance.Send(default(Messages.StatsChangedMessage));
+                            }
+                        });
+                    }
                 }));
             }
         }
