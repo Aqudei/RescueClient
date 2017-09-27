@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Interfaces
 {
-    public interface IEditor<T>
+    public interface IEditorDialog<T>
     {
         void Edit(T item);
     }

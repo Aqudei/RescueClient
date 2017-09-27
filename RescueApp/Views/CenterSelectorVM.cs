@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class CenterSelectorVM : ViewModelBase, IEditor<Center>
+    public class CenterSelectorVM : ViewModelBase, IEditorDialog<Center>
     {
         private readonly RescueClient rescueClient;
 

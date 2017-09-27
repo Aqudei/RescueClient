@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class AddEditPersonVM : PageBase, IEditor<DownloadPersonModel>
+    public class AddEditPersonVM : PageBase, IEditorDialog<DownloadPersonModel>
     {
         private string _choosenPhoto;
         public string ChoosenPhoto
@@ -184,6 +184,11 @@ namespace RescueApp.Views
             MedicalCondition = "";
             MedicineRequired = "";
             Vulnerabilities = "";
+        }
+
+        public override void DoCleanup()
+        {
+            ClearFields();
         }
 
         public void Edit(DownloadPersonModel item)

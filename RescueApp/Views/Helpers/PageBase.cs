@@ -10,5 +10,7 @@ namespace RescueApp.Views.Helpers
     public abstract class PageBase : ViewModelBase
     {
         public abstract void OnShow<T>(T args);
+        public virtual void DoCleanup()
+        { }
     }
 }

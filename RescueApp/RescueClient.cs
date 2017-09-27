@@ -252,21 +252,22 @@ namespace RescueApp
                     return;
                 }
 
-                if (string.IsNullOrEmpty(choosenPhoto) == false)
+                if (string.IsNullOrEmpty(choosenPhoto) == false && Uploadable(choosenPhoto))
                 {
-                    var uploadRequest = new RestRequest("/api/household/" + rslt.Data.Id + "/upload/", Method.PATCH);
+                    var uploadRequest = new RestRequest("/api/households/" + rslt.Data.Id + "/upload/", Method.PATCH);
                     uploadRequest.AddFile("Photo", choosenPhoto);
                     _client.ExecuteAsync<DownloadHouseholdModel>(uploadRequest, rsltUpload =>
                     {
                         if (rsltUpload.StatusCode == System.Net.HttpStatusCode.OK)
                         {
-
                             rsltUpload.Data.Photo = NormalizeUri(rsltUpload.Data.Photo);
                             callback(null, rsltUpload.Data);
+                            return;
                         }
                         else
                         {
-                            callback(new Exception(), null);
+                            callback(null, rslt.Data);
+                            return;
                         }
                     });
                 }
@@ -303,7 +304,7 @@ namespace RescueApp
                         }
                         else
                         {
-                            callback(new Exception(), null);
+                            callback(null, rslt.Data);
                             return;
                         }
                     });

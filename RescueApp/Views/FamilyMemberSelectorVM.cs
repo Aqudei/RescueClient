@@ -16,7 +16,7 @@ using RescueApp.Messages;
 
 namespace RescueApp.Views
 {
-    public class FamilyMemberSelectorVM : PageBase, IEditor<DownloadHouseholdModel>
+    public class FamilyMemberSelectorVM : PageBase, IEditorDialog<DownloadHouseholdModel>
     {
         private readonly RescueClient rescueClient;
 
@@ -146,7 +146,8 @@ namespace RescueApp.Views
                     DispatcherHelper.CheckBeginInvokeOnUI(() =>
                     {
                         _allPeople.Clear();
-                        var diff = people.Except(item.members, _myComparer);
+                        var diff = people.Where(p => p._Household == null)
+                        .Except(item.members, _myComparer);
                         foreach (var person in diff)
                         {
                             _allPeople.Add(person);
@@ -157,8 +158,6 @@ namespace RescueApp.Views
         }
 
         public override void OnShow<T>(T args)
-        {
-            
-        }
+        { }
     }
 }

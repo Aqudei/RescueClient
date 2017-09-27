@@ -25,6 +25,9 @@ namespace RescueApp.ViewServices
             _container.Closing += (s, e) =>
             {
                 e.Cancel = true;
+                var fe = _container._container.Children?[0] as FrameworkElement;
+                var vm = fe?.DataContext as PageBase;
+                vm?.DoCleanup();
                 _container.Hide();
             };
             _dialogs = new Dictionary<string, Type>();
@@ -63,9 +66,9 @@ namespace RescueApp.ViewServices
             var view = Activator.CreateInstance(_dialogs[dialogName]);
             _container._container.Children.Clear();
             _container._container.Children.Add(view as FrameworkElement);
-            var editor = ((view as FrameworkElement).DataContext as IEditor<T>);
+            var editor = ((view as FrameworkElement).DataContext as IEditorDialog<T>);
             editor?.Edit(old);
-            
+
             _container.ShowDialog();
         }
 
