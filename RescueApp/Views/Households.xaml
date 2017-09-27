@@ -27,11 +27,11 @@
                 <DataTemplate>
                     <Grid Margin="12">
                         <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="FAMILY HEAD: " FontSize="16"/>
-                                <TextBlock  Text="{Binding FamilyHead}" 
-                                            FontWeight="Bold" FontSize="16"/>
-                            </StackPanel>
+
+                            <TextBlock  Text="{Binding FamilyHead}" 
+                                        Typography.Capitals="AllSmallCaps"
+                                        FontWeight="Bold" FontSize="16"/>
+
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontSize="14"><Run Text="H"/><Run Text="ouse Number"/><Run Text=":"/><Run Text=" #"/></TextBlock>
                                 <TextBlock Text="{Binding HouseNumber}" FontSize="14"/>
@@ -59,7 +59,8 @@
         </ListView>
 
         <ContentControl Grid.Column="1" 
-                        Content="{Binding Households.CurrentItem, Mode=OneWay}" ContentTemplate="{DynamicResource _householdTemplate}">
+                        Content="{Binding Households.CurrentItem, Mode=OneWay}" 
+                        ContentTemplate="{DynamicResource _householdTemplate}">
             <ContentControl.Resources>
                 <DataTemplate x:Key="_householdTemplate">
                     <Grid Margin="8">
@@ -69,7 +70,8 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Margin="0,0,0,4" FontWeight="Bold" FontSize="14.667">FAMILY MEMBERS</TextBlock>
-                            <ItemsControl ItemsSource="{Binding members}"/>
+                            <ItemsControl ItemsSource="{Binding members}" 
+                                          Typography.Capitals="AllSmallCaps"/>
                             <StackPanel Orientation="Horizontal" Margin="0,4,0,0" >
                                 <TextBlock TextWrapping="Wrap" Text="House No. "/>
                                 <TextBlock Text="{Binding HouseNumber}" />
@@ -78,6 +80,10 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock TextWrapping="Wrap" Text="Address: "/>
                                 <TextBlock Text="{Binding Address}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock TextWrapping="Wrap" Text="Economic Status: "/>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding EconomicStatus}"/>
                             </StackPanel>
                         </StackPanel>
                         <Image Grid.Column="1" 
