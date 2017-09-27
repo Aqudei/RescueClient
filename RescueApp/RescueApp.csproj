@@ -145,6 +145,7 @@
       <DependentUpon>Camera.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\CapturedPhotoEvenArgs.cs" />
+    <Compile Include="Views\Dialogs\YesNoDialog.cs" />
     <Compile Include="Views\EvacuationList.xaml.cs">
       <DependentUpon>EvacuationList.xaml</DependentUpon>
     </Compile>

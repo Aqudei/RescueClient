@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
+using MahApps.Metro.Controls.Dialogs;
 using RescueApp.Messages;
 using RescueApp.Models;
 using RescueApp.Views.Helpers;
@@ -12,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RescueApp.Views
 {
@@ -23,6 +25,7 @@ namespace RescueApp.Views
         private readonly RescueClient _rescueClient;
 
         private DialogService _dialogService;
+        private readonly IDialogCoordinator dlgCoordinator;
 
         public string Title { get; set; } = "People";
 
@@ -37,9 +40,12 @@ namespace RescueApp.Views
         }
 
         public RelayCommand<DownloadPersonModel> DeleteItemCommand => new RelayCommand<DownloadPersonModel>((person) =>
-        {
-            DeleteItem(person);
-        });
+       {
+
+           var rslt = MessageBox.Show("Are you sure you want to Delete " + person.FullName, "Confirm Delete", MessageBoxButton.YesNo);
+           if (rslt == MessageBoxResult.Yes)
+               DeleteItem(person);
+       });
 
         private RelayCommand<DownloadPersonModel> _editItemCommand;
 
@@ -70,9 +76,10 @@ namespace RescueApp.Views
             });
         }
 
-        public PeopleVM(RescueClient client, DialogService dialogService)
+        public PeopleVM(RescueClient client, DialogService dialogService, IDialogCoordinator dlgCoordinator)
         {
             _dialogService = dialogService;
+            this.dlgCoordinator = dlgCoordinator;
             _rescueClient = client;
 
             if (IsInDesignModeStatic)

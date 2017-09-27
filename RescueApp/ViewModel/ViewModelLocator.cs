@@ -60,7 +60,7 @@ namespace RescueApp.ViewModel
                 cfg.CreateMap<DownloadHouseholdModel, DownloadHouseholdModel>();
             });
 
-            SimpleIoc.Default.Register(() => DialogCoordinator.Instance);
+            SimpleIoc.Default.Register<IDialogCoordinator, DialogCoordinator>();
             SimpleIoc.Default.Register<AddEditHouseholdVM>();
             SimpleIoc.Default.Register<HouseholdsVM>();
             SimpleIoc.Default.Register<DialogService>();

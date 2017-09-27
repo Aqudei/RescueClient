@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             Dialog:DialogParticipation.Register="{Binding}"
+            xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" DataContext="{Binding PeopleVM, Source={StaticResource Locator}}"
              d:DesignHeight="800.339" d:DesignWidth="797.456">
     <Grid>
@@ -96,7 +98,7 @@
 
         <DockPanel>
             <StackPanel>
-                
+
             </StackPanel>
         </DockPanel>
     </Grid>

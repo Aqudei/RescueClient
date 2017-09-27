@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
+             xmlns:my="clr-namespace:NumberOnlyBehaviourWPF"
              xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              Dialog:DialogParticipation.Register="{Binding}"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" xmlns:Custom1="http://metro.mahapps.com/winfx/xaml/controls"
@@ -16,11 +17,26 @@
     <DockPanel Margin="8">
         <Grid DockPanel.Dock="Bottom">
             <Label Content="Name:" HorizontalAlignment="Left" Margin="23,41,0,0" VerticalAlignment="Top" FontWeight="SemiBold"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="105,41,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="270" CharacterCasing="Upper"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="105,41,0,0" TextWrapping="Wrap" Text="{Binding CenterName}" VerticalAlignment="Top" Width="270" CharacterCasing="Upper"/>
             <Label Content="Address:" HorizontalAlignment="Left" Margin="23,87,0,0" VerticalAlignment="Top" FontWeight="SemiBold"/>
-            <TextBox HorizontalAlignment="Left" Height="93" Margin="105,87,0,0" TextWrapping="Wrap" Text="{Binding Address}" VerticalAlignment="Top" Width="270" MinLines="3" CharacterCasing="Upper"/>
+            <TextBox HorizontalAlignment="Left"  
+                     Height="93" 
+                     Margin="105,87,0,0" 
+                     TextWrapping="Wrap" 
+                     Text="{Binding Address}" 
+                     VerticalAlignment="Top" Width="270"
+                     MinLines="3"
+                     CharacterCasing="Upper"/>
             <Label Content="Capacity:" HorizontalAlignment="Left" Margin="23,194,0,0" VerticalAlignment="Top" FontWeight="SemiBold"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="105,194,0,0" TextWrapping="Wrap" Text="{Binding Capacity}" VerticalAlignment="Top" Width="270"/>
+            
+            <TextBox my:NumberOnlyBehaviour.IsEnabled="True" 
+                     HorizontalAlignment="Left" 
+                     Height="23" Margin="105,194,0,0" 
+                     TextWrapping="Wrap" 
+                     Text="{Binding Limit}"
+                     VerticalAlignment="Top" 
+                     Width="270"/>
+            
             <Image HorizontalAlignment="Left" 
                    Height="254" 
                    Margin="409,41,0,0" 

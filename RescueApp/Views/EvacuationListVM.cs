@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
+using RescueApp.Messages;
 using RescueApp.Models;
 using RescueApp.Views.Helpers;
 using RescueApp.ViewServices;
@@ -71,7 +72,7 @@ namespace RescueApp.Views
                             Centers.Add(rslt.Entity);
                         });
 
-                        MessengerInstance.Send(new Messages.StatsChangedMessage());
+                        MessengerInstance.Send(default(StatsChangedMessage));
                     }
                 });
             }

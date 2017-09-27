@@ -208,6 +208,45 @@ namespace RescueApp
                 }
             });
         }
+        public void UpdateCenter(Center center, Action<Exception, Center> callback)
+        {
+            var request = new RestRequest("/api/centers/" + center.Id + "/", Method.PATCH);
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(center);
+
+            _client.ExecuteAsync<Center>(request, rslt =>
+            {
+                if (rslt.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    callback(new Exception("" + rslt.StatusDescription +
+                        "\n" + rslt.Content + "\n" + rslt.ErrorMessage), null);
+                    return;
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(center.Photo) == false && Uploadable(center.Photo))
+                    {
+                        var uploadRequest = new RestRequest("/api/centers/" + rslt.Data.Id + "/upload/", Method.PATCH);
+                        uploadRequest.AddFile("Photo", center.Photo);
+                        _client.ExecuteAsync<Center>(uploadRequest, _rslt =>
+                        {
+                            if (_rslt.StatusCode == System.Net.HttpStatusCode.OK)
+                            {
+                                _rslt.Data.Photo = NormalizeUri(_rslt.Data.Photo);
+                                callback(null, _rslt.Data);
+                                return;
+                            }
+                            else
+                            {
+                                callback(null, rslt.Data);
+                                return;
+                            }
+                        });
+                    }
+                    callback(null, rslt.Data);
+                }
+            });
+        }
 
         public void GetHouseholds(Action<Exception, List<DownloadHouseholdModel>> callback)
         {
@@ -286,29 +325,33 @@ namespace RescueApp
             {
                 if (rslt.StatusCode != System.Net.HttpStatusCode.OK)
                 {
-                    callback(new Exception("" + rslt.StatusDescription), null);
+                    callback(new Exception("" + rslt.StatusDescription
+                        + "\n" + rslt.Content + "\n" + rslt.ErrorMessage), null);
+
                     return;
                 }
-
-                if (string.IsNullOrEmpty(choosenPhoto) == false
-                    && Uploadable(choosenPhoto))
+                else
                 {
-                    var uploadRequest = new RestRequest("/api/household/" + rslt.Data.Id + "/upload/", Method.PATCH);
-                    uploadRequest.AddFile("Photo", choosenPhoto);
-                    _client.ExecuteAsync<DownloadHouseholdModel>(uploadRequest, rsltUpload =>
+                    if (string.IsNullOrEmpty(choosenPhoto) == false
+                        && Uploadable(choosenPhoto))
                     {
-                        if (rsltUpload.StatusCode == System.Net.HttpStatusCode.OK)
+                        var uploadRequest = new RestRequest("/api/household/" + rslt.Data.Id + "/upload/", Method.PATCH);
+                        uploadRequest.AddFile("Photo", choosenPhoto);
+                        _client.ExecuteAsync<DownloadHouseholdModel>(uploadRequest, rsltUpload =>
                         {
-                            rsltUpload.Data.Photo = NormalizeUri(rsltUpload.Data.Photo);
-                            callback(null, rsltUpload.Data);
-                            return;
-                        }
-                        else
-                        {
-                            callback(null, rslt.Data);
-                            return;
-                        }
-                    });
+                            if (rsltUpload.StatusCode == System.Net.HttpStatusCode.OK)
+                            {
+                                rsltUpload.Data.Photo = NormalizeUri(rsltUpload.Data.Photo);
+                                callback(null, rsltUpload.Data);
+                                return;
+                            }
+                            else
+                            {
+                                callback(null, rslt.Data);
+                                return;
+                            }
+                        });
+                    }
                 }
 
                 callback(null, rslt.Data);

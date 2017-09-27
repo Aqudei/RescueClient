@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class AddEditEvacuationVM : PageBase
+    public class AddEditEvacuationVM : PageBase, Interfaces.IEditorDialog<Center>
     {
         public string Title { get; set; } = "TEST";
 
@@ -26,7 +26,7 @@ namespace RescueApp.Views
 
         private string _name;
 
-        public string Name
+        public string CenterName
         {
             get { return _name; }
             set { Set(ref _name, value); }
@@ -42,7 +42,7 @@ namespace RescueApp.Views
 
         private int _capacity;
 
-        public int Capacity
+        public int Limit
         {
             get { return _capacity; }
             set { Set(ref _capacity, value); }
@@ -88,42 +88,71 @@ namespace RescueApp.Views
             {
                 return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
                 {
-                    rescueClient.AddCenter(new Center
+                    var center = new Center
                     {
                         Address = Address,
-                        CenterName = Name,
-                        Limit = Capacity,
+                        CenterName = CenterName,
+                        Limit = Limit,
                         Id = Id,
                         Photo = ChoosenPhoto
 
-                    }, (ex, center) =>
-                    {
-                        if (ex == null)
-                        {
-                            ClearFields();
-                            dialogCoordinator.ShowMessageAsync(this, "Save Operation Success",
-                                string.Format("Evacuation Center named {0} has been saved.", center.CenterName));
-                        }
-                        else
-                        {
-                            dialogCoordinator.ShowMessageAsync(this, "Save Operation Failed",
-                                string.Format("Evacuation Center not saved.\n{0}", ex.Message));
-                        }
+                    };
 
-
-                        MessengerInstance.Send(new Messages.AddEditResultMessage<Center>(ex, center));
-                    });
+                    if (Id == 0)
+                        CreateEvacuationCenter(center);
+                    else
+                        UpdateEvacuationCenter(center);
                 }));
             }
+        }
+
+        private void UpdateEvacuationCenter(Center center)
+        {
+            rescueClient.UpdateCenter(center, (ex, updatedCenter) =>
+            {
+                if (ex == null)
+                {
+                    ClearFields();
+                    dialogCoordinator.ShowMessageAsync(this, "Save Operation Success",
+                        string.Format("Evacuation Center named {0} has been saved.", center.CenterName));
+                }
+                else
+                {
+                    dialogCoordinator.ShowMessageAsync(this, "Save Operation Failed",
+                        string.Format("Evacuation Center not saved.\n{0}", ex.Message));
+                }
+
+                MessengerInstance.Send(new Messages.AddEditResultMessage<Center>(ex, updatedCenter));
+            });
+        }
+
+        private void CreateEvacuationCenter(Center center)
+        {
+            rescueClient.AddCenter(center, (ex, _center) =>
+            {
+                if (ex == null)
+                {
+                    ClearFields();
+                    MessengerInstance.Send(new Messages.AddEditResultMessage<Center>(ex, _center));
+                    dialogCoordinator.ShowMessageAsync(this, "Save Operation Success",
+                        string.Format("Evacuation Center named {0} has been saved.", _center.CenterName));
+                }
+                else
+                {
+                    dialogCoordinator.ShowMessageAsync(this, "Save Operation Failed",
+                        string.Format("Evacuation Center not saved.\n{0}", ex.Message));
+                }
+
+            });
         }
 
         private void ClearFields()
         {
             Address = "";
             Id = 0;
-            Name = "";
+            CenterName = "";
             ChoosenPhoto = null;
-            Capacity = 0;
+            Limit = 0;
         }
 
         public override void DoCleanup()
@@ -132,8 +161,15 @@ namespace RescueApp.Views
         }
 
         public override void OnShow<T>(T args)
-        {
+        { }
 
+        public void Edit(Center item)
+        {
+            Address = item.Address;
+            Id = item.Id;
+            CenterName = item.CenterName;
+            ChoosenPhoto = item.Photo;
+            Limit = item.Limit;
         }
     }
 }
