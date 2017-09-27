@@ -12,7 +12,7 @@
              d:DesignHeight="686.28" d:DesignWidth="670">
 
     <UserControl.Resources>
-        <xcdg:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        
     </UserControl.Resources>
 
     <Grid Width="600" Height="400">
