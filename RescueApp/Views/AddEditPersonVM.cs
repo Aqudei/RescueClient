@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Views
 {
-    public class AddEditPersonVM : PageBase, IEditor<DownloadPersonModel>
+    public class AddEditPersonVM : PageBase, IEditorDialog<DownloadPersonModel>
     {
         private string _choosenPhoto;
         public string ChoosenPhoto

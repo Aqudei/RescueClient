@@ -28,11 +28,11 @@
                Height="300" 
                Margin="389,10,0,0" 
                VerticalAlignment="Top" 
-               Width="300" Source="{Binding Current.Photo, TargetNullValue={StaticResource house}}"/>
+               Width="300" Source="{Binding ChoosenPhoto, TargetNullValue={StaticResource house}}"/>
         <Button Content="Browse" 
                 HorizontalAlignment="Left" 
                 Margin="566,254,0,0" 
-                VerticalAlignment="Top" Width="75"/>
+                VerticalAlignment="Top" Width="75" Command="{Binding BrosePhotoCommand, Mode=OneWay}"/>
         <ComboBox HorizontalAlignment="Left" Margin="-218,222,0,0" VerticalAlignment="Top" Width="120"/>
 
 

@@ -17,12 +17,20 @@ using System.Windows.Data;
 namespace RescueApp.Views
 {
     public class AddEditHouseholdVM : PageBase,
-        IEditor<DownloadHouseholdModel>
+        IEditorDialog<DownloadHouseholdModel>
     {
         private readonly DialogService dialogService;
         private readonly RescueClient rescueClient;
 
         public DownloadHouseholdModel Current { get; set; } = new DownloadHouseholdModel();
+
+        private string _choosenPhoto;
+
+        public string ChoosenPhoto
+        {
+            get { return _choosenPhoto; }
+            set { Set(ref _choosenPhoto, value); }
+        }
 
         public void Edit(DownloadHouseholdModel item)
         {
@@ -38,8 +46,20 @@ namespace RescueApp.Views
         public override void OnShow<T>(T args)
         { }
 
-        private RelayCommand _saveCommand;
+        private RelayCommand _browsePhotoCommand;
+        public RelayCommand BrosePhotoCommand
+        {
+            get
+            {
+                return _browsePhotoCommand ?? (_browsePhotoCommand = new RelayCommand(() =>
+                {
+                    var photo = dialogService.ShowOpenFileDialog();
+                    ChoosenPhoto = photo;
+                }));
+            }
+        }
 
+        private RelayCommand _saveCommand;
         public RelayCommand SaveCommand
         {
             get
@@ -52,18 +72,33 @@ namespace RescueApp.Views
                     {
                         rescueClient.AddHousehold(uploadHS, (ex, hs) =>
                         {
+                            if (ex == null)
+                            {
+                                ClearFields();
+                            }
                             MessengerInstance.Send(new AddEditResultMessage<DownloadHouseholdModel>(ex, hs));
-                        });
+                        }, ChoosenPhoto);
                     }
                     else
                     {
                         rescueClient.UpdateHousehold(uploadHS, (ex, hs) =>
                         {
                             MessengerInstance.Send(new AddEditResultMessage<DownloadHouseholdModel>(ex, hs));
-                        });
+                        }, ChoosenPhoto);
                     }
                 }));
             }
+        }
+
+        private void ClearFields()
+        {
+            ChoosenPhoto = null;
+            Current.Address = "";
+            Current.EconomicStatus = "";
+            Current.HouseNumber = "";
+            Current.Id = 0;
+            Current.IsOwned = false;
+            Current.members?.Clear();
         }
     }
 }

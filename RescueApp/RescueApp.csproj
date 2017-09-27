@@ -123,7 +123,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Interfaces\ICrudVM.cs" />
-    <Compile Include="Interfaces\IEditor.cs" />
+    <Compile Include="Interfaces\IEditorDialog.cs" />
     <Compile Include="Messages\AddEditResultMessage.cs" />
     <Compile Include="Messages\StatsChangedMessage.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />

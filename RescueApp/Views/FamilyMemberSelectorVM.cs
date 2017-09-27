@@ -16,7 +16,7 @@ using RescueApp.Messages;
 
 namespace RescueApp.Views
 {
-    public class FamilyMemberSelectorVM : PageBase, IEditor<DownloadHouseholdModel>
+    public class FamilyMemberSelectorVM : PageBase, IEditorDialog<DownloadHouseholdModel>
     {
         private readonly RescueClient rescueClient;
 

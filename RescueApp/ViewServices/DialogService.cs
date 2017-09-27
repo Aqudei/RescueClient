@@ -63,7 +63,7 @@ namespace RescueApp.ViewServices
             var view = Activator.CreateInstance(_dialogs[dialogName]);
             _container._container.Children.Clear();
             _container._container.Children.Add(view as FrameworkElement);
-            var editor = ((view as FrameworkElement).DataContext as IEditor<T>);
+            var editor = ((view as FrameworkElement).DataContext as IEditorDialog<T>);
             editor?.Edit(old);
             
             _container.ShowDialog();

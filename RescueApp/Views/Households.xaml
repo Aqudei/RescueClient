@@ -8,13 +8,14 @@
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
              DataContext="{Binding HouseholdsVM, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="400">
+             d:DesignHeight="300" d:DesignWidth="630">
     <UserControl.Resources>
-
+        <BitmapImage x:Key="_houseImage" UriSource="/RescueApp;component/Resources/house-41415_960_720.png"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <ListView Margin="8" IsSynchronizedWithCurrentItem="True"
@@ -27,8 +28,9 @@
                     <Grid Margin="12">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="FAMILY HEAD: " FontWeight="Bold" FontSize="16"/>
-                                <TextBlock  Text="{Binding FamilyHead}" FontWeight="Bold" RenderTransformOrigin="0.264,19.145" FontSize="16"/>
+                                <TextBlock Text="FAMILY HEAD: " FontSize="16"/>
+                                <TextBlock  Text="{Binding FamilyHead}" 
+                                            FontWeight="Bold" FontSize="16"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontSize="14"><Run Text="H"/><Run Text="ouse Number"/><Run Text=":"/><Run Text=" #"/></TextBlock>
@@ -56,7 +58,40 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <DockPanel Grid.Column="1">
+        <ContentControl Grid.Column="1" 
+                        Content="{Binding Households.CurrentItem, Mode=OneWay}" ContentTemplate="{DynamicResource _householdTemplate}">
+            <ContentControl.Resources>
+                <DataTemplate x:Key="_householdTemplate">
+                    <Grid Margin="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="0,0,0,4" FontWeight="Bold" FontSize="14.667">FAMILY MEMBERS</TextBlock>
+                            <ItemsControl ItemsSource="{Binding members}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,4,0,0" >
+                                <TextBlock TextWrapping="Wrap" Text="House No. "/>
+                                <TextBlock Text="{Binding HouseNumber}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock TextWrapping="Wrap" Text="Address: "/>
+                                <TextBlock Text="{Binding Address}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <Image Grid.Column="1" 
+                               Margin="8"
+                               Width="150"
+                               Height="150"
+                               VerticalAlignment="Top"
+                               Source="{Binding Photo, TargetNullValue={StaticResource _houseImage}}"/>
+                    </Grid>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+
+        <DockPanel Grid.Column="2">
             <StackPanel Orientation="Vertical">
                 <ItemsControl ItemsPanel="{Binding}"/>
                 <Button maha:ButtonHelper.CornerRadius="5" 
