@@ -170,6 +170,11 @@ namespace RescueApp.Views
             Vulnerabilities = "";
         }
 
+        public override void DoCleanup()
+        {
+            ClearFields();
+        }
+
         public void Edit(DownloadPersonModel item)
         {
             CivilStatus = item.CivilStatus;

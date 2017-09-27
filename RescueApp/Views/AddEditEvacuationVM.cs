@@ -113,6 +113,11 @@ namespace RescueApp.Views
             Capacity = 0;
         }
 
+        public override void DoCleanup()
+        {
+            ClearFields();
+        }
+
         public override void OnShow<T>(T args)
         {
             

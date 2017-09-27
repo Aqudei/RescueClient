@@ -109,6 +109,7 @@
     <Compile Include="Messages\AddEditResultMessage.cs" />
     <Compile Include="Messages\StatsChangedMessage.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />
+    <Compile Include="Misc\NumberOnlyBehaviour.cs" />
     <Compile Include="Models\Center.cs" />
     <Compile Include="Models\Incident.cs" />
     <Compile Include="Models\Statistics.cs" />

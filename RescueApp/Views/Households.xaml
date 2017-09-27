@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="RescueApp.Views.Households"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,12 +6,16 @@
              xmlns:local="clr-namespace:RescueApp.Views"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
-             DataContext="{Binding HouseholdsVM, Source={StaticResource Locator}}"
+             xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared" x:Class="RescueApp.Views.Households"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="630">
     <UserControl.Resources>
+        <Custom:ToUpperConverter x:Key="ToUpperConverter"/>
         <BitmapImage x:Key="_houseImage" UriSource="/RescueApp;component/Resources/house-41415_960_720.png"/>
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <Binding Path="HouseholdsVM" Source="{StaticResource Locator}"/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -65,14 +69,15 @@
                 <DataTemplate x:Key="_householdTemplate">
                     <Grid Margin="8">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Margin="0,0,0,4" FontWeight="Bold" FontSize="14.667">FAMILY MEMBERS</TextBlock>
+                            <TextBlock Margin="0" FontWeight="Bold" FontSize="14.667"><Run Text="FAMILY MEMBERS:"/></TextBlock>
                             <ItemsControl ItemsSource="{Binding members}" 
                                           Typography.Capitals="AllSmallCaps"/>
-                            <StackPanel Orientation="Horizontal" Margin="0,4,0,0" >
+                            <TextBlock Margin="0,16,0,0" FontWeight="Bold" FontSize="14.667"><Run Text="HOUSE INFO:"/></TextBlock>
+                            <StackPanel Orientation="Horizontal"  >
                                 <TextBlock TextWrapping="Wrap" Text="House No. "/>
                                 <TextBlock Text="{Binding HouseNumber}" />
                             </StackPanel>
@@ -85,13 +90,22 @@
                                 <TextBlock TextWrapping="Wrap" Text="Economic Status: "/>
                                 <TextBlock TextWrapping="Wrap" Text="{Binding EconomicStatus}"/>
                             </StackPanel>
+
                         </StackPanel>
-                        <Image Grid.Column="1" 
-                               Margin="8"
-                               Width="150"
-                               Height="150"
-                               VerticalAlignment="Top"
-                               Source="{Binding Photo, TargetNullValue={StaticResource _houseImage}}"/>
+                        <StackPanel Grid.Column="1" Margin="8"
+                                    Orientation="Vertical">
+                            
+                            <Image HorizontalAlignment="Left"
+                                Width="150"
+                                Height="150"
+                                VerticalAlignment="Top"
+                                Source="{Binding Photo, TargetNullValue={StaticResource _houseImage}}"/>
+
+                            <TextBlock HorizontalAlignment="Left"><Run Text="Head Of the Family:"/></TextBlock>
+                            <TextBlock  HorizontalAlignment="Left"
+                                        FontSize="16" 
+                                       Text="{Binding FamilyHead, Converter={StaticResource ToUpperConverter}}" />
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ContentControl.Resources>
@@ -105,7 +119,7 @@
                         CommandParameter="{Binding Households/}"
                         Width="100" Margin="8">
 
-                    <TextBlock TextWrapping="Wrap">Manage Family Members</TextBlock>
+                    <TextBlock TextWrapping="Wrap"><Run Text="Manage Family Members"/></TextBlock>
                 </Button>
             </StackPanel>
 

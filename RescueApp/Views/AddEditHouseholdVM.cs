@@ -100,5 +100,10 @@ namespace RescueApp.Views
             Current.IsOwned = false;
             Current.members?.Clear();
         }
+
+        public override void DoCleanup()
+        {
+            ClearFields();
+        }
     }
 }
