@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="RescueApp.Views.AddEditPerson"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,12 +7,18 @@
              xmlns:iconPacks ="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:maha ="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared" x:Class="RescueApp.Views.AddEditPerson"
              Dialog:DialogParticipation.Register="{Binding}"
-             mc:Ignorable="d" DataContext="{Binding AddEditPersonVM, Source={StaticResource Locator}}"
+             mc:Ignorable="d"
              d:DesignHeight="551.354">
     <UserControl.Resources>
+        <Custom:ToUpperConverter x:Key="ToUpperConverter"/>
         <BitmapImage x:Key="defaultImage" UriSource="/RescueApp;component/Resources/question_sign_on_person_head.png" />
     </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <Binding Path="AddEditPersonVM" Source="{StaticResource Locator}"/>
+    </UserControl.DataContext>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -54,15 +60,15 @@
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Gender:"/>
                         <ComboBox Width="200" SelectedIndex="0" Text="{Binding Gender, Mode=TwoWay}">
-                            <ComboBoxItem>MALE</ComboBoxItem>
-                            <ComboBoxItem>FEMALE</ComboBoxItem>
+                            <ComboBoxItem Content="MALE"/>
+                            <ComboBoxItem Content="FEMALE"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Civil Status:"/>
                         <ComboBox Width="200" SelectedIndex="0" Text="{Binding CivilStatus, Mode=TwoWay}">
-                            <ComboBoxItem>SINGLE</ComboBoxItem>
-                            <ComboBoxItem>MARRIED</ComboBoxItem>
+                            <ComboBoxItem Content="SINGLE"/>
+                            <ComboBoxItem Content="MARRIED"/>
                         </ComboBox>
                     </StackPanel>
 
@@ -85,8 +91,8 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Contact:"/>
-                        <TextBox Width="200" 
-                         Text="{Binding Contact, Mode=TwoWay}" CharacterCasing="Upper"/>
+                        <TextBox Width="200" wpf:NumberOnlyBehaviour.IsEnabled="True" xmlns:wpf="clr-namespace:NumberOnlyBehaviourWPF"
+                         Text="{Binding Contact, Mode=TwoWay}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Email:"/>
@@ -139,10 +145,10 @@
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <TextBlock x:Name="textBlock1" Text="Educational Attainment: " Width="{Binding ActualWidth, ElementName=label}" TextWrapping="Wrap"/>
                         <ComboBox Width="200" Text="{Binding Education, Mode=TwoWay}">
-                            <ComboBoxItem>ELEMENTARY</ComboBoxItem>
-                            <ComboBoxItem>HIGHSCHOOL</ComboBoxItem>
-                            <ComboBoxItem>COLLEGE</ComboBoxItem>
-                            <ComboBoxItem>MASTERS</ComboBoxItem>
+                            <ComboBoxItem Content="ELEMENTARY"/>
+                            <ComboBoxItem Content="HIGHSCHOOL"/>
+                            <ComboBoxItem Content="COLLEGE"/>
+                            <ComboBoxItem Content="MASTERS"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">

@@ -62,6 +62,7 @@ namespace RescueApp.ViewModel
 
             SimpleIoc.Default.Register<IDialogCoordinator, DialogCoordinator>();
             SimpleIoc.Default.Register<AddEditHouseholdVM>();
+            SimpleIoc.Default.Register<AddEditIncidentVM>();
             SimpleIoc.Default.Register<HouseholdsVM>();
             SimpleIoc.Default.Register<DialogService>();
             SimpleIoc.Default.Register<MissionStatementVM>();
@@ -84,6 +85,13 @@ namespace RescueApp.ViewModel
             }
         }
 
+        public AddEditIncidentVM AddEditIncidentVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddEditIncidentVM>();
+            }
+        }
 
         public FamilyMemberSelectorVM FamilyMemberSelectorVM
         {
@@ -193,6 +201,8 @@ namespace RescueApp.ViewModel
             dialogService.RegisterDialog<AddEditEvacuation>("AddEditEvacuation");
             dialogService.RegisterDialog<AddEditHousehold>("AddEditHousehold");
             dialogService.RegisterDialog<FamilyMemberSelector>("FamilyMemberSelector");
+            dialogService.RegisterDialog<AddEditIncident>("AddEditIncident");
+            
         }
     }
 }

@@ -20,6 +20,8 @@ namespace RescueApp
             _client.BaseUrl = new Uri("http://localhost:8000");
         }
 
+
+        //PEOPLE ENDPOINGS
         public void GetPeople(Action<Exception, List<DownloadPersonModel>> callback)
         {
             var request = new RestRequest("/api/people/", Method.GET);
@@ -71,26 +73,6 @@ namespace RescueApp
                 callback(null, rslt.Data);
             });
         }
-
-        public void ToggleMembership(DownloadPersonModel person, DownloadHouseholdModel household,
-            Action<Exception, DownloadHouseholdModel> callback)
-        {
-            var request = new RestRequest("/api/people/" + person.Id + "/toggle_membership/", Method.PATCH);
-            request.AddParameter("household_id", household.Id);
-            _client.ExecuteAsync<DownloadHouseholdModel>(request, rslt =>
-            {
-                if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    callback(null, rslt.Data);
-                }
-                else
-                {
-                    callback(new Exception("Cannot Toggle Membership\n+"
-                        + rslt.Content?.Trim("[]".ToCharArray())), null);
-                }
-            });
-        }
-
         public void UpdatePerson(UploadPersonModel person,
             Action<Exception, DownloadPersonModel> callback, string choosenPhoto = "")
         {
@@ -140,6 +122,7 @@ namespace RescueApp
             });
         }
 
+        //EVACUATION CENTER ENDPOINTS
         public void GetCenters(Action<Exception, List<Center>> callback)
         {
             var request = new RestRequest("/api/centers/", Method.GET);
@@ -248,6 +231,7 @@ namespace RescueApp
             });
         }
 
+        //HOUSEHOLD ENPOINTS
         public void GetHouseholds(Action<Exception, List<DownloadHouseholdModel>> callback)
         {
             var request = new RestRequest("/api/households/", Method.GET);
@@ -375,10 +359,56 @@ namespace RescueApp
                 callback(null, rslt.Data);
             });
         }
-        public void ToggleIncidentStatus(Action<Exception, List<Incident>> callback)
+        public void ToggleIncidentStatus(Incident incident, Action<Exception, List<Incident>> callback)
         {
-            var request = new RestRequest("/api/incidents/", Method.PATCH);
+            var request = new RestRequest("/api/incidents/" + incident.Id + "/toggle/", Method.PATCH);
+            _client.ExecuteAsync<List<Incident>>(request, (response) =>
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    callback(null, response.Data);
+                    return;
+                }
+                else
+                {
+                    callback(new Exception(string.Format("{0}\n{1}",
+                        response.Content, response.ErrorMessage)), null);
+
+                    return;
+                }
+            });
         }
+        public void GetIncidents(Action<Exception, List<Incident>> callback)
+        {
+            var request = new RestRequest("/api/incidents/", Method.GET);
+            _client.ExecuteAsync<List<Incident>>(request, (rslt) =>
+            {
+                if (rslt.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    callback(new Exception("" + rslt.StatusDescription
+                        + "\n" + rslt.Content + "\n" + rslt.ErrorMessage), null);
+                    return;
+                }
+
+                callback(null, rslt.Data);
+            });
+        }
+        public void DeleteIncident(Incident incident, Action<Exception> callback)
+        {
+            var request = new RestRequest("/api/incidents/" + incident.Id + "/", Method.DELETE);
+            _client.ExecuteAsync(request, (rslt) =>
+            {
+                if (rslt.StatusCode != System.Net.HttpStatusCode.NoContent)
+                {
+                    callback(new Exception("" + rslt.StatusDescription
+                        + "\n" + rslt.Content + "\n" + rslt.ErrorMessage));
+                    return;
+                }
+                else
+                    callback(null);
+            });
+        }
+
 
         public void GetStats(Action<Exception, Statistics> callback)
         {
@@ -392,6 +422,24 @@ namespace RescueApp
                 }
 
                 callback(null, rslt.Data);
+            });
+        }
+        public void ToggleMembership(DownloadPersonModel person, DownloadHouseholdModel household,
+           Action<Exception, DownloadHouseholdModel> callback)
+        {
+            var request = new RestRequest("/api/people/" + person.Id + "/toggle_membership/", Method.PATCH);
+            request.AddParameter("household_id", household.Id);
+            _client.ExecuteAsync<DownloadHouseholdModel>(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    callback(null, rslt.Data);
+                }
+                else
+                {
+                    callback(new Exception("Cannot Toggle Membership\n+"
+                        + rslt.Content?.Trim("[]".ToCharArray())), null);
+                }
             });
         }
 

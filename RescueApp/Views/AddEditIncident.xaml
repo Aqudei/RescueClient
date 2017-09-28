@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="RescueApp.Views.AddEditIncident"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RescueApp.Views"
+             xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             Dialog:DialogParticipation.Register="{Binding}"
+             mc:Ignorable="d" 
+             d:DesignHeight="181.985" d:DesignWidth="462.132">
+    <UserControl.DataContext>
+        <Binding Source="{StaticResource Locator}" Path="AddEditIncidentVM" />
+    </UserControl.DataContext>
+    <Grid>
+        <GroupBox Header="Incident Info" 
+                  HorizontalAlignment="Left" Height="162" Margin="10,10,0,0" VerticalAlignment="Top" Width="431">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,2">
+                    <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="INCIDENT NAME:" VerticalAlignment="Center" Width="107" FontWeight="Bold"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding Incident.IncidentName}" CharacterCasing="Upper" VerticalAlignment="Center" Width="256" Margin="16,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,2">
+                    <TextBlock TextWrapping="Wrap" Text="DATE OCCURED:" VerticalAlignment="Center" Width="{Binding ActualWidth, ElementName=textBlock, Mode=OneWay}" FontWeight="Bold"/>
+                    <maha:DateTimePicker Height="32" VerticalAlignment="Center" Width="256" Margin="16,0,0,0" SelectedDate="{Binding Incident.DateOccured}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3">
+                    <Button Command="{Binding SaveCommand, Mode=OneWay}" 
+                            Content="SAVE" VerticalAlignment="Center"/>
+                    <Button Content="CLOSE" VerticalAlignment="Center" Click="CloseButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

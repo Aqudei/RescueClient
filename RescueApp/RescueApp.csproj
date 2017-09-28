@@ -130,6 +130,10 @@
       <DependentUpon>AddEditHousehold.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddEditHouseholdVM.cs" />
+    <Compile Include="Views\AddEditIncident.xaml.cs">
+      <DependentUpon>AddEditIncident.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddEditIncidentVM.cs" />
     <Compile Include="Views\AddEditPerson.xaml.cs">
       <DependentUpon>AddEditPerson.xaml</DependentUpon>
     </Compile>
@@ -197,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddEditHousehold.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddEditIncident.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
