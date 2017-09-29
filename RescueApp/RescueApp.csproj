@@ -130,6 +130,8 @@
     <Compile Include="Models\Center.cs" />
     <Compile Include="Models\ChecInInfo.cs" />
     <Compile Include="Models\Incident.cs" />
+    <Compile Include="Models\MonitoringInfo.cs" />
+    <Compile Include="Models\MonitoringSummary.cs" />
     <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\UploadHouseholdModel.cs" />
     <Compile Include="Models\UploadPersonModel.cs" />
@@ -179,6 +181,7 @@
       <DependentUpon>FamilyMemberSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FamilyMemberSelectorVM.cs" />
+    <Compile Include="Views\Helpers\IdComparer.cs" />
     <Compile Include="Views\Helpers\PageBase.cs" />
     <Compile Include="Views\Households.xaml.cs">
       <DependentUpon>Households.xaml</DependentUpon>

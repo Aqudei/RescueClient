@@ -138,5 +138,10 @@ namespace RescueApp.Views
         {
             dialogService.ShowDialog<Center>("AddEditEvacuation", c);
         });
+
+        public RelayCommand<Center> CenterAssignmentCommand => new RelayCommand<Center>((c) =>
+        {
+            dialogService.ShowDialog("CenterSelector", c);
+        });
     }
 }

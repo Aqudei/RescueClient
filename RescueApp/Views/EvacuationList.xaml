@@ -71,6 +71,13 @@
                                     CommandParameter="{Binding Mode=OneWay}">
                                         <iconPacks:PackIconModern Kind="Edit"/>
                                     </Button>
+
+                                    <Button HorizontalAlignment="Left" 
+                                    Style="{DynamicResource MetroCircleButtonStyle}" Padding="16" 
+                                    Command="{Binding DataContext.CenterAssignmentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
+                                    CommandParameter="{Binding Mode=OneWay}">
+                                        <iconPacks:PackIconModern Kind="Add"/>
+                                    </Button>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

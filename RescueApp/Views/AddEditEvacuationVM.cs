@@ -116,8 +116,9 @@ namespace RescueApp.Views
                         CenterName = CenterName,
                         Limit = Limit,
                         Id = Id,
-                        Photo = ChoosenPhoto
-
+                        Photo = ChoosenPhoto,
+                        Latitude = Latitude,
+                        Longitude = Longitude
                     };
 
                     if (Id == 0)

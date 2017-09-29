@@ -77,7 +77,7 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.Register<AddEditEvacuationVM>();
             SimpleIoc.Default.Register<StatisticsVM>();
             SimpleIoc.Default.Register<FamilyMemberSelectorVM>();
-
+            SimpleIoc.Default.Register<CenterSelectorVM>();
 
 
             if (!ViewModelBase.IsInDesignModeStatic)
@@ -90,6 +90,16 @@ namespace RescueApp.ViewModel
 
             }
         }
+
+        public CenterSelectorVM CenterSelectorVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CenterSelectorVM>();
+            }
+        }
+
+
 
         public AddEditIncidentVM AddEditIncidentVM
         {
@@ -207,6 +217,7 @@ namespace RescueApp.ViewModel
             dialogService.RegisterDialog<AddEditEvacuation>("AddEditEvacuation");
             dialogService.RegisterDialog<AddEditHousehold>("AddEditHousehold");
             dialogService.RegisterDialog<FamilyMemberSelector>("FamilyMemberSelector");
+            dialogService.RegisterDialog<CenterSelector>("CenterSelector");
             dialogService.RegisterDialog<AddEditIncident>("AddEditIncident");
 
         }
