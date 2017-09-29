@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using GsmComm.GsmCommunication;
 using System.Diagnostics;
 using GsmComm.PduConverter;
+using RescueApp.Models;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace RescueApp.Misc
 {
@@ -25,7 +27,14 @@ namespace RescueApp.Misc
             {
                 gsmComm = new GsmCommMain(portnumber, baudrate);
                 gsmComm.MessageReceived += GsmComm_MessageReceived;
-                gsmComm.Open();
+                try
+                {
+                    gsmComm.Open();
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("RUNNING WITH NO SMS SUPPORT");
+                }
             }
             else
             {
@@ -85,6 +94,15 @@ namespace RescueApp.Misc
                 Debug.WriteLine("Sender: " + data.OriginatingAddress);
                 Debug.WriteLine("Sent: " + data.SCTimestamp.ToString());
                 Debug.WriteLine("Message text: " + data.UserDataText);
+
+                var checkNInfo = Newtonsoft.Json.JsonConvert
+                    .DeserializeObject<ChecInInfo>(data.UserDataText);
+
+                Messenger.Default.Send(new Messages.NewCheckInMessage
+                {
+                    ChecInInfo = checkNInfo
+                });
+
                 Debug.WriteLine("-------------------------------------------------------------------");
                 return;
             }

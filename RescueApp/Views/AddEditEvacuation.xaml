@@ -33,7 +33,7 @@
                      HorizontalAlignment="Left" 
                      Height="23" Margin="105,194,0,0" 
                      TextWrapping="Wrap" 
-                     Text="{Binding Limit}"
+                     Text="{Binding Limit, Mode=TwoWay}"
                      VerticalAlignment="Top" 
                      Width="270"/>
 
@@ -60,17 +60,22 @@
                 HorizontalAlignment="Left" 
                 Height="23" Margin="105,237,0,0" 
                 TextWrapping="Wrap" 
-                Text="{Binding Limit}"
+                Text="{Binding Longitude, Mode=TwoWay}"
                 VerticalAlignment="Top" 
                 Width="270" IsReadOnly="True"/>
+
             <Label Content="Latitude" HorizontalAlignment="Left" Margin="23,278,0,0" VerticalAlignment="Top" FontWeight="SemiBold"/>
             <TextBox  
                 HorizontalAlignment="Left" 
                 Height="23" Margin="105,278,0,0" 
                 TextWrapping="Wrap" 
-                Text="{Binding Limit}"
+                Text="{Binding Latitude, Mode=TwoWay}"
                 VerticalAlignment="Top" 
                 Width="270" IsReadOnly="True"/>
+            <Button Margin="0,260,219,0" 
+                    VerticalAlignment="Top" Command="{Binding PickLocationCommand, Mode=OneWay}" HorizontalAlignment="Right" Width="59">
+                <TextBlock TextWrapping="Wrap">Pick Location</TextBlock>
+            </Button>
         </Grid>
         <TextBlock TextWrapping="Wrap" DockPanel.Dock="Top" Text="ADD/EDIT EVACUATION CENTER FORM" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Margin="2">
             <TextBlock.Background>

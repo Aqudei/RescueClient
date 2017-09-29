@@ -74,6 +74,9 @@
     <Reference Include="MahApps.Metro.IconPacks, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.1.9.0\lib\net46\MahApps.Metro.IconPacks.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Maps.MapControl.WPF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Maps.MapControl.WPF.1.0.0.3\lib\net40-Client\Microsoft.Maps.MapControl.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -119,11 +122,13 @@
     <Compile Include="Interfaces\ICrudVM.cs" />
     <Compile Include="Interfaces\IEditorDialog.cs" />
     <Compile Include="Messages\AddEditResultMessage.cs" />
+    <Compile Include="Messages\NewCheckInMessage.cs" />
     <Compile Include="Messages\StatsChangedMessage.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />
     <Compile Include="Misc\NumberOnlyBehaviour.cs" />
     <Compile Include="Misc\SMSListener.cs" />
     <Compile Include="Models\Center.cs" />
+    <Compile Include="Models\ChecInInfo.cs" />
     <Compile Include="Models\Incident.cs" />
     <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\UploadHouseholdModel.cs" />
@@ -162,6 +167,9 @@
       <DependentUpon>Camera.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\CapturedPhotoEvenArgs.cs" />
+    <Compile Include="Views\Dialogs\LocationPicker.xaml.cs">
+      <DependentUpon>LocationPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\YesNoDialog.cs" />
     <Compile Include="Views\EvacuationList.xaml.cs">
       <DependentUpon>EvacuationList.xaml</DependentUpon>
@@ -234,6 +242,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\Camera.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\LocationPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

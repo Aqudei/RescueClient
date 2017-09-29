@@ -33,6 +33,19 @@ namespace RescueApp.ViewServices
             _dialogs = new Dictionary<string, Type>();
         }
 
+        public Tuple<double, double> ShowMapPicker()
+        {
+            var dlgMap = new LocationPicker();
+            if (dlgMap.ShowDialog() == true)
+            {
+                return new Tuple<double, double>(dlgMap.Latitude, dlgMap.Longitude);
+            }
+            else
+            {
+                return new Tuple<double, double>(0, 0); ;
+            }
+        }
+
         public void RegisterDialog<T>(string dialogName)
         {
             if (_dialogs.ContainsKey(dialogName))

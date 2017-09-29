@@ -48,6 +48,28 @@ namespace RescueApp.Views
             set { Set(ref _capacity, value); }
         }
 
+        private double _latitude = 0;
+
+        public double Latitude
+        {
+            get { return _latitude; }
+            set { Set(ref _latitude, value); }
+        }
+
+        private double _longitude = 0;
+
+        public double Longitude
+        {
+            get
+            {
+                return _longitude;
+            }
+            set
+            {
+                Set(ref _longitude, value);
+            }
+        }
+
         private readonly RescueClient rescueClient;
         private readonly DialogService dialogService;
         private readonly IDialogCoordinator dialogCoordinator;
@@ -146,6 +168,22 @@ namespace RescueApp.Views
             });
         }
 
+        private RelayCommand _PickLocationCommand;
+
+        public RelayCommand PickLocationCommand
+        {
+            get
+            {
+                return _PickLocationCommand ?? (_PickLocationCommand = new RelayCommand(() =>
+                {
+                    var loc = dialogService.ShowMapPicker();
+                    Latitude = loc.Item1;
+                    Longitude = loc.Item2;
+                }));
+            }
+        }
+
+
         private void ClearFields()
         {
             Address = "";
@@ -153,6 +191,8 @@ namespace RescueApp.Views
             CenterName = "";
             ChoosenPhoto = null;
             Limit = 0;
+            Latitude = 0;
+            Longitude = 0;
         }
 
         public override void DoCleanup()

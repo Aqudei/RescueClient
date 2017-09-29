@@ -86,7 +86,7 @@ namespace RescueApp.ViewModel
                 SimpleIoc.Default.Register(() => new SMSListener(
                     Properties.Settings.Default.SMS_PORT,
                     Properties.Settings.Default.SMS_BAUD
-                    ));
+                    ), true);
 
             }
         }
