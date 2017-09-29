@@ -424,7 +424,7 @@ namespace RescueApp
                 callback(null, rslt.Data);
             });
         }
-        public void ToggleMembership(DownloadPersonModel person, DownloadHouseholdModel household,
+        public void ToggleHouseholdMembership(DownloadPersonModel person, DownloadHouseholdModel household,
            Action<Exception, DownloadHouseholdModel> callback)
         {
             var request = new RestRequest("/api/people/" + person.Id + "/toggle_membership/", Method.PATCH);
@@ -439,6 +439,25 @@ namespace RescueApp
                 {
                     callback(new Exception("Cannot Toggle Membership\n+"
                         + rslt.Content?.Trim("[]".ToCharArray())), null);
+                }
+            });
+        }
+
+        public void ToggleEvacuationMembership(DownloadPersonModel person, Center center,
+           Action<Exception, Center> callback)
+        {
+            var request = new RestRequest("/api/people/" + person.Id + "/toggle_evacuation_membership/", Method.PATCH);
+            request.AddParameter("center_id", center.Id);
+            _client.ExecuteAsync<Center>(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    callback(null, rslt.Data);
+                }
+                else
+                {
+                    callback(new Exception("Cannot Toggle Center Membership\n+"
+                        + rslt.Content?.Trim("[]".ToCharArray()) + "\n" + rslt.ErrorMessage), null);
                 }
             });
         }

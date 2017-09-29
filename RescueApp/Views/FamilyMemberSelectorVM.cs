@@ -105,7 +105,7 @@ namespace RescueApp.Views
             {
                 return _toggleMembership ?? (_toggleMembership = new RelayCommand<DownloadPersonModel>((p) =>
                 {
-                    rescueClient.ToggleMembership(p, CurrentHousehold, (ex, household_new) =>
+                    rescueClient.ToggleHouseholdMembership(p, CurrentHousehold, (ex, household_new) =>
                     {
                         if (ex == null)
                         {

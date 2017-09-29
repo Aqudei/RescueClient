@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
              DataContext="{Binding CenterSelectorVM, Source={StaticResource Locator}}"
              xmlns:local="clr-namespace:RescueApp.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="1445.091" d:DesignWidth="2050.606">
+             d:DesignHeight="1210.464" d:DesignWidth="1757.322">
     <Grid Width="600" Height="400">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -14,7 +15,36 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <ListBox ItemsSource="{Binding AllPeopleView}"/>
-        <ListBox Grid.Column="2" ItemsPanel="{Binding CurrentCenter.members}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.ColumnSpan="3" Margin="0,0,0,8" Orientation="Vertical">
+            <TextBlock FontSize="24" FontWeight="Bold" Height="32" ><Run Text="ASSIGN PEOPLE TO: " /><Run Text=" "/><Run Text="{Binding CurrentCenter.CenterName}"/></TextBlock>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock VerticalAlignment="Center" Margin="0,0,4,0">Filter:</TextBlock>
+                <TextBox x:Name="textBox" maha:TextBoxHelper.Watermark="Please Type Search Keyword"  Width="256" Margin="4,0,0,0"/>
+                <Button Margin="4,0,0,0" Command="{Binding ApplyFilterCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=textBox}">Apply Filter</Button>
+            </StackPanel>
+        </StackPanel>
+
+        <ListBox Grid.Row="1" x:Name="listBox" IsSynchronizedWithCurrentItem="True" 
+                 ItemsSource="{Binding AllPeopleView}"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+            <Button Command="{Binding ToggleMembership, Mode=OneWay}" CommandParameter="{Binding ItemsSource.CurrentItem, ElementName=listBox, Mode=OneWay}" Content="Add Member"/>
+            <Button Command="{Binding ToggleMembership, Mode=OneWay}" CommandParameter="{Binding ItemsSource/, ElementName=listBox1}" Content="Remove Member"/>
+        </StackPanel>
+        <ListBox Grid.Row="1" x:Name="listBox1" Grid.Column="2" 
+                 ItemsSource="{Binding CurrentCenter.members}"
+                 IsSynchronizedWithCurrentItem="True" />
+
+        <StackPanel Margin="2" 
+                    Grid.Row="2" 
+                    Orientation="Horizontal">
+
+            <Button Click="Done_Click" Content="Done"/>
+        </StackPanel>
     </Grid>
 </UserControl>
