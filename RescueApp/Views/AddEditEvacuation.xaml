@@ -28,7 +28,7 @@
                      MinLines="3"
                      CharacterCasing="Upper"/>
             <Label Content="Capacity:" HorizontalAlignment="Left" Margin="23,194,0,0" VerticalAlignment="Top" FontWeight="SemiBold"/>
-            
+
             <TextBox my:NumberOnlyBehaviour.IsEnabled="True" 
                      HorizontalAlignment="Left" 
                      Height="23" Margin="105,194,0,0" 
@@ -36,7 +36,7 @@
                      Text="{Binding Limit}"
                      VerticalAlignment="Top" 
                      Width="270"/>
-            
+
             <Image HorizontalAlignment="Left" 
                    Height="254" 
                    Margin="409,41,0,0" 
@@ -55,6 +55,22 @@
                 </StackPanel>
             </Button>
             <Button Content="Browse" Margin="0,309,49,0" VerticalAlignment="Top" Command="{Binding BrosePhotoCommand, Mode=OneWay}" HorizontalAlignment="Right" Width="59"/>
+            <Label Content="Longitude" HorizontalAlignment="Left" Margin="23,237,0,0" VerticalAlignment="Top" FontWeight="SemiBold"/>
+            <TextBox 
+                HorizontalAlignment="Left" 
+                Height="23" Margin="105,237,0,0" 
+                TextWrapping="Wrap" 
+                Text="{Binding Limit}"
+                VerticalAlignment="Top" 
+                Width="270" IsReadOnly="True"/>
+            <Label Content="Latitude" HorizontalAlignment="Left" Margin="23,278,0,0" VerticalAlignment="Top" FontWeight="SemiBold"/>
+            <TextBox  
+                HorizontalAlignment="Left" 
+                Height="23" Margin="105,278,0,0" 
+                TextWrapping="Wrap" 
+                Text="{Binding Limit}"
+                VerticalAlignment="Top" 
+                Width="270" IsReadOnly="True"/>
         </Grid>
         <TextBlock TextWrapping="Wrap" DockPanel.Dock="Top" Text="ADD/EDIT EVACUATION CENTER FORM" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Margin="2">
             <TextBlock.Background>

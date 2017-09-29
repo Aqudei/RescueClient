@@ -39,8 +39,7 @@ namespace RescueApp.Views
                 return _incidentsCollectionView;
             }
         }
-
-
+        
         public RelayCommand CreateItemCommand => new RelayCommand(() => dialogService.ShowDialog("AddEditIncident"));
 
         public RelayCommand<Incident> DeleteItemCommand => new RelayCommand<Incident>((i) =>

@@ -21,6 +21,7 @@ using RescueApp.ViewServices;
 using RescueApp.Models;
 using RescueApp.Views.Dialogs;
 using MahApps.Metro.Controls.Dialogs;
+using RescueApp.Misc;
 
 namespace RescueApp.ViewModel
 {
@@ -82,6 +83,11 @@ namespace RescueApp.ViewModel
             if (!ViewModelBase.IsInDesignModeStatic)
             {
                 InitializeDialogs();
+                SimpleIoc.Default.Register(() => new SMSListener(
+                    Properties.Settings.Default.SMS_PORT,
+                    Properties.Settings.Default.SMS_BAUD
+                    ));
+
             }
         }
 
@@ -202,7 +208,7 @@ namespace RescueApp.ViewModel
             dialogService.RegisterDialog<AddEditHousehold>("AddEditHousehold");
             dialogService.RegisterDialog<FamilyMemberSelector>("FamilyMemberSelector");
             dialogService.RegisterDialog<AddEditIncident>("AddEditIncident");
-            
+
         }
     }
 }

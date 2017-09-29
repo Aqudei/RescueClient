@@ -12,6 +12,24 @@ namespace RescueApp.Models
         private int _limit;
         private string _photo;
 
+        private double _latitude;
+
+        public double Latitude
+        {
+            get { return _latitude; }
+            set { Set(ref _latitude, value); }
+        }
+
+
+        private double _longitude;
+
+        public double Longitude
+        {
+            get { return _longitude; }
+            set { Set(ref _longitude, value); }
+        }
+
+
         public string CenterName { get; set; }
         public string Address
         {
