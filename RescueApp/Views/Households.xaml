@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RescueApp.Views"
+            xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+            Dialog:DialogParticipation.Register="{Binding}"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared" xmlns:WPF="clr-namespace:RescueApp.WPF" x:Class="RescueApp.Views.Households"
@@ -21,7 +23,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="Auto"/>
+
         </Grid.ColumnDefinitions>
         <ListView Margin="8" IsSynchronizedWithCurrentItem="True"
                   ItemsSource="{Binding Households}" 
@@ -33,7 +35,7 @@
                     <Grid Margin="12">
                         <StackPanel>
 
-                            <TextBlock  Text="{Binding FamilyHead, Converter={StaticResource ToUpperConverter}}" 
+                            <TextBlock  Text="{Binding FamilyHead, Converter={StaticResource ToUpperConverter}, Mode=OneWay, TargetNullValue=&lt;NO FAMILY HEAD&gt;}" 
                                         FontWeight="Bold" FontSize="18"/>
 
                             <StackPanel Orientation="Horizontal">
@@ -55,6 +57,15 @@
                                         CommandParameter="{Binding Mode=OneWay}" HorizontalAlignment="Left" Margin="4" >
                                     <iconPacks:PackIconModern Kind="Delete"/>
                                 </Button>
+
+                                <Button Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                                        Command="{Binding DataContext.AddMemberCommand, ElementName=_householdList, Mode=OneWay}" 
+                                        Padding="6" ToolTip="Add Family Members"
+                                        CommandParameter="{Binding Mode=OneWay}" >
+                                    <iconPacks:PackIconModern Kind="AddMultiple"/>
+                                </Button>
+
+
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -74,20 +85,30 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Margin="0" FontWeight="Bold" FontSize="14.667"><Run Text="FAMILY MEMBERS:"/></TextBlock>
-                            <ItemsControl ItemsSource="{Binding members}" />
+                            <ItemsControl ItemsSource="{Binding members}" FontSize="16" />
+                            <StackPanel Margin="0,0,73.253,0" Orientation="Vertical">
+
+                                <TextBlock  FontWeight="Bold" FontSize="14.667"
+                                            Text="HEAD OF THE FAMILTY" HorizontalAlignment="Left" Margin="0,16,0,0"/>
+                                <TextBlock  HorizontalAlignment="Left"
+                                    FontSize="16" 
+                                    Text="{Binding FamilyHead, Converter={StaticResource ToUpperConverter}}" />
+                            </StackPanel>
                             <TextBlock Margin="0,16,0,0" FontWeight="Bold" FontSize="14.667"><Run Text="HOUSE INFO:"/></TextBlock>
                             <StackPanel Orientation="Horizontal"  >
-                                <TextBlock TextWrapping="Wrap" Text="House No. "/>
-                                <TextBlock Text="{Binding HouseNumber}" />
+                                <TextBlock TextWrapping="Wrap" Text="House No. " FontSize="18.667"/>
+                                <TextBlock Text="{Binding HouseNumber}" FontSize="18.667" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock TextWrapping="Wrap" Text="Address: "/>
-                                <TextBlock Text="{Binding Address}" />
+                                <TextBlock TextWrapping="Wrap" Text="Address: " FontSize="18.667"/>
+                                <TextBlock Text="{Binding Address}" FontSize="18.667" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock TextWrapping="Wrap" Text="Economic Status: "/>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding EconomicStatus}"/>
+                                <TextBlock TextWrapping="Wrap" Text="Economic Status: " FontSize="18.667"/>
+                                <TextBlock TextWrapping="Wrap" 
+                                           Text="{Binding EconomicStatus, Converter={StaticResource ToUpperConverter}}"
+                                           FontSize="18.667"/>
                             </StackPanel>
 
                         </StackPanel>
@@ -99,29 +120,10 @@
                                 Height="150"
                                 VerticalAlignment="Top"
                                 Source="{Binding Photo, TargetNullValue={StaticResource _houseImage}}"/>
-
-                            <TextBlock HorizontalAlignment="Left"><Run Text="Head Of the Family:"/></TextBlock>
-                            <TextBlock  HorizontalAlignment="Left"
-                                        FontSize="16" 
-                                       Text="{Binding FamilyHead, Converter={StaticResource ToUpperConverter}}" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
-
-        <DockPanel Grid.Column="2">
-            <StackPanel Orientation="Vertical">
-                <ItemsControl ItemsPanel="{Binding}"/>
-                <Button maha:ButtonHelper.CornerRadius="5" 
-                        Command="{Binding AddMemberCommand}" 
-                        CommandParameter="{Binding Households/}"
-                        Width="100" Margin="8">
-
-                    <TextBlock TextWrapping="Wrap"><Run Text="Manage Family Members"/></TextBlock>
-                </Button>
-            </StackPanel>
-
-        </DockPanel>
     </Grid>
 </UserControl>

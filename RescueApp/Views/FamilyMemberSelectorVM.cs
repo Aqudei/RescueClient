@@ -42,9 +42,17 @@ namespace RescueApp.Views
         {
             get
             {
-                return _allPeopleView ?? (_allPeopleView = CollectionViewSource.GetDefaultView(_allPeople));
+                _allPeopleView = _allPeopleView ?? (_allPeopleView = CollectionViewSource.GetDefaultView(_allPeople));
+                _allPeopleView.CurrentChanged += (s, e) =>
+                {
+                    RaisePropertyChanged(() => CanAddMember);
+                };
+
+                return _allPeopleView;
             }
         }
+
+
 
         private ObservableCollection<DownloadPersonModel> _peopleNotMembers
             = new ObservableCollection<DownloadPersonModel>();
@@ -54,9 +62,22 @@ namespace RescueApp.Views
         {
             get
             {
-                return _peopleNotMembersView ?? (_peopleNotMembersView = CollectionViewSource.GetDefaultView(_peopleNotMembers));
+                _peopleNotMembersView = _peopleNotMembersView ?? (_peopleNotMembersView = CollectionViewSource.GetDefaultView(_peopleNotMembers));
+                _peopleNotMembersView.CurrentChanged += (s, e) =>
+                {
+                    RaisePropertyChanged(() => CanRemoveMember);
+                };
+                return _peopleNotMembersView;
             }
         }
+
+
+        public bool CanRemoveMember
+        {
+            get { return PeopleNotMembersView.CurrentItem != null; }
+
+        }
+
 
         private RelayCommand<string> _applyFilterCommand;
         public RelayCommand<string> ApplyFilterCommand
@@ -164,6 +185,14 @@ namespace RescueApp.Views
                 }
             });
         }
+
+        private bool _CanAddMember;
+
+        public bool CanAddMember
+        {
+            get { return AllPeopleView.CurrentItem != null; }
+        }
+
 
         public override void OnShow<T>(T args)
         { }

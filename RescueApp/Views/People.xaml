@@ -20,7 +20,6 @@
         <!--<DataGrid ItemsSource="{Binding People}" />-->
 
         <ListView x:Name="peopleList" ItemsSource="{Binding People}" 
-                ScrollViewer.CanContentScroll="True" 
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   BorderBrush="{x:Null}">
             <ListView.Resources>
@@ -96,8 +95,12 @@
 
         </ListView>
 
-        <DockPanel>
+        <DockPanel Grid.Column="1">
             <StackPanel>
+                <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/FullName, ElementName=peopleList, Mode=OneWay}"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Allergies, ElementName=peopleList}"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/CivilStatus, ElementName=peopleList}"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/EducationalAttainment, ElementName=peopleList}"/>
 
             </StackPanel>
         </DockPanel>
