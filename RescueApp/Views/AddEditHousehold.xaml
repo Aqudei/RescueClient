@@ -35,7 +35,7 @@
         <TextBox HorizontalAlignment="Left" 
                  Height="84"
                  Margin="142,46,0,0" 
-                 TextWrapping="Wrap" Text="{Binding Current.Address}" 
+                 TextWrapping="Wrap" Text="{Binding Current.Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                  VerticalAlignment="Top" Width="220" MinLines="3"/>
         <Label Content="Address:" HorizontalAlignment="Left" Margin="24,46,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="141.573,140,0,0" TextWrapping="Wrap" Text="{Binding Current.EconomicStatus}" Width="220" VerticalAlignment="Top"/>

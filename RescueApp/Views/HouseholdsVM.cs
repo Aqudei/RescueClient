@@ -21,6 +21,8 @@ namespace RescueApp.Views
 
         public ObservableCollection<DownloadHouseholdModel> _households
             = new ObservableCollection<DownloadHouseholdModel>();
+
+
         private readonly RescueClient rescueClient;
 
         private ICollectionView _householdsView;
@@ -30,7 +32,14 @@ namespace RescueApp.Views
         {
             get
             {
-                return _householdsView ?? (_householdsView = CollectionViewSource.GetDefaultView(_households));
+                _householdsView = _householdsView ?? (_householdsView = CollectionViewSource.GetDefaultView(_households));
+                _householdsView.SortDescriptions.Add(new SortDescription
+                {
+                    PropertyName = "HouseNumber",
+                    Direction = ListSortDirection.Ascending
+                });
+
+                return _householdsView;
             }
         }
 
@@ -161,7 +170,7 @@ namespace RescueApp.Views
 
         public override void OnShow<T>(T args)
         {
-            
+
         }
     }
 }

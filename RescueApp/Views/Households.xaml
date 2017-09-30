@@ -34,15 +34,15 @@
                         <StackPanel>
 
                             <TextBlock  Text="{Binding FamilyHead, Converter={StaticResource ToUpperConverter}}" 
-                                        FontWeight="Bold" FontSize="16"/>
+                                        FontWeight="Bold" FontSize="18"/>
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="14"><Run Text="H"/><Run Text="ouse Number"/><Run Text=":"/><Run Text=" #"/></TextBlock>
-                                <TextBlock Text="{Binding HouseNumber}" FontSize="14"/>
+                                <TextBlock FontSize="18"><Run Text="H"/><Run Text="ouse Number"/><Run Text=":"/><Run Text=" #"/></TextBlock>
+                                <TextBlock Text="{Binding HouseNumber}" FontSize="18"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="16"><Run Text="Address"/><Run Text=": "/></TextBlock>
-                                <TextBlock Text="{Binding Address}" FontSize="16"/>
+                                <TextBlock FontSize="18"><Run Text="Address"/><Run Text=": "/></TextBlock>
+                                <TextBlock Text="{Binding Address}" FontSize="18"/>
                             </StackPanel>
                             <StackPanel Width="Auto" d:LayoutOverrides="TopPosition, BottomPosition" Orientation="Horizontal">
                                 <Button Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Padding="6"
