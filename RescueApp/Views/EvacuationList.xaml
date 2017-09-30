@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              xmlns:local="clr-namespace:RescueApp.Views"
              xmlns:toolkit ="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:toolkitdg="http://schemas.xceed.com/wpf/xaml/datagrid"
@@ -14,10 +15,12 @@
     <UserControl.Resources>
         <BitmapImage UriSource="/RescueApp;component/Resources/icon_stayinside_shelterinside.png" x:Key="building"/>
     </UserControl.Resources>
+
     <Grid>
         <DockPanel>
-
-            <ListView ItemsSource="{Binding Centers}" DockPanel.Dock="Left">
+            <ListView ItemsSource="{Binding CentersCollectionView}" DockPanel.Dock="Left" 
+                      SelectedItem="{Binding SelectedCenter}" 
+                      IsSynchronizedWithCurrentItem="True" SelectionChanged="ListView_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -84,6 +87,13 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <m:Map Margin="16"
+                   CredentialsProvider="An55arZpUhhCqmZEbjdMlDacaHE3nD0v6-N5442PY9urTYIj1vTiDq4N8S4OSYCy" 
+                   x:Name="_mapControl" BorderBrush="Black" BorderThickness="1">
+                <m:Map.Effect>
+                    <DropShadowEffect/>
+                </m:Map.Effect>
+            </m:Map>
         </DockPanel>
 
 

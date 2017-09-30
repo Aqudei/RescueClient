@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
-
         xmlns:local="clr-namespace:RescueApp.Views.Dialogs"
         xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
@@ -15,7 +14,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <m:Map x:Name="_mapControl" 
-               ZoomLevel="16"
+               ZoomLevel="12"
                Center="12.447408, 124.647055"
                CredentialsProvider="An55arZpUhhCqmZEbjdMlDacaHE3nD0v6-N5442PY9urTYIj1vTiDq4N8S4OSYCy" MouseLeftButtonUp="_mapControl_MouseLeftButtonUp" >
 

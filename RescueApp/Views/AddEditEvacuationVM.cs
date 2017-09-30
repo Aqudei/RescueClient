@@ -136,6 +136,7 @@ namespace RescueApp.Views
                 if (ex == null)
                 {
                     ClearFields();
+                    MessengerInstance.Send(new Messages.AddEditResultMessage<Center>(null, updatedCenter));
                     dialogCoordinator.ShowMessageAsync(this, "Save Operation Success",
                         string.Format("Evacuation Center named {0} has been saved.", center.CenterName));
                 }
@@ -211,6 +212,8 @@ namespace RescueApp.Views
             CenterName = item.CenterName;
             ChoosenPhoto = item.Photo;
             Limit = item.Limit;
+            Latitude = item.Latitude;
+            Longitude = item.Latitude;
         }
     }
 }

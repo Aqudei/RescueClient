@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
+using Microsoft.Maps.MapControl.WPF;
 using RescueApp.Messages;
 using RescueApp.Models;
 using RescueApp.Views.Helpers;
@@ -8,10 +9,12 @@ using RescueApp.ViewServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace RescueApp.Views
 {
@@ -21,6 +24,9 @@ namespace RescueApp.Views
 
         public ObservableCollection<Center> Centers { get; set; }
             = new ObservableCollection<Center>();
+
+        public ICollectionView CentersCollectionView
+            => CollectionViewSource.GetDefaultView(Centers);
 
         public EvacuationListVM(RescueClient client, DialogService dialogService)
         {
@@ -76,7 +82,18 @@ namespace RescueApp.Views
                         MessengerInstance.Send(default(StatsChangedMessage));
                     }
                 });
+                CentersCollectionView.CurrentChanged += CentersCollectionView_CurrentChanged;
             }
+        }
+
+        private void CentersCollectionView_CurrentChanged(object sender, EventArgs e)
+        {
+            var current = CentersCollectionView.CurrentItem as Center;
+            if (current != null)
+                MessengerInstance.Send(new NewCenterForMapMessage
+                {
+                    Location = new Location(current.Latitude, current.Longitude)
+                });
         }
 
         private void LoadEvacuationCenter()

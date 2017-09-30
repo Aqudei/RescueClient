@@ -59,6 +59,12 @@
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="GMap.NET.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMap.NET.Presentation.1.7.5\lib\net40\GMap.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsPresentation, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMap.NET.Presentation.1.7.5\lib\net40\GMap.NET.WindowsPresentation.dll</HintPath>
+    </Reference>
     <Reference Include="GSMCommServer, Version=1.21.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81, processorArchitecture=MSIL">
       <HintPath>..\packages\GSMComm.1.21.1\lib\GSMCommServer.dll</HintPath>
     </Reference>
@@ -122,6 +128,7 @@
     <Compile Include="Interfaces\ICrudVM.cs" />
     <Compile Include="Interfaces\IEditorDialog.cs" />
     <Compile Include="Messages\AddEditResultMessage.cs" />
+    <Compile Include="Messages\NewCenterForMapMessage.cs" />
     <Compile Include="Messages\NewCheckInMessage.cs" />
     <Compile Include="Messages\StatsChangedMessage.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />
