@@ -7,6 +7,8 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:RescueApp.Views"
              xmlns:wpf="clr-namespace:NumberOnlyBehaviourWPF"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             Dialog:DialogParticipation.Register="{Binding}"
              xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared" x:Class="RescueApp.Views.AddEditHousehold"
              mc:Ignorable="d" 
              d:DesignHeight="350.433" d:DesignWidth="722.052">
