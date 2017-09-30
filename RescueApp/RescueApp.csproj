@@ -214,6 +214,7 @@
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StatisticsVM.cs" />
+    <Compile Include="WPF\BoolToValueConverter.cs" />
     <Compile Include="WPF\NullVisibilityConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

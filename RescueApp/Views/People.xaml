@@ -7,11 +7,12 @@
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared" x:Class="RescueApp.Views.People"
+             xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared" xmlns:WPF="clr-namespace:RescueApp.WPF" x:Class="RescueApp.Views.People"
              Dialog:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d"
              d:DesignHeight="800.339" d:DesignWidth="797.456">
     <UserControl.Resources>
+        <WPF:BoolToStringConverter x:Key="BoolToStringConverter" FalseValue="No" TrueValue="Yes"/>
         <Custom:ToUpperConverter x:Key="ToUpperConverter"/>
     </UserControl.Resources>
     <UserControl.DataContext>
@@ -105,24 +106,43 @@
             <StackPanel Margin="8">
                 <TextBlock TextWrapping="Wrap" 
                            Text="{Binding ItemsSource/FullName, Converter={StaticResource ToUpperConverter}, ElementName=peopleList, Mode=OneWay}" 
-                           FontSize="16"/>
-                <StackPanel Orientation="Horizontal">
+                           FontSize="16" HorizontalAlignment="Right"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
-                    <Label Content="ALLERGIES:"/>
+                    <TextBlock Text="ALLERGIES:" Margin="0,0,4,0"/>
                     <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Allergies, ElementName=peopleList}"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
-                    <Label Content="CIVIL STATUS"/>
+                    <TextBlock Text="CIVIL STATUS: " Margin="0,0,4,0"/>
                     <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/CivilStatus, ElementName=peopleList}"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-
-                    <Label Content="EDUCATIONAL ATTAINMENTS"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="EDUCATIONAL ATTAINMENT: " Margin="0,0,4,0"/>
                     <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/EducationalAttainment, ElementName=peopleList}"/>
 
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="NATIONAL ID #:" Margin="0,0,4,0"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/NationalIdNumber, ElementName=peopleList}"/>
 
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="VULNERABILITIES:" Margin="0,0,4,0"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Vulnerabilities, ElementName=peopleList}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="IS FAMILY HEAD:" Margin="0,0,4,0"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/IsHead, Converter={StaticResource BoolToStringConverter}, ElementName=peopleList}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="GENDER: " Margin="0,0,4,0"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Gender, ElementName=peopleList}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="EMAIL: " Margin="0,0,4,0"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Email, ElementName=peopleList}"/>
+                </StackPanel>
             </StackPanel>
         </DockPanel>
     </Grid>
