@@ -186,8 +186,6 @@ namespace RescueApp.Views
             });
         }
 
-        private bool _CanAddMember;
-
         public bool CanAddMember
         {
             get { return AllPeopleView.CurrentItem != null; }
