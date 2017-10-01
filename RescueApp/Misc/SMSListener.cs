@@ -27,6 +27,7 @@ namespace RescueApp.Misc
             {
                 gsmComm = new GsmCommMain(portnumber, baudrate);
                 gsmComm.MessageReceived += GsmComm_MessageReceived;
+                gsmComm.EnableMessageNotifications();                
                 try
                 {
                     gsmComm.Open();
