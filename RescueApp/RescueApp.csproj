@@ -134,6 +134,7 @@
     <Compile Include="Misc\JsonSerializer.cs" />
     <Compile Include="Misc\NumberOnlyBehaviour.cs" />
     <Compile Include="Misc\SMSListener.cs" />
+    <Compile Include="Misc\TextHelper.cs" />
     <Compile Include="Models\Center.cs" />
     <Compile Include="Models\ChecInInfo.cs" />
     <Compile Include="Models\Incident.cs" />

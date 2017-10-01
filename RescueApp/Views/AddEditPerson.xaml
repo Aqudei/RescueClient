@@ -45,17 +45,17 @@
                 <StackPanel Orientation="Vertical" >
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="First Name:"/>
-                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding FirstName, Mode=TwoWay}"/>
+                        <TextBox Width="200" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label x:Name="midNamelabel" Content="Middle Name:"/>
-                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding MiddleName, Mode=TwoWay}" />
+                        <TextBox Width="200" Text="{Binding MiddleName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
 
 
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Last Name:"/>
-                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding LastName, Mode=TwoWay}"/>
+                        <TextBox Width="200" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Gender:"/>
@@ -76,15 +76,18 @@
                         <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Birthday:"/>
                         <DatePicker Width="200" SelectedDate="{Binding Birthday, Mode=TwoWay}"/>
                     </StackPanel>
-
                     <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Address:"/>
-                        <TextBox MinLines="3" 
-                         Width="200" 
-                         CharacterCasing="Upper"
-                         Text="{Binding Address, Mode=TwoWay}" 
-                         Height="62" TextWrapping="WrapWithOverflow"/>
+                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Name Prefix"/>
+                        <TextBox maha:ControlsHelper.ContentCharacterCasing="Upper" 
+                                 Width="200" Text="{Binding NamePrefix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Name Suffix"/>
+                        <TextBox Width="200" maha:ControlsHelper.ContentCharacterCasing="Upper" 
+                                 Text="{Binding NameSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="Contact Details" Margin="8">
@@ -155,20 +158,22 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label x:Name="label" Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Vulnerabilities: "/>
-                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding Vulnerabilities, Mode=TwoWay}"/>
+                        <ComboBox Width="200" SelectedIndex="0" 
+                                  Text="{Binding Vulnerabilities, Mode=TwoWay}">
+                            <ComboBoxItem Content="" />
+                            <ComboBoxItem Content="Pregnant" />
+                            <ComboBoxItem Content="Senior" />
+                            <ComboBoxItem Content="Infant 0-3" />
+                            <ComboBoxItem Content="Child 4-7" />
+                            <ComboBoxItem Content="PWD (blind ,deaf, crippled, etc...)" />
+                        </ComboBox>
+
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label   Content="Occupation: " Width="{Binding ActualWidth, ElementName=textBlock1}"/>
                         <TextBox CharacterCasing="Upper" Width="200" Text="{Binding Occupation, Mode=TwoWay}"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <Label   Content="Name Prefix" Width="{Binding ActualWidth, ElementName=textBlock1}"/>
-                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding NamePrefix, Mode=TwoWay}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <Label   Content="Name Suffix" Width="{Binding ActualWidth, ElementName=textBlock1}"/>
-                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding NameSuffix, Mode=TwoWay}"/>
-                    </StackPanel>
+
                     <CheckBox Content="Is Family Head" HorizontalAlignment="Right" IsChecked="{Binding IsHead}"/>
 
                 </StackPanel>

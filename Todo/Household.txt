@@ -1,0 +1,30 @@
+Household**
+(Puro CheckBox) House Location:	Tsunama Prone Area
+		Earthquake Prone Area
+		Flood Prone Area
+		Storm Surge Prone Area
+		Safe Zone
+
+(ito gnCheheckan )
+House & Lot owner
+Rented House & Lot
+House Owner & Lot Renter
+House owner, rent-free lot with owner's consent
+House owner, rent-free w/o consent of the owner
+Rent-free house & lot w/ owners consent
+Rent-free house & lot w/o owner's consent
+
+(check box)
+HOUSE CATEGORY/DESCRIPTION:	Bungalow
+				Concrete
+				Half-concrete
+				2-storey & up
+				Seme-conrcete
+				Light Materials
+
+
+an sa pagManage sa Family.
+after magAdd sa Family head.
+pagAdd sa Family member kailangan pa an relation nya sa family head(parent, spouse, child, relatives, others)
+
+tanggalon ito ecomnic status

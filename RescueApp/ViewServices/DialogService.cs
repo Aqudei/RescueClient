@@ -60,7 +60,12 @@ namespace RescueApp.ViewServices
         public void ShowCamera()
         {
             _cam = _cam ?? new Camera();
-            _cam.ShowDialog();
+            if ((_cam as Camera)?.CameraCount > 0)
+                _cam.ShowDialog();
+            else
+            {
+                MessageBox.Show("NO CAMERA FOUND");
+            }
         }
 
         public void ShowDialog(string dialogName)

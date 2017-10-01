@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using MahApps.Metro.Controls.Dialogs;
 using RescueApp.Interfaces;
 using RescueApp.Messages;
+using RescueApp.Misc;
 using RescueApp.Models;
 using RescueApp.Views.Helpers;
 using RescueApp.ViewServices;
@@ -45,7 +46,7 @@ namespace RescueApp.Views
         public string FirstName
         {
             get { return _firstName; }
-            set { Set(ref _firstName, value); }
+            set { Set(ref _firstName, value.ToTitleCase()); }
         }
 
         private string _middleName;
@@ -53,7 +54,10 @@ namespace RescueApp.Views
         public string MiddleName
         {
             get { return _middleName; }
-            set { Set(ref _middleName, value); }
+            set
+            {
+                Set(ref _middleName, value.ToTitleCase());
+            }
         }
 
         private string _lastName;
@@ -61,7 +65,10 @@ namespace RescueApp.Views
         public string LastName
         {
             get { return _lastName; }
-            set { Set(ref _lastName, value); }
+            set
+            {
+                Set(ref _lastName, value.ToTitleCase());
+            }
         }
 
         private DateTime? _birthday;
@@ -233,7 +240,6 @@ namespace RescueApp.Views
             CivilStatus = item.CivilStatus;
             EducationalAttainment = item.EducationalAttainment;
             Email = item.Email;
-
             Gender = item.Gender;
             MedicalCondition = item.MedicalCondition;
             MedicineRequired = item.MedicineRequired;
