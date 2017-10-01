@@ -25,10 +25,13 @@ namespace RescueApp.ViewServices
             _container.Closing += (s, e) =>
             {
                 e.Cancel = true;
-                var fe = _container._container.Children?[0] as FrameworkElement;
-                var vm = fe?.DataContext as PageBase;
-                vm?.DoCleanup();
-                _container.Hide();
+                if (_container._container.Children.Count > 0)
+                {
+                    var fe = _container._container.Children?[0] as FrameworkElement;
+                    var vm = fe?.DataContext as PageBase;
+                    vm?.DoCleanup();
+                    _container.Hide();
+                }
             };
             _dialogs = new Dictionary<string, Type>();
         }

@@ -17,6 +17,17 @@ namespace RescueApp.Views
 {
     public class AddEditPersonVM : PageBase, IEditorDialog<DownloadPersonModel>
     {
+        public ICollection<string> EducationalAttainmentList { get; set; } = new List<string>
+        {
+            "Elementary",
+            "Highscool",
+            "College",
+            "Masters",
+            "Doctoral",
+            "None",
+        };
+
+
         private string _choosenPhoto;
         public string ChoosenPhoto
         {
@@ -53,7 +64,16 @@ namespace RescueApp.Views
             set { Set(ref _lastName, value); }
         }
 
-        public DateTime? Birthday { get; set; }
+        private DateTime? _birthday;
+
+        public DateTime? Birthday
+        {
+            get { return _birthday; }
+            set { Set(ref _birthday, value); }
+        }
+
+
+
         private string _bloodType;
 
         public string BloodType
@@ -211,8 +231,9 @@ namespace RescueApp.Views
         public void Edit(DownloadPersonModel item)
         {
             CivilStatus = item.CivilStatus;
-            Education = item.EducationalAttainment;
+            EducationalAttainment = item.EducationalAttainment;
             Email = item.Email;
+
             Gender = item.Gender;
             MedicalCondition = item.MedicalCondition;
             MedicineRequired = item.MedicineRequired;
@@ -228,8 +249,13 @@ namespace RescueApp.Views
             Id = item.Id;
             Contact = item.Contact;
             ChoosenPhoto = item.Photo;
+            NamePrefix = item.NamePrefix;
+            NameSuffix = item.NameSuffix;
+            EducationalAttainment = item.EducationalAttainment;
+
             if (string.IsNullOrEmpty(item.Birthday))
                 return;
+
             Birthday = DateTime.Parse(item.Birthday);
         }
 
@@ -273,11 +299,11 @@ namespace RescueApp.Views
             set { Set(ref _vulnerabilities, value); }
         }
 
-        private string _education;
-        public string Education
+        private string _educationalAttainment;
+        public string EducationalAttainment
         {
-            get { return _education; }
-            set { Set(ref _education, value); }
+            get { return _educationalAttainment; }
+            set { Set(ref _educationalAttainment, value); }
         }
 
         private string _allergies;

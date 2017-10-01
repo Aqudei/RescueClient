@@ -144,11 +144,9 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <TextBlock x:Name="textBlock1" Text="Educational Attainment: " Width="{Binding ActualWidth, ElementName=label}" TextWrapping="Wrap"/>
-                        <ComboBox Width="200" Text="{Binding Education, Mode=TwoWay}">
-                            <ComboBoxItem Content="ELEMENTARY"/>
-                            <ComboBoxItem Content="HIGHSCHOOL"/>
-                            <ComboBoxItem Content="COLLEGE"/>
-                            <ComboBoxItem Content="MASTERS"/>
+                        <ComboBox Width="200" ItemsSource="{Binding EducationalAttainmentList}" 
+                                  SelectedItem="{Binding EducationalAttainment, Mode=TwoWay}">
+
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
@@ -165,11 +163,11 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label   Content="Name Prefix" Width="{Binding ActualWidth, ElementName=textBlock1}"/>
-                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding Occupation, Mode=TwoWay}"/>
+                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding NamePrefix, Mode=TwoWay}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label   Content="Name Suffix" Width="{Binding ActualWidth, ElementName=textBlock1}"/>
-                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding Occupation, Mode=TwoWay}"/>
+                        <TextBox CharacterCasing="Upper" Width="200" Text="{Binding NameSuffix, Mode=TwoWay}"/>
                     </StackPanel>
                     <CheckBox Content="Is Family Head" HorizontalAlignment="Right" IsChecked="{Binding IsHead}"/>
 

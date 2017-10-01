@@ -143,6 +143,10 @@
                     <TextBlock Text="EMAIL: " Margin="0,0,4,0"/>
                     <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Email, ElementName=peopleList}"/>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="OCCUPATION: " Margin="0,0,4,0"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Occupation, ElementName=peopleList}"/>
+                </StackPanel>
             </StackPanel>
         </DockPanel>
     </Grid>
