@@ -11,7 +11,7 @@
              Dialog:DialogParticipation.Register="{Binding}"
              xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared" x:Class="RescueApp.Views.AddEditHousehold"
              mc:Ignorable="d" 
-             d:DesignHeight="350.433" d:DesignWidth="722.052">
+             d:DesignHeight="784.933" d:DesignWidth="722.052">
     <UserControl.Resources>
         <Custom:ToUpperConverter x:Key="ToUpperConverter"/>
     </UserControl.Resources>
@@ -24,34 +24,91 @@
                          x:Key="house" />
         </Grid.Resources>
 
-        <TextBox HorizontalAlignment="Left"
-                 Height="23" Margin="142,10,0,0" 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="House #:" FontWeight="Bold" Margin="4"/>
+
+        <TextBox 
                  TextWrapping="Wrap" 
                  wpf:NumberOnlyBehaviour.IsEnabled="True"
-                 Text="{Binding Current.HouseNumber, Mode=TwoWay}" 
-                 VerticalAlignment="Top" Width="220"/>
+                 Text="{Binding Current.HouseNumber, Mode=TwoWay}" Grid.Column="1" Width="320" Margin="4"/>
+        <Label Content="Address:" FontWeight="Bold" Grid.Row="1" Margin="4"/>
 
-        <Label Content="House #:" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" 
-                 Height="84"
-                 Margin="142,46,0,0" 
-                 TextWrapping="Wrap" Text="{Binding Current.Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                 VerticalAlignment="Top" Width="220" MinLines="3"/>
-        <Label Content="Address:" HorizontalAlignment="Left" Margin="24,46,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="141.573,140,0,0" TextWrapping="Wrap" Text="{Binding Current.EconomicStatus}" Width="220" VerticalAlignment="Top"/>
-        <Label Content="Economic Status:" HorizontalAlignment="Left" Margin="23.573,140,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <CheckBox Height="20" Width="120" Content="Is Owned" IsChecked="{Binding Current.IsOwned}" Margin="242,186,360,144"/>
-        <Button Content="SAVE" HorizontalAlignment="Left" Margin="103,283,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand, Mode=OneWay}"/>
-        <Button Content="CLOSE" HorizontalAlignment="Left" Margin="207,283,0,0" VerticalAlignment="Top" Width="75" Click="CloseButton_Click"/>
-        <Image HorizontalAlignment="Left" 
-               Height="300" 
-               Margin="389,10,0,0" 
-               VerticalAlignment="Top" 
-               Width="300" Source="{Binding ChoosenPhoto, TargetNullValue={StaticResource house}}"/>
-        <Button Content="Browse" 
-                HorizontalAlignment="Left" 
-                Margin="566,254,0,0" 
-                VerticalAlignment="Top" Width="75" Command="{Binding BrosePhotoCommand, Mode=OneWay}"/>
+        <TextBox 
+                 TextWrapping="Wrap" Text="{Binding Current.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinLines="3" Grid.Row="1" Grid.Column="1" Margin="4" Height="64"/>
+        <Label Content="House Category" FontWeight="Bold" Grid.Row="2" Margin="4"/>
+        <ComboBox SelectedIndex="0" 
+                  Grid.Row="2" 
+                  Grid.Column="1" 
+                  Margin="2" Text="{Binding Current.HouseCategory}">
+            <ComboBoxItem Content=""/>
+            <ComboBoxItem>Bungalow</ComboBoxItem>
+            <ComboBoxItem>Concrete</ComboBoxItem>
+            <ComboBoxItem>Half-concrete</ComboBoxItem>
+            <ComboBoxItem>2-storey &amp; up</ComboBoxItem>
+            <ComboBoxItem>Semi-conrcete</ComboBoxItem>
+            <ComboBoxItem>Light Materials</ComboBoxItem>
+        </ComboBox>
+        <GroupBox Grid.Column="1" Grid.Row="4" Header="HOUSE LOCATION" Margin="2">
+            <StackPanel Margin="2">
+                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsSafeZone}">Safe Zone</CheckBox>
+                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsTsunamiProne}">Tsunami Prone Area</CheckBox>
+                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsEarthquakeProne}">Earthquake  Prone Area</CheckBox>
+                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsFloodProne}">Flood Prone Area</CheckBox>
+                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsStormSurgeProne}">Storm Surge Prone Area</CheckBox>
+            </StackPanel>
+        </GroupBox>
+        <Label Content="House Ownership:" FontWeight="Bold" Grid.Row="5" Margin="4"/>
+        <ComboBox SelectedIndex="0" 
+                  Grid.Row="5" 
+                  Margin="2"
+                  Grid.Column="1" VerticalContentAlignment="Center" Text="{Binding Current.HouseOwnership}">
+
+            <ComboBoxItem>House &amp; Lot owner</ComboBoxItem>
+            <ComboBoxItem>Rented House &amp; Lot</ComboBoxItem>
+            <ComboBoxItem>House Owner &amp; Lot Renter</ComboBoxItem>
+            <ComboBoxItem>House owner, rent-free lot with owner's consent</ComboBoxItem>
+            <ComboBoxItem>House owner, rent-free w/o consent of the owner</ComboBoxItem>
+            <ComboBoxItem>Rent-free house &amp; lot w/ owners consent</ComboBoxItem>
+            <ComboBoxItem>Rent-free house &amp; lot w/o owner's consent</ComboBoxItem>
+        </ComboBox>
+        <!--<GroupBox Grid.Column="1" Grid.Row="5" Header="HOUSE OWNERSHIP" Margin="2">
+            <StackPanel Margin="2">
+                <CheckBox Margin="0,2">House &amp; Lot owner</CheckBox>
+                <CheckBox Margin="0,2">Rented House &amp; Lot</CheckBox>
+                <CheckBox Margin="0,2">House Owner &amp; Lot Renter</CheckBox>
+                <CheckBox Margin="0,2">House owner, rent-free lot with owner's consent</CheckBox>
+                <CheckBox Margin="0,2">House owner, rent-free w/o consent of the owner</CheckBox>
+                <CheckBox Margin="0,2">Rent-free house &amp; lot w/ owners consent</CheckBox>
+                <CheckBox Margin="0,2">Rent-free house &amp; lot w/o owner's consent</CheckBox>
+            </StackPanel>
+        </GroupBox>-->
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="8"
+                    Grid.ColumnSpan="1" Grid.Row="6" HorizontalAlignment="Center">
+            <Button Content="SAVE" Command="{Binding SaveCommand, Mode=OneWay}" HorizontalAlignment="Center" Margin="8,0"/>
+            <Button Content="CLOSE" Click="CloseButton_Click" HorizontalAlignment="Center" Margin="8,0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Orientation="Vertical" Grid.RowSpan="6">
+            <Image Source="{Binding ChoosenPhoto, TargetNullValue={StaticResource house}}" Height="246"/>
+            <Button Content="Browse" Command="{Binding BrosePhotoCommand, Mode=OneWay}" HorizontalAlignment="Center"/>
+
+
+
+        </StackPanel>
 
 
 

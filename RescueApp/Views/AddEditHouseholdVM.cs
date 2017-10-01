@@ -103,10 +103,14 @@ namespace RescueApp.Views
         {
             ChoosenPhoto = null;
             Current.Address = "";
-            Current.EconomicStatus = "";
+            Current.HouseCategory = "";
             Current.HouseNumber = "";
             Current.Id = 0;
-            Current.IsOwned = false;
+            Current.IsSafeZone = true;
+            Current.IsStormSurgeProne = false;
+            Current.IsTsunamiProne = false;
+            Current.IsEarthquakeProne = false;
+            Current.HouseCategory = "";
             Current.members?.Clear();
         }
 

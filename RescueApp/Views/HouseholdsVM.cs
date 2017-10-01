@@ -112,9 +112,8 @@ namespace RescueApp.Views
                 _households.Add(new DownloadHouseholdModel
                 {
                     Address = "Catbalogan City",
-                    EconomicStatus = "Mayaman",
+                    HouseCategory = "Mayaman",
                     HouseNumber = "001",
-                    IsOwned = true,
                     members = new List<DownloadPersonModel>
                     {
                         new DownloadPersonModel{
@@ -130,9 +129,8 @@ namespace RescueApp.Views
                 _households.Add(new DownloadHouseholdModel
                 {
                     Address = "Catbalogan City",
-                    EconomicStatus = "Mayaman",
+                    HouseCategory = "Mayaman",
                     HouseNumber = "001",
-                    IsOwned = true
                 });
             }
             else

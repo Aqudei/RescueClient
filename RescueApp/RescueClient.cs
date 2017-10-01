@@ -274,7 +274,8 @@ namespace RescueApp
             {
                 if (rslt.StatusCode != System.Net.HttpStatusCode.Created)
                 {
-                    callback(new Exception("" + rslt.StatusDescription), null);
+                    callback(new Exception("" + rslt.StatusDescription + "\n"
+                        + rslt.Content.Trim("[]".ToCharArray())), null);
                     return;
                 }
 

@@ -11,9 +11,17 @@ namespace RescueApp.Models
     public class UploadHouseholdModel : WithID
     {
         private string _address;
-        private string _economicStatus;
+        private string _houseCategory;
         private string _householdNumber;
-        private bool _isOwned;
+
+        private string _houseOwnership;
+
+        public string HouseOwnership
+        {
+            get { return _houseOwnership; }
+            set { Set(ref _houseOwnership , value); }
+        }
+
 
         public string Address
         {
@@ -21,12 +29,12 @@ namespace RescueApp.Models
             set { Set(ref _address, value); }
         }
 
-        public string EconomicStatus
+        public string HouseCategory
         {
-            get { return _economicStatus; }
+            get { return _houseCategory; }
             set
             {
-                Set(ref _economicStatus, value);
+                Set(ref _houseCategory, value);
             }
         }
         public string HouseNumber
@@ -38,21 +46,47 @@ namespace RescueApp.Models
             }
         }
 
-        public bool IsOwned
+        private bool _isSafeZone;
+
+        public bool IsSafeZone
         {
-            get
-            {
-                return _isOwned;
-            }
-            set
-            {
-                Set(ref _isOwned, value);
-            }
+            get { return _isSafeZone; }
+            set { Set(ref _isSafeZone, value); }
+        }
+
+        private bool _isTsunamiProne;
+
+        public bool IsTsunamiProne
+        {
+            get { return _isTsunamiProne; }
+            set { Set(ref _isTsunamiProne, value); }
         }
 
 
+        private bool _isEarthquakeProne;
+
+        public bool IsEarthquakeProne
+        {
+            get { return _isEarthquakeProne; }
+            set { Set(ref _isEarthquakeProne, value); }
+        }
 
 
+        private bool _isFloodProne;
+
+        public bool IsFloodProne
+        {
+            get { return _isFloodProne; }
+            set { Set(ref _isFloodProne, value); }
+        }
+
+        private bool _isStormSurgeProne;
+
+        public bool IsStormSurgeProne
+        {
+            get { return _isStormSurgeProne; }
+            set { Set(ref _isStormSurgeProne, value); }
+        }
     }
 
 }

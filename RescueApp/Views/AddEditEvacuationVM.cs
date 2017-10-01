@@ -110,16 +110,18 @@ namespace RescueApp.Views
             {
                 return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
                 {
-                    var center = new Center
-                    {
-                        Address = Address,
-                        CenterName = CenterName,
-                        Limit = Limit,
-                        Id = Id,
-                        Photo = ChoosenPhoto,
-                        Latitude = Latitude,
-                        Longitude = Longitude
-                    };
+                    //var center = new Center
+                    //{
+                    //    Address = Address,
+                    //    CenterName = CenterName,
+                    //    Limit = Limit,
+                    //    Id = Id,
+                    //    Photo = ChoosenPhoto,
+                    //    Latitude = Latitude,
+                    //    Longitude = Longitude
+                    //};
+
+                    var center = AutoMapper.Mapper.Map<Center>(this);
 
                     if (Id == 0)
                         CreateEvacuationCenter(center);
@@ -195,6 +197,9 @@ namespace RescueApp.Views
             Limit = 0;
             Latitude = 0;
             Longitude = 0;
+            Amenities = "";
+            InCharge = "";
+            InChargeCellphone = "";
         }
 
         public override void DoCleanup()
@@ -214,6 +219,36 @@ namespace RescueApp.Views
             Limit = item.Limit;
             Latitude = item.Latitude;
             Longitude = item.Latitude;
+            Amenities = item.Amenities;
+            InCharge = item.InCharge;
+            InChargeCellphone = item.InChargeCellphone;
         }
+
+        private string _inCharge;
+
+        public string InCharge
+        {
+            get { return _inCharge; }
+            set { Set(ref _inCharge, value); }
+        }
+
+        private string _inChargeCellphone;
+
+        public string InChargeCellphone
+        {
+            get { return _inChargeCellphone; }
+            set { Set(ref _inChargeCellphone, value); }
+        }
+
+
+        private string _amenities;
+
+        public string Amenities
+        {
+            get { return _amenities; }
+            set { Set(ref _amenities, value); }
+        }
+
+
     }
 }

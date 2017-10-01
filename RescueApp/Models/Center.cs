@@ -68,5 +68,31 @@ namespace RescueApp.Models
             }
         }
 
+        private string _amenities;
+
+        public string Amenities
+        {
+            get { return _amenities; }
+            set { Set(ref _amenities, value); }
+        }
+
+        private string _inChargeCellphone;
+
+        public string InChargeCellphone
+        {
+            get { return _inChargeCellphone; }
+            set { Set(ref _inChargeCellphone, value); }
+        }
+
+        private string _inCharge;
+
+        public string InCharge
+        {
+            get { return _inCharge; }
+            set { Set(ref _inCharge, value); }
+        }
+
+
+
     }
 }
