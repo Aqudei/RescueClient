@@ -10,10 +10,12 @@ using RescueApp.ViewServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace RescueApp.Views
 {
@@ -34,10 +36,45 @@ namespace RescueApp.Views
             CreateItem();
         });
 
+        private ICollectionView _peopleCollectionView;
+        public ICollectionView PeopleCollectionView
+        {
+            get
+            {
+                _peopleCollectionView
+                    = _peopleCollectionView ?? (_peopleCollectionView = CollectionViewSource.GetDefaultView(People));
+
+                _peopleCollectionView.SortDescriptions.Add(new SortDescription
+                {
+                    Direction = ListSortDirection.Ascending,
+                    PropertyName = "LastName"
+                });
+
+                return _peopleCollectionView;
+            }
+        }
+
         private void CreateItem()
         {
             _dialogService.ShowDialog("AddEditPerson");
         }
+
+        public RelayCommand<string> ApplyFilterCommand => new RelayCommand<string>((filter) =>
+        {
+            PeopleCollectionView.Filter = (s) =>
+            {
+                if (string.IsNullOrEmpty(filter))
+                    return true;
+                var f = filter.ToLower();
+
+                var person = s as DownloadPersonModel;
+
+                if (person.FullName.ToLower().Contains(f))
+                    return true;
+
+                return false;
+            };
+        });
 
         public RelayCommand<DownloadPersonModel> DeleteItemCommand => new RelayCommand<DownloadPersonModel>((person) =>
        {

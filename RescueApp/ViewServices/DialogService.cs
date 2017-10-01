@@ -57,7 +57,7 @@ namespace RescueApp.ViewServices
             _dialogs.Add(dialogName, typeof(T));
         }
 
-        public void ShowCamera()
+        public void ShowCamera() 
         {
             _cam = _cam ?? new Camera();
             if ((_cam as Camera)?.CameraCount > 0)

@@ -15,9 +15,11 @@
         <WPF:BoolToStringConverter x:Key="BoolToStringConverter" FalseValue="No" TrueValue="Yes"/>
         <Custom:ToUpperConverter x:Key="ToUpperConverter"/>
     </UserControl.Resources>
+
     <UserControl.DataContext>
         <Binding Path="PeopleVM" Source="{StaticResource Locator}"/>
     </UserControl.DataContext>
+
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -25,82 +27,95 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <ListView x:Name="peopleList" ItemsSource="{Binding People}" 
-                  IsSynchronizedWithCurrentItem="True"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                  BorderBrush="{x:Null}">
-            <ListView.Resources>
-                <BitmapImage x:Key="_whoImage" 
-                                 UriSource="/RescueApp;component/Resources/question_sign_on_person_head.png"/>
-            </ListView.Resources>
-            <!--<ListView.ItemsPanel>
+        <StackPanel Orientation="Vertical">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="textBox" maha:TextBoxHelper.Watermark="Please type in search keyword"/>
+                <Button Grid.Column="1" Command="{Binding ApplyFilterCommand}"
+                        CommandParameter="{Binding Text, ElementName=textBox}">Apply Filter</Button>
+            </Grid>
+            <ListView x:Name="peopleList" ItemsSource="{Binding PeopleCollectionView}" 
+                IsSynchronizedWithCurrentItem="True"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                BorderBrush="{x:Null}" Height="800" Margin="0,0,-14,0">
+                <ListView.Resources>
+                    <BitmapImage x:Key="_whoImage" 
+                        UriSource="/RescueApp;component/Resources/question_sign_on_person_head.png"/>
+                </ListView.Resources>
+                <!--<ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>-->
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Image Width="128" Margin="8"
-                                    Height="128"
-                                    Source="{Binding Photo, TargetNullValue={StaticResource _whoImage}}" />
+                            <Image Width="128" Margin="8"
+                                Height="128"
+                                Source="{Binding Photo, TargetNullValue={StaticResource _whoImage}}" />
 
-                        <StackPanel Grid.Column="1" 
-                                        Orientation="Vertical" 
-                                        Margin="5" Width="240">
-                            <TextBlock FontWeight="Bold" TextWrapping="WrapWithOverflow" 
-                                        Text="{Binding FullName}" FontSize="18" />
-                            <TextBlock FontStyle="Italic" 
-                                        Text="{Binding Address}" FontSize="12" />
+                            <StackPanel Grid.Column="1" 
+                                Orientation="Vertical" 
+                                Margin="5" Width="240">
+                                <TextBlock FontWeight="Bold" TextWrapping="WrapWithOverflow" 
+                                    Text="{Binding FullName}" FontSize="18" />
+                                <TextBlock FontStyle="Italic" 
+                                    Text="{Binding Address}" FontSize="12" />
 
-                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal">
 
-                                <TextBlock Text="Age: " />
-                                <TextBlock Text="{Binding Age}" />
-                                <TextBlock Text="|" Margin="4,0" />
-                                <TextBlock Text="Blood Type: " />
-                                <TextBlock Text="{Binding BloodType}" />
-                            </StackPanel>
+                                    <TextBlock Text="Age: " />
+                                    <TextBlock Text="{Binding Age}" />
+                                    <TextBlock Text="|" Margin="4,0" />
+                                    <TextBlock Text="Blood Type: " />
+                                    <TextBlock Text="{Binding BloodType}" />
+                                </StackPanel>
 
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Sickness: " />
-                                <TextBlock Text="{Binding Sickness}" />
-                            </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Sickness: " />
+                                    <TextBlock Text="{Binding Sickness}" />
+                                </StackPanel>
 
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Contact #: " />
-                                <TextBlock Text="{Binding Contact}" />
-                            </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Contact #: " />
+                                    <TextBlock Text="{Binding Contact}" />
+                                </StackPanel>
 
-                            <StackPanel Orientation="Horizontal">
-                                <Button HorizontalAlignment="Left" Margin="4,8" Padding="8"
-                                            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
-                                            Command="{Binding DataContext.DeleteItemCommand, ElementName=peopleList, Mode=OneWay}" 
-                                            CommandParameter="{Binding Mode=OneWay}">
-                                    <iconPacks:PackIconMaterial Kind="Delete"/>
-                                </Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button HorizontalAlignment="Left" Margin="4,8" Padding="8"
+                                        Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                                        Command="{Binding DataContext.DeleteItemCommand, ElementName=peopleList, Mode=OneWay}" 
+                                        CommandParameter="{Binding Mode=OneWay}">
+                                        <iconPacks:PackIconMaterial Kind="Delete"/>
+                                    </Button>
 
-                                <Button HorizontalAlignment="Left" Margin="4,8" Padding="8"
+                                    <Button HorizontalAlignment="Left" Margin="4,8" Padding="8"
                                         Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" 
                                         CommandParameter="{Binding Mode=OneWay}" 
                                         Command="{Binding DataContext.EditItemCommand, ElementName=peopleList, Mode=OneWay}">
 
-                                    <iconPacks:PackIconMaterial Kind="AccountEdit"/>
-                                </Button>
+                                        <iconPacks:PackIconMaterial Kind="AccountEdit"/>
+                                    </Button>
 
+                                </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
 
 
-        </ListView>
+            </ListView>
+
+        </StackPanel>
 
         <DockPanel Grid.Column="1">
             <StackPanel Margin="8">
