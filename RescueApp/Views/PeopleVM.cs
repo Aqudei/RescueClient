@@ -126,7 +126,23 @@ namespace RescueApp.Views
                     FirstName = "Archie",
                     MiddleName = "Espe",
                     LastName = "Cortez",
-                    Birthday = "12/31/2017"
+                    Birthday = "12/31/2017",
+                    Occupation = "TEACHER",
+                    Email = "archie.cortez@outlook.com",
+                    IsHead = true,
+                    Allergies = "Beauty",
+                    BloodType = "A+",
+                    CivilStatus = "Married",
+                    Contact = "09992458787",
+                    EducationalAttainment = "Masters",
+                    Gender = "Male",
+                    Id = 1,
+                    MedicalCondition = "SPECIAL",
+                    MedicineRequired = "BIBLE",
+                    NamePrefix = "Mr",
+                    NameSuffix = "III",
+                    NationalIdNumber = "0001",
+                    Vulnerabilities = "FOOD",
                 });
 
                 People.Add(new DownloadPersonModel

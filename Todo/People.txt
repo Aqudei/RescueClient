@@ -6,7 +6,7 @@ People**
 +mayda bug sa Occupation, Prefix, Suffix 
 +Vulnerability : drop down (Pregnant,Senior, Infant 0-3, Child 4-7, PWD(blind,deaf,cripple ect.))
 -4ps beneficiary (check box)
--may bug lat sa camera(error pag gnOPen an camera pagwara naka kabit..)
++may bug lat sa camera(error pag gnOPen an camera pagwara naka kabit..)
 
 ----
 
@@ -15,7 +15,7 @@ Assigned Personnel: 	Name:
 			Contact Number:
 Amenities: TextBox..
 
-Manage people po (pag assign kun diin sira nga evacuation center).
++Manage people po (pag assign kun diin sira nga evacuation center).
 
 ------
 An Monitoring change to Tracing po

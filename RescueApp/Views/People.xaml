@@ -10,7 +10,7 @@
              xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared" xmlns:WPF="clr-namespace:RescueApp.WPF" x:Class="RescueApp.Views.People"
              Dialog:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d"
-             d:DesignHeight="800.339" d:DesignWidth="797.456">
+             d:DesignHeight="1021.339" d:DesignWidth="1119.456">
     <UserControl.Resources>
         <WPF:BoolToStringConverter x:Key="BoolToStringConverter" FalseValue="No" TrueValue="Yes"/>
         <Custom:ToUpperConverter x:Key="ToUpperConverter"/>
@@ -20,14 +20,14 @@
         <Binding Path="PeopleVM" Source="{StaticResource Locator}"/>
     </UserControl.DataContext>
 
-    <Grid>
+    <Grid Margin="4">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical" Margin="4">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -36,7 +36,7 @@
 
                 <TextBox x:Name="textBox" maha:TextBoxHelper.Watermark="Please type in search keyword"/>
                 <Button Grid.Column="1" Command="{Binding ApplyFilterCommand}"
-                        CommandParameter="{Binding Text, ElementName=textBox}">Apply Filter</Button>
+                        CommandParameter="{Binding Text, ElementName=textBox}" Margin="4,0,0,0">Apply Filter</Button>
             </Grid>
             <ListView x:Name="peopleList" ItemsSource="{Binding PeopleCollectionView}" 
                 IsSynchronizedWithCurrentItem="True"
@@ -117,52 +117,61 @@
 
         </StackPanel>
 
-        <DockPanel Grid.Column="1">
-            <StackPanel Margin="8">
-                <TextBlock TextWrapping="Wrap" 
+        <Grid Grid.Column="1" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock TextWrapping="Wrap" Grid.ColumnSpan="2"
                            Text="{Binding ItemsSource/FullName, Converter={StaticResource ToUpperConverter}, ElementName=peopleList, Mode=OneWay}" 
-                           FontSize="16" HorizontalAlignment="Right"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                           FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
 
-                    <TextBlock Text="ALLERGIES:" Margin="0,0,4,0"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Allergies, ElementName=peopleList}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Text="ALLERGIES:" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,16,0" FontSize="16"/>
+            <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="{Binding ItemsSource/Allergies, ElementName=peopleList}" FontSize="16"/>
 
-                    <TextBlock Text="CIVIL STATUS: " Margin="0,0,4,0"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/CivilStatus, ElementName=peopleList}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="EDUCATIONAL ATTAINMENT: " Margin="0,0,4,0"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/EducationalAttainment, ElementName=peopleList}"/>
-
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="NATIONAL ID #:" Margin="0,0,4,0"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/NationalIdNumber, ElementName=peopleList}"/>
-
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="VULNERABILITIES:" Margin="0,0,4,0"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Vulnerabilities, ElementName=peopleList}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="IS FAMILY HEAD:" Margin="0,0,4,0"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/IsHead, Converter={StaticResource BoolToStringConverter}, ElementName=peopleList}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="GENDER: " Margin="0,0,4,0"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Gender, ElementName=peopleList}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="EMAIL: " Margin="0,0,4,0"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Email, ElementName=peopleList}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="OCCUPATION: " Margin="0,0,4,0"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Occupation, ElementName=peopleList}"/>
-                </StackPanel>
-            </StackPanel>
-        </DockPanel>
+            <TextBlock Text="CIVIL STATUS: " Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,16,0" FontSize="16"/>
+            <TextBlock Grid.Column="1" 
+                       TextWrapping="Wrap" 
+                       Text="{Binding ItemsSource/CivilStatus, ElementName=peopleList}" Grid.Row="2" FontSize="16"/>
+            <TextBlock Text="EDUCATIONAL ATTAINMENT: " Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,16,0" FontSize="16"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/EducationalAttainment, ElementName=peopleList}" Grid.Row="3" Grid.Column="3" FontSize="16"/>
+            <TextBlock Text="NATIONAL ID #:" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,16,0" FontSize="16"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/NationalIdNumber, ElementName=peopleList}" Grid.Row="4" Grid.Column="1" FontSize="16"/>
+            <TextBlock Text="VULNERABILITIES:" Grid.Row="5" HorizontalAlignment="Right" Margin="0,0,16,0" FontSize="16"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Vulnerabilities, ElementName=peopleList}" Grid.Row="5" Grid.Column="1" FontSize="16"/>
+            <TextBlock Text="IS FAMILY HEAD:" Grid.Row="6" HorizontalAlignment="Right" Margin="0,0,16,0" FontSize="16"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/IsHead, Converter={StaticResource BoolToStringConverter}, ElementName=peopleList}" Grid.Row="6" Grid.Column="1" FontSize="16"/>
+            <TextBlock Text="GENDER: " Grid.Row="7" HorizontalAlignment="Right" Margin="0,0,16,0" FontSize="16"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Gender, ElementName=peopleList}" Grid.Row="7" Grid.Column="1" FontSize="16"/>
+            <TextBlock Text="EMAIL: " Grid.Row="8" HorizontalAlignment="Right" Margin="0,0,16,0" FontSize="16"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Email, ElementName=peopleList}" Grid.Row="8" Grid.Column="1" FontSize="16"/>
+            <TextBlock Text="OCCUPATION: " Grid.Row="9" HorizontalAlignment="Right" Margin="0,0,16,0" FontSize="16"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Occupation, ElementName=peopleList}" Grid.Row="9" Grid.Column="1" FontSize="16"/>
+            <TextBlock Text="MEDICAL CONDITION" Grid.Row="10" HorizontalAlignment="Right" Margin="0,0,15.676,0" FontSize="16"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/MedicalCondition, ElementName=peopleList}" Grid.Row="10" Grid.Column="1" FontSize="16"/>
+            <TextBlock Text="MEDICINE REQUIRED" Grid.Row="11" HorizontalAlignment="Right" Margin="0,0,14.842,0" FontSize="16"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/MedicineRequired, ElementName=peopleList}" Grid.Row="11" Grid.Column="1" FontSize="16"/>
+            <TextBlock Text="BLOOD TYPE" Grid.Row="12" HorizontalAlignment="Right" Margin="0,0,14.248,0" FontSize="16"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/BloodType, ElementName=peopleList}" Grid.Row="12" Grid.Column="1" FontSize="16"/>
+            <TextBlock Text="AGE" Grid.Row="13" HorizontalAlignment="Right" Margin="0,0,13.961,0" FontSize="16"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding ItemsSource/Age, ElementName=peopleList}" Grid.Row="13" Grid.Column="1" FontSize="16"/>
+        </Grid>
     </Grid>
 </UserControl>
