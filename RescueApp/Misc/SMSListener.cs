@@ -15,19 +15,47 @@ namespace RescueApp.Misc
     public class SMSListener
     {
         private GsmCommMain gsmComm;
+        private BackgroundWorker worker;
 
-        public SMSListener(int smsPort, int smsBaud)
+        public SMSListener(string smsPort, int smsBaud)
         {
+            worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.DoWork += Worker_DoWork;
+            worker.ProgressChanged += Worker_ProgressChanged;
+
             LoadReloadListener(smsPort, smsBaud);
         }
 
-        public void LoadReloadListener(int portnumber, int baudrate)
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+            if (e.ProgressPercentage == 0)
+            {
+                Console.WriteLine("Message: " + e.UserState.ToString());
+            }
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (gsmComm.IsOpen())
+            {
+                var msgs = gsmComm.ReadMessages(PhoneMessageStatus.ReceivedUnread, "SM");
+                foreach (var msg in msgs)
+                {
+                    var sms = (SmsDeliverPdu)msg.Data;
+                    worker.ReportProgress(0, sms.UserDataText);
+                    gsmComm.DeleteMessage(msg.Index, msg.Storage);
+                }
+            }
+        }
+
+        public void LoadReloadListener(string portnumber, int baudrate)
+        {
+
+
             if (gsmComm == null)
             {
                 gsmComm = new GsmCommMain(portnumber, baudrate);
-                gsmComm.MessageReceived += GsmComm_MessageReceived;
-                gsmComm.EnableMessageNotifications();                
                 try
                 {
                     gsmComm.Open();
@@ -39,40 +67,13 @@ namespace RescueApp.Misc
             }
             else
             {
-                gsmComm.MessageReceived -= GsmComm_MessageReceived;
                 if (gsmComm.IsOpen())
                     gsmComm.Close();
                 gsmComm = new GsmCommMain(portnumber, baudrate);
-                gsmComm.MessageReceived += GsmComm_MessageReceived;
+                gsmComm.Open();
             }
-        }
 
-        private void GsmComm_MessageReceived(object sender, MessageReceivedEventArgs e)
-        {
-            try
-            {
-                IMessageIndicationObject obj = e.IndicationObject;
-                if (obj is MemoryLocation)
-                {
-                    MemoryLocation loc = (MemoryLocation)obj;
-                    Debug.WriteLine(string.Format("New message received in storage \"{0}\", index {1}.", loc.Storage, loc.Index));
-                    Debug.Write("");
-                    return;
-                }
-                if (obj is ShortMessage)
-                {
-                    ShortMessage msg = (ShortMessage)obj;
-                    SmsPdu pdu = gsmComm.DecodeReceivedMessage(msg);
-                    Debug.WriteLine("New message received:");
-                    ExtractSMSText(pdu);
-                    return;
-                }
-                Debug.WriteLine("Error: Unknown notification object!");
-            }
-            catch (Exception ex)
-            {
-                Debug.Write(ex.Message);
-            }
+            worker.RunWorkerAsync();
         }
 
         private void ExtractSMSText(SmsPdu pdu)

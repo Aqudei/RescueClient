@@ -2,8 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RescueApp.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="SMS_PORT" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="SMS_PORT" Type="System.String" Scope="User">
+      <Value Profile="(Default)">COM11</Value>
     </Setting>
     <Setting Name="SMS_BAUD" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">9600</Value>

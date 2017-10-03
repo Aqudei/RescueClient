@@ -21,7 +21,7 @@ namespace RescueApp.Views
         private readonly DialogService dialogService;
         private readonly RescueClient rescueClient;
 
-        public String Title { get; set; } = "Incidents";
+        public String Title { get; set; } = "Calamities / Disaster";
 
         public ObservableCollection<Incident> Incidents { get; set; } = new ObservableCollection<Incident>();
 
@@ -96,8 +96,8 @@ namespace RescueApp.Views
             });
         }
 
-        public override void OnShow<T>(T args)
-        { }
+        //public override void OnShow<T>(T args)
+        //{ }
 
         private RelayCommand<Incident> _toggleAcceptCheckIn;
 

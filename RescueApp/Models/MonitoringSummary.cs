@@ -10,6 +10,12 @@ namespace RescueApp.Models
     {
         public Center center { get; set; }
         public int num_evacuees { get; set; }
-
+        public int num_evacuated
+        {
+            get
+            {
+                return center.Limit - num_evacuees;
+            }
+        }
     }
 }

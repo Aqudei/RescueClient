@@ -207,8 +207,8 @@ namespace RescueApp.Views
             ClearFields();
         }
 
-        public override void OnShow<T>(T args)
-        { }
+        //public override void OnShow<T>(T args)
+        //{ }
 
         public void Edit(Center item)
         {

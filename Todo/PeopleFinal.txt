@@ -1,0 +1,68 @@
+People**
+Breakdown Address: 	Hoouse Number
+			Zone #
+			Street
+			Barangay
+			Municipality
+
+check box: 4ps beneficiary
+
+Required:	Fname
+		Mname
+		Lname
+		Civil Status: Married, Single, Divorce Widow/Widower(Dpendi sa gnpili nga Gender)
+
+
+
+-------------------------
+
+HouseHold**
+Search Bar
+
+Add: Family # (mayda daw kasi mga instance na sa sayo nga balay damu an pamilya) paano sine pagSolve?? huhu
+
+Required : 	House #
+		House category
+		House Location
+
+Breakdown Address: 	Hoouse Number
+			Zone #  - required
+			Street
+			Barangay- required
+			Municipality - required	
+
+
+
+----------------
+
+Evacuation Center**
+Search Bar
+
+Breakdown Address: 	Hoouse Number
+			Zone #
+			Street
+			Barangay
+			Municipality
+
+Aminites :1.	Comfort Room -      Quantity
+			Male		x
+			Female		x
+			PWD		x
+	  2.	Bath Room -
+			Male		x
+			Female		x
+			PWD		x
+
+-------------------
+
+Calamity**
+an mayaon Asterisk *sample* required..
+
+Search bar
+
+Disaster Type:	Flood
+		Typhoon - if choosen (*Typhoon Nmae*, *Storm Signal#* = DropDown-1,2,3,4,5 ,, 
+			   Date Entered in the Area of Responsibility, Date Exit)
+		Earthquake - if choosen ( Magnitude, Intensity)
+		Tsunami
+		Fire

@@ -127,6 +127,7 @@
     </ApplicationDefinition>
     <Compile Include="Interfaces\ICrudVM.cs" />
     <Compile Include="Interfaces\IEditorDialog.cs" />
+    <Compile Include="Interfaces\INavigable.cs" />
     <Compile Include="Messages\AddEditResultMessage.cs" />
     <Compile Include="Messages\NewCenterForMapMessage.cs" />
     <Compile Include="Messages\NewCheckInMessage.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Models\Incident.cs" />
     <Compile Include="Models\MonitoringInfo.cs" />
     <Compile Include="Models\MonitoringSummary.cs" />
+    <Compile Include="Models\PersonId.cs" />
     <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\UploadHouseholdModel.cs" />
     <Compile Include="Models\UploadPersonModel.cs" />
@@ -216,6 +218,7 @@
     </Compile>
     <Compile Include="Views\StatisticsVM.cs" />
     <Compile Include="WPF\BoolToValueConverter.cs" />
+    <Compile Include="WPF\NullBooleanConverter.cs" />
     <Compile Include="WPF\NullVisibilityConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

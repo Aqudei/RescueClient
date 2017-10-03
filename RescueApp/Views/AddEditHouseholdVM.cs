@@ -47,8 +47,8 @@ namespace RescueApp.Views
             this.dialogCoordinator = dialogCoordinator;
         }
 
-        public override void OnShow<T>(T args)
-        { }
+        //public override void OnShow<T>(T args)
+        //{ }
 
         private RelayCommand _browsePhotoCommand;
         public RelayCommand BrosePhotoCommand

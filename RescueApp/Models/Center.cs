@@ -92,6 +92,11 @@ namespace RescueApp.Models
             set { Set(ref _inCharge, value); }
         }
 
+        public Center()
+        {
+            members = new List<DownloadPersonModel>();
+        }
+
 
 
     }

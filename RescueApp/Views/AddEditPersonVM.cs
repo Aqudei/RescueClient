@@ -265,10 +265,10 @@ namespace RescueApp.Views
             Birthday = DateTime.Parse(item.Birthday);
         }
 
-        public override void OnShow<T>(T args)
-        {
+        //public override void OnShow<T>(T args)
+        //{
 
-        }
+        //}
 
         private String _contact;
         public String Contact

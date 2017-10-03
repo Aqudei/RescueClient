@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
 using Microsoft.Maps.MapControl.WPF;
+using RescueApp.Interfaces;
 using RescueApp.Messages;
 using RescueApp.Models;
 using RescueApp.Views.Helpers;
@@ -18,7 +19,7 @@ using System.Windows.Data;
 
 namespace RescueApp.Views
 {
-    public class EvacuationListVM : PageBase, ICrudVM<Center>
+    public class EvacuationListVM : PageBase, ICrudVM<Center>, INavigable
     {
         public string Title { get; set; } = "Evacuation Centers";
 
@@ -64,8 +65,6 @@ namespace RescueApp.Views
             }
             else
             {
-                LoadEvacuationCenter();
-
                 MessengerInstance.Register<Messages.AddEditResultMessage<Center>>(this, (rslt) =>
                 {
                     if (rslt.Error == null)
@@ -96,7 +95,7 @@ namespace RescueApp.Views
                 });
         }
 
-        private void LoadEvacuationCenter()
+        private void LoadEvacuationCenters()
         {
             _rescueClient.GetCenters((ex, rslt) =>
             {
@@ -113,8 +112,14 @@ namespace RescueApp.Views
             });
         }
 
-        public override void OnShow<T>(T args)
-        { }
+        //public override void OnShow<T>(T args)
+        //{ }
+
+        public void OnNavigated()
+        {
+            Centers.Clear();
+            LoadEvacuationCenters();
+        }
 
         private readonly RescueClient _rescueClient;
         private readonly DialogService dialogService;

@@ -45,9 +45,9 @@ namespace RescueApp.Views
             });
         }
 
-        public override void OnShow<T>(T args)
-        {
+        //public override void OnShow<T>(T args)
+        //{
             
-        }
+        //}
     }
 }

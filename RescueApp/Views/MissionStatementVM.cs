@@ -12,7 +12,7 @@ namespace RescueApp.Views
     {
         public string Title { get; set; } = "About Us";
 
-        public override void OnShow<T>(T args)
-        { }
+        //public override void OnShow<T>(T args)
+        //{ }
     }
 }

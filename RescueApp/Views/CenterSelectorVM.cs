@@ -30,6 +30,22 @@ namespace RescueApp.Views
         }
 
 
+
+
+        public bool CanAddPerson
+        {
+
+            get { return AllPeopleView.CurrentItem != null; }
+        }
+
+        public bool CanRemovePerson
+        {
+            get { return CurrentSelected != null; }
+        }
+
+        public Center CurrentSelected { get; set; }
+
+
         private Center _currentCenter;
 
         public Center CurrentCenter

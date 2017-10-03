@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Models
 {
-    public class MonitoringInfo
+    public class PersonId
     {
-        public Center center { get; set; }
-        public List<PersonId> persons { get; set; }
+        public int id { get; set; }
     }
 }

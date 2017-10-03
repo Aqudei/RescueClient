@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Linq;
 using RescueApp.Views.Helpers;
+using RescueApp.Interfaces;
 
 namespace RescueApp.ViewModel
 {
@@ -50,7 +51,10 @@ namespace RescueApp.ViewModel
             set
             {
                 _selectedScreen = value;
-                RaisePropertyChanged(() => VMCanAddItem);
+                var navigable = value as INavigable;
+                navigable?.OnNavigated();
+
+                RaisePropertyChanged(nameof(VMCanAddItem));
             }
         }
 
@@ -69,7 +73,7 @@ namespace RescueApp.ViewModel
             }
         }
 
-        public override void OnShow<T>(T args)
-        { }
+        //public override void OnShow<T>(T args)
+        //{ }
     }
 }

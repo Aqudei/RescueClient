@@ -466,11 +466,11 @@ namespace RescueApp
         }
 
 
-        private void GetMonitoring(Action<Exception, List<MonitoringInfo>> callback)
+        public void GetMonitoring(Action<Exception, List<MonitoringSummary>> callback)
         {
             var request = new RestRequest("/api/monitoring/", Method.GET);
 
-            _client.ExecuteAsync<List<MonitoringInfo>>(request, rslt =>
+            _client.ExecuteAsync<List<MonitoringSummary>>(request, rslt =>
             {
                 if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
                 {

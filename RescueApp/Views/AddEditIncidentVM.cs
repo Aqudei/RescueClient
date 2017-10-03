@@ -34,8 +34,8 @@ namespace RescueApp.Views
             Incident = item;
         }
 
-        public override void OnShow<T>(T args)
-        { }
+        //public override void OnShow<T>(T args)
+        //{ }
 
         public override void DoCleanup()
         {
