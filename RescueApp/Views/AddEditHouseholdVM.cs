@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using MahApps.Metro.Controls.Dialogs;
 using RescueApp.Interfaces;
 using RescueApp.Messages;
 using RescueApp.Models;
@@ -20,6 +21,7 @@ namespace RescueApp.Views
         IEditorDialog<DownloadHouseholdModel>
     {
         private readonly DialogService dialogService;
+        private readonly IDialogCoordinator dialogCoordinator;
         private readonly RescueClient rescueClient;
 
         public DownloadHouseholdModel Current { get; set; } = new DownloadHouseholdModel();
@@ -37,14 +39,16 @@ namespace RescueApp.Views
             AutoMapper.Mapper.Map(item, Current, typeof(DownloadHouseholdModel), typeof(DownloadHouseholdModel));
         }
 
-        public AddEditHouseholdVM(RescueClient rescueClient, DialogService dialogService)
+        public AddEditHouseholdVM(RescueClient rescueClient, DialogService dialogService,
+            IDialogCoordinator dialogCoordinator)
         {
             this.rescueClient = rescueClient;
             this.dialogService = dialogService;
+            this.dialogCoordinator = dialogCoordinator;
         }
 
-        public override void OnShow<T>(T args)
-        { }
+        //public override void OnShow<T>(T args)
+        //{ }
 
         private RelayCommand _browsePhotoCommand;
         public RelayCommand BrosePhotoCommand
@@ -75,6 +79,11 @@ namespace RescueApp.Views
                             if (ex == null)
                             {
                                 ClearFields();
+                                dialogCoordinator.ShowMessageAsync(this, "Success", "HOUSEHOLD INFO CHANGED");
+                            }
+                            else
+                            {
+                                dialogCoordinator.ShowMessageAsync(this, "FAILURE", "FAILED TO CHANG HOUSEHOLD INFO");
                             }
                             MessengerInstance.Send(new AddEditResultMessage<DownloadHouseholdModel>(ex, hs));
                         }, ChoosenPhoto);
@@ -94,10 +103,14 @@ namespace RescueApp.Views
         {
             ChoosenPhoto = null;
             Current.Address = "";
-            Current.EconomicStatus = "";
+            Current.HouseCategory = "";
             Current.HouseNumber = "";
             Current.Id = 0;
-            Current.IsOwned = false;
+            Current.IsSafeZone = true;
+            Current.IsStormSurgeProne = false;
+            Current.IsTsunamiProne = false;
+            Current.IsEarthquakeProne = false;
+            Current.HouseCategory = "";
             Current.members?.Clear();
         }
 

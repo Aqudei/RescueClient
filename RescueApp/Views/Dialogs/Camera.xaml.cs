@@ -22,12 +22,14 @@ namespace RescueApp.Views.Dialogs
     /// </summary>
     public partial class Camera
     {
+        public int CameraCount { get; }
+
         public Camera()
         {
             InitializeComponent();
             this.IsVisibleChanged += Camera_IsVisibleChanged;
             this.Closing += Camera_Closing;
-            _luxCamera.InitializeCamera();
+            CameraCount = _luxCamera.InitializeCamera();
         }
 
         private void Camera_Closing(object sender, System.ComponentModel.CancelEventArgs e)

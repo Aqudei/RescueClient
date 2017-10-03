@@ -92,7 +92,7 @@ namespace SimpleLuxCamera
                 progState = PROG_STATE.CAPTURING;
         }
 
-        public void InitializeCamera()
+        public int InitializeCamera()
         {
             if (libIsGood)
             {
@@ -102,6 +102,7 @@ namespace SimpleLuxCamera
                 worker.DoWork += Worker_DoWork;
                 worker.ProgressChanged += Worker_ProgressChanged;
             }
+            return cameraCount;
         }
 
         public void StartCamera()

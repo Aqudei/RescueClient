@@ -9,5 +9,6 @@ namespace RescueApp.Models
     public class DownloadPersonModel : UploadPersonModel
     {
         public string Photo { get; set; }
+        public int? _Center { get; set; }
     }
 }

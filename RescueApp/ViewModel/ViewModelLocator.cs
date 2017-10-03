@@ -21,6 +21,7 @@ using RescueApp.ViewServices;
 using RescueApp.Models;
 using RescueApp.Views.Dialogs;
 using MahApps.Metro.Controls.Dialogs;
+using RescueApp.Misc;
 
 namespace RescueApp.ViewModel
 {
@@ -62,6 +63,7 @@ namespace RescueApp.ViewModel
 
             SimpleIoc.Default.Register<IDialogCoordinator, DialogCoordinator>();
             SimpleIoc.Default.Register<AddEditHouseholdVM>();
+            SimpleIoc.Default.Register<AddEditIncidentVM>();
             SimpleIoc.Default.Register<HouseholdsVM>();
             SimpleIoc.Default.Register<DialogService>();
             SimpleIoc.Default.Register<MissionStatementVM>();
@@ -75,15 +77,37 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.Register<AddEditEvacuationVM>();
             SimpleIoc.Default.Register<StatisticsVM>();
             SimpleIoc.Default.Register<FamilyMemberSelectorVM>();
-
+            SimpleIoc.Default.Register<CenterSelectorVM>();
 
 
             if (!ViewModelBase.IsInDesignModeStatic)
             {
                 InitializeDialogs();
+                SimpleIoc.Default.Register(() => new SMSListener(
+                    Properties.Settings.Default.SMS_PORT,
+                    Properties.Settings.Default.SMS_BAUD
+                    ), true);
+
             }
         }
 
+        public CenterSelectorVM CenterSelectorVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CenterSelectorVM>();
+            }
+        }
+
+
+
+        public AddEditIncidentVM AddEditIncidentVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddEditIncidentVM>();
+            }
+        }
 
         public FamilyMemberSelectorVM FamilyMemberSelectorVM
         {
@@ -193,6 +217,9 @@ namespace RescueApp.ViewModel
             dialogService.RegisterDialog<AddEditEvacuation>("AddEditEvacuation");
             dialogService.RegisterDialog<AddEditHousehold>("AddEditHousehold");
             dialogService.RegisterDialog<FamilyMemberSelector>("FamilyMemberSelector");
+            dialogService.RegisterDialog<CenterSelector>("CenterSelector");
+            dialogService.RegisterDialog<AddEditIncident>("AddEditIncident");
+
         }
     }
 }

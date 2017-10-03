@@ -8,8 +8,6 @@ namespace RescueApp.Models
 {
     public class DownloadHouseholdModel : UploadHouseholdModel
     {
-       
-
         private List<DownloadPersonModel> _members;
         private string _photo;
 

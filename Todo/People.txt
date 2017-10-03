@@ -1,0 +1,26 @@
+People**
++Pag gnlick an tawo magawas sa gilid an kanya information po
+-An search sa tawo po
++Pag enter sa Fnmaen Mname at Lname kruyag nira ito Mag Upper case muna then Lower case
+	kay sa pagGenerate report bangin mag upper case tanan
++mayda bug sa Occupation, Prefix, Suffix 
++Vulnerability : drop down (Pregnant,Senior, Infant 0-3, Child 4-7, PWD(blind,deaf,cripple ect.))
+-4ps beneficiary (check box)
++may bug lat sa camera(error pag gnOPen an camera pagwara naka kabit..)
+
+----
+
+Evacuation Center**
+Assigned Personnel: 	Name:
+			Contact Number:
+Amenities: TextBox..
+
++Manage people po (pag assign kun diin sira nga evacuation center).
+
+------
+An Monitoring change to Tracing po
+
+
+*pag gnclose an app open la geap sa backgreound process (napansin ko la).
+	
+

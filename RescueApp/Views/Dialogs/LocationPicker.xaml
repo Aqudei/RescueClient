@@ -1,0 +1,29 @@
+﻿<maha:MetroWindow x:Class="RescueApp.Views.Dialogs.LocationPicker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        xmlns:local="clr-namespace:RescueApp.Views.Dialogs"
+        xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Title="LocationPicker" Height="300" Width="300" WindowState="Maximized" ShowCloseButton="False" IsCloseButtonEnabled="False">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <m:Map x:Name="_mapControl" 
+               ZoomLevel="12"
+               Center="12.447408, 124.647055"
+               CredentialsProvider="An55arZpUhhCqmZEbjdMlDacaHE3nD0v6-N5442PY9urTYIj1vTiDq4N8S4OSYCy" MouseLeftButtonUp="_mapControl_MouseLeftButtonUp" >
+
+        </m:Map>
+
+        <StackPanel Grid.Row="1" 
+                    Orientation="Horizontal">
+            <Button Click="Button_Click">Accept</Button>
+            <Button Click="Cancel_Click">Cancel</Button>
+        </StackPanel>
+    </Grid>
+</maha:MetroWindow>

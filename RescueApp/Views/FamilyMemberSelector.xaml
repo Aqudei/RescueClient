@@ -43,7 +43,7 @@
                            FontSize="16" Margin="8,0,0,0"/>
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,16">
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,16">
                 <TextBox x:Name="_filterText"  maha:TextBoxHelper.Watermark="Please Type Search Keyword..."  
                     Margin="0,0,4,0" Width="236"/>
                 <Button Command="{Binding ApplyFilterCommand}" 
@@ -82,11 +82,11 @@
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center" Grid.Row="1">
-            <Button Command="{Binding ToggleMembership, Mode=OneWay}" 
+            <Button Command="{Binding ToggleMembership, Mode=OneWay}" IsEnabled="{Binding CanAddMember}"
                     CommandParameter="{Binding ItemsSource.CurrentItem, ElementName=_peopleList_NotMembers, Mode=OneWay}" 
                     Margin="4" 
                     Content="Add As Member &gt;&gt;"/>
-            <Button Command="{Binding ToggleMembership, Mode=OneWay}" CommandParameter="{Binding ItemsSource/, ElementName=_peopleList_Members}" Margin="4" Content="&lt;&lt;Remove As Member"/>
+            <Button Command="{Binding ToggleMembership, Mode=OneWay}" CommandParameter="{Binding ItemsSource/, ElementName=_peopleList_Members}" Margin="4" Content="&lt;&lt;Remove As Member" IsEnabled="{Binding CanRemoveMember, Mode=OneWay}"/>
         </StackPanel>
 
 

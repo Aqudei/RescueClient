@@ -12,6 +12,7 @@ using System.Windows.Data;
 using GalaSoft.MvvmLight.CommandWpf;
 using RescueApp.ViewServices;
 using RescueApp.Views.Helpers;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace RescueApp.Views
 {
@@ -21,16 +22,26 @@ namespace RescueApp.Views
 
         public ObservableCollection<DownloadHouseholdModel> _households
             = new ObservableCollection<DownloadHouseholdModel>();
+
+
         private readonly RescueClient rescueClient;
 
         private ICollectionView _householdsView;
         private readonly DialogService dialogService;
+        private readonly IDialogCoordinator dialogCoordinator;
 
         public ICollectionView Households
         {
             get
             {
-                return _householdsView ?? (_householdsView = CollectionViewSource.GetDefaultView(_households));
+                _householdsView = _householdsView ?? (_householdsView = CollectionViewSource.GetDefaultView(_households));
+                _householdsView.SortDescriptions.Add(new SortDescription
+                {
+                    PropertyName = "HouseNumber",
+                    Direction = ListSortDirection.Ascending
+                });
+
+                return _householdsView;
             }
         }
 
@@ -46,19 +57,25 @@ namespace RescueApp.Views
         {
             get
             {
-                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<DownloadHouseholdModel>((h) =>
+                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<DownloadHouseholdModel>(async (h) =>
                 {
-                    rescueClient.DeleteHousehold(h.Id, ex =>
-                    {
-                        if (ex == null)
+
+                    var rslt = await dialogCoordinator.ShowMessageAsync(this, "PLEASE CONFIRM DELETE", "DO YOU WANT TO DELETE "
+                        + h.HouseNumber + " ?", MessageDialogStyle.AffirmativeAndNegative);
+
+                    if (rslt == MessageDialogResult.Affirmative)
+
+                        rescueClient.DeleteHousehold(h.Id, ex =>
                         {
-                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                            if (ex == null)
                             {
-                                _households.Remove(h);
-                            });
-                            MessengerInstance.Send(new Messages.StatsChangedMessage());
-                        }
-                    });
+                                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                                {
+                                    _households.Remove(h);
+                                });
+                                MessengerInstance.Send(new Messages.StatsChangedMessage());
+                            }
+                        });
                 }));
             }
 
@@ -78,27 +95,25 @@ namespace RescueApp.Views
                 return _addMemberCommand ?? (_addMemberCommand = new RelayCommand<DownloadHouseholdModel>((h) =>
                 {
                     dialogService.ShowDialog("FamilyMemberSelector", h);
-                }, (x) =>
-                {
-                    return Households.CurrentItem != null;
                 }));
             }
 
         }
 
 
-        public HouseholdsVM(RescueClient rescueClient, DialogService dialogService)
+        public HouseholdsVM(RescueClient rescueClient, DialogService dialogService,
+            IDialogCoordinator dialogCoordinator)
         {
             this.dialogService = dialogService;
+            this.dialogCoordinator = dialogCoordinator;
             this.rescueClient = rescueClient;
             if (IsInDesignModeStatic)
             {
                 _households.Add(new DownloadHouseholdModel
                 {
                     Address = "Catbalogan City",
-                    EconomicStatus = "Mayaman",
+                    HouseCategory = "Mayaman",
                     HouseNumber = "001",
-                    IsOwned = true,
                     members = new List<DownloadPersonModel>
                     {
                         new DownloadPersonModel{
@@ -114,9 +129,8 @@ namespace RescueApp.Views
                 _households.Add(new DownloadHouseholdModel
                 {
                     Address = "Catbalogan City",
-                    EconomicStatus = "Mayaman",
+                    HouseCategory = "Mayaman",
                     HouseNumber = "001",
-                    IsOwned = true
                 });
             }
             else
@@ -159,9 +173,9 @@ namespace RescueApp.Views
             });
         }
 
-        public override void OnShow<T>(T args)
-        {
-            
-        }
+        //public override void OnShow<T>(T args)
+        //{
+
+        //}
     }
 }

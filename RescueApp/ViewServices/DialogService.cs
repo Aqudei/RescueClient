@@ -25,12 +25,28 @@ namespace RescueApp.ViewServices
             _container.Closing += (s, e) =>
             {
                 e.Cancel = true;
-                var fe = _container._container.Children?[0] as FrameworkElement;
-                var vm = fe?.DataContext as PageBase;
-                vm?.DoCleanup();
-                _container.Hide();
+                if (_container._container.Children.Count > 0)
+                {
+                    var fe = _container._container.Children?[0] as FrameworkElement;
+                    var vm = fe?.DataContext as PageBase;
+                    vm?.DoCleanup();
+                    _container.Hide();
+                }
             };
             _dialogs = new Dictionary<string, Type>();
+        }
+
+        public Tuple<double, double> ShowMapPicker()
+        {
+            var dlgMap = new LocationPicker();
+            if (dlgMap.ShowDialog() == true)
+            {
+                return new Tuple<double, double>(dlgMap.Latitude, dlgMap.Longitude);
+            }
+            else
+            {
+                return new Tuple<double, double>(0, 0); ;
+            }
         }
 
         public void RegisterDialog<T>(string dialogName)
@@ -41,10 +57,15 @@ namespace RescueApp.ViewServices
             _dialogs.Add(dialogName, typeof(T));
         }
 
-        public void ShowCamera()
+        public void ShowCamera() 
         {
             _cam = _cam ?? new Camera();
-            _cam.ShowDialog();
+            if ((_cam as Camera)?.CameraCount > 0)
+                _cam.ShowDialog();
+            else
+            {
+                MessageBox.Show("NO CAMERA FOUND");
+            }
         }
 
         public void ShowDialog(string dialogName)

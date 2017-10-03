@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
+using Microsoft.Maps.MapControl.WPF;
+using RescueApp.Interfaces;
 using RescueApp.Messages;
 using RescueApp.Models;
 using RescueApp.Views.Helpers;
@@ -8,19 +10,24 @@ using RescueApp.ViewServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace RescueApp.Views
 {
-    public class EvacuationListVM : PageBase, ICrudVM<Center>
+    public class EvacuationListVM : PageBase, ICrudVM<Center>, INavigable
     {
         public string Title { get; set; } = "Evacuation Centers";
 
         public ObservableCollection<Center> Centers { get; set; }
             = new ObservableCollection<Center>();
+
+        public ICollectionView CentersCollectionView
+            => CollectionViewSource.GetDefaultView(Centers);
 
         public EvacuationListVM(RescueClient client, DialogService dialogService)
         {
@@ -58,8 +65,6 @@ namespace RescueApp.Views
             }
             else
             {
-                LoadEvacuationCenter();
-
                 MessengerInstance.Register<Messages.AddEditResultMessage<Center>>(this, (rslt) =>
                 {
                     if (rslt.Error == null)
@@ -76,10 +81,21 @@ namespace RescueApp.Views
                         MessengerInstance.Send(default(StatsChangedMessage));
                     }
                 });
+                CentersCollectionView.CurrentChanged += CentersCollectionView_CurrentChanged;
             }
         }
 
-        private void LoadEvacuationCenter()
+        private void CentersCollectionView_CurrentChanged(object sender, EventArgs e)
+        {
+            var current = CentersCollectionView.CurrentItem as Center;
+            if (current != null)
+                MessengerInstance.Send(new NewCenterForMapMessage
+                {
+                    Location = new Location(current.Latitude, current.Longitude)
+                });
+        }
+
+        private void LoadEvacuationCenters()
         {
             _rescueClient.GetCenters((ex, rslt) =>
             {
@@ -96,8 +112,14 @@ namespace RescueApp.Views
             });
         }
 
-        public override void OnShow<T>(T args)
-        { }
+        //public override void OnShow<T>(T args)
+        //{ }
+
+        public void OnNavigated()
+        {
+            Centers.Clear();
+            LoadEvacuationCenters();
+        }
 
         private readonly RescueClient _rescueClient;
         private readonly DialogService dialogService;
@@ -137,6 +159,11 @@ namespace RescueApp.Views
         public RelayCommand<Center> EditItemCommand => new RelayCommand<Center>(c =>
         {
             dialogService.ShowDialog<Center>("AddEditEvacuation", c);
+        });
+
+        public RelayCommand<Center> CenterAssignmentCommand => new RelayCommand<Center>((c) =>
+        {
+            dialogService.ShowDialog("CenterSelector", c);
         });
     }
 }

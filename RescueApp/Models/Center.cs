@@ -12,6 +12,24 @@ namespace RescueApp.Models
         private int _limit;
         private string _photo;
 
+        private double _latitude;
+
+        public double Latitude
+        {
+            get { return _latitude; }
+            set { Set(ref _latitude, value); }
+        }
+
+
+        private double _longitude;
+
+        public double Longitude
+        {
+            get { return _longitude; }
+            set { Set(ref _longitude, value); }
+        }
+
+
         public string CenterName { get; set; }
         public string Address
         {
@@ -49,6 +67,37 @@ namespace RescueApp.Models
                 Set(ref _members, value);
             }
         }
+
+        private string _amenities;
+
+        public string Amenities
+        {
+            get { return _amenities; }
+            set { Set(ref _amenities, value); }
+        }
+
+        private string _inChargeCellphone;
+
+        public string InChargeCellphone
+        {
+            get { return _inChargeCellphone; }
+            set { Set(ref _inChargeCellphone, value); }
+        }
+
+        private string _inCharge;
+
+        public string InCharge
+        {
+            get { return _inCharge; }
+            set { Set(ref _inCharge, value); }
+        }
+
+        public Center()
+        {
+            members = new List<DownloadPersonModel>();
+        }
+
+
 
     }
 }

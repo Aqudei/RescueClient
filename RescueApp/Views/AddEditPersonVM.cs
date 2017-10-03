@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using MahApps.Metro.Controls.Dialogs;
 using RescueApp.Interfaces;
 using RescueApp.Messages;
+using RescueApp.Misc;
 using RescueApp.Models;
 using RescueApp.Views.Helpers;
 using RescueApp.ViewServices;
@@ -17,6 +18,17 @@ namespace RescueApp.Views
 {
     public class AddEditPersonVM : PageBase, IEditorDialog<DownloadPersonModel>
     {
+        public ICollection<string> EducationalAttainmentList { get; set; } = new List<string>
+        {
+            "Elementary",
+            "Highscool",
+            "College",
+            "Masters",
+            "Doctoral",
+            "None",
+        };
+
+
         private string _choosenPhoto;
         public string ChoosenPhoto
         {
@@ -34,7 +46,7 @@ namespace RescueApp.Views
         public string FirstName
         {
             get { return _firstName; }
-            set { Set(ref _firstName, value); }
+            set { Set(ref _firstName, value.ToTitleCase()); }
         }
 
         private string _middleName;
@@ -42,7 +54,10 @@ namespace RescueApp.Views
         public string MiddleName
         {
             get { return _middleName; }
-            set { Set(ref _middleName, value); }
+            set
+            {
+                Set(ref _middleName, value.ToTitleCase());
+            }
         }
 
         private string _lastName;
@@ -50,10 +65,22 @@ namespace RescueApp.Views
         public string LastName
         {
             get { return _lastName; }
-            set { Set(ref _lastName, value); }
+            set
+            {
+                Set(ref _lastName, value.ToTitleCase());
+            }
         }
 
-        public DateTime? Birthday { get; set; }
+        private DateTime? _birthday;
+
+        public DateTime? Birthday
+        {
+            get { return _birthday; }
+            set { Set(ref _birthday, value); }
+        }
+
+
+
         private string _bloodType;
 
         public string BloodType
@@ -211,7 +238,7 @@ namespace RescueApp.Views
         public void Edit(DownloadPersonModel item)
         {
             CivilStatus = item.CivilStatus;
-            Education = item.EducationalAttainment;
+            EducationalAttainment = item.EducationalAttainment;
             Email = item.Email;
             Gender = item.Gender;
             MedicalCondition = item.MedicalCondition;
@@ -228,15 +255,20 @@ namespace RescueApp.Views
             Id = item.Id;
             Contact = item.Contact;
             ChoosenPhoto = item.Photo;
+            NamePrefix = item.NamePrefix;
+            NameSuffix = item.NameSuffix;
+            EducationalAttainment = item.EducationalAttainment;
+
             if (string.IsNullOrEmpty(item.Birthday))
                 return;
+
             Birthday = DateTime.Parse(item.Birthday);
         }
 
-        public override void OnShow<T>(T args)
-        {
+        //public override void OnShow<T>(T args)
+        //{
 
-        }
+        //}
 
         private String _contact;
         public String Contact
@@ -273,11 +305,11 @@ namespace RescueApp.Views
             set { Set(ref _vulnerabilities, value); }
         }
 
-        private string _education;
-        public string Education
+        private string _educationalAttainment;
+        public string EducationalAttainment
         {
-            get { return _education; }
-            set { Set(ref _education, value); }
+            get { return _educationalAttainment; }
+            set { Set(ref _educationalAttainment, value); }
         }
 
         private string _allergies;

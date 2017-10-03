@@ -48,6 +48,28 @@ namespace RescueApp.Views
             set { Set(ref _capacity, value); }
         }
 
+        private double _latitude = 0;
+
+        public double Latitude
+        {
+            get { return _latitude; }
+            set { Set(ref _latitude, value); }
+        }
+
+        private double _longitude = 0;
+
+        public double Longitude
+        {
+            get
+            {
+                return _longitude;
+            }
+            set
+            {
+                Set(ref _longitude, value);
+            }
+        }
+
         private readonly RescueClient rescueClient;
         private readonly DialogService dialogService;
         private readonly IDialogCoordinator dialogCoordinator;
@@ -88,15 +110,18 @@ namespace RescueApp.Views
             {
                 return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
                 {
-                    var center = new Center
-                    {
-                        Address = Address,
-                        CenterName = CenterName,
-                        Limit = Limit,
-                        Id = Id,
-                        Photo = ChoosenPhoto
+                    //var center = new Center
+                    //{
+                    //    Address = Address,
+                    //    CenterName = CenterName,
+                    //    Limit = Limit,
+                    //    Id = Id,
+                    //    Photo = ChoosenPhoto,
+                    //    Latitude = Latitude,
+                    //    Longitude = Longitude
+                    //};
 
-                    };
+                    var center = AutoMapper.Mapper.Map<Center>(this);
 
                     if (Id == 0)
                         CreateEvacuationCenter(center);
@@ -113,6 +138,7 @@ namespace RescueApp.Views
                 if (ex == null)
                 {
                     ClearFields();
+                    MessengerInstance.Send(new Messages.AddEditResultMessage<Center>(null, updatedCenter));
                     dialogCoordinator.ShowMessageAsync(this, "Save Operation Success",
                         string.Format("Evacuation Center named {0} has been saved.", center.CenterName));
                 }
@@ -146,6 +172,22 @@ namespace RescueApp.Views
             });
         }
 
+        private RelayCommand _PickLocationCommand;
+
+        public RelayCommand PickLocationCommand
+        {
+            get
+            {
+                return _PickLocationCommand ?? (_PickLocationCommand = new RelayCommand(() =>
+                {
+                    var loc = dialogService.ShowMapPicker();
+                    Latitude = loc.Item1;
+                    Longitude = loc.Item2;
+                }));
+            }
+        }
+
+
         private void ClearFields()
         {
             Address = "";
@@ -153,6 +195,11 @@ namespace RescueApp.Views
             CenterName = "";
             ChoosenPhoto = null;
             Limit = 0;
+            Latitude = 0;
+            Longitude = 0;
+            Amenities = "";
+            InCharge = "";
+            InChargeCellphone = "";
         }
 
         public override void DoCleanup()
@@ -160,8 +207,8 @@ namespace RescueApp.Views
             ClearFields();
         }
 
-        public override void OnShow<T>(T args)
-        { }
+        //public override void OnShow<T>(T args)
+        //{ }
 
         public void Edit(Center item)
         {
@@ -170,6 +217,38 @@ namespace RescueApp.Views
             CenterName = item.CenterName;
             ChoosenPhoto = item.Photo;
             Limit = item.Limit;
+            Latitude = item.Latitude;
+            Longitude = item.Latitude;
+            Amenities = item.Amenities;
+            InCharge = item.InCharge;
+            InChargeCellphone = item.InChargeCellphone;
         }
+
+        private string _inCharge;
+
+        public string InCharge
+        {
+            get { return _inCharge; }
+            set { Set(ref _inCharge, value); }
+        }
+
+        private string _inChargeCellphone;
+
+        public string InChargeCellphone
+        {
+            get { return _inChargeCellphone; }
+            set { Set(ref _inChargeCellphone, value); }
+        }
+
+
+        private string _amenities;
+
+        public string Amenities
+        {
+            get { return _amenities; }
+            set { Set(ref _amenities, value); }
+        }
+
+
     }
 }
