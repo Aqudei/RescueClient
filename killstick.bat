@@ -1,0 +1,1 @@
+taskkill /f /im "Globe Tattoo Broadband.exe"
