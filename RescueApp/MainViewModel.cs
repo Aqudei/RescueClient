@@ -73,7 +73,10 @@ namespace RescueApp.ViewModel
             }
         }
 
-        //public override void OnShow<T>(T args)
-        //{ }
+        public override void Cleanup()
+        {
+            base.Cleanup();
+            SimpleIoc.Default.GetInstance<MonitoringVM>().Cleanup();
+        }
     }
 }

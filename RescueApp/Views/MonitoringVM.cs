@@ -19,6 +19,7 @@ namespace RescueApp.Views
     public class MonitoringVM : PageBase, INavigable
     {
         private readonly RescueClient rescueClient;
+        private readonly SMSListener smsListener;
 
         public MonitoringInfo CurrentMonitoringInfo { get; set; }
 
@@ -40,7 +41,7 @@ namespace RescueApp.Views
         }
 
 
-        public MonitoringVM(RescueClient rescueClient, SMSListener smsLister)
+        public MonitoringVM(RescueClient rescueClient, SMSListener smsListener)
         {
 
             if (IsInDesignMode)
@@ -77,8 +78,8 @@ namespace RescueApp.Views
             }
 
             this.rescueClient = rescueClient;
-
-            smsLister.NewMessageReceived += (s, e) =>
+            this.smsListener = smsListener;
+            smsListener.NewMessageReceived += (s, e) =>
             {
                 rescueClient.CheckIn(e.CheckInInfo.Id, (ex, rslt) =>
                 {
@@ -132,6 +133,11 @@ namespace RescueApp.Views
             {
 
             }
+        }
+
+        public override void Cleanup()
+        {
+            smsListener.Terminate();
         }
     }
 }

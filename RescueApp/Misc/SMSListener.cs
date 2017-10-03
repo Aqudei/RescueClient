@@ -154,5 +154,17 @@ namespace RescueApp.Misc
             }
             Debug.WriteLine("Unknown message type: " + pdu.GetType().ToString());
         }
+
+        public void Terminate()
+        {
+            try
+            {
+                if (gsmComm != null)
+                    if (gsmComm.IsConnected())
+                        gsmComm.Close();
+            }
+            catch (Exception)
+            { }
+        }
     }
 }

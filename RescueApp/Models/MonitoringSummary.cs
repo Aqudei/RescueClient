@@ -14,7 +14,7 @@ namespace RescueApp.Models
         {
             get
             {
-                return center.Limit - num_evacuees;
+                return num_evacuees;
             }
         }
     }

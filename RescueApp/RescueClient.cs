@@ -125,7 +125,23 @@ namespace RescueApp
 
         public void CheckIn(int id, Action<Exception, MonitoringSummary> callback)
         {
+            var request = new RestRequest("/api/people/" + id + "/check_in/", Method.POST);
+            _client.ExecuteAsync<MonitoringSummary>(request, (res) =>
+            {
+                if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    callback(null, res.Data);
+                    return;
+                }
+                else
+                {
+                    var msg = string.Format("{0}\n{1}\n{2}",
+                       res.ErrorMessage, res.Content, res.StatusDescription);
+                    callback(new Exception(msg), null);
+                    return;
+                }
 
+            });
         }
 
         //EVACUATION CENTER ENDPOINTS

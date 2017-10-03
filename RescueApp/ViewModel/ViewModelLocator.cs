@@ -22,6 +22,7 @@ using RescueApp.Models;
 using RescueApp.Views.Dialogs;
 using MahApps.Metro.Controls.Dialogs;
 using RescueApp.Misc;
+using System.Diagnostics;
 
 namespace RescueApp.ViewModel
 {
@@ -208,6 +209,8 @@ namespace RescueApp.ViewModel
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
+            Debug.WriteLine("CLEAN UP");
+            SimpleIoc.Default.GetInstance<MonitoringVM>().Cleanup();
         }
 
         private void InitializeDialogs()
