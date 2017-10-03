@@ -1,12 +1,14 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;
 using RescueApp.Interfaces;
+using RescueApp.Misc;
 using RescueApp.Models;
 using RescueApp.Views.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +40,7 @@ namespace RescueApp.Views
         }
 
 
-        public MonitoringVM(RescueClient rescueClient)
+        public MonitoringVM(RescueClient rescueClient, SMSListener smsLister)
         {
 
             if (IsInDesignMode)
@@ -75,10 +77,29 @@ namespace RescueApp.Views
             }
 
             this.rescueClient = rescueClient;
-            MessengerInstance.Register<Messages.NewCheckInMessage>(this, (m) =>
+
+            smsLister.NewMessageReceived += (s, e) =>
             {
-               
-            });
+                rescueClient.CheckIn(e.CheckInInfo.Id, (ex, rslt) =>
+                {
+                    if (ex == null)
+                    {
+                        var _ms = _monitoringSummaries.Where(ms => ms.center.Id == rslt.center.Id).FirstOrDefault();
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            if (_ms != null)
+                            {
+                                _monitoringSummaries.Remove(_ms);
+                            }
+                            _monitoringSummaries.Add(rslt);
+                        });
+                    }
+                    else
+                    {
+                        Debug.WriteLine(ex.Message);
+                    }
+                });
+            };
         }
 
         //public override void OnShow<T>(T args)
