@@ -9,6 +9,8 @@ using System.Diagnostics;
 using GsmComm.PduConverter;
 using RescueApp.Models;
 using GalaSoft.MvvmLight.Messaging;
+using RescueApp.Messages;
+using Newtonsoft.Json;
 
 namespace RescueApp.Misc
 {
@@ -31,7 +33,10 @@ namespace RescueApp.Misc
         {
             if (e.ProgressPercentage == 0)
             {
-                Console.WriteLine("Message: " + e.UserState.ToString());
+                Messenger.Default.Send<NewCheckInMessage>(new NewCheckInMessage
+                {
+                    CheckInInfo = JsonConvert.DeserializeObject<CheckInInfo>(e.UserState.ToString())
+                });
             }
         }
 
@@ -98,11 +103,11 @@ namespace RescueApp.Misc
                 Debug.WriteLine("Message text: " + data.UserDataText);
 
                 var checkNInfo = Newtonsoft.Json.JsonConvert
-                    .DeserializeObject<ChecInInfo>(data.UserDataText);
+                    .DeserializeObject<CheckInInfo>(data.UserDataText);
 
                 Messenger.Default.Send(new Messages.NewCheckInMessage
                 {
-                    ChecInInfo = checkNInfo
+                    CheckInInfo = checkNInfo
                 });
 
                 Debug.WriteLine("-------------------------------------------------------------------");

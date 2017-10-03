@@ -9,6 +9,6 @@ namespace RescueApp.Messages
 {
     public class NewCheckInMessage
     {
-        public ChecInInfo ChecInInfo { get; set; }
+        public CheckInInfo CheckInInfo { get; set; }
     }
 }

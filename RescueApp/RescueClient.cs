@@ -123,6 +123,11 @@ namespace RescueApp
             });
         }
 
+        public void CheckIn(int id, Action<Exception, MonitoringSummary> callback)
+        {
+
+        }
+
         //EVACUATION CENTER ENDPOINTS
         public void GetCenters(Action<Exception, List<Center>> callback)
         {

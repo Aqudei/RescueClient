@@ -40,7 +40,7 @@ namespace RescueApp.Views
 
         public MonitoringVM(RescueClient rescueClient)
         {
-            this.rescueClient = rescueClient;
+
             if (IsInDesignMode)
             {
                 _monitoringSummaries.Add(new MonitoringSummary
@@ -74,6 +74,11 @@ namespace RescueApp.Views
                 });
             }
 
+            this.rescueClient = rescueClient;
+            MessengerInstance.Register<Messages.NewCheckInMessage>(this, (m) =>
+            {
+               
+            });
         }
 
         //public override void OnShow<T>(T args)

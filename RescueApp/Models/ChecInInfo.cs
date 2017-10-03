@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RescueApp.Models
 {
-    public class ChecInInfo
+    public class CheckInInfo
     {
         public int Id { get; set; }
     }
