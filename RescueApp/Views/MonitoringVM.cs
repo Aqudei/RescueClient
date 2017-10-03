@@ -36,6 +36,8 @@ namespace RescueApp.Views
                 _summariesCollectionView = _summariesCollectionView
                   ?? (_summariesCollectionView = CollectionViewSource.GetDefaultView(_monitoringSummaries));
 
+                _summariesCollectionView.SortDescriptions.Add(new SortDescription("center.CenterName",
+                    ListSortDirection.Ascending));
                 return _summariesCollectionView;
             }
         }
