@@ -85,7 +85,7 @@ namespace RescueApp.Views
                 {
                     if (ex == null)
                     {
-                        var _ms = _monitoringSummaries.Where(ms => ms.center.Id == rslt.center.Id).FirstOrDefault();
+                        var _ms = _monitoringSummaries.Where(ms => ms.center.id == rslt.center.id).FirstOrDefault();
                         DispatcherHelper.CheckBeginInvokeOnUI(() =>
                         {
                             if (_ms != null)

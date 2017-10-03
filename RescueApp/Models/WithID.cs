@@ -10,12 +10,12 @@ namespace RescueApp.Models
 {
     public abstract class WithID : ObservableObject
     {
-        private int id;
+        private int _id;
 
-        public int Id
+        public int id
         {
-            get { return id; }
-            set { Set(ref id, value); }
+            get { return _id; }
+            set { Set(ref _id, value); }
         }
 
     }

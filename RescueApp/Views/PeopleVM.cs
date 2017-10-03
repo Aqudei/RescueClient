@@ -101,7 +101,7 @@ namespace RescueApp.Views
 
         private void DeleteItem(DownloadPersonModel person)
         {
-            _rescueClient.DeletePerson(person.Id, (err) =>
+            _rescueClient.DeletePerson(person.id, (err) =>
             {
                 if (err == null)
                 {
@@ -136,7 +136,7 @@ namespace RescueApp.Views
                     Contact = "09992458787",
                     EducationalAttainment = "Masters",
                     Gender = "Male",
-                    Id = 1,
+                    id = 1,
                     MedicalCondition = "SPECIAL",
                     MedicineRequired = "BIBLE",
                     NamePrefix = "Mr",
@@ -189,7 +189,7 @@ namespace RescueApp.Views
                 {
                     if (rslt.Error == null)
                     {
-                        var _p = People.FirstOrDefault(p => p.Id == rslt.Entity.Id);
+                        var _p = People.FirstOrDefault(p => p.id == rslt.Entity.id);
 
                         DispatcherHelper.CheckBeginInvokeOnUI(() =>
                         {

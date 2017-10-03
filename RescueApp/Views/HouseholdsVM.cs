@@ -65,7 +65,7 @@ namespace RescueApp.Views
 
                     if (rslt == MessageDialogResult.Affirmative)
 
-                        rescueClient.DeleteHousehold(h.Id, ex =>
+                        rescueClient.DeleteHousehold(h.id, ex =>
                         {
                             if (ex == null)
                             {
@@ -141,7 +141,7 @@ namespace RescueApp.Views
                 {
                     if (rslt.Error == null)
                     {
-                        var oldHousehold = _households.FirstOrDefault(c => c.Id == rslt.Entity.Id);
+                        var oldHousehold = _households.FirstOrDefault(c => c.id == rslt.Entity.id);
 
                         DispatcherHelper.CheckBeginInvokeOnUI(() =>
                         {

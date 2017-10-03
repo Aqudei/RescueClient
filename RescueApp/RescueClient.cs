@@ -53,7 +53,7 @@ namespace RescueApp
 
                 if (string.IsNullOrEmpty(choosenPhoto) == false)
                 {
-                    var reqUpload = new RestRequest("/api/people/" + rslt.Data.Id + "/upload/", Method.PATCH);
+                    var reqUpload = new RestRequest("/api/people/" + rslt.Data.id + "/upload/", Method.PATCH);
                     reqUpload.AddFile("Photo", choosenPhoto);
                     _client.ExecuteAsync<DownloadPersonModel>(reqUpload, rsltUpload =>
                     {
@@ -77,7 +77,7 @@ namespace RescueApp
         public void UpdatePerson(UploadPersonModel person,
             Action<Exception, DownloadPersonModel> callback, string choosenPhoto = "")
         {
-            var request = new RestRequest("/api/people/" + person.Id + "/", Method.PATCH);
+            var request = new RestRequest("/api/people/" + person.id + "/", Method.PATCH);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(person);
             _client.ExecuteAsync<DownloadPersonModel>(request, rslt =>
@@ -87,7 +87,7 @@ namespace RescueApp
                     if (string.IsNullOrEmpty(choosenPhoto) == false
                         && Uploadable(choosenPhoto))
                     {
-                        var uploadPhotoRequest = new RestRequest("/api/people/" + person.Id + "/upload/", Method.PATCH);
+                        var uploadPhotoRequest = new RestRequest("/api/people/" + person.id + "/upload/", Method.PATCH);
                         uploadPhotoRequest.AddFile("Photo", choosenPhoto);
 
                         _client.ExecuteAsync<DownloadPersonModel>(uploadPhotoRequest, r =>
@@ -178,7 +178,7 @@ namespace RescueApp
                 {
                     if (string.IsNullOrEmpty(center.Photo) == false && Uploadable(center.Photo))
                     {
-                        var uploadRequest = new RestRequest("/api/centers/" + rslt.Data.Id + "/upload/", Method.PATCH);
+                        var uploadRequest = new RestRequest("/api/centers/" + rslt.Data.id + "/upload/", Method.PATCH);
                         uploadRequest.AddFile("Photo", center.Photo);
                         _client.ExecuteAsync<Center>(uploadRequest, _rslt =>
                         {
@@ -216,7 +216,7 @@ namespace RescueApp
         }
         public void UpdateCenter(Center center, Action<Exception, Center> callback)
         {
-            var request = new RestRequest("/api/centers/" + center.Id + "/", Method.PATCH);
+            var request = new RestRequest("/api/centers/" + center.id + "/", Method.PATCH);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(center);
 
@@ -232,7 +232,7 @@ namespace RescueApp
                 {
                     if (string.IsNullOrEmpty(center.Photo) == false && Uploadable(center.Photo))
                     {
-                        var uploadRequest = new RestRequest("/api/centers/" + rslt.Data.Id + "/upload/", Method.PATCH);
+                        var uploadRequest = new RestRequest("/api/centers/" + rslt.Data.id + "/upload/", Method.PATCH);
                         uploadRequest.AddFile("Photo", center.Photo);
                         _client.ExecuteAsync<Center>(uploadRequest, _rslt =>
                         {
@@ -302,7 +302,7 @@ namespace RescueApp
 
                 if (string.IsNullOrEmpty(choosenPhoto) == false && Uploadable(choosenPhoto))
                 {
-                    var uploadRequest = new RestRequest("/api/households/" + rslt.Data.Id + "/upload/", Method.PATCH);
+                    var uploadRequest = new RestRequest("/api/households/" + rslt.Data.id + "/upload/", Method.PATCH);
                     uploadRequest.AddFile("Photo", choosenPhoto);
                     _client.ExecuteAsync<DownloadHouseholdModel>(uploadRequest, rsltUpload =>
                     {
@@ -326,7 +326,7 @@ namespace RescueApp
         public void UpdateHousehold(UploadHouseholdModel household, Action<Exception,
             DownloadHouseholdModel> callback, string choosenPhoto = "")
         {
-            var request = new RestRequest("/api/households/" + household.Id + "/", Method.PATCH);
+            var request = new RestRequest("/api/households/" + household.id + "/", Method.PATCH);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(household);
             _client.ExecuteAsync<DownloadHouseholdModel>(request, rslt =>
@@ -343,7 +343,7 @@ namespace RescueApp
                     if (string.IsNullOrEmpty(choosenPhoto) == false
                         && Uploadable(choosenPhoto))
                     {
-                        var uploadRequest = new RestRequest("/api/household/" + rslt.Data.Id + "/upload/", Method.PATCH);
+                        var uploadRequest = new RestRequest("/api/household/" + rslt.Data.id + "/upload/", Method.PATCH);
                         uploadRequest.AddFile("Photo", choosenPhoto);
                         _client.ExecuteAsync<DownloadHouseholdModel>(uploadRequest, rsltUpload =>
                         {
@@ -385,7 +385,7 @@ namespace RescueApp
         }
         public void ToggleIncidentStatus(Incident incident, Action<Exception, List<Incident>> callback)
         {
-            var request = new RestRequest("/api/incidents/" + incident.Id + "/toggle/", Method.PATCH);
+            var request = new RestRequest("/api/incidents/" + incident.id + "/toggle/", Method.PATCH);
             _client.ExecuteAsync<List<Incident>>(request, (response) =>
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -419,7 +419,7 @@ namespace RescueApp
         }
         public void DeleteIncident(Incident incident, Action<Exception> callback)
         {
-            var request = new RestRequest("/api/incidents/" + incident.Id + "/", Method.DELETE);
+            var request = new RestRequest("/api/incidents/" + incident.id + "/", Method.DELETE);
             _client.ExecuteAsync(request, (rslt) =>
             {
                 if (rslt.StatusCode != System.Net.HttpStatusCode.NoContent)
@@ -451,8 +451,8 @@ namespace RescueApp
         public void ToggleHouseholdMembership(DownloadPersonModel person, DownloadHouseholdModel household,
            Action<Exception, DownloadHouseholdModel> callback)
         {
-            var request = new RestRequest("/api/people/" + person.Id + "/toggle_membership/", Method.PATCH);
-            request.AddParameter("household_id", household.Id);
+            var request = new RestRequest("/api/people/" + person.id + "/toggle_membership/", Method.PATCH);
+            request.AddParameter("household_id", household.id);
             _client.ExecuteAsync<DownloadHouseholdModel>(request, rslt =>
             {
                 if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
@@ -470,8 +470,8 @@ namespace RescueApp
         public void ToggleEvacuationMembership(DownloadPersonModel person, Center center,
            Action<Exception, Center> callback)
         {
-            var request = new RestRequest("/api/people/" + person.Id + "/toggle_evacuation_membership/", Method.PATCH);
-            request.AddParameter("center_id", center.Id);
+            var request = new RestRequest("/api/people/" + person.id + "/toggle_evacuation_membership/", Method.PATCH);
+            request.AddParameter("center_id", center.id);
             _client.ExecuteAsync<Center>(request, rslt =>
             {
                 if (rslt.StatusCode == System.Net.HttpStatusCode.OK)

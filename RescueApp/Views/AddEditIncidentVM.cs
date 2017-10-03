@@ -44,7 +44,7 @@ namespace RescueApp.Views
 
         private void ClearFields()
         {
-            Incident.Id = 0;
+            Incident.id = 0;
             Incident.IncidentName = null;
             Incident.Photo = null;
             incident.DateOccured = null;
