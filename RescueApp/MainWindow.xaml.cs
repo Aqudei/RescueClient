@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RescueApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,7 @@ namespace RescueApp
 
         private void MetroWindow_Closed(object sender, EventArgs e)
         {
+            ViewModelLocator.Cleanup();
             Application.Current.Shutdown();
         }
     }

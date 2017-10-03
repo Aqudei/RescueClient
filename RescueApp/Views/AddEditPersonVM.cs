@@ -170,7 +170,7 @@ namespace RescueApp.Views
 
                     if (Id > 0)
                     {
-                        person.Id = Id;
+                        person.id = Id;
                         var personMinusPhoto = AutoMapper.Mapper.Map<UploadPersonModel>(person);
                         _rescueClient.UpdatePerson(personMinusPhoto, (ex, rslt) =>
                         {
@@ -252,7 +252,7 @@ namespace RescueApp.Views
             FirstName = item.FirstName;
             MiddleName = item.MiddleName;
             LastName = item.LastName;
-            Id = item.Id;
+            Id = item.id;
             Contact = item.Contact;
             ChoosenPhoto = item.Photo;
             NamePrefix = item.NamePrefix;

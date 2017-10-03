@@ -213,7 +213,7 @@ namespace RescueApp.Views
         public void Edit(Center item)
         {
             Address = item.Address;
-            Id = item.Id;
+            Id = item.id;
             CenterName = item.CenterName;
             ChoosenPhoto = item.Photo;
             Limit = item.Limit;

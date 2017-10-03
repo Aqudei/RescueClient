@@ -72,7 +72,7 @@ namespace RescueApp.Views
                 {
                     var uploadHS = AutoMapper.Mapper.Map<UploadHouseholdModel>(Current);
 
-                    if (uploadHS.Id == 0)
+                    if (uploadHS.id == 0)
                     {
                         rescueClient.AddHousehold(uploadHS, (ex, hs) =>
                         {
@@ -105,7 +105,7 @@ namespace RescueApp.Views
             Current.Address = "";
             Current.HouseCategory = "";
             Current.HouseNumber = "";
-            Current.Id = 0;
+            Current.id = 0;
             Current.IsSafeZone = true;
             Current.IsStormSurgeProne = false;
             Current.IsTsunamiProne = false;

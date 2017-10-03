@@ -1,12 +1,14 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;
 using RescueApp.Interfaces;
+using RescueApp.Misc;
 using RescueApp.Models;
 using RescueApp.Views.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +19,7 @@ namespace RescueApp.Views
     public class MonitoringVM : PageBase, INavigable
     {
         private readonly RescueClient rescueClient;
+        private readonly SMSListener smsListener;
 
         public MonitoringInfo CurrentMonitoringInfo { get; set; }
 
@@ -33,12 +36,14 @@ namespace RescueApp.Views
                 _summariesCollectionView = _summariesCollectionView
                   ?? (_summariesCollectionView = CollectionViewSource.GetDefaultView(_monitoringSummaries));
 
+                _summariesCollectionView.SortDescriptions.Add(new SortDescription("center.CenterName",
+                    ListSortDirection.Ascending));
                 return _summariesCollectionView;
             }
         }
 
 
-        public MonitoringVM(RescueClient rescueClient)
+        public MonitoringVM(RescueClient rescueClient, SMSListener smsListener)
         {
 
             if (IsInDesignMode)
@@ -75,10 +80,29 @@ namespace RescueApp.Views
             }
 
             this.rescueClient = rescueClient;
-            MessengerInstance.Register<Messages.NewCheckInMessage>(this, (m) =>
+            this.smsListener = smsListener;
+            smsListener.NewMessageReceived += (s, e) =>
             {
-               
-            });
+                rescueClient.CheckIn(e.CheckInInfo.Id, (ex, rslt) =>
+                {
+                    if (ex == null)
+                    {
+                        var _ms = _monitoringSummaries.Where(ms => ms.center.id == rslt.center.id).FirstOrDefault();
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            if (_ms != null)
+                            {
+                                _monitoringSummaries.Remove(_ms);
+                            }
+                            _monitoringSummaries.Add(rslt);
+                        });
+                    }
+                    else
+                    {
+                        Debug.WriteLine(ex.Message);
+                    }
+                });
+            };
         }
 
         //public override void OnShow<T>(T args)
@@ -111,6 +135,11 @@ namespace RescueApp.Views
             {
 
             }
+        }
+
+        public override void Cleanup()
+        {
+            smsListener.Terminate();
         }
     }
 }

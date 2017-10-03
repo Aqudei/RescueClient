@@ -66,7 +66,7 @@ namespace RescueApp.Views
             {
                 if (rslt.Error == null)
                 {
-                    var existingIncident = Incidents.Where(i => i.Id == rslt.Entity.Id)
+                    var existingIncident = Incidents.Where(i => i.id == rslt.Entity.id)
                         .FirstOrDefault();
                     DispatcherHelper.CheckBeginInvokeOnUI(() =>
                     {
@@ -113,7 +113,7 @@ namespace RescueApp.Views
                         {
                             foreach (var item in rslt)
                             {
-                                var existing = Incidents.Where(_i => _i.Id == item.Id).FirstOrDefault();
+                                var existing = Incidents.Where(_i => _i.id == item.id).FirstOrDefault();
                                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
                                 {
                                     if (existing != null)

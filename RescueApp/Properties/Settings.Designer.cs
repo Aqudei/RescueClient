@@ -25,7 +25,7 @@ namespace RescueApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM11")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM8")]
         public string SMS_PORT {
             get {
                 return ((string)(this["SMS_PORT"]));

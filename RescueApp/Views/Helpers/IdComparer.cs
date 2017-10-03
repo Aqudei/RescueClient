@@ -14,7 +14,7 @@ namespace RescueApp.Views.Helpers
             if (x == null || y == null)
                 return false;
 
-            return x.Id == y.Id;
+            return x.id == y.id;
         }
         
         public int GetHashCode(T obj)

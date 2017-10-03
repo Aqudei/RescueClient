@@ -66,8 +66,13 @@
                             <StackPanel Grid.Column="1" 
                                 Orientation="Vertical" 
                                 Margin="5" Width="240">
-                                <TextBlock FontWeight="Bold" TextWrapping="WrapWithOverflow" 
-                                    Text="{Binding FullName}" FontSize="18" />
+                                <DockPanel LastChildFill="True">
+                                    <Border DockPanel.Dock="Right" BorderBrush="Black" BorderThickness="1">
+                                        <TextBlock FontSize="18" Text="{Binding id}" Margin="4"/>
+                                    </Border>
+                                    <TextBlock DockPanel.Dock="Left" FontWeight="Bold" TextWrapping="WrapWithOverflow" 
+                                        Text="{Binding FullName}" FontSize="18" Height="Auto" Width="240" />
+                                </DockPanel>
                                 <TextBlock FontStyle="Italic" 
                                     Text="{Binding Address}" FontSize="12" />
 

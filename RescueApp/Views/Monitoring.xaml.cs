@@ -23,6 +23,9 @@ namespace RescueApp.Views
         public Monitoring()
         {
             InitializeComponent();
+
+
         }
+
     }
 }

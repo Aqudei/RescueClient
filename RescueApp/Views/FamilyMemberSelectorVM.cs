@@ -153,12 +153,12 @@ namespace RescueApp.Views
                 if (x == null || y == null)
                     return false;
 
-                return x.Id == y.Id;
+                return x.id == y.id;
             }
 
             public int GetHashCode(DownloadPersonModel obj)
             {
-                return obj.Id.GetHashCode();
+                return obj.id.GetHashCode();
             }
         }
 

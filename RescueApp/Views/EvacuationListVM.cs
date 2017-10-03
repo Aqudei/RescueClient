@@ -69,7 +69,7 @@ namespace RescueApp.Views
                 {
                     if (rslt.Error == null)
                     {
-                        var oldCenter = Centers.FirstOrDefault(c => c.Id == rslt.Entity.Id);
+                        var oldCenter = Centers.FirstOrDefault(c => c.id == rslt.Entity.id);
 
                         DispatcherHelper.CheckBeginInvokeOnUI(() =>
                         {
@@ -135,7 +135,7 @@ namespace RescueApp.Views
 
                     if (yesNo == MessageBoxResult.Yes)
                     {
-                        _rescueClient.DeleteCenter(item.Id, ex =>
+                        _rescueClient.DeleteCenter(item.id, ex =>
                         {
                             if (ex == null)
                             {
@@ -143,7 +143,7 @@ namespace RescueApp.Views
                                 {
                                     Centers.Remove(item);
                                 });
-                                MessengerInstance.Send(default(Messages.StatsChangedMessage));
+                                MessengerInstance.Send(default(StatsChangedMessage));
                             }
                         });
                     }

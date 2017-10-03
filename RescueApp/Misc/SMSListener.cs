@@ -11,6 +11,7 @@ using RescueApp.Models;
 using GalaSoft.MvvmLight.Messaging;
 using RescueApp.Messages;
 using Newtonsoft.Json;
+using System.Threading;
 
 namespace RescueApp.Misc
 {
@@ -29,41 +30,60 @@ namespace RescueApp.Misc
             LoadReloadListener(smsPort, smsBaud);
         }
 
+        public event EventHandler<NewCheckInMessage> NewMessageReceived;
+
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             if (e.ProgressPercentage == 0)
             {
-                Messenger.Default.Send<NewCheckInMessage>(new NewCheckInMessage
+                try
                 {
-                    CheckInInfo = JsonConvert.DeserializeObject<CheckInInfo>(e.UserState.ToString())
-                });
+                    var chkin_info = JsonConvert.DeserializeObject<CheckInInfo>(e.UserState.ToString());
+                    NewMessageReceived?.Invoke(this, new NewCheckInMessage
+                    {
+                        CheckInInfo = chkin_info
+                    });
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("SMS NOT IN VALID FORMAT");
+                }
+                finally
+                {
+                    Debug.WriteLine(e.UserState.ToString());
+                }
+
             }
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (gsmComm.IsOpen())
+            while (gsmComm.IsConnected())
             {
                 var msgs = gsmComm.ReadMessages(PhoneMessageStatus.ReceivedUnread, "SM");
+                Thread.Sleep(512);
                 foreach (var msg in msgs)
                 {
                     var sms = (SmsDeliverPdu)msg.Data;
                     worker.ReportProgress(0, sms.UserDataText);
                     gsmComm.DeleteMessage(msg.Index, msg.Storage);
+                    Thread.Sleep(512);
                 }
             }
+
+            Debug.WriteLine("Worker Thread Terminated");
         }
 
         public void LoadReloadListener(string portnumber, int baudrate)
         {
-
-
             if (gsmComm == null)
             {
-                gsmComm = new GsmCommMain(portnumber, baudrate);
+                gsmComm = new GsmCommMain(portnumber, baudrate, 1000);
                 try
                 {
                     gsmComm.Open();
+                    worker.RunWorkerAsync();
+                    Debug.WriteLine("RUNNING WITH SMS SUPPORT");
                 }
                 catch (Exception)
                 {
@@ -72,13 +92,20 @@ namespace RescueApp.Misc
             }
             else
             {
-                if (gsmComm.IsOpen())
-                    gsmComm.Close();
-                gsmComm = new GsmCommMain(portnumber, baudrate);
-                gsmComm.Open();
+                try
+                {
+                    if (gsmComm.IsConnected())
+                        gsmComm.Close();
+                    gsmComm = new GsmCommMain(portnumber, baudrate, 1000);
+                    gsmComm.Open();
+                    worker.RunWorkerAsync();
+                    Debug.WriteLine("RUNNING WITH SMS SUPPORT");
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("RUNNING WITH NO SMS SUPPORT");
+                }
             }
-
-            worker.RunWorkerAsync();
         }
 
         private void ExtractSMSText(SmsPdu pdu)
@@ -126,6 +153,18 @@ namespace RescueApp.Misc
                 return;
             }
             Debug.WriteLine("Unknown message type: " + pdu.GetType().ToString());
+        }
+
+        public void Terminate()
+        {
+            try
+            {
+                if (gsmComm != null)
+                    if (gsmComm.IsConnected())
+                        gsmComm.Close();
+            }
+            catch (Exception)
+            { }
         }
     }
 }
