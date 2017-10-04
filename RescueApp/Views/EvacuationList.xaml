@@ -9,6 +9,7 @@
              xmlns:toolkitdg="http://schemas.xceed.com/wpf/xaml/datagrid"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:gmaps="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
              mc:Ignorable="d" DataContext="{Binding EvacuationListVM, Source={StaticResource Locator}}"
              d:DesignHeight="817.322" d:DesignWidth="1102.577">
 
@@ -17,84 +18,95 @@
     </UserControl.Resources>
 
     <Grid>
-        <DockPanel>
-            <ListView ItemsSource="{Binding CentersCollectionView}" DockPanel.Dock="Left" 
-                      SelectedItem="{Binding SelectedCenter}" 
-                      IsSynchronizedWithCurrentItem="True" SelectionChanged="ListView_SelectionChanged">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
 
-                            <Border Margin="8" BorderThickness="1" 
+        <ListView ItemsSource="{Binding CentersCollectionView}" 
+                  BorderThickness="0"
+                  SelectedItem="{Binding SelectedCenter}" 
+                  IsSynchronizedWithCurrentItem="True" 
+                  SelectionChanged="ListView_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Margin="8" BorderThickness="1" 
                                     CornerRadius="1">
 
-                                <Border.Effect>
-                                    <DropShadowEffect/>
-                                </Border.Effect>
+                            <Border.Effect>
+                                <DropShadowEffect/>
+                            </Border.Effect>
 
-                                <Image Width="256" 
-                                       Height="256" 
-                                        Stretch="UniformToFill" 
-                                        Source="{Binding Photo, TargetNullValue={StaticResource building}}" />
-                            </Border>
+                            <Image Height="128" 
+                                   Stretch="UniformToFill" 
+                                   Source="{Binding Photo, TargetNullValue={StaticResource building}}" />
+                        </Border>
 
-                            <StackPanel Orientation="Vertical" 
+                        <StackPanel Orientation="Vertical" 
                                 Grid.Column="1" 
                                 VerticalAlignment="Center" 
                                 Margin="8,8,32,8">
 
-                                <TextBlock FontSize="24"
+                            <TextBlock FontSize="24"
                                     FontWeight="Bold"
                                     Text="{Binding CenterName}"/>
-                                <TextBlock FontSize="18"
+                            <TextBlock FontSize="18"
                                     Text="{Binding Address}"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontSize="18"
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="18"
                                         Text="Capacity: "/>
-                                    <TextBlock FontSize="18"
+                                <TextBlock FontSize="18"
                                         Text="{Binding Limit}"/>
-                                    <TextBlock FontSize="18"
+                                <TextBlock FontSize="18"
                                         Text="|" Margin="16,0"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button HorizontalAlignment="Left" 
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Button HorizontalAlignment="Left" 
                                     Style="{DynamicResource MetroCircleButtonStyle}" Padding="16" 
                                     Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
                                     CommandParameter="{Binding Mode=OneWay}">
-                                        <iconPacks:PackIconModern Kind="Delete"/>
-                                    </Button>
+                                    <iconPacks:PackIconModern Kind="Delete"/>
+                                </Button>
 
-                                    <Button HorizontalAlignment="Left" 
+                                <Button HorizontalAlignment="Left" 
                                     Style="{DynamicResource MetroCircleButtonStyle}" Padding="16" 
                                     Command="{Binding DataContext.EditItemCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
                                     CommandParameter="{Binding Mode=OneWay}">
-                                        <iconPacks:PackIconModern Kind="Edit"/>
-                                    </Button>
+                                    <iconPacks:PackIconModern Kind="Edit"/>
+                                </Button>
 
-                                    <Button HorizontalAlignment="Left" 
+                                <Button HorizontalAlignment="Left" 
                                     Style="{DynamicResource MetroCircleButtonStyle}" Padding="16" 
                                     Command="{Binding DataContext.CenterAssignmentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
                                     CommandParameter="{Binding Mode=OneWay}">
-                                        <iconPacks:PackIconModern Kind="Add"/>
-                                    </Button>
-                                </StackPanel>
+                                    <iconPacks:PackIconModern Kind="Add"/>
+                                </Button>
                             </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <m:Map Margin="16"
-                   CredentialsProvider="An55arZpUhhCqmZEbjdMlDacaHE3nD0v6-N5442PY9urTYIj1vTiDq4N8S4OSYCy" 
-                   x:Name="_mapControl" BorderBrush="Black" BorderThickness="1">
-                <m:Map.Effect>
-                    <DropShadowEffect/>
-                </m:Map.Effect>
-            </m:Map>
-        </DockPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--<m:Map Grid.Column="1" Margin="32"
+               CredentialsProvider="An55arZpUhhCqmZEbjdMlDacaHE3nD0v6-N5442PY9urTYIj1vTiDq4N8S4OSYCy" 
+               x:Name="_mapControl" BorderBrush="Black" BorderThickness="1">
+            <m:Map.Effect>
+                <DropShadowEffect/>
+            </m:Map.Effect>
+        </m:Map>-->
+
+        <gmaps:GMapControl Grid.Column="1" Margin="32"
+               x:Name="_mapControl" BorderBrush="Black" BorderThickness="1" Loaded="_mapControl_Loaded">
+            <gmaps:GMapControl.Effect>
+                <DropShadowEffect/>
+            </gmaps:GMapControl.Effect>
+        </gmaps:GMapControl>
 
 
 

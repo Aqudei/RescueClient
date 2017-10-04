@@ -1,4 +1,5 @@
-﻿using Microsoft.Maps.MapControl.WPF;
+﻿using GMap.NET.WindowsPresentation;
+using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace RescueApp.Views.Dialogs
     /// <summary>
     /// Interaction logic for LocationPicker.xaml
     /// </summary>
-    public partial class LocationPicker
+    public partial class LocationPicker : IDisposable
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }
@@ -40,47 +41,91 @@ namespace RescueApp.Views.Dialogs
 
         private void MapWithPushpins_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            // Disables the default mouse double-click action.
-            e.Handled = true;
+            //// Disables the default mouse double-click action.
+            //e.Handled = true;
 
-            // Determin the location to place the pushpin at on the map.
+            //// Determin the location to place the pushpin at on the map.
 
-            //Get the mouse click coordinates
-            Point mousePosition = e.GetPosition(this);
-            //Convert the mouse coordinates to a locatoin on the map
-            Location pinLocation = _mapControl.ViewportPointToLocation(mousePosition);
+            ////Get the mouse click coordinates
+            //Point mousePosition = e.GetPosition(this);
+            ////Convert the mouse coordinates to a locatoin on the map
+            //Location pinLocation = _mapControl.ViewportPointToLocation(mousePosition);
 
-            // The pushpin to add to the map.
-            Pushpin pin = new Pushpin();
-            pin.Location = pinLocation;
+            //// The pushpin to add to the map.
+            //Pushpin pin = new Pushpin();
+            //pin.Location = pinLocation;
 
-            // Adds the pushpin to the map.
-            _mapControl.Children.Add(pin);
+            //// Adds the pushpin to the map.
+            //_mapControl.Children.Add(pin);
         }
 
         private void _mapControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            // Disables the default mouse double-click action.
-            // e.Handled = true;
+            //// Disables the default mouse double-click action.
+            //// e.Handled = true;
 
-            // Determin the location to place the pushpin at on the map.
+            //// Determin the location to place the pushpin at on the map.
 
-            //Get the mouse click coordinates
-            Point mousePosition = e.GetPosition(this);
-            //Convert the mouse coordinates to a locatoin on the map
-            Location pinLocation = _mapControl.ViewportPointToLocation(mousePosition);
+            ////Get the mouse click coordinates
+            //Point mousePosition = e.GetPosition(this);
+            ////Convert the mouse coordinates to a locatoin on the map
+            //Location pinLocation = _mapControl.ViewportPointToLocation(mousePosition);
 
-            // The pushpin to add to the map.
+            //// The pushpin to add to the map.
 
-            _mapControl.Children.Clear();
+            //_mapControl.Children.Clear();
 
-            Pushpin pin = new Pushpin();
-            pin.Location = pinLocation;
-            Latitude = pinLocation.Latitude;
-            Longitude = pinLocation.Longitude;
+            //Pushpin pin = new Pushpin();
+            //pin.Location = pinLocation;
+            //Latitude = pinLocation.Latitude;
+            //Longitude = pinLocation.Longitude;
 
-            // Adds the pushpin to the map.
-            _mapControl.Children.Add(pin);
+            //// Adds the pushpin to the map.
+            //_mapControl.Children.Add(pin);
+        }
+
+        private void _gmap_Loaded(object sender, RoutedEventArgs e)
+        {
+            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
+            // choose your provider here
+            _gmap.MapProvider = GMap.NET.MapProviders.WikiMapiaMapProvider.Instance;
+            _gmap.MinZoom = 2;
+            _gmap.MaxZoom = 17;
+            // whole world zoom
+            _gmap.Zoom = 12;
+            // lets the map use the mousewheel to zoom
+            _gmap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            // lets the user drag the map
+            _gmap.CanDragMap = true;
+            // lets the user drag the map with the left mouse button
+            _gmap.DragButton = MouseButton.Left;
+            _gmap.SetPositionByKeywords("Samar");
+        }
+
+        private void _gmap_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+
+            _gmap.Markers.Clear();
+            var pos = e.GetPosition(_gmap);
+            var latlong = _gmap.FromLocalToLatLng((int)pos.X, (int)pos.Y);
+
+            GMapMarker marker = new GMapMarker(latlong);
+            marker.Shape = new Ellipse
+            {
+                Width = 10,
+                Height = 10,
+                Stroke = Brushes.Black,
+                StrokeThickness = 1.5
+            };
+            _gmap.Markers.Add(marker);
+            Latitude = marker.Position.Lat;
+            Longitude = marker.Position.Lng;
+        }
+
+        public void Dispose()
+        {
+            _gmap.Dispose();
         }
     }
 }

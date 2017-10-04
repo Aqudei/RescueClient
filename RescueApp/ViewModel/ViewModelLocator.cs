@@ -23,6 +23,7 @@ using RescueApp.Views.Dialogs;
 using MahApps.Metro.Controls.Dialogs;
 using RescueApp.Misc;
 using System.Diagnostics;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace RescueApp.ViewModel
 {
