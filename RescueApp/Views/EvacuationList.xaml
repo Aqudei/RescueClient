@@ -9,6 +9,8 @@
              xmlns:toolkitdg="http://schemas.xceed.com/wpf/xaml/datagrid"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dlg="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             dlg:DialogParticipation.Register="{Binding}"
              xmlns:gmaps="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
              mc:Ignorable="d" DataContext="{Binding EvacuationListVM, Source={StaticResource Locator}}"
              d:DesignHeight="817.322" d:DesignWidth="1102.577">

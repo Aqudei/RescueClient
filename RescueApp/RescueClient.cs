@@ -503,6 +503,23 @@ namespace RescueApp
                 }
             });
         }
+
+        public void GetMonitoringDetail(int pk, Action<Exception, MonitoringInfo> callback)
+        {
+            var request = new RestRequest("/api/monitoring/" + pk + "/", Method.GET);
+
+            _client.ExecuteAsync<MonitoringInfo>(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    callback(null, rslt.Data);
+                }
+                else
+                {
+                    callback(new Exception(rslt.Content + "\n" + rslt.ErrorMessage), null);
+                }
+            });
+        }
         private Boolean Uploadable(String uri)
         {
             try

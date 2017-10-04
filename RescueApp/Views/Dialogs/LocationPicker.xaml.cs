@@ -116,6 +116,7 @@ namespace RescueApp.Views.Dialogs
                 Width = 10,
                 Height = 10,
                 Stroke = Brushes.Black,
+                Fill = Brushes.Red,
                 StrokeThickness = 1.5
             };
             _gmap.Markers.Add(marker);

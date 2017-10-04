@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Maps.MapControl.WPF;
 using RescueApp.Interfaces;
 using RescueApp.Messages;
@@ -29,10 +30,12 @@ namespace RescueApp.Views
         public ICollectionView CentersCollectionView
             => CollectionViewSource.GetDefaultView(Centers);
 
-        public EvacuationListVM(RescueClient client, DialogService dialogService)
+        public EvacuationListVM(RescueClient client, DialogService dialogService,
+            IDialogCoordinator dialogCoordinator)
         {
             _rescueClient = client;
             this.dialogService = dialogService;
+            this.dialogCoordinator = dialogCoordinator;
             if (IsInDesignModeStatic)
             {
                 Centers.Add(new Center
@@ -123,17 +126,22 @@ namespace RescueApp.Views
 
         private readonly RescueClient _rescueClient;
         private readonly DialogService dialogService;
+        private readonly IDialogCoordinator dialogCoordinator;
         private RelayCommand<Center> _deleteItemCommand;
         public RelayCommand<Center> DeleteItemCommand
         {
             get
             {
-                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<Center>((item) =>
+                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<Center>(async (item) =>
                 {
-                    var yesNo = MessageBox.Show("Are you sure you want to delete "
-                        + item.CenterName + "?", "CONFIRM DELETE", MessageBoxButton.YesNo);
+                    //var yesNo = MessageBox.Show("Are you sure you want to delete "
+                    //    + item.CenterName + "?", "CONFIRM DELETE", MessageBoxButton.YesNo);
 
-                    if (yesNo == MessageBoxResult.Yes)
+                    var yesNo = await dialogCoordinator.ShowMessageAsync(this,
+                        "CONFIRM DELETE", "Are you sure you want to delete "
+                        + item.CenterName + "?", MessageDialogStyle.AffirmativeAndNegative);
+
+                    if (yesNo == MessageDialogResult.Affirmative)
                     {
                         _rescueClient.DeleteCenter(item.id, ex =>
                         {

@@ -44,13 +44,14 @@
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox x:Name="listBox" ItemsSource="{Binding SummariesCollectionView.CurrentItem.center.members, Mode=OneWay}" />
+            <ListBox x:Name="listBox" 
+                     ItemsSource="{Binding NotCheckedIn}"/>
 
             <Button Grid.Column="1" VerticalAlignment="Center" IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=listBox}">
                 <TextBlock TextWrapping="Wrap"><Run Text="Manual Check-in"/></TextBlock>
             </Button>
 
-            <ListBox Grid.Column="2"/>
+            <ListBox Grid.Column="2" ItemsSource="{Binding CheckedIn}" />
 
 
 

@@ -61,6 +61,7 @@ namespace RescueApp.Views
                     Width = 10,
                     Height = 10,
                     Stroke = Brushes.Black,
+                    Fill = Brushes.Red,
                     StrokeThickness = 1.5
                 };
                 _mapControl.Markers.Add(marker);

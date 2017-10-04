@@ -21,7 +21,9 @@ namespace RescueApp.Views
         private readonly RescueClient rescueClient;
         private readonly SMSListener smsListener;
 
-        public MonitoringInfo CurrentMonitoringInfo { get; set; }
+        private MonitoringInfo _currentMonitoringInfo;
+
+
 
         public String Title { get; } = "Monitoring";
 
@@ -41,7 +43,6 @@ namespace RescueApp.Views
                 return _summariesCollectionView;
             }
         }
-
 
         public MonitoringVM(RescueClient rescueClient, SMSListener smsListener)
         {
@@ -90,11 +91,17 @@ namespace RescueApp.Views
                         var _ms = _monitoringSummaries.Where(ms => ms.center.id == rslt.center.id).FirstOrDefault();
                         DispatcherHelper.CheckBeginInvokeOnUI(() =>
                         {
+                            MonitoringSummary lastCurrent = null;
                             if (_ms != null)
                             {
+                                lastCurrent = SummariesCollectionView.CurrentItem as MonitoringSummary;
                                 _monitoringSummaries.Remove(_ms);
                             }
                             _monitoringSummaries.Add(rslt);
+                            if (lastCurrent != null && lastCurrent.center.id == rslt.center.id)
+                            {
+                                SummariesCollectionView.MoveCurrentTo(rslt);
+                            }
                         });
                     }
                     else
@@ -105,10 +112,6 @@ namespace RescueApp.Views
             };
         }
 
-        //public override void OnShow<T>(T args)
-        //{
-
-        //}
 
         public void OnNavigated()
         {
@@ -129,11 +132,82 @@ namespace RescueApp.Views
         }
 
 
+        private ICollectionView _notCheckedIn;
+
+        public ICollectionView NotCheckedIn
+        {
+            get
+            {
+                if (_currentMonitoringInfo != null)
+                {
+                    _notCheckedIn = new CollectionViewSource { Source = _currentMonitoringInfo.center.members }.View;
+                    _notCheckedIn.Filter = (obj) =>
+                    {
+                        var asPerson = obj as DownloadPersonModel;
+                        var found = _currentMonitoringInfo.persons.Where(p => p.id == asPerson.id).Any();
+                        return !found;
+                    };
+
+                    return _notCheckedIn;
+                }
+
+                return default(ICollectionView);
+            }
+        }
+
+        private ICollectionView _checkedIn;
+
+        public ICollectionView CheckedIn
+        {
+            get
+            {
+                if (_currentMonitoringInfo != null)
+                {
+                    _checkedIn = new CollectionViewSource { Source = _currentMonitoringInfo.center.members }.View;
+
+                    _checkedIn.Filter = (obj) =>
+                    {
+                        var asPerson = obj as DownloadPersonModel;
+                        var found = _currentMonitoringInfo.persons.Where(p => p.id == asPerson.id).Any();
+                        return found;
+                    };
+
+                    return _checkedIn;
+                }
+
+                return default(ICollectionView);
+            }
+        }
+
         public MonitoringSummary CurrentMonitoringSummary
         {
             set
             {
+                if (value != null)
+                    rescueClient.GetMonitoringDetail(value.center.id, (ex, monitoringInfo) =>
+                    {
+                        if (ex == null)
+                        {
+                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                            {
+                                _currentMonitoringInfo = monitoringInfo;
 
+                                RaisePropertyChanged(nameof(CheckedIn));
+                                RaisePropertyChanged(nameof(NotCheckedIn));
+
+
+
+
+
+                            });
+                        }
+                    });
+                else
+                {
+                    _currentMonitoringInfo = null;
+                    RaisePropertyChanged(nameof(CheckedIn));
+                    RaisePropertyChanged(nameof(NotCheckedIn));
+                }
             }
         }
 
