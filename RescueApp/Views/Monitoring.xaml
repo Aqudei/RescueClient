@@ -16,26 +16,35 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <ListBox ItemsSource="{Binding SummariesCollectionView}" 
-                 SelectedItem="{Binding CurrentMonitoringSummary, Mode=OneWayToSource}"
-                 IsSynchronizedWithCurrentItem="True"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <GroupBox Header="EVACUATION STATUS" Margin="8">
+            <ListBox ItemsSource="{Binding SummariesCollectionView}" 
+                SelectedItem="{Binding CurrentMonitoringSummary, Mode=OneWayToSource}"
+                IsSynchronizedWithCurrentItem="True"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
-            <ListBox.ItemTemplate>
-                <DataTemplate >
-                    <Grid Margin="4">
-                        <StackPanel Margin="2" Orientation="Vertical">
-                            <TextBlock TextWrapping="Wrap" Text="{Binding center.CenterName}" Margin="0,0,4,0" Height="16" FontWeight="Bold" FontFamily="Source Sans Pro Black"/>
-                            <TextBlock TextWrapping="Wrap"><Run Text="{Binding num_evacuated, Mode=OneWay}" /><Run Text=" "/><Run Text="/"/><Run Text=" "/><Run Text="{Binding center.Limit}" /></TextBlock>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+                <ListBox.ItemTemplate>
+                    <DataTemplate >
+                        <Grid Margin="4">
+                            <StackPanel Margin="2" Orientation="Vertical">
+                                <TextBlock TextWrapping="Wrap" Text="{Binding center.CenterName}"
+                                           Margin="0,0,4,0" FontWeight="Bold" FontFamily="Trajan Pro 3" FontSize="24"/>
+                                <TextBlock FontSize="12" TextWrapping="Wrap">
+                                    <Run Text="{Binding num_evacuated, Mode=OneWay}" />
+                                    <Run Text=" out of "/>
+                                    <Run Text="{Binding center.Limit}" />
+                                    <Run Text=" evacuees have already evacuated "/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
 
-        </ListBox>
+            </ListBox>
+
+        </GroupBox>
 
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -44,14 +53,19 @@
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox x:Name="listBox" 
-                     ItemsSource="{Binding NotCheckedIn}"/>
+            <GroupBox Header="NOT CHECKED-IN PEOPLE" Margin="8">
 
-            <Button Grid.Column="1" VerticalAlignment="Center" IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=listBox}">
+                <ListBox x:Name="listBox" 
+                    ItemsSource="{Binding NotCheckedIn}"/>
+
+            </GroupBox>
+
+            <Button Grid.Column="1" VerticalAlignment="Center" IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=listBox}" Margin="4">
                 <TextBlock TextWrapping="Wrap"><Run Text="Manual Check-in"/></TextBlock>
             </Button>
-
-            <ListBox Grid.Column="2" ItemsSource="{Binding CheckedIn}" />
+            <GroupBox Grid.Column="2" Header="CHECKED-IN PEOPLE" Margin="8">
+                <ListBox ItemsSource="{Binding CheckedIn}" />
+            </GroupBox>
 
 
 
