@@ -40,24 +40,7 @@ namespace RescueApp.Views.Dialogs
         }
 
         private void MapWithPushpins_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            //// Disables the default mouse double-click action.
-            //e.Handled = true;
-
-            //// Determin the location to place the pushpin at on the map.
-
-            ////Get the mouse click coordinates
-            //Point mousePosition = e.GetPosition(this);
-            ////Convert the mouse coordinates to a locatoin on the map
-            //Location pinLocation = _mapControl.ViewportPointToLocation(mousePosition);
-
-            //// The pushpin to add to the map.
-            //Pushpin pin = new Pushpin();
-            //pin.Location = pinLocation;
-
-            //// Adds the pushpin to the map.
-            //_mapControl.Children.Add(pin);
-        }
+        { }
 
         private void _mapControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -99,7 +82,10 @@ namespace RescueApp.Views.Dialogs
             _gmap.CanDragMap = true;
             // lets the user drag the map with the left mouse button
             _gmap.DragButton = MouseButton.Left;
-            _gmap.SetPositionByKeywords("Samar");
+
+            //@12.4112461,124.5903656,12
+            _gmap.Position = new GMap.NET.PointLatLng(12.4112461, 124.5903656);
+
         }
 
         private void _gmap_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
@@ -113,8 +99,8 @@ namespace RescueApp.Views.Dialogs
             GMapMarker marker = new GMapMarker(latlong);
             marker.Shape = new Ellipse
             {
-                Width = 10,
-                Height = 10,
+                Width = 16,
+                Height = 16,
                 Stroke = Brushes.Black,
                 Fill = Brushes.Red,
                 StrokeThickness = 1.5

@@ -58,8 +58,8 @@ namespace RescueApp.Views
                 GMapMarker marker = new GMapMarker(latlong);
                 marker.Shape = new Ellipse
                 {
-                    Width = 10,
-                    Height = 10,
+                    Width = 16,
+                    Height = 16,
                     Stroke = Brushes.Black,
                     Fill = Brushes.Red,
                     StrokeThickness = 1.5
