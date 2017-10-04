@@ -21,7 +21,7 @@ namespace RescueApp.Views
         private readonly DialogService dialogService;
         private readonly RescueClient rescueClient;
 
-        public String Title { get; set; } = "Calamities / Disaster";
+        public String Title { get; set; } = "Calamities";
 
         public ObservableCollection<Incident> Incidents { get; set; } = new ObservableCollection<Incident>();
 

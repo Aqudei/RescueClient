@@ -76,13 +76,15 @@ namespace RescueApp.Views
             };
         });
 
-        public RelayCommand<DownloadPersonModel> DeleteItemCommand => new RelayCommand<DownloadPersonModel>((person) =>
-       {
+        public RelayCommand<DownloadPersonModel> DeleteItemCommand => new RelayCommand<DownloadPersonModel>(async (person) =>
+        {
+            var yesNo = await dlgCoordinator.ShowMessageAsync(this, "CONFIRM DELETE",
+                "Are you sure you want to delete " + person.FullName + "?",
+                MessageDialogStyle.AffirmativeAndNegative);
 
-           var rslt = MessageBox.Show("Are you sure you want to Delete " + person.FullName, "Confirm Delete", MessageBoxButton.YesNo);
-           if (rslt == MessageBoxResult.Yes)
-               DeleteItem(person);
-       });
+            if (yesNo == MessageDialogResult.Affirmative)
+                DeleteItem(person);
+        });
 
         private RelayCommand<DownloadPersonModel> _editItemCommand;
 

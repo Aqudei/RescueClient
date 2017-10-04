@@ -67,10 +67,20 @@
                                 Orientation="Vertical" 
                                 Margin="5" Width="240">
                                 <DockPanel LastChildFill="True">
-                                    <Border DockPanel.Dock="Right" BorderBrush="Black" BorderThickness="1">
+                                    <Border CornerRadius="5" 
+                                            Margin="4,2,8,2"
+                                            DockPanel.Dock="Left" 
+                                            BorderBrush="Black" 
+                                            BorderThickness="1">
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FF00FF51" Offset="0"/>
+                                                <GradientStop Color="#FF56E050" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
                                         <TextBlock FontSize="18" Text="{Binding id}" Margin="4"/>
                                     </Border>
-                                    <TextBlock DockPanel.Dock="Left" FontWeight="Bold" TextWrapping="WrapWithOverflow" 
+                                    <TextBlock VerticalAlignment="Center" DockPanel.Dock="Right" FontWeight="Bold" TextWrapping="WrapWithOverflow" 
                                         Text="{Binding FullName}" FontSize="18" Height="Auto" Width="240" />
                                 </DockPanel>
                                 <TextBlock FontStyle="Italic" 
