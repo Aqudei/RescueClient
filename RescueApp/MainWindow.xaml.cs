@@ -36,5 +36,11 @@ namespace RescueApp
             ViewModelLocator.Cleanup();
             Application.Current.Shutdown();
         }
+
+        private void OpenReportGenerator(object sender, RoutedEventArgs e)
+        {
+            var reportGen = new Views.Dialogs.ReportGenerator();
+            reportGen.ShowDialog();
+        }
     }
 }

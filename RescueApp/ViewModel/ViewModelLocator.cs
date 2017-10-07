@@ -80,6 +80,7 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.Register<StatisticsVM>();
             SimpleIoc.Default.Register<FamilyMemberSelectorVM>();
             SimpleIoc.Default.Register<CenterSelectorVM>();
+            SimpleIoc.Default.Register<ReportGeneratorVM>(); 
 
 
             if (!ViewModelBase.IsInDesignModeStatic)
@@ -90,6 +91,14 @@ namespace RescueApp.ViewModel
                     Properties.Settings.Default.SMS_BAUD
                     ), true);
 
+            }
+        }
+
+        public ReportGeneratorVM ReportGeneratorVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ReportGeneratorVM>();
             }
         }
 

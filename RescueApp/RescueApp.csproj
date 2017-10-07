@@ -182,6 +182,10 @@
     <Compile Include="Views\Dialogs\LocationPicker.xaml.cs">
       <DependentUpon>LocationPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dialogs\ReportGenerator.xaml.cs">
+      <DependentUpon>ReportGenerator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\ReportGeneratorVM.cs" />
     <Compile Include="Views\Dialogs\YesNoDialog.cs" />
     <Compile Include="Views\EvacuationList.xaml.cs">
       <DependentUpon>EvacuationList.xaml</DependentUpon>
@@ -261,6 +265,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\LocationPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\ReportGenerator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
