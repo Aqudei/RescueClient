@@ -80,8 +80,7 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.Register<StatisticsVM>();
             SimpleIoc.Default.Register<FamilyMemberSelectorVM>();
             SimpleIoc.Default.Register<CenterSelectorVM>();
-            SimpleIoc.Default.Register<ReportGeneratorVM>(); 
-
+            SimpleIoc.Default.Register<ReportsVM>(); 
 
             if (!ViewModelBase.IsInDesignModeStatic)
             {
@@ -94,13 +93,14 @@ namespace RescueApp.ViewModel
             }
         }
 
-        public ReportGeneratorVM ReportGeneratorVM
+        public ReportsVM ReportsVM
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<ReportGeneratorVM>();
+                return ServiceLocator.Current.GetInstance<ReportsVM>();
             }
         }
+
 
         public CenterSelectorVM CenterSelectorVM
         {

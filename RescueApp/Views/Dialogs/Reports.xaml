@@ -1,0 +1,41 @@
+﻿<maha:MetroWindow x:Class="RescueApp.Views.Dialogs.Reports"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:RescueApp.Views.Dialogs"
+        DataContext="{Binding ReportsVM, Source={StaticResource Locator}}"
+        mc:Ignorable="d"
+        Title="Report Generator" Height="213.971" Width="529.412" 
+                  Loaded="MetroWindow_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock VerticalAlignment="Center" Margin="0,6,0,5">CALAMITY / DISASTER</TextBlock>
+            <ListView VerticalAlignment="Center" Width="256"
+                          ItemsSource="{Binding Incidents}"
+                          Grid.Column="1" Grid.ColumnSpan="2" Margin="8,0,0,1"/>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="1"
+                    Margin="8" Grid.ColumnSpan="2">
+            <Button x:Name="buttonHouseholdReports" Margin="4" Content="Household Reports"/>
+            <Button x:Name="buttonPeopleReports" Margin="4" Content="People Reports" Click="buttonPeopleReports_Click"/>
+        </StackPanel>
+    </Grid>
+</maha:MetroWindow>

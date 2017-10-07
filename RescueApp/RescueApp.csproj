@@ -41,6 +41,9 @@
     <Reference Include="ControlzEx, Version=3.0.1.66, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.1.66\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0-beta1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -148,6 +151,13 @@
     <Compile Include="Models\WithID.cs" />
     <Compile Include="Models\DownloadHouseholdModel.cs" />
     <Compile Include="Models\DownloadPersonModel.cs" />
+    <Compile Include="Reports\PeopleReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PeopleReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\PeopleReportRow.cs" />
     <Compile Include="RescueClient.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -182,10 +192,10 @@
     <Compile Include="Views\Dialogs\LocationPicker.xaml.cs">
       <DependentUpon>LocationPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\ReportGenerator.xaml.cs">
-      <DependentUpon>ReportGenerator.xaml</DependentUpon>
+    <Compile Include="Views\Dialogs\Reports.xaml.cs">
+      <DependentUpon>Reports.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\ReportGeneratorVM.cs" />
+    <Compile Include="Views\Dialogs\ReportsVM.cs" />
     <Compile Include="Views\Dialogs\YesNoDialog.cs" />
     <Compile Include="Views\EvacuationList.xaml.cs">
       <DependentUpon>EvacuationList.xaml</DependentUpon>
@@ -268,7 +278,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\ReportGenerator.xaml">
+    <Page Include="Views\Dialogs\Reports.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -323,6 +333,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PeopleReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PeopleReport.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -367,6 +381,9 @@
     <Resource Include="Resources\house-41415_960_720.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

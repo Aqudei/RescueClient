@@ -37,10 +37,15 @@ namespace RescueApp
             Application.Current.Shutdown();
         }
 
-        private void OpenReportGenerator(object sender, RoutedEventArgs e)
+        private void ShowReports(object sender, RoutedEventArgs e)
         {
-            var reportGen = new Views.Dialogs.ReportGenerator();
-            reportGen.ShowDialog();
+            var win = new Views.Dialogs.Reports();
+            win.ShowDialog();
+        }
+
+        private void ShowSetting(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

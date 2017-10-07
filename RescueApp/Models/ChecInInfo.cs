@@ -9,5 +9,6 @@ namespace RescueApp.Models
     public class CheckInInfo
     {
         public int Id { get; set; }
+        public string scope { get; set; }
     }
 }
