@@ -36,5 +36,16 @@ namespace RescueApp
             ViewModelLocator.Cleanup();
             Application.Current.Shutdown();
         }
+
+        private void ShowReports(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.Dialogs.Reports();
+            win.ShowDialog();
+        }
+
+        private void ShowSetting(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

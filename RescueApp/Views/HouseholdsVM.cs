@@ -13,10 +13,11 @@ using GalaSoft.MvvmLight.CommandWpf;
 using RescueApp.ViewServices;
 using RescueApp.Views.Helpers;
 using MahApps.Metro.Controls.Dialogs;
+using RescueApp.Interfaces;
 
 namespace RescueApp.Views
 {
-    public class HouseholdsVM : PageBase, ICrudVM<DownloadHouseholdModel>
+    public class HouseholdsVM : PageBase, ICrudVM<DownloadHouseholdModel>, INavigable
     {
         public String Title { get; set; } = "Households";
 
@@ -135,8 +136,6 @@ namespace RescueApp.Views
             }
             else
             {
-                LoadHouseholds();
-
                 MessengerInstance.Register<Messages.AddEditResultMessage<DownloadHouseholdModel>>(this, (rslt) =>
                 {
                     if (rslt.Error == null)
@@ -171,6 +170,12 @@ namespace RescueApp.Views
                     }
                 }
             });
+        }
+
+        public void OnNavigated()
+        {
+            _households.Clear();
+            LoadHouseholds();
         }
 
         //public override void OnShow<T>(T args)

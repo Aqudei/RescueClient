@@ -56,14 +56,20 @@
             <GroupBox Header="NOT CHECKED-IN PEOPLE" Margin="8">
 
                 <ListBox x:Name="listBox" 
-                    ItemsSource="{Binding NotCheckedIn}"/>
+                    ItemsSource="{Binding NotCheckedIn}">
+                </ListBox>
 
             </GroupBox>
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                <Button VerticalAlignment="Center" IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=listBox}" Margin="0,2">
+                    <TextBlock TextWrapping="Wrap"><Run Text="SAFE"/></TextBlock>
+                </Button>
+                <Button Margin="0,2">Dead</Button>
+                <Button Margin="0,2">Injured</Button>
+                <Button Margin="0,2">Missing</Button>
+            </StackPanel>
 
-            <Button Grid.Column="1" VerticalAlignment="Center" IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=listBox}" Margin="4">
-                <TextBlock TextWrapping="Wrap"><Run Text="Manual Check-in"/></TextBlock>
-            </Button>
-            <GroupBox Grid.Column="2" Header="CHECKED-IN PEOPLE" Margin="8">
+            <GroupBox Grid.Column="2" Header="SAFE PEOPLE" Margin="8">
                 <ListBox ItemsSource="{Binding CheckedIn}" />
             </GroupBox>
 

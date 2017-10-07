@@ -18,6 +18,14 @@
     <Controls:MetroWindow.DataContext>
         <Binding Path="Main" Source="{StaticResource Locator}"/>
     </Controls:MetroWindow.DataContext>
+    
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="SETTINGS" Click="ShowSetting" />
+            <Button Content="REPORTS" Click="ShowReports" />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    
     <Grid x:Name="_root" >
 
         <Grid.Resources>
