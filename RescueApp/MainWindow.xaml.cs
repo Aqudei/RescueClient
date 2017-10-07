@@ -39,8 +39,8 @@ namespace RescueApp
 
         private void ShowReports(object sender, RoutedEventArgs e)
         {
-            var win = new Views.Dialogs.Reports();
-            win.ShowDialog();
+            var rptWindow = new Views.Dialogs.Reporting();
+            rptWindow.ShowDialog();
         }
 
         private void ShowSetting(object sender, RoutedEventArgs e)

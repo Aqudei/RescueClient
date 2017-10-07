@@ -123,9 +123,10 @@ namespace RescueApp
             });
         }
 
-        public void CheckIn(int id, Action<Exception, MonitoringSummary> callback)
+        public void CheckIn(CheckInInfo chkInfo, Action<Exception, MonitoringSummary> callback)
         {
-            var request = new RestRequest("/api/people/" + id + "/check_in/", Method.POST);
+            var request = new RestRequest("/api/people/" + chkInfo.Id + "/check_in/", Method.POST);
+            request.AddParameter("scope", chkInfo.scope);
             _client.ExecuteAsync<MonitoringSummary>(request, (res) =>
             {
                 if (res.StatusCode == System.Net.HttpStatusCode.OK)

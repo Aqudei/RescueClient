@@ -47,6 +47,9 @@ namespace RescueApp.Views
         public MonitoringVM(RescueClient rescueClient, SMSListener smsListener)
         {
 
+            this.rescueClient = rescueClient;
+            this.smsListener = smsListener;
+
             if (IsInDesignMode)
             {
                 _monitoringSummaries.Add(new MonitoringSummary
@@ -80,16 +83,15 @@ namespace RescueApp.Views
                 });
             }
 
-            this.rescueClient = rescueClient;
-            this.smsListener = smsListener;
             smsListener.NewMessageReceived += (s, e) =>
             {
 
-                rescueClient.CheckIn(e.CheckInInfo.Id, (ex, rslt) =>
+                rescueClient.CheckIn(e.CheckInInfo, (ex, rslt) =>
                 {
                     if (ex == null)
                     {
                         var _ms = _monitoringSummaries.Where(ms => ms.center.id == rslt.center.id).FirstOrDefault();
+
                         DispatcherHelper.CheckBeginInvokeOnUI(() =>
                         {
                             MonitoringSummary lastCurrent = null;
