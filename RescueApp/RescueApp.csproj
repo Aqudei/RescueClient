@@ -161,7 +161,11 @@
     <Compile Include="RescueClient.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="ViewServices\DialogService.cs" />
+    <Compile Include="Views\Dialogs\Reporting.xaml.cs">
+      <DependentUpon>Reporting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\ReportingVM.cs" />
+    <Compile Include="Views\ViewServices\DialogService.cs" />
     <Compile Include="Views\AddEditEvacuation.xaml.cs">
       <DependentUpon>AddEditEvacuation.xaml</DependentUpon>
     </Compile>
@@ -192,10 +196,6 @@
     <Compile Include="Views\Dialogs\LocationPicker.xaml.cs">
       <DependentUpon>LocationPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\Reports.xaml.cs">
-      <DependentUpon>Reports.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\ReportsVM.cs" />
     <Compile Include="Views\Dialogs\YesNoDialog.cs" />
     <Compile Include="Views\EvacuationList.xaml.cs">
       <DependentUpon>EvacuationList.xaml</DependentUpon>
@@ -278,7 +278,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\Reports.xaml">
+    <Page Include="Views\Dialogs\Reporting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
