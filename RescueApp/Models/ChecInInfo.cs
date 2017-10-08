@@ -10,5 +10,6 @@ namespace RescueApp.Models
     {
         public int Id { get; set; }
         public string scope { get; set; }
+        public string status { get; internal set; }
     }
 }

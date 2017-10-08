@@ -9,11 +9,11 @@ namespace RescueApp.Models
     public class MonitoringInfo
     {
         public Center center { get; set; }
-        public List<PersonId> persons { get; set; }
+        public List<PersonStatus> persons { get; set; }
 
         public MonitoringInfo()
         {
-            persons = new List<PersonId>();
+            persons = new List<PersonStatus>();
         }
     }
 }

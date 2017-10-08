@@ -507,17 +507,34 @@ namespace RescueApp
 
         public void GetMonitoringDetail(int pk, Action<Exception, MonitoringInfo> callback)
         {
-            var request = new RestRequest("/api/monitoring/" + pk + "/", Method.GET);
+            var monitoringInfo = new MonitoringInfo();
+            var request = new RestRequest("/api/centers/" + pk + "/", Method.GET);
 
-            _client.ExecuteAsync<MonitoringInfo>(request, rslt =>
+            _client.ExecuteAsync<Center>(request, rslt =>
             {
                 if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    callback(null, rslt.Data);
+                    monitoringInfo.center = rslt.Data;
+                    var requestStatus = new RestRequest("/api/monitoring/" + pk + "/", Method.GET);
+                    _client.ExecuteAsync<List<PersonStatus>>(requestStatus, rsltStatus =>
+                   {
+                       if (rsltStatus.StatusCode == System.Net.HttpStatusCode.OK)
+                       {
+                           monitoringInfo.persons = rsltStatus.Data;
+                           callback(null, monitoringInfo);
+                           return;
+                       }
+                       else
+                       {
+                           callback(new Exception(rslt.Content + "\n" + rslt.ErrorMessage), null);
+                           return;
+                       }
+                   });
                 }
                 else
                 {
                     callback(new Exception(rslt.Content + "\n" + rslt.ErrorMessage), null);
+                    return;
                 }
             });
         }

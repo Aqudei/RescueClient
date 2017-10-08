@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
 using RescueApp.Interfaces;
 using RescueApp.Misc;
@@ -22,8 +23,6 @@ namespace RescueApp.Views
         private readonly SMSListener smsListener;
 
         private MonitoringInfo _currentMonitoringInfo;
-
-
 
         public String Title { get; } = "Monitoring";
 
@@ -85,27 +84,11 @@ namespace RescueApp.Views
 
             smsListener.NewMessageReceived += (s, e) =>
             {
-
-                rescueClient.CheckIn(e.CheckInInfo, (ex, rslt) =>
+                rescueClient.CheckIn(e.CheckInInfo, (ex, monitoringSummary) =>
                 {
                     if (ex == null)
                     {
-                        var _ms = _monitoringSummaries.Where(ms => ms.center.id == rslt.center.id).FirstOrDefault();
-
-                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                        {
-                            MonitoringSummary lastCurrent = null;
-                            if (_ms != null)
-                            {
-                                lastCurrent = SummariesCollectionView.CurrentItem as MonitoringSummary;
-                                _monitoringSummaries.Remove(_ms);
-                            }
-                            _monitoringSummaries.Add(rslt);
-                            if (lastCurrent != null && lastCurrent.center.id == rslt.center.id)
-                            {
-                                SummariesCollectionView.MoveCurrentTo(rslt);
-                            }
-                        });
+                        UpdateSummary(monitoringSummary);
                     }
                     else
                     {
@@ -115,6 +98,25 @@ namespace RescueApp.Views
             };
         }
 
+        private void UpdateSummary(MonitoringSummary monitoringSummary)
+        {
+            var _ms = _monitoringSummaries.Where(ms => ms.center.id == monitoringSummary.center.id).FirstOrDefault();
+
+            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+            {
+                MonitoringSummary lastCurrent = null;
+                if (_ms != null)
+                {
+                    lastCurrent = SummariesCollectionView.CurrentItem as MonitoringSummary;
+                    _monitoringSummaries.Remove(_ms);
+                }
+                _monitoringSummaries.Add(monitoringSummary);
+                if (lastCurrent != null && lastCurrent.center.id == monitoringSummary.center.id)
+                {
+                    SummariesCollectionView.MoveCurrentTo(monitoringSummary);
+                }
+            });
+        }
 
         public void OnNavigated()
         {
@@ -197,11 +199,6 @@ namespace RescueApp.Views
 
                                 RaisePropertyChanged(nameof(CheckedIn));
                                 RaisePropertyChanged(nameof(NotCheckedIn));
-
-
-
-
-
                             });
                         }
                     });
@@ -217,6 +214,119 @@ namespace RescueApp.Views
         public override void Cleanup()
         {
             smsListener.Terminate();
+        }
+
+        private RelayCommand<DownloadPersonModel> setSafeCommand;
+        public RelayCommand<DownloadPersonModel> SetSafeCommand
+        {
+            get
+            {
+                return setSafeCommand ?? (setSafeCommand = new RelayCommand<DownloadPersonModel>((arg) =>
+                {
+                    var chkinfo = new CheckInInfo
+                    {
+                        Id = arg.id,
+                        scope = "self",
+                    };
+                    rescueClient.CheckIn(chkinfo, (ex, sum) =>
+                    {
+                        if (ex == null)
+                        {
+                            UpdateSummary(sum);
+                        }
+                        else
+                        {
+                            Debug.WriteLine(ex.Message);
+                        }
+                    });
+                }));
+            }
+
+        }
+
+        private RelayCommand<DownloadPersonModel> setDeadCommand;
+
+        public RelayCommand<DownloadPersonModel> SetDeadCommand
+        {
+            get
+            {
+                return setDeadCommand ?? (setDeadCommand = new RelayCommand<DownloadPersonModel>((person) =>
+                {
+                    var chkinfo = new CheckInInfo
+                    {
+                        Id = person.id,
+                        scope = "self",
+                        status = "dead"
+                    };
+                    rescueClient.CheckIn(chkinfo, (ex, sum) =>
+                    {
+                        if (ex == null)
+                        {
+                            UpdateSummary(sum);
+                        }
+                        else
+                        {
+                            Debug.WriteLine(ex.Message);
+                        }
+                    });
+                }));
+            }
+        }
+
+        private RelayCommand<DownloadPersonModel> setMissingCommand;
+        public RelayCommand<DownloadPersonModel> SetMissingCommand
+        {
+            get
+            {
+                return setMissingCommand ?? (setMissingCommand = new RelayCommand<DownloadPersonModel>((person) =>
+                {
+                    var chkinfo = new CheckInInfo
+                    {
+                        Id = person.id,
+                        scope = "self",
+                        status = "missing"
+                    };
+                    rescueClient.CheckIn(chkinfo, (ex, sum) =>
+                    {
+                        if (ex == null)
+                        {
+                            UpdateSummary(sum);
+                        }
+                        else
+                        {
+                            Debug.WriteLine(ex.Message);
+                        }
+                    });
+                }));
+            }
+        }
+
+        private RelayCommand<DownloadPersonModel> setInjuredCommand;
+        public RelayCommand<DownloadPersonModel> SetInjuredCommand
+        {
+            get
+            {
+                return setInjuredCommand ?? (setInjuredCommand = new RelayCommand<DownloadPersonModel>((person) =>
+                {
+                    var chkinfo = new CheckInInfo
+                    {
+                        Id = person.id,
+                        scope = "self",
+                        status = "injured"
+                    };
+                    rescueClient.CheckIn(chkinfo, (ex, sum) =>
+                    {
+                        if (ex == null)
+                        {
+                            UpdateSummary(sum);
+                        }
+                        else
+                        {
+                            Debug.WriteLine(ex.Message);
+                        }
+                    });
+                }));
+            }
         }
     }
 }

@@ -144,7 +144,7 @@
     <Compile Include="Models\Incident.cs" />
     <Compile Include="Models\MonitoringInfo.cs" />
     <Compile Include="Models\MonitoringSummary.cs" />
-    <Compile Include="Models\PersonId.cs" />
+    <Compile Include="Models\PersonStatus.cs" />
     <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\UploadHouseholdModel.cs" />
     <Compile Include="Models\UploadPersonModel.cs" />
