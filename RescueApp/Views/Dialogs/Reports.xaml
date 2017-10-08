@@ -28,7 +28,7 @@
             <TextBlock VerticalAlignment="Center" Margin="0,6,0,5">CALAMITY / DISASTER</TextBlock>
             <ListView VerticalAlignment="Center" Width="256"
                           ItemsSource="{Binding Incidents}"
-                          Grid.Column="1" Grid.ColumnSpan="2" Margin="8,0,0,1"/>
+                          Grid.Column="1" Margin="8,12,0,-33" Height="128"/>
         </Grid>
 
         <StackPanel Orientation="Horizontal"
