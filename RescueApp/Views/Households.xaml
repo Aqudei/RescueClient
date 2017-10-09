@@ -60,9 +60,9 @@
 
                                 <Button Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
                                         Command="{Binding DataContext.AddMemberCommand, ElementName=_householdList, Mode=OneWay}" 
-                                        Padding="6" ToolTip="Add Family Members"
+                                        Padding="6" ToolTip="Add Family Members" Margin="4" HorizontalAlignment="Left"
                                         CommandParameter="{Binding Mode=OneWay}" >
-                                    <iconPacks:PackIconModern Kind="AddMultiple"/>
+                                    <iconPacks:PackIconModern Kind="PeopleMultiple"/>
                                 </Button>
 
 

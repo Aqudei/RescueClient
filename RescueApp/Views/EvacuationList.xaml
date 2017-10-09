@@ -87,7 +87,7 @@
                                     Style="{DynamicResource MetroCircleButtonStyle}" Padding="16" 
                                     Command="{Binding DataContext.CenterAssignmentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
                                     CommandParameter="{Binding Mode=OneWay}">
-                                    <iconPacks:PackIconModern Kind="Add"/>
+                                    <iconPacks:PackIconModern Kind="PeopleMultiple"/>
                                 </Button>
                             </StackPanel>
                         </StackPanel>
