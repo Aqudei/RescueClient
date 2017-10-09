@@ -7,6 +7,7 @@ using RestSharp;
 using RestSharp.Extensions;
 using RescueApp.Models;
 using System.Diagnostics;
+using RescueApp.Reports;
 
 namespace RescueApp
 {
@@ -19,7 +20,6 @@ namespace RescueApp
             _client = new RestClient();
             _client.BaseUrl = new Uri("http://localhost:8000");
         }
-
 
         //PEOPLE ENDPOINGS
         public void GetPeople(Action<Exception, List<DownloadPersonModel>> callback)
@@ -436,6 +436,17 @@ namespace RescueApp
             });
         }
 
+        public void GetPeopleReport(Incident incident, Action<Exception, List<PeopleReportRow>> callback)
+        {
+            var request = new RestRequest("/api/reports/people/incident/" + incident.id + "/", Method.GET);
+            _client.ExecuteAsync<List<PeopleReportRow>>(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    callback(null, rslt.Data);
+                }
+            });
+        }
 
         public void GetStats(Action<Exception, Statistics> callback)
         {
@@ -488,7 +499,6 @@ namespace RescueApp
                 }
             });
         }
-
 
         public void GetMonitoring(Action<Exception, List<MonitoringSummary>> callback)
         {
@@ -560,5 +570,7 @@ namespace RescueApp
             }
             return uri;
         }
+
+
     }
 }

@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
+using RescueApp.Models;
+using RescueApp.ViewServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,13 +16,23 @@ namespace RescueApp.Views.Dialogs
 
     {
         private readonly RescueClient rescueClient;
+        private readonly DialogService dialogService;
 
         public ObservableCollection<Models.Incident> Incidents { get; set; }
             = new ObservableCollection<Models.Incident>();
 
-        public ReportingVM(RescueClient rescueClient)
+        private Incident selectedIncident;
+
+        public Incident SelectedIncident
+        {
+            set { selectedIncident = value; }
+        }
+
+
+        public ReportingVM(RescueClient rescueClient, DialogService dialogService)
         {
             this.rescueClient = rescueClient;
+            this.dialogService = dialogService;
         }
 
         private bool peopleReport;
@@ -39,7 +51,26 @@ namespace RescueApp.Views.Dialogs
             {
                 return viewReportCommand ?? (viewReportCommand = new RelayCommand(() =>
                 {
+                    if (peopleReport)
+                    {
+                        rescueClient.GetPeopleReport(selectedIncident, (ex, reportData) =>
+                        {
+                            if (ex == null)
+                            {
+                                Reports.PeopleReport reportDocument = new Reports.PeopleReport();
+                                reportDocument.SetDataSource(reportData);
+                                Dictionary<string, object> parames = new Dictionary<string, object>();
+                                parames.Add("CalamityName", selectedIncident.IncidentName);
 
+                                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                                {
+                                    dialogService.ShowReport(reportDocument, parames);
+                                });
+                            }
+                        });
+                    }
+                    else
+                        dialogService.ShowReport(new Reports.HouseholdReport(),null);
                 }));
             }
         }

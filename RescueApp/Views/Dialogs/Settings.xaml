@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:RescueApp.Views.Dialogs"
         DataContext="{Binding SettingsVM, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Title="Settings" Height="319.853" Width="464.338" Loaded="MetroWindow_Loaded" WindowStartupLocation="CenterScreen">
+        Title="Settings" Height="319.853" Width="464.338" Loaded="MetroWindow_Loaded" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -34,10 +34,11 @@
         </GroupBox>
         <StackPanel Grid.Row="1" 
                     Margin="4"
-                    Orientation="Horizontal">
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
             <Button Command="{Binding SaveCommand}" 
-                    Margin="2">Apply Settings</Button>
-            <Button Margin="2">Close</Button>
+                    Margin="2">Apply Settings
+            </Button>
         </StackPanel>
     </Grid>
 </maha:MetroWindow>

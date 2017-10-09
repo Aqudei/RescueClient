@@ -18,7 +18,8 @@
 
         <StackPanel Margin="8">
             <TextBlock>PLEASE SELECT SPECIFIC CALAMITY/DISASTER</TextBlock>
-            <ComboBox ItemsSource="{Binding Incidents}"/>
+            <ComboBox ItemsSource="{Binding Incidents}"
+                      SelectedItem="{Binding SelectedIncident, Mode=OneWayToSource}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1"
@@ -29,7 +30,8 @@
 
         <StackPanel HorizontalAlignment="Center" 
                     Orientation="Horizontal" Grid.Row="2">
-            <Button Margin="8">View Report</Button>
+            <Button Command="{Binding ViewReportCommand}" 
+                    Margin="8">View Report</Button>
         </StackPanel>
     </Grid>
 </maha:MetroWindow>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using Microsoft.Win32;
 using RescueApp.Interfaces;
 using RescueApp.Views;
 using RescueApp.Views.Dialogs;
@@ -36,6 +37,16 @@ namespace RescueApp.ViewServices
             _dialogs = new Dictionary<string, Type>();
         }
 
+        public void ShowReport(ReportDocument reportDocument, Dictionary<string, object> parames)
+        {
+            var rptWindows = new Reports.ReportViewer();
+            rptWindows.reportViewer.ViewerCore.ReportSource = reportDocument;
+            foreach (var item in parames)
+                reportDocument.SetParameterValue(item.Key, item.Value);
+
+            rptWindows.ShowDialog();
+        }
+
         public Tuple<double, double> ShowMapPicker()
         {
             var dlgMap = new LocationPicker();
@@ -57,7 +68,7 @@ namespace RescueApp.ViewServices
             _dialogs.Add(dialogName, typeof(T));
         }
 
-        public void ShowCamera() 
+        public void ShowCamera()
         {
             _cam = _cam ?? new Camera();
             if ((_cam as Camera)?.CameraCount > 0)

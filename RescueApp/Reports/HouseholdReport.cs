@@ -16,14 +16,14 @@ namespace RescueApp.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class PeopleReport : ReportClass {
+    public class HouseholdReport : ReportClass {
         
-        public PeopleReport() {
+        public HouseholdReport() {
         }
         
         public override string ResourceName {
             get {
-                return "PeopleReport.rpt";
+                return "HouseholdReport.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace RescueApp.Reports {
         
         public override string FullResourceName {
             get {
-                return "RescueApp.Reports.PeopleReport.rpt";
+                return "RescueApp.Reports.HouseholdReport.rpt";
             }
             set {
                 // Do nothing
@@ -87,28 +87,12 @@ namespace RescueApp.Reports {
                 return this.ReportDefinition.Sections[4];
             }
         }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_TITLE {
-            get {
-                return this.DataDefinition.ParameterFields[0];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CalamityName {
-            get {
-                return this.DataDefinition.ParameterFields[1];
-            }
-        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedPeopleReport : Component, ICachedReport {
+    public class CachedHouseholdReport : Component, ICachedReport {
         
-        public CachedPeopleReport() {
+        public CachedHouseholdReport() {
         }
         
         [Browsable(false)]
@@ -145,7 +129,7 @@ namespace RescueApp.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            PeopleReport rpt = new PeopleReport();
+            HouseholdReport rpt = new HouseholdReport();
             rpt.Site = this.Site;
             return rpt;
         }
