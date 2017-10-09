@@ -168,14 +168,15 @@ namespace RescueApp.Views
             {
                 if (_currentMonitoringInfo != null)
                 {
-                    _checkedIn = new CollectionViewSource { Source = _currentMonitoringInfo.center.members }.View;
 
-                    _checkedIn.Filter = (obj) =>
-                    {
-                        var asPerson = obj as DownloadPersonModel;
-                        var found = _currentMonitoringInfo.persons.Where(p => p.id == asPerson.id).Any();
-                        return found;
-                    };
+                    _checkedIn = CollectionViewSource.GetDefaultView(_currentMonitoringInfo.persons);
+
+                    //_checkedIn.Filter = (obj) =>
+                    //{
+                    //    var asPerson = obj as DownloadPersonModel;
+                    //    var found = _currentMonitoringInfo.persons.Where(p => p.id == asPerson.id).Any();
+                    //    return found;
+                    //};
 
                     return _checkedIn;
                 }
@@ -196,7 +197,6 @@ namespace RescueApp.Views
                             DispatcherHelper.CheckBeginInvokeOnUI(() =>
                             {
                                 _currentMonitoringInfo = monitoringInfo;
-
                                 RaisePropertyChanged(nameof(CheckedIn));
                                 RaisePropertyChanged(nameof(NotCheckedIn));
                             });

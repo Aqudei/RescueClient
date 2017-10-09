@@ -21,5 +21,6 @@ namespace RescueApp.Models
 
         public string When { get; set; }
         public string Status { get; set; }
+        public string fullname { get; set; }
     }
 }

@@ -35,7 +35,7 @@
                                     <Run Text="{Binding num_evacuated, Mode=OneWay}" />
                                     <Run Text=" out of "/>
                                     <Run Text="{Binding center.Limit}" />
-                                    <Run Text=" evacuees have already evacuated "/>
+                                    <Run Text=" evacuees  are accounted"/>
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
@@ -83,7 +83,18 @@
             </StackPanel>
 
             <GroupBox Grid.Column="2" Header="ACCOUNTED PEOPLE" Margin="8">
-                <ListBox ItemsSource="{Binding CheckedIn}" />
+                <ListBox ItemsSource="{Binding CheckedIn}" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding fullname}"/>
+                                <TextBlock Margin="8,0" 
+                                           Text="|"/>
+                                <TextBlock Text="{Binding Status}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </GroupBox>
 
 
