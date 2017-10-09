@@ -143,7 +143,6 @@ namespace RescueApp
                     callback(new Exception(msg), null);
                     return;
                 }
-
             });
         }
 
@@ -570,7 +569,5 @@ namespace RescueApp
             }
             return uri;
         }
-
-
     }
 }
