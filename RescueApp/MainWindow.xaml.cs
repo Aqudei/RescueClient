@@ -40,6 +40,7 @@ namespace RescueApp
         private void ShowReports(object sender, RoutedEventArgs e)
         {
             var rptWindow = new Views.Dialogs.Reporting();
+            (rptWindow.DataContext as Views.Dialogs.ReportingVM).OnLoad();
             rptWindow.ShowDialog();
         }
 

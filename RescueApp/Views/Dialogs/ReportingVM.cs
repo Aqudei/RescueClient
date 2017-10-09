@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,27 @@ namespace RescueApp.Views.Dialogs
         public ReportingVM(RescueClient rescueClient)
         {
             this.rescueClient = rescueClient;
+        }
+
+        private bool peopleReport;
+
+        public bool PeopleReport
+        {
+            get { return peopleReport; }
+            set { Set(ref peopleReport, value); }
+        }
+
+        private RelayCommand viewReportCommand;
+
+        public RelayCommand ViewReportCommand
+        {
+            get
+            {
+                return viewReportCommand ?? (viewReportCommand = new RelayCommand(() =>
+                {
+
+                }));
+            }
         }
 
         public void OnLoad()
