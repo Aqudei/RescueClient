@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +15,16 @@ using System.Windows.Shapes;
 namespace RescueApp.Views.Dialogs
 {
     /// <summary>
-    /// Interaction logic for Reporting.xaml
+    /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class Reporting : MetroWindow
+    public partial class Settings
     {
-        public Reporting()
+        public Settings()
         {
             InitializeComponent();
         }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {}
     }
 }

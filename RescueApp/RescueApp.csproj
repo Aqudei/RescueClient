@@ -165,6 +165,10 @@
       <DependentUpon>Reporting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\ReportingVM.cs" />
+    <Compile Include="Views\Dialogs\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\SettingsVM.cs" />
     <Compile Include="Views\ViewServices\DialogService.cs" />
     <Compile Include="Views\AddEditEvacuation.xaml.cs">
       <DependentUpon>AddEditEvacuation.xaml</DependentUpon>
@@ -279,6 +283,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\Reporting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

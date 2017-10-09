@@ -45,7 +45,8 @@ namespace RescueApp
 
         private void ShowSetting(object sender, RoutedEventArgs e)
         {
-
+            var settingWindow = new Views.Dialogs.Settings();
+            settingWindow.ShowDialog();
         }
     }
 }

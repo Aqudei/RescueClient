@@ -81,6 +81,7 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.Register<FamilyMemberSelectorVM>();
             SimpleIoc.Default.Register<CenterSelectorVM>();
             SimpleIoc.Default.Register<ReportingVM>();
+            SimpleIoc.Default.Register<SettingsVM>(); 
 
             if (!ViewModelBase.IsInDesignModeStatic)
             {
@@ -90,6 +91,14 @@ namespace RescueApp.ViewModel
                     Properties.Settings.Default.SMS_BAUD
                     ), true);
 
+            }
+        }
+
+        public SettingsVM SettingsVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SettingsVM>();
             }
         }
 
