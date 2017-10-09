@@ -27,7 +27,12 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" Margin="4">
+        <Grid Margin="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -38,10 +43,12 @@
                 <Button Grid.Column="1" Command="{Binding ApplyFilterCommand}"
                         CommandParameter="{Binding Text, ElementName=textBox}" Margin="4,0,0,0">Apply Filter</Button>
             </Grid>
-            <ListView x:Name="peopleList" ItemsSource="{Binding PeopleCollectionView}" 
+            <ListView x:Name="peopleList" ItemsSource="{Binding PeopleCollectionView}"
+                      Grid.Row="1"
                 IsSynchronizedWithCurrentItem="True"
+                ScrollViewer.VerticalScrollBarVisibility="Visible"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                BorderBrush="{x:Null}" Height="800" Margin="0,0,-14,0">
+                BorderBrush="{x:Null}" >
                 <ListView.Resources>
                     <BitmapImage x:Key="_whoImage" 
                         UriSource="/RescueApp;component/Resources/question_sign_on_person_head.png"/>
@@ -124,7 +131,7 @@
 
             </ListView>
 
-        </StackPanel>
+        </Grid>
 
         <Grid Grid.Column="1" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>

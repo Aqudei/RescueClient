@@ -84,6 +84,7 @@ namespace RescueApp.Views
 
             smsListener.NewMessageReceived += (s, e) =>
             {
+                e.CheckInInfo.status = "safe";
                 rescueClient.CheckIn(e.CheckInInfo, (ex, monitoringSummary) =>
                 {
                     if (ex == null)
