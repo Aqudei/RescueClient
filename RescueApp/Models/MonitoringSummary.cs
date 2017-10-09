@@ -8,6 +8,7 @@ namespace RescueApp.Models
 {
     public class MonitoringSummary
     {
+        public int num_members { get; set; }
         public Center center { get; set; }
         public int num_evacuees { get; set; }
         public int num_evacuated

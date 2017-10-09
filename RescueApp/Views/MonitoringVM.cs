@@ -137,6 +137,37 @@ namespace RescueApp.Views
         }
 
 
+        public string FilterKeyword
+        {
+            set
+            {
+                var len = string.IsNullOrEmpty(value) == true ? 0 : value.Length;
+
+                if (_currentMonitoringInfo != null)
+                {
+                    if (len >= 3)
+                        _notCheckedIn.Filter = (obj) =>
+                        {
+                            var asPerson = obj as DownloadPersonModel;
+                            var found = _currentMonitoringInfo.persons.Where(p => p.id == asPerson.id).Any();
+                            var include = !found;
+                            include = include && asPerson.FullName.ToLower().Contains(value.ToLower());
+                            return include;
+                        };
+                    else
+                        _notCheckedIn.Filter = (obj) =>
+                        {
+                            var asPerson = obj as DownloadPersonModel;
+                            var found = _currentMonitoringInfo.persons.Where(p => p.id == asPerson.id).Any();
+                            var include = !found;
+                            return include;
+                        };
+                }
+
+            }
+        }
+
+
         private ICollectionView _notCheckedIn;
 
         public ICollectionView NotCheckedIn
@@ -150,7 +181,8 @@ namespace RescueApp.Views
                     {
                         var asPerson = obj as DownloadPersonModel;
                         var found = _currentMonitoringInfo.persons.Where(p => p.id == asPerson.id).Any();
-                        return !found;
+                        var include = !found;
+                        return include;
                     };
 
                     return _notCheckedIn;
@@ -227,6 +259,7 @@ namespace RescueApp.Views
                     {
                         Id = arg.id,
                         scope = "self",
+                        status = "safe"
                     };
                     rescueClient.CheckIn(chkinfo, (ex, sum) =>
                     {

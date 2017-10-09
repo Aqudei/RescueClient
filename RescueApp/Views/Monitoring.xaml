@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:local="clr-namespace:RescueApp.Views"
              xmlns:WPF="clr-namespace:RescueApp.WPF" x:Class="RescueApp.Views.Monitoring"
              DataContext="{Binding MonitoringVM, Source={StaticResource Locator}}"
@@ -34,7 +35,7 @@
                                 <TextBlock FontSize="12" TextWrapping="Wrap">
                                     <Run Text="{Binding num_evacuated, Mode=OneWay}" />
                                     <Run Text=" out of "/>
-                                    <Run Text="{Binding center.Limit}" />
+                                    <Run Text="{Binding num_members, Mode=OneWay}" />
                                     <Run Text=" evacuees  are accounted"/>
                                 </TextBlock>
                             </StackPanel>
@@ -54,11 +55,23 @@
             </Grid.ColumnDefinitions>
 
             <GroupBox Header="NOT ACCOUNTED PEOPLE" Margin="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-                <ListBox x:Name="listBox" 
-                    ItemsSource="{Binding NotCheckedIn}">
-                </ListBox>
+                    <TextBox Margin="2" 
+                             maha:TextBoxHelper.Watermark="[Filter Keyword]"
+                             Text="{Binding FilterKeyword, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                             maha:TextBoxHelper.ClearTextButton="True"/>
 
+                    <ListBox x:Name="listBox" 
+                             Grid.Row="1" 
+                             Margin="2"
+                             ItemsSource="{Binding NotCheckedIn}">
+                    </ListBox>
+                </Grid>
             </GroupBox>
             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
                 <Button VerticalAlignment="Center" 
