@@ -43,8 +43,6 @@ namespace RescueApp.Views
             }
         }
 
-
-
         private void UpdateSummary(MonitoringSummary monitoringSummary)
         {
             var _ms = _monitoringSummaries.Where(ms => ms.center.id == monitoringSummary.center.id).FirstOrDefault();
@@ -64,8 +62,6 @@ namespace RescueApp.Views
                 }
             });
         }
-
-
 
         public string FilterKeyword
         {
@@ -348,6 +344,16 @@ namespace RescueApp.Views
                     }
                 });
             };
+
+            HouseHoldStatuses.CollectionChanged += (s, e) =>
+            {
+                HouseholdsView.Filter = obj =>
+                {
+                    var o = obj as DownloadHouseholdModel;
+                    return !HouseHoldStatuses.Any(h => h.Household == o.HouseNumber);
+                };
+            };
+
         }
         public void OnNavigated()
         {
@@ -369,16 +375,34 @@ namespace RescueApp.Views
 
             _households.Clear();
             HouseHoldStatuses.Clear();
-            rescueClient.GetHouseholds((ex, hs) =>
+
+            rescueClient.GetHousesStatus((ex, statuses) =>
             {
-                foreach (var h in hs)
+                if (ex == null)
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                    foreach (var s in statuses)
                     {
-                        _households.Add(h);
-                    });
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            HouseHoldStatuses.Add(s);
+                        });
+                    }
                 }
             });
+
+            rescueClient.GetHouseholds((ex, hs) =>
+            {
+                if (ex == null)
+                    foreach (var h in hs)
+                    {
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            _households.Add(h);
+                        });
+                    }
+            });
+
+
         }
 
         //=============================================================================================================
@@ -395,21 +419,12 @@ namespace RescueApp.Views
             {
 
                 householdsView = CollectionViewSource.GetDefaultView(_households);
-                householdsView.Filter = (h) =>
-                {
-                    var house = h as DownloadHouseholdModel;
-                    return true;
-
-                };
                 return householdsView;
-
             }
         }
 
-
         public ObservableCollection<HouseholdStatus> HouseHoldStatuses { get; set; }
             = new ObservableCollection<HouseholdStatus>();
-
 
         private RelayCommand<DownloadHouseholdModel> setTotallyDamagedCommand;
         public RelayCommand<DownloadHouseholdModel> SetTotallyDamagedCommand
@@ -422,7 +437,14 @@ namespace RescueApp.Views
                     {
                         if (ex == null)
                         {
-                            HouseHoldStatuses.Add(newStat);
+                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                            {
+                                HouseHoldStatuses.Add(newStat);
+                            });
+                        }
+                        else
+                        {
+                            //Show emssage box
                         }
                     });
                 }));
@@ -436,11 +458,23 @@ namespace RescueApp.Views
             {
                 return setPartiallyDamagedCommand ?? (setPartiallyDamagedCommand = new RelayCommand<DownloadHouseholdModel>((h) =>
                 {
-
+                    rescueClient.SetHouseStatus(h.id, HOUSE_STATUS_PARTIALLY_DAMAGED, (ex, newStat) =>
+                    {
+                        if (ex == null)
+                        {
+                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                            {
+                                HouseHoldStatuses.Add(newStat);
+                            });
+                        }
+                        else
+                        {
+                            //Show emssage box
+                        }
+                    });
                 }));
             }
         }
-
 
         private const string HOUSE_STATUS_TOTALLY_DAMAGED = "Totally Damaged";
         private const string HOUSE_STATUS_PARTIALLY_DAMAGED = "Partially Damaged";

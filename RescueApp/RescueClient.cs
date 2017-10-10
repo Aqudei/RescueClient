@@ -379,9 +379,31 @@ namespace RescueApp
                     callback(null, rslt.Data);
                     return;
                 }
+                else
+                {
+                    callback(new Exception(rslt.ErrorMessage + "\n" + rslt.Content), null);
+                    return;
+                }
             });
         }
-
+        public void GetHousesStatus(Action<Exception, List<HouseholdStatus>> callback)
+        {
+            var request = new RestRequest("/api/houses_status/active_incident/", Method.GET);
+            
+            _client.ExecuteAsync<List<HouseholdStatus>>(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    callback(null, rslt.Data);
+                    return;
+                }
+                else
+                {
+                    callback(new Exception(rslt.ErrorMessage + "\n" + rslt.Content), null);
+                    return;
+                }
+            });
+        }
 
         public void AddIncident(Incident incident, Action<Exception, Incident> callback)
         {
@@ -564,6 +586,7 @@ namespace RescueApp
                 }
             });
         }
+
 
 
         private Boolean Uploadable(String uri)

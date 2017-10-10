@@ -124,7 +124,16 @@
                 <GroupBox Header="Household LIST"  Margin="4">
 
                     <ListView x:Name="listView" BorderBrush="{x:Null}"
-                              ItemsSource="{Binding HouseholdsView}"/>
+                              ItemsSource="{Binding HouseholdsView}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding HouseNumber}"></TextBlock>
+                                    <TextBlock Text="{Binding FamilyHead.FullName}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
                 </GroupBox>
 
@@ -143,7 +152,20 @@
                           Grid.Column="2" 
                           Margin="4">
 
-                    <ListView BorderBrush="{x:Null}"/>
+                    <ListView BorderBrush="{x:Null}"
+                              ItemsSource="{Binding HouseHoldStatuses}" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Household}"/>
+                                    <TextBlock Text=" | "/>
+                                    <TextBlock Text="{Binding family_head}"/>
+                                    <TextBlock Text=" | "/>
+                                    <TextBlock Text="{Binding Status}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
                 </GroupBox>
 

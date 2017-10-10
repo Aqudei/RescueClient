@@ -70,7 +70,22 @@ namespace RescueApp.Views.Dialogs
                         });
                     }
                     else
-                        dialogService.ShowReport(new Reports.HouseholdReport(),null);
+                    {
+                        rescueClient.GetHousesStatus((ex, statuses) =>
+                        {
+                            if (ex == null)
+                            {
+                                Reports.HouseholdReport rptDocumentHouses = new Reports.HouseholdReport();
+                                rptDocumentHouses.SetDataSource(statuses);
+                                Dictionary<string, object> parames = new Dictionary<string, object>();
+                                parames.Add("CalamityName", selectedIncident.IncidentName);
+                                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                                {
+                                    dialogService.ShowReport(rptDocumentHouses, parames);
+                                });
+                            }
+                        });
+                    }
                 }));
             }
         }

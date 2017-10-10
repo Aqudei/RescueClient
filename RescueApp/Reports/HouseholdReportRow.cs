@@ -8,5 +8,6 @@ namespace RescueApp.Reports
 {
     public class HouseholdReportRow
     {
+
     }
 }
