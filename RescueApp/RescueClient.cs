@@ -368,6 +368,21 @@ namespace RescueApp
             });
         }
 
+        public void SetHouseStatus(int houseId, string status, Action<Exception, HouseholdStatus> callback)
+        {
+            var request = new RestRequest("/api/households/" + houseId + "/set_status/", Method.POST);
+            request.AddParameter("status", status);
+            _client.ExecuteAsync<HouseholdStatus>(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    callback(null, rslt.Data);
+                    return;
+                }
+            });
+        }
+
+
         public void AddIncident(Incident incident, Action<Exception, Incident> callback)
         {
             var request = new RestRequest("/api/incidents/", Method.POST);
@@ -549,6 +564,8 @@ namespace RescueApp
                 }
             });
         }
+
+
         private Boolean Uploadable(String uri)
         {
             try

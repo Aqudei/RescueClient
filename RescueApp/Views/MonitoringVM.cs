@@ -43,61 +43,7 @@ namespace RescueApp.Views
             }
         }
 
-        public MonitoringVM(RescueClient rescueClient, SMSListener smsListener)
-        {
 
-            this.rescueClient = rescueClient;
-            this.smsListener = smsListener;
-
-            if (IsInDesignMode)
-            {
-                _monitoringSummaries.Add(new MonitoringSummary
-                {
-                    center = new Center
-                    {
-                        CenterName = "Astrodome",
-                        Limit = 9
-                    },
-                    num_evacuees = 4
-                });
-
-                _monitoringSummaries.Add(new MonitoringSummary
-                {
-                    center = new Center
-                    {
-                        CenterName = "Astrodome2",
-                        Limit = 9
-                    },
-                    num_evacuees = 4
-                });
-
-                _monitoringSummaries.Add(new MonitoringSummary
-                {
-                    center = new Center
-                    {
-                        CenterName = "Astrodome3",
-                        Limit = 9
-                    },
-                    num_evacuees = 4
-                });
-            }
-
-            smsListener.NewMessageReceived += (s, e) =>
-            {
-                e.CheckInInfo.status = "safe";
-                rescueClient.CheckIn(e.CheckInInfo, (ex, monitoringSummary) =>
-                {
-                    if (ex == null)
-                    {
-                        UpdateSummary(monitoringSummary);
-                    }
-                    else
-                    {
-                        Debug.WriteLine(ex.Message);
-                    }
-                });
-            };
-        }
 
         private void UpdateSummary(MonitoringSummary monitoringSummary)
         {
@@ -119,23 +65,6 @@ namespace RescueApp.Views
             });
         }
 
-        public void OnNavigated()
-        {
-            _monitoringSummaries.Clear();
-            rescueClient.GetMonitoring((ex, summaries) =>
-            {
-                if (ex == null)
-                {
-                    foreach (var s in summaries)
-                    {
-                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                        {
-                            _monitoringSummaries.Add(s);
-                        });
-                    }
-                }
-            });
-        }
 
 
         public string FilterKeyword
@@ -167,7 +96,6 @@ namespace RescueApp.Views
 
             }
         }
-
 
         private ICollectionView _notCheckedIn;
 
@@ -362,5 +290,159 @@ namespace RescueApp.Views
                 }));
             }
         }
+
+        //=============================================================================================================
+        //=============================================================================================================
+
+        public MonitoringVM(RescueClient rescueClient, SMSListener smsListener)
+        {
+
+            this.rescueClient = rescueClient;
+            this.smsListener = smsListener;
+
+            if (IsInDesignMode)
+            {
+                _monitoringSummaries.Add(new MonitoringSummary
+                {
+                    center = new Center
+                    {
+                        CenterName = "Astrodome",
+                        Limit = 9
+                    },
+                    num_evacuees = 4
+                });
+
+                _monitoringSummaries.Add(new MonitoringSummary
+                {
+                    center = new Center
+                    {
+                        CenterName = "Astrodome2",
+                        Limit = 9
+                    },
+                    num_evacuees = 4
+                });
+
+                _monitoringSummaries.Add(new MonitoringSummary
+                {
+                    center = new Center
+                    {
+                        CenterName = "Astrodome3",
+                        Limit = 9
+                    },
+                    num_evacuees = 4
+                });
+            }
+
+            smsListener.NewMessageReceived += (s, e) =>
+            {
+                e.CheckInInfo.status = "safe";
+                rescueClient.CheckIn(e.CheckInInfo, (ex, monitoringSummary) =>
+                {
+                    if (ex == null)
+                    {
+                        UpdateSummary(monitoringSummary);
+                    }
+                    else
+                    {
+                        Debug.WriteLine(ex.Message);
+                    }
+                });
+            };
+        }
+        public void OnNavigated()
+        {
+            _monitoringSummaries.Clear();
+
+            rescueClient.GetMonitoring((ex, summaries) =>
+            {
+                if (ex == null)
+                {
+                    foreach (var s in summaries)
+                    {
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            _monitoringSummaries.Add(s);
+                        });
+                    }
+                }
+            });
+
+            _households.Clear();
+            HouseHoldStatuses.Clear();
+            rescueClient.GetHouseholds((ex, hs) =>
+            {
+                foreach (var h in hs)
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                    {
+                        _households.Add(h);
+                    });
+                }
+            });
+        }
+
+        //=============================================================================================================
+        //=============================================================================================================
+
+        private ObservableCollection<DownloadHouseholdModel> _households
+            = new ObservableCollection<DownloadHouseholdModel>();
+
+        private ICollectionView householdsView;
+
+        public ICollectionView HouseholdsView
+        {
+            get
+            {
+
+                householdsView = CollectionViewSource.GetDefaultView(_households);
+                householdsView.Filter = (h) =>
+                {
+                    var house = h as DownloadHouseholdModel;
+                    return true;
+
+                };
+                return householdsView;
+
+            }
+        }
+
+
+        public ObservableCollection<HouseholdStatus> HouseHoldStatuses { get; set; }
+            = new ObservableCollection<HouseholdStatus>();
+
+
+        private RelayCommand<DownloadHouseholdModel> setTotallyDamagedCommand;
+        public RelayCommand<DownloadHouseholdModel> SetTotallyDamagedCommand
+        {
+            get
+            {
+                return setTotallyDamagedCommand ?? (setTotallyDamagedCommand = new RelayCommand<DownloadHouseholdModel>((h) =>
+                {
+                    rescueClient.SetHouseStatus(h.id, HOUSE_STATUS_TOTALLY_DAMAGED, (ex, newStat) =>
+                    {
+                        if (ex == null)
+                        {
+                            HouseHoldStatuses.Add(newStat);
+                        }
+                    });
+                }));
+            }
+        }
+
+        private RelayCommand<DownloadHouseholdModel> setPartiallyDamagedCommand;
+        public RelayCommand<DownloadHouseholdModel> SetPartiallyDamagedCommand
+        {
+            get
+            {
+                return setPartiallyDamagedCommand ?? (setPartiallyDamagedCommand = new RelayCommand<DownloadHouseholdModel>((h) =>
+                {
+
+                }));
+            }
+        }
+
+
+        private const string HOUSE_STATUS_TOTALLY_DAMAGED = "Totally Damaged";
+        private const string HOUSE_STATUS_PARTIALLY_DAMAGED = "Partially Damaged";
     }
 }

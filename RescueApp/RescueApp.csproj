@@ -149,6 +149,7 @@
     <Compile Include="Misc\TextHelper.cs" />
     <Compile Include="Models\Center.cs" />
     <Compile Include="Models\ChecInInfo.cs" />
+    <Compile Include="Models\HouseholdStatus.cs" />
     <Compile Include="Models\Incident.cs" />
     <Compile Include="Models\MonitoringInfo.cs" />
     <Compile Include="Models\MonitoringSummary.cs" />

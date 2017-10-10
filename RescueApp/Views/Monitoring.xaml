@@ -8,110 +8,148 @@
              xmlns:WPF="clr-namespace:RescueApp.WPF" x:Class="RescueApp.Views.Monitoring"
              DataContext="{Binding MonitoringVM, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="497.426">
+             d:DesignHeight="300" d:DesignWidth="722.426">
     <UserControl.Resources>
         <WPF:NullBooleanConverter x:Key="NullBooleanConverter"/>
     </UserControl.Resources>
 
-    <Grid>
+    <maha:MetroTabControl>
+        <maha:MetroTabItem Header="People Monitoring" Margin="0" maha:ControlsHelper.HeaderMargin="16,0" maha:ControlsHelper.HeaderFontSize="24" maha:ControlsHelper.HeaderFontStretch="Condensed">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
-
-        <GroupBox Header="EVACUATION STATUS" Margin="8">
-            <ListBox ItemsSource="{Binding SummariesCollectionView}" 
+                <GroupBox Header="EVACUATION STATUS" Margin="8">
+                    <ListBox ItemsSource="{Binding SummariesCollectionView}" 
                 SelectedItem="{Binding CurrentMonitoringSummary, Mode=OneWayToSource}"
                 IsSynchronizedWithCurrentItem="True"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
-                <ListBox.ItemTemplate>
-                    <DataTemplate >
-                        <Grid Margin="4">
-                            <StackPanel Margin="2" Orientation="Vertical">
-                                <TextBlock TextWrapping="Wrap" Text="{Binding center.CenterName}"
+                        <ListBox.ItemTemplate>
+                            <DataTemplate >
+                                <Grid Margin="4">
+                                    <StackPanel Margin="2" Orientation="Vertical">
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding center.CenterName}"
                                            Margin="0,0,4,0" FontWeight="Bold" FontFamily="Trajan Pro 3" FontSize="24"/>
-                                <TextBlock FontSize="12" TextWrapping="Wrap">
+                                        <TextBlock FontSize="12" TextWrapping="Wrap">
                                     <Run Text="{Binding num_evacuated, Mode=OneWay}" />
                                     <Run Text=" out of "/>
                                     <Run Text="{Binding num_members, Mode=OneWay}" />
                                     <Run Text=" evacuees  are accounted"/>
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
 
-            </ListBox>
+                    </ListBox>
 
-        </GroupBox>
+                </GroupBox>
 
-        <Grid Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="5*"/>
-            </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
 
-            <GroupBox Header="NOT ACCOUNTED PEOPLE" Margin="8">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                    <GroupBox Header="NOT ACCOUNTED PEOPLE" Margin="8">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
 
-                    <TextBox Margin="2" 
+                            <TextBox Margin="2" 
                              maha:TextBoxHelper.Watermark="[Filter Keyword]"
                              Text="{Binding FilterKeyword, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                              maha:TextBoxHelper.ClearTextButton="True"/>
 
-                    <ListBox x:Name="listBox" 
+                            <ListBox x:Name="listBox" 
                              Grid.Row="1" 
                              Margin="2"
                              ItemsSource="{Binding NotCheckedIn}">
-                    </ListBox>
-                </Grid>
-            </GroupBox>
-            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
-                <Button VerticalAlignment="Center" 
+                            </ListBox>
+                        </Grid>
+                    </GroupBox>
+                    <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                        <Button VerticalAlignment="Center" 
                         Command="{Binding SetSafeCommand, Mode=OneWay}"
                         CommandParameter="{Binding SelectedItem, ElementName=listBox}"
                         IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=listBox}"
                         Margin="0,2">
-                    <TextBlock TextWrapping="Wrap"><Run Text="SAFE"/></TextBlock>
-                </Button>
-                <Button Margin="0,2" 
+                            <TextBlock TextWrapping="Wrap"><Run Text="SAFE"/></TextBlock>
+                        </Button>
+                        <Button Margin="0,2" 
                         IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=listBox}"
                         Command="{Binding SetDeadCommand, Mode=OneWay}" 
                         CommandParameter="{Binding SelectedItem, ElementName=listBox}">Dead</Button>
-                <Button CommandParameter="{Binding SelectedItem, ElementName=listBox}"
+                        <Button CommandParameter="{Binding SelectedItem, ElementName=listBox}"
                         IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=listBox}"
                         Margin="0,2" 
                         Command="{Binding SetInjuredCommand, Mode=OneWay}">Injured</Button>
-                <Button CommandParameter="{Binding SelectedItem, ElementName=listBox}"
+                        <Button CommandParameter="{Binding SelectedItem, ElementName=listBox}"
                         IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=listBox}"
                         Margin="0,2" 
                         Command="{Binding SetMissingCommand, Mode=OneWay}">Missing</Button>
-            </StackPanel>
+                    </StackPanel>
 
-            <GroupBox Grid.Column="2" Header="ACCOUNTED PEOPLE" Margin="8">
-                <ListBox ItemsSource="{Binding CheckedIn}" >
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding fullname}"/>
-                                <TextBlock Margin="8,0" 
+                    <GroupBox Grid.Column="2" Header="ACCOUNTED PEOPLE" Margin="8">
+                        <ListBox ItemsSource="{Binding CheckedIn}" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding fullname}"/>
+                                        <TextBlock Margin="8,0" 
                                            Text="|"/>
-                                <TextBlock Text="{Binding Status}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </GroupBox>
+                                        <TextBlock Text="{Binding Status}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </GroupBox>
+                </Grid>
+            </Grid>
+        </maha:MetroTabItem>
+        <maha:MetroTabItem Header="Households Monitoring" maha:ControlsHelper.HeaderMargin="16,0,15,0" maha:ControlsHelper.HeaderFontSize="24" maha:ControlsHelper.HeaderFontStretch="Condensed" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
 
+                <GroupBox Header="Household LIST"  Margin="4">
 
+                    <ListView x:Name="listView" BorderBrush="{x:Null}"
+                              ItemsSource="{Binding HouseholdsView}"/>
 
-        </Grid>
-    </Grid>
+                </GroupBox>
+
+                <StackPanel Grid.Column="1" 
+                            VerticalAlignment="Center"
+                            Margin="4">
+                    <Button  Margin="0,4" Content="Totally Damaged" Command="{Binding SetTotallyDamagedCommand, Mode=OneWay}" 
+                             CommandParameter="{Binding SelectedItem, ElementName=listView}"
+                             IsEnabled="{Binding SelectedItem, ElementName=listView, Converter={StaticResource NullBooleanConverter}}"/>
+                    <Button  Margin="0,4" Content="Partially Damaged" Command="{Binding SetPartiallyDamagedCommand, Mode=OneWay}"
+                             CommandParameter="{Binding SelectedItem, ElementName=listView}"
+                             IsEnabled="{Binding SelectedItem, ElementName=listView, Converter={StaticResource NullBooleanConverter}}"/>
+                </StackPanel>
+
+                <GroupBox Header="HOUSEHOLD STATUS" 
+                          Grid.Column="2" 
+                          Margin="4">
+
+                    <ListView BorderBrush="{x:Null}"/>
+
+                </GroupBox>
+
+            </Grid>
+
+        </maha:MetroTabItem>
+    </maha:MetroTabControl>
+
 </UserControl>
