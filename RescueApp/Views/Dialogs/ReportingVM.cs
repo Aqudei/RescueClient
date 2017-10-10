@@ -35,7 +35,7 @@ namespace RescueApp.Views.Dialogs
             this.dialogService = dialogService;
         }
 
-        private bool peopleReport;
+        private bool peopleReport = true;
 
         public bool PeopleReport
         {

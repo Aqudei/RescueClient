@@ -13,9 +13,20 @@ namespace RescueApp.Views
 {
     public class AddEditIncidentVM : PageBase, IEditorDialog<Incident>
     {
-        private Incident incident = new Incident();
+        private Incident incident
+            = new Incident();
         private readonly RescueClient rescueClient;
         private readonly IDialogCoordinator dialogCoordinator;
+
+        public List<string> IncidentTypes => new List<string>
+        {
+            "Flood",
+            "Typhoon",
+            "Earthquake",
+            "Tsunami",
+            "Fire",
+            "Others"
+        };
 
         public Incident Incident
         {
@@ -34,9 +45,6 @@ namespace RescueApp.Views
             Incident = item;
         }
 
-        //public override void OnShow<T>(T args)
-        //{ }
-
         public override void DoCleanup()
         {
             ClearFields();
@@ -47,7 +55,9 @@ namespace RescueApp.Views
             Incident.id = 0;
             Incident.IncidentName = null;
             Incident.Photo = null;
-            incident.DateOccured = null;
+            Incident.DateOccured = null;
+            Incident.DateFinished = null;
+            Incident.IncidentType = null;
         }
 
         private RelayCommand _saveCommand;

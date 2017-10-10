@@ -1,4 +1,4 @@
-﻿<maha:MetroWindow x:Class="RescueApp.Views.Dialogs.Reporting"
+﻿<maha:MetroWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,9 +6,15 @@
         xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
         
         xmlns:local="clr-namespace:RescueApp.Views.Dialogs"
-        DataContext="{Binding ReportingVM, Source={StaticResource Locator}}"
+        xmlns:WPF="clr-namespace:RescueApp.WPF" x:Class="RescueApp.Views.Dialogs.Reporting"
         mc:Ignorable="d"
         Title="Reporting" Height="338.603" Width="497.426" BorderBrush="Black" BorderThickness="1" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <maha:MetroWindow.Resources>
+        <WPF:NullBooleanConverter x:Key="NullBooleanConverter"/>
+    </maha:MetroWindow.Resources>
+    <maha:MetroWindow.DataContext>
+        <Binding Path="ReportingVM" Source="{StaticResource Locator}"/>
+    </maha:MetroWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,21 +23,22 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="8">
-            <TextBlock>PLEASE SELECT SPECIFIC CALAMITY/DISASTER</TextBlock>
-            <ComboBox ItemsSource="{Binding Incidents}"
+            <TextBlock><Run Text="PLEASE SELECT SPECIFIC CALAMITY/DISASTER"/></TextBlock>
+            <ComboBox x:Name="comboBox" ItemsSource="{Binding Incidents}"
                       SelectedItem="{Binding SelectedIncident, Mode=OneWayToSource}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1"
                     HorizontalAlignment="Center" VerticalAlignment="Center" Margin="16">
-            <RadioButton Margin="16" IsChecked="{Binding PeopleReport}" FontSize="16" FontWeight="Bold" FontFamily="Kristen ITC">PEOPLE</RadioButton>
-            <RadioButton Margin="16" FontSize="16" FontWeight="Bold" FontFamily="Kristen ITC">HOUSEHOLDS</RadioButton>
+            <RadioButton Margin="16" IsChecked="{Binding PeopleReport}" FontSize="16" FontWeight="Bold" FontFamily="Kristen ITC" Content="PEOPLE"/>
+            <RadioButton Margin="16" FontSize="16" FontWeight="Bold" FontFamily="Kristen ITC" Content="HOUSEHOLDS"/>
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Center" 
                     Orientation="Horizontal" Grid.Row="2">
             <Button Command="{Binding ViewReportCommand}" 
-                    Margin="8">View Report</Button>
+                    IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=comboBox}"
+                    Margin="8" Content="View Report"/>
         </StackPanel>
     </Grid>
 </maha:MetroWindow>

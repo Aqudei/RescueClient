@@ -45,5 +45,22 @@ namespace RescueApp.Models
         {
             return IncidentName;
         }
+
+        private string incidentType;
+
+        public string IncidentType
+        {
+            get { return incidentType; }
+            set { Set(ref incidentType, value); }
+        }
+
+        private DateTime? dateFinished;
+
+        public DateTime? DateFinished
+        {
+            get { return dateFinished; }
+            set { Set(ref dateFinished, value); }
+        }
+
     }
 }

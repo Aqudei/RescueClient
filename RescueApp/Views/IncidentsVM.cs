@@ -13,6 +13,7 @@ using System.Windows;
 using GalaSoft.MvvmLight.Threading;
 using System.Windows.Data;
 using System.ComponentModel;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace RescueApp.Views
 {
@@ -20,6 +21,7 @@ namespace RescueApp.Views
     {
         private readonly DialogService dialogService;
         private readonly RescueClient rescueClient;
+        private readonly IDialogCoordinator dialogCoordinator;
 
         public String Title { get; set; } = "Calamities";
 
@@ -39,26 +41,34 @@ namespace RescueApp.Views
                 return _incidentsCollectionView;
             }
         }
-        
+
         public RelayCommand CreateItemCommand => new RelayCommand(() => dialogService.ShowDialog("AddEditIncident"));
 
-        public RelayCommand<Incident> DeleteItemCommand => new RelayCommand<Incident>((i) =>
+        public RelayCommand<Incident> DeleteItemCommand => new RelayCommand<Incident>(async (i) =>
         {
-            rescueClient.DeleteIncident(i, (ex) =>
+            var answer = await dialogCoordinator.ShowMessageAsync(this, "CONFIRM DELETE",
+                "Are you sure you want to delete " + i.IncidentName + "?",
+                MessageDialogStyle.AffirmativeAndNegative);
+
+            if (answer == MessageDialogResult.Affirmative)
             {
-                if (ex == null)
+                rescueClient.DeleteIncident(i, (ex) =>
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUI(() => Incidents.Remove(i));
-                }
-            });
+                    if (ex == null)
+                    {
+                        DispatcherHelper.CheckBeginInvokeOnUI(() => Incidents.Remove(i));
+                    }
+                });
+            }
         });
 
         public RelayCommand<Incident> EditItemCommand => new RelayCommand<Incident>((i) => { });
 
-        public IncidentsVM(DialogService dialogService, RescueClient rescueClient)
+        public IncidentsVM(DialogService dialogService, RescueClient rescueClient, IDialogCoordinator dialogCoordinator)
         {
             this.dialogService = dialogService;
             this.rescueClient = rescueClient;
+            this.dialogCoordinator = dialogCoordinator;
 
             LoadIncidents();
 
@@ -77,6 +87,8 @@ namespace RescueApp.Views
                 }
             });
         }
+
+        public Incident SelectedIncident { get; set; }
 
         private void LoadIncidents()
         {
