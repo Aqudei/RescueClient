@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using SAPBusinessObjects.WPF.Viewer;
 
 namespace RescueApp.Reports
 {
@@ -19,9 +22,27 @@ namespace RescueApp.Reports
     /// </summary>
     public partial class ReportViewer : Window
     {
+        private CrystalReportsViewer reportViewer;
+
         public ReportViewer()
         {
             InitializeComponent();
+
+            reportViewer = new CrystalReportsViewer();
+            reportViewwerContainer.Children.Add(reportViewer);
+        }
+
+        public ReportDocument ReportSource { get; internal set; }
+        public Dictionary<string, object> Parameters { get; internal set; }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            reportViewer.ViewerCore.ReportSource = ReportSource;
+
+            foreach (var item in Parameters)
+            {
+                ReportSource.SetParameterValue(item.Key, item.Value);
+            }
         }
     }
 }

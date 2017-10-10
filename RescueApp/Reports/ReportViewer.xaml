@@ -6,8 +6,8 @@
         xmlns:xtal="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
         xmlns:local="clr-namespace:RescueApp.Reports"
         mc:Ignorable="d"
-        Title="ReportViewer" Height="300" Width="300" WindowState="Maximized" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <xtal:CrystalReportsViewer x:Name="reportViewer"/>
+        Title="ReportViewer" Height="300" Width="300" WindowState="Maximized" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid x:Name="reportViewwerContainer">
+
     </Grid>
 </Window>

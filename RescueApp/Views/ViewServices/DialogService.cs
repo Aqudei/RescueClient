@@ -40,10 +40,8 @@ namespace RescueApp.ViewServices
         public void ShowReport(ReportDocument reportDocument, Dictionary<string, object> parames)
         {
             var rptWindows = new Reports.ReportViewer();
-            rptWindows.reportViewer.ViewerCore.ReportSource = reportDocument;
-            foreach (var item in parames)
-                reportDocument.SetParameterValue(item.Key, item.Value);
-
+            rptWindows.ReportSource = reportDocument;
+            rptWindows.Parameters = parames;
             rptWindows.ShowDialog();
         }
 
