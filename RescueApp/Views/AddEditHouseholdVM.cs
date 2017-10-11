@@ -83,7 +83,7 @@ namespace RescueApp.Views
                             }
                             else
                             {
-                                dialogCoordinator.ShowMessageAsync(this, "FAILURE", "UNABLE TO SAVE HOUSEHOLD INFO");
+                                dialogCoordinator.ShowMessageAsync(this, "Error", "UNABLE TO SAVE HOUSEHOLD INFO");
                             }
                             MessengerInstance.Send(new AddEditResultMessage<DownloadHouseholdModel>(ex, hs));
                         }, ChoosenPhoto);
@@ -99,7 +99,7 @@ namespace RescueApp.Views
                             }
                             else
                             {
-                                dialogCoordinator.ShowMessageAsync(this, "FAILURE", "UNABLE TO UPDATE HOUSEHOLD INFO");
+                                dialogCoordinator.ShowMessageAsync(this, "Error", "UNABLE TO UPDATE HOUSEHOLD INFO");
                             }
 
                             MessengerInstance.Send(new AddEditResultMessage<DownloadHouseholdModel>(ex, hs));
