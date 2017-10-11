@@ -6,16 +6,22 @@
              xmlns:local="clr-namespace:RescueApp.Views"
              xmlns:maha ="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-             Dialog:DialogParticipation.Register="{Binding}"
              xmlns:iconpacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             x:Class="RescueApp.Views.FamilyMemberSelector"
-            DataContext="{Binding FamilyMemberSelectorVM, Source={StaticResource Locator}}"         
+             xmlns:WPF="clr-namespace:RescueApp.WPF"
+             Dialog:DialogParticipation.Register="{Binding}"
+             x:Class="RescueApp.Views.FamilyMemberSelector"         
     mc:Ignorable="d" 
              d:DesignHeight="686.28" d:DesignWidth="670">
 
     <UserControl.Resources>
-        
+
+        <WPF:NullBooleanConverter x:Key="NullBooleanConverter"/>
+
     </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <Binding Path="FamilyMemberSelectorVM" Source="{StaticResource Locator}"/>
+    </UserControl.DataContext>
 
     <Grid Width="600" Height="400">
         <Grid.RowDefinitions>
@@ -37,7 +43,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock FontWeight="Bold" FontSize="16">HOUSEHOLD OF:</TextBlock>
+                <TextBlock FontWeight="Bold" FontSize="16"><Run Text="HOUSEHOLD OF:"/></TextBlock>
                 <TextBlock Text="{Binding CurrentHousehold.HouseNumber}" 
                            FontWeight="Bold" 
                            FontSize="16" Margin="8,0,0,0"/>
@@ -54,7 +60,7 @@
 
         </Grid>
         <StackPanel Margin="8" Orientation="Vertical" Grid.Row="1">
-            <TextBlock FontWeight="Bold" FontSize="14">NOT MEMBERS</TextBlock>
+            <TextBlock FontWeight="Bold" FontSize="14"><Run Text="NOT MEMBERS"/></TextBlock>
             <ListView
                 x:Name="_peopleList_NotMembers"
                 IsSynchronizedWithCurrentItem="True"
@@ -67,7 +73,7 @@
             </ListView>
         </StackPanel>
         <StackPanel Grid.Column="2" Margin="8" Orientation="Vertical" Grid.Row="1">
-            <TextBlock FontWeight="Bold" FontSize="14">MEMBERS</TextBlock>
+            <TextBlock FontWeight="Bold" FontSize="14"><Run Text="MEMBERS"/></TextBlock>
             <ListView
                 x:Name="_peopleList_Members"
                 IsSynchronizedWithCurrentItem="True"
@@ -82,11 +88,11 @@
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center" Grid.Row="1">
-            <Button Command="{Binding ToggleMembership, Mode=OneWay}" IsEnabled="{Binding CanAddMember}"
+            <Button Command="{Binding ToggleMembership, Mode=OneWay}" IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=_peopleList_NotMembers}"
                     CommandParameter="{Binding ItemsSource.CurrentItem, ElementName=_peopleList_NotMembers, Mode=OneWay}" 
                     Margin="4" 
                     Content="Add As Member &gt;&gt;"/>
-            <Button Command="{Binding ToggleMembership, Mode=OneWay}" CommandParameter="{Binding ItemsSource/, ElementName=_peopleList_Members}" Margin="4" Content="&lt;&lt;Remove As Member" IsEnabled="{Binding CanRemoveMember, Mode=OneWay}"/>
+            <Button Command="{Binding ToggleMembership, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=_peopleList_Members}" Margin="4" Content="&lt;&lt;Remove As Member" IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=_peopleList_Members}"/>
         </StackPanel>
 
 
@@ -94,7 +100,7 @@
             <Button Click="Close">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <iconpacks:PackIconModern Kind="Close" />
-                    <TextBlock Margin="8,0,0,0">CLOSE</TextBlock>
+                    <TextBlock Margin="8,0,0,0"><Run Text="CLOSE"/></TextBlock>
                 </StackPanel>
             </Button>
         </StackPanel>

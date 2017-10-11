@@ -43,11 +43,6 @@ namespace RescueApp.Views
             get
             {
                 _allPeopleView = _allPeopleView ?? (_allPeopleView = CollectionViewSource.GetDefaultView(_allPeople));
-                _allPeopleView.CurrentChanged += (s, e) =>
-                {
-                    RaisePropertyChanged(() => CanAddMember);
-                };
-
                 return _allPeopleView;
             }
         }
