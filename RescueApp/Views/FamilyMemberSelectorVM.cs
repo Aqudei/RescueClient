@@ -58,10 +58,6 @@ namespace RescueApp.Views
             get
             {
                 _peopleNotMembersView = _peopleNotMembersView ?? (_peopleNotMembersView = CollectionViewSource.GetDefaultView(_peopleNotMembers));
-                _peopleNotMembersView.CurrentChanged += (s, e) =>
-                {
-                    RaisePropertyChanged(() => CanRemoveMember);
-                };
                 return _peopleNotMembersView;
             }
         }
