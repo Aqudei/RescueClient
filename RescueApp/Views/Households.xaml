@@ -85,38 +85,41 @@
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Margin="0" FontWeight="Bold" FontSize="14.667"><Run Text="FAMILY MEMBERS:"/></TextBlock>
-                            <ItemsControl ItemsSource="{Binding members}" FontSize="16" />
-                            <StackPanel Margin="0,0,73.253,0" Orientation="Vertical">
+                            <GroupBox Header="FAMILY MEMBERS" Margin="4">
+                                <ItemsControl ItemsSource="{Binding members}" FontSize="16" />
+                            </GroupBox>
+                            <GroupBox Header="HEAD OF THE FAMILY" Margin="4">
+                                <StackPanel Margin="0" Orientation="Vertical">
+                                    <TextBlock  HorizontalAlignment="Left"
+                                        FontSize="16" 
+                                        Text="{Binding FamilyHead, Converter={StaticResource ToUpperConverter}}" />
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="HOUSE DETAILS" Margin="4">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal"  >
+                                        <TextBlock TextWrapping="Wrap" Text="House No. " FontSize="18.667"/>
+                                        <TextBlock Text="{Binding HouseNumber}" FontSize="18.667" />
+                                    </StackPanel>
 
-                                <TextBlock  FontWeight="Bold" FontSize="14.667"
-                                            Text="HEAD OF THE FAMILTY" HorizontalAlignment="Left" Margin="0,16,0,0"/>
-                                <TextBlock  HorizontalAlignment="Left"
-                                    FontSize="16" 
-                                    Text="{Binding FamilyHead, Converter={StaticResource ToUpperConverter}}" />
-                            </StackPanel>
-                            <TextBlock Margin="0,16,0,0" FontWeight="Bold" FontSize="14.667"><Run Text="HOUSE INFO:"/></TextBlock>
-                            <StackPanel Orientation="Horizontal"  >
-                                <TextBlock TextWrapping="Wrap" Text="House No. " FontSize="18.667"/>
-                                <TextBlock Text="{Binding HouseNumber}" FontSize="18.667" />
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock TextWrapping="Wrap" Text="Address: " FontSize="18.667"/>
-                                <TextBlock Text="{Binding Address}" FontSize="18.667" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock TextWrapping="Wrap" Text="House Category: " FontSize="18.667"/>
-                                <TextBlock TextWrapping="Wrap" 
-                                           Text="{Binding HouseCategory, Converter={StaticResource ToUpperConverter}}"
-                                           FontSize="18.667"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock TextWrapping="Wrap" Text="House Ownership: " FontSize="18.667"/>
-                                <TextBlock TextWrapping="Wrap" 
-                                           Text="{Binding HouseOwnership, Converter={StaticResource ToUpperConverter}}"
-                                           FontSize="18.667"/>
-                            </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock TextWrapping="Wrap" Text="Address: " FontSize="18.667"/>
+                                        <TextBlock Text="{Binding Address}" FontSize="18.667" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock TextWrapping="Wrap" Text="House Category: " FontSize="18.667"/>
+                                        <TextBlock TextWrapping="Wrap" 
+                                            Text="{Binding HouseCategory, Converter={StaticResource ToUpperConverter}}"
+                                            FontSize="18.667"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock TextWrapping="Wrap" Text="House Ownership: " FontSize="18.667"/>
+                                        <TextBlock TextWrapping="Wrap" 
+                                            Text="{Binding HouseOwnership, Converter={StaticResource ToUpperConverter}}"
+                                            FontSize="18.667"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
                             <GroupBox Header="House Location" Margin="4">
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal" Margin="0" Height="25">
