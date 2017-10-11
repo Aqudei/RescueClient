@@ -345,7 +345,7 @@ namespace RescueApp
                     if (string.IsNullOrEmpty(choosenPhoto) == false
                         && Uploadable(choosenPhoto))
                     {
-                        var uploadRequest = new RestRequest("/api/household/" + rslt.Data.id + "/upload/", Method.PATCH);
+                        var uploadRequest = new RestRequest("/api/households/" + rslt.Data.id + "/upload/", Method.PATCH);
                         uploadRequest.AddFile("Photo", choosenPhoto);
                         _client.ExecuteAsync<DownloadHouseholdModel>(uploadRequest, rsltUpload =>
                         {
