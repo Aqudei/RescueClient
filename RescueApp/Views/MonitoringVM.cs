@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using RescueApp.Interfaces;
 using RescueApp.Misc;
@@ -60,6 +61,7 @@ namespace RescueApp.Views
                 {
                     SummariesCollectionView.MoveCurrentTo(monitoringSummary);
                 }
+                MessengerInstance.Send(default(Messages.UpdateTolls));
             });
         }
 
@@ -331,7 +333,9 @@ namespace RescueApp.Views
 
             smsListener.NewMessageReceived += (s, e) =>
             {
-                e.CheckInInfo.status = "safe";
+                if (string.IsNullOrEmpty(e.CheckInInfo.status))
+                    e.CheckInInfo.status = "safe";
+
                 rescueClient.CheckIn(e.CheckInInfo, (ex, monitoringSummary) =>
                 {
                     if (ex == null)

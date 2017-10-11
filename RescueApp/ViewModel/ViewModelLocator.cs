@@ -82,7 +82,8 @@ namespace RescueApp.ViewModel
             SimpleIoc.Default.Register<FamilyMemberSelectorVM>();
             SimpleIoc.Default.Register<CenterSelectorVM>();
             SimpleIoc.Default.Register<ReportingVM>();
-            SimpleIoc.Default.Register<SettingsVM>(); 
+            SimpleIoc.Default.Register<SettingsVM>();
+            SimpleIoc.Default.Register<TollsVM>();
 
             if (!ViewModelBase.IsInDesignModeStatic)
             {
@@ -94,6 +95,15 @@ namespace RescueApp.ViewModel
 
             }
         }
+
+        public TollsVM TollsVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<TollsVM>();
+            }
+        }
+
 
         public SettingsVM SettingsVM
         {

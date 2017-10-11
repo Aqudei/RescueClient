@@ -487,6 +487,21 @@ namespace RescueApp
                     callback(null);
             });
         }
+        public void GetTolls(Action<Exception, List<Toll>> callback)
+        {
+            var request = new RestRequest("/api/tolls/", Method.GET);
+            _client.ExecuteAsync<List<Toll>>(request, rslt =>
+            {
+                if (rslt.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    callback(new Exception(string.Format("{0}\n{1}\n{2}",
+                        rslt.ErrorMessage, rslt.StatusDescription, rslt.Content)), null);
+                    return;
+                }
+
+                callback(null, rslt.Data);
+            });
+        }
 
         public void GetPeopleReport(Incident incident, Action<Exception, List<PeopleReportRow>> callback)
         {

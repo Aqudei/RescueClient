@@ -143,6 +143,7 @@
     <Compile Include="Messages\NewCenterForMapMessage.cs" />
     <Compile Include="Messages\NewCheckInMessage.cs" />
     <Compile Include="Messages\StatsChangedMessage.cs" />
+    <Compile Include="Messages\UpdateTolls.cs" />
     <Compile Include="Misc\JsonSerializer.cs" />
     <Compile Include="Misc\NumberOnlyBehaviour.cs" />
     <Compile Include="Misc\SMSListener.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Models\MonitoringSummary.cs" />
     <Compile Include="Models\PersonStatus.cs" />
     <Compile Include="Models\Statistics.cs" />
+    <Compile Include="Models\Toll.cs" />
     <Compile Include="Models\UploadHouseholdModel.cs" />
     <Compile Include="Models\UploadPersonModel.cs" />
     <Compile Include="Models\WithID.cs" />
@@ -188,6 +190,10 @@
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\SettingsVM.cs" />
+    <Compile Include="Views\Tolls.xaml.cs">
+      <DependentUpon>Tolls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TollsVM.cs" />
     <Compile Include="Views\ViewServices\DialogService.cs" />
     <Compile Include="Views\AddEditEvacuation.xaml.cs">
       <DependentUpon>AddEditEvacuation.xaml</DependentUpon>
@@ -342,6 +348,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Statistics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tolls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

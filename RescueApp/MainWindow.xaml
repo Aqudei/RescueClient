@@ -18,14 +18,14 @@
     <Controls:MetroWindow.DataContext>
         <Binding Path="Main" Source="{StaticResource Locator}"/>
     </Controls:MetroWindow.DataContext>
-    
+
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button Content="SETTINGS" Click="ShowSetting" />
             <Button Content="REPORTS" Click="ShowReports" />
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    
+
     <Grid x:Name="_root" >
 
         <Grid.Resources>
@@ -58,9 +58,15 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
+            <GroupBox  VerticalAlignment="Center"
+                       Header="PEOPLE MONITORING"
+                       Margin="8" FontSize="18">
+
+                <views:Tolls />
+            </GroupBox>
             <GroupBox Header="Important Numbers" 
                   VerticalAlignment="Center"
-                  Margin="8" FontSize="18">
+                  Margin="8" FontSize="14">
 
                 <StackPanel >
                     <StackPanel Orientation="Vertical" Margin="0,0,0,8">
@@ -87,6 +93,7 @@
 
             </GroupBox>
             <GroupBox VerticalAlignment="Center" 
+                      Header="Records Info"
                   Margin="8">
                 <views:Statistics />
             </GroupBox>

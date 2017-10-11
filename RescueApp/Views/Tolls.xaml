@@ -1,0 +1,30 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:local="clr-namespace:RescueApp.Views"
+             xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared" x:Class="RescueApp.Views.Tolls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Custom:ToUpperConverter x:Key="ToUpperConverter"/>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <Binding Path="TollsVM" Source="{StaticResource Locator}"/>
+    </UserControl.DataContext>
+    <Grid>
+        <ItemsControl ItemsSource="{Binding Tolls}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Status, Converter={StaticResource ToUpperConverter}}" />
+                        <TextBlock Text=" - " />
+                        <TextBlock Text="{Binding count}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>
