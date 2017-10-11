@@ -91,12 +91,12 @@
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Magnitude: " FontFamily="Simplified Arabic Fixed" FontSize="18" />
-                    <TextBlock Text="{Binding SelectedItem.EarthquakeMagnitude, ElementName=_incidents}" FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                    <TextBlock Text="{Binding SelectedItem.EarthquakeMagnitude, ElementName=_incidents, TargetNullValue=N/A}" FontFamily="Simplified Arabic Fixed" FontSize="18" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Signal: " FontFamily="Simplified Arabic Fixed" FontSize="18" />
-                    <TextBlock Text="{Binding SelectedItem.TyphoonSignal, ElementName=_incidents}" FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                    <TextBlock Text="{Binding SelectedItem.TyphoonSignal, ElementName=_incidents, TargetNullValue=N/A}" FontFamily="Simplified Arabic Fixed" FontSize="18" />
                 </StackPanel>
             </StackPanel>
 
