@@ -69,7 +69,36 @@
         </GroupBox>
         <GroupBox Grid.Column="1"
                   Header="CALAMITY DETAIL"
-                  Margin="8">
+                  Margin="8" VerticalAlignment="Center">
+
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Calamity Name: " FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                    <TextBlock Text="{Binding SelectedItem.IncidentName, ElementName=_incidents}" FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Date Occured: " FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                    <TextBlock Text="{Binding SelectedItem.DateOccured, ElementName=_incidents}" FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Date Finished: " FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                    <TextBlock Text="{Binding SelectedItem.DateFinished, ElementName=_incidents}" FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Type: " FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                    <TextBlock Text="{Binding SelectedItem.IncidentType, ElementName=_incidents}" FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Magnitude: " FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                    <TextBlock Text="{Binding SelectedItem.EarthquakeMagnitude, ElementName=_incidents}" FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Signal: " FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                    <TextBlock Text="{Binding SelectedItem.TyphoonSignal, ElementName=_incidents}" FontFamily="Simplified Arabic Fixed" FontSize="18" />
+                </StackPanel>
+            </StackPanel>
 
         </GroupBox>
     </Grid>
