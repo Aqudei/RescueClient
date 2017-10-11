@@ -15,7 +15,7 @@
     </controls:MetroWindow.Effect>
 
     <Grid x:Name="_container"
-          Margin="48">
+          Margin="16">
 
     </Grid>
 

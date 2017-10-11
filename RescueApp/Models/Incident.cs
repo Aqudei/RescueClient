@@ -62,5 +62,30 @@ namespace RescueApp.Models
             set { Set(ref dateFinished, value); }
         }
 
+
+        private string earthquakeMagnitude;
+
+        public string EarthquakeMagnitude
+        {
+            get { return earthquakeMagnitude; }
+            set { Set(ref earthquakeMagnitude, value); }
+        }
+
+
+        private string earthquakeEpicenter;
+
+        public string EarthquakeEpicenter
+        {
+            get { return earthquakeEpicenter; }
+            set { Set(ref earthquakeEpicenter, value); }
+        }
+
+        private string typhoonSignal;
+
+        public string TyphoonSignal
+        {
+            get { return typhoonSignal; }
+            set { Set(ref typhoonSignal, value); }
+        }
     }
 }

@@ -7,18 +7,18 @@
              xmlns:maha="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              Dialog:DialogParticipation.Register="{Binding}"
-             mc:Ignorable="d" 
-             d:DesignHeight="358.288" d:DesignWidth="474.132">
+             mc:Ignorable="d" >
     <UserControl.DataContext>
         <Binding Source="{StaticResource Locator}" Path="AddEditIncidentVM" />
     </UserControl.DataContext>
     <Grid>
-        <GroupBox Header="Incident Info">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Incident Info" Margin="8">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -29,46 +29,60 @@
                     <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="CALAMITY NAME:" VerticalAlignment="Center" Width="107" FontWeight="Bold"/>
                     <TextBox TextWrapping="Wrap" Text="{Binding Incident.IncidentName}" CharacterCasing="Upper" VerticalAlignment="Center" Width="256" Margin="16,0,0,0"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,2">
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,2">
                     <TextBlock TextWrapping="Wrap" Text="DATE OCCURED:" VerticalAlignment="Center" Width="{Binding ActualWidth, ElementName=textBlock, Mode=OneWay}" FontWeight="Bold"/>
                     <maha:DateTimePicker Height="32" VerticalAlignment="Center" Width="256" Margin="16,0,0,0" SelectedDate="{Binding Incident.DateOccured}"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,2">
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,2">
                     <TextBlock TextWrapping="Wrap" Text="DATE FINISHED:" VerticalAlignment="Center" Width="{Binding ActualWidth, ElementName=textBlock, Mode=OneWay}" FontWeight="Bold"/>
                     <maha:DateTimePicker Height="32" VerticalAlignment="Center" Width="256" Margin="16,0,0,0" SelectedDate="{Binding Incident.DateFinished}"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="0,2">
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,2">
                     <TextBlock TextWrapping="Wrap" Text="DISASTER TYPE" VerticalAlignment="Center" Width="{Binding ActualWidth, ElementName=textBlock, Mode=OneWay}" FontWeight="Bold"/>
-                    <ComboBox x:Name="comboBox" Height="32"
+                    <ComboBox x:Name="comboBoxDisasterType" Height="32"
                               VerticalAlignment="Center"
                               SelectedItem="{Binding Incident.IncidentType}"
                               ItemsSource="{Binding IncidentTypes}"
                               Width="256" Margin="16,0,0,0" >
-                       
                     </ComboBox>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Grid.Row="5" Margin="0,2">
-                    <Grid x:Name="_typhoonGrid">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                    </Grid>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="5">
-                    <Button Command="{Binding SaveCommand, Mode=OneWay}" 
-                            Content="SAVE" VerticalAlignment="Center" Margin="2"/>
-                    <Button Content="CLOSE" VerticalAlignment="Center" Click="CloseButton_Click" Margin="2"/>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+                            Grid.Row="4" Margin="0,2">
+                    <maha:MetroTabControl x:Name="additionalInfo" IsEnabled="False">
+                        <maha:MetroTabItem Header="Typhoon Info" 
+                                           maha:ControlsHelper.HeaderFontSize="12" maha:ControlsHelper.HeaderFontWeight="Bold">
+                            <Grid Margin="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Signal #" VerticalAlignment="Center"/>
+                                <TextBox Grid.Column="1" Margin="4,0,0,0"
+                                         Text="{Binding Incident.TyphoonSignal}"/>
+                            </Grid>
+                        </maha:MetroTabItem>
+                        <maha:MetroTabItem Header="Earthquake Info" maha:ControlsHelper.HeaderFontSize="12" maha:ControlsHelper.HeaderFontWeight="Bold" maha:ControlsHelper.HeaderMargin="16,0">
+                            <Grid  Margin="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Magnitude" VerticalAlignment="Center"/>
+                                <TextBox Grid.Column="1" Margin="4,0,0,0"
+                                         Text="{Binding Incident.EarthquakeMagnitude}"/>
+                            </Grid>
+                        </maha:MetroTabItem>
+                        <maha:MetroTabItem/>
+                    </maha:MetroTabControl>
                 </StackPanel>
             </Grid>
         </GroupBox>
-
+        <StackPanel Orientation="Horizontal" Grid.Row="1"
+                    Margin="8">
+            <Button Command="{Binding SaveCommand, Mode=OneWay}" 
+                            Content="SAVE" VerticalAlignment="Center" Margin="2"/>
+            <Button Content="CLOSE" VerticalAlignment="Center" Click="CloseButton_Click" Margin="2"/>
+        </StackPanel>
     </Grid>
 </UserControl>
 

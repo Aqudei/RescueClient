@@ -389,7 +389,7 @@ namespace RescueApp
         public void GetHousesStatus(Action<Exception, List<HouseholdStatus>> callback)
         {
             var request = new RestRequest("/api/houses_status/active_incident/", Method.GET);
-            
+
             _client.ExecuteAsync<List<HouseholdStatus>>(request, rslt =>
             {
                 if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
@@ -414,6 +414,22 @@ namespace RescueApp
             _client.ExecuteAsync<Incident>(request, rslt =>
             {
                 if (rslt.StatusCode != System.Net.HttpStatusCode.Created || rslt.ErrorException != null)
+                {
+                    callback(new Exception("" + rslt.StatusDescription), null);
+                    return;
+                }
+
+                callback(null, rslt.Data);
+            });
+        }
+        public void UpdateIncident(Incident incident, Action<Exception, Incident> callback)
+        {
+            var request = new RestRequest("/api/incidents/" + incident.id + "/", Method.PATCH);
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(incident);
+            _client.ExecuteAsync<Incident>(request, rslt =>
+            {
+                if (rslt.StatusCode != System.Net.HttpStatusCode.OK || rslt.ErrorException != null)
                 {
                     callback(new Exception("" + rslt.StatusDescription), null);
                     return;

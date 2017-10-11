@@ -61,6 +61,7 @@ namespace RescueApp.ViewModel
                 cfg.CreateMap<DownloadPersonModel, DownloadPersonModel>();
                 cfg.CreateMap<DownloadHouseholdModel, UploadHouseholdModel>();
                 cfg.CreateMap<DownloadHouseholdModel, DownloadHouseholdModel>();
+                cfg.CreateMap<Incident, Incident>();
             });
 
             SimpleIoc.Default.Register<IDialogCoordinator, DialogCoordinator>();

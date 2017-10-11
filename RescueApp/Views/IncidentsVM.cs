@@ -62,7 +62,11 @@ namespace RescueApp.Views
             }
         });
 
-        public RelayCommand<Incident> EditItemCommand => new RelayCommand<Incident>((i) => { });
+        public RelayCommand<Incident> EditItemCommand => new RelayCommand<Incident>((i) =>
+        {
+            var _incident = AutoMapper.Mapper.Map<Incident>(i);
+            dialogService.ShowDialog("AddEditIncident", _incident);
+        });
 
         public IncidentsVM(DialogService dialogService, RescueClient rescueClient, IDialogCoordinator dialogCoordinator)
         {

@@ -58,6 +58,9 @@ namespace RescueApp.Views
             Incident.DateOccured = null;
             Incident.DateFinished = null;
             Incident.IncidentType = null;
+            Incident.TyphoonSignal = null;
+            Incident.EarthquakeEpicenter = null;
+            Incident.EarthquakeMagnitude = null;
         }
 
         private RelayCommand _saveCommand;
@@ -67,19 +70,38 @@ namespace RescueApp.Views
             {
                 return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
                 {
-                    rescueClient.AddIncident(Incident, (ex, newIncident) =>
+                    if (Incident.id <= 0)
                     {
-                        if (ex == null)
+                        rescueClient.AddIncident(Incident, (ex, newIncident) =>
                         {
-                            ClearFields();
-                            MessengerInstance.Send(new Messages.AddEditResultMessage<Incident>(ex, newIncident));
-                            dialogCoordinator.ShowMessageAsync(this, "SAVE SUCCESSFULL", "NEW INCIDENT WAS ADDED");
-                        }
-                        else
+                            if (ex == null)
+                            {
+                                ClearFields();
+                                MessengerInstance.Send(new Messages.AddEditResultMessage<Incident>(ex, newIncident));
+                                dialogCoordinator.ShowMessageAsync(this, "SAVE SUCCESSFULL", "NEW INCIDENT WAS ADDED");
+                            }
+                            else
+                            {
+                                dialogCoordinator.ShowMessageAsync(this, "SAVE ERROR", "UNABLE TO SAVE NEW INCIDENT TO DATABASE");
+                            }
+                        });
+                    }
+                    else
+                    {
+                        rescueClient.UpdateIncident(Incident, (ex, newIncident) =>
                         {
-                            dialogCoordinator.ShowMessageAsync(this, "SAVE ERROR", "UNABLE TO SAVE NEW INCIDENT TO DATABASE");
-                        }
-                    });
+                            if (ex == null)
+                            {
+                                ClearFields();
+                                MessengerInstance.Send(new Messages.AddEditResultMessage<Incident>(ex, newIncident));
+                                dialogCoordinator.ShowMessageAsync(this, "SAVE SUCCESSFULL", "INCIDENT INFO WAS UPDATED");
+                            }
+                            else
+                            {
+                                dialogCoordinator.ShowMessageAsync(this, "SAVE ERROR", "UNABLE TO UPDATE INCIDENT INFO");
+                            }
+                        });
+                    }
                 }));
             }
         }

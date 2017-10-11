@@ -21,7 +21,7 @@
             <ListView ItemsSource="{Binding IncidentsCollectionView}" 
                 x:Name="_incidents"
                 SelectedItem="{Binding SelectedIncident}" BorderBrush="{x:Null}">
-                
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -41,8 +41,15 @@
                                     VerticalAlignment="Center"
                                     VerticalContentAlignment="Center"
                                     Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
-                                    CommandParameter="{Binding Mode=OneWay}" Margin="8,0" Padding="2">
+                                    CommandParameter="{Binding Mode=OneWay}" Margin="8,0,4,0" Padding="2">
                                     <iconpack:PackIconModern Kind="Delete" Margin="12"/>
+                                </Button>
+                                <Button Style="{StaticResource MetroCircleButtonStyle}" 
+                                    VerticalAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Command="{Binding DataContext.EditItemCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
+                                    CommandParameter="{Binding Mode=OneWay}" Margin="0" Padding="2">
+                                    <iconpack:PackIconModern Kind="Edit" Margin="12"/>
                                 </Button>
                             </StackPanel>
                             <TextBlock Grid.Row="1" 

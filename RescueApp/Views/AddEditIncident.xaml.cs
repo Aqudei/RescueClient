@@ -23,6 +23,28 @@ namespace RescueApp.Views
         public AddEditIncident()
         {
             InitializeComponent();
+
+            comboBoxDisasterType.SelectionChanged += (s, e) =>
+            {
+                var selectedDisasterType = comboBoxDisasterType.SelectedItem?.ToString().ToLower() ?? "";
+                if (selectedDisasterType.Contains("typhoon"))
+                {
+                    additionalInfo.IsEnabled = true;
+                    additionalInfo.SelectedIndex = 0;
+                }
+
+                else if (selectedDisasterType.Contains("earthquake"))
+                {
+                    additionalInfo.IsEnabled = true;
+                    additionalInfo.SelectedIndex = 1;
+                }
+
+                else
+                {
+                    additionalInfo.SelectedIndex = 2;
+                    additionalInfo.IsEnabled = false;
+                }
+            };
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
