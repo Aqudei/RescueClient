@@ -79,11 +79,11 @@ namespace RescueApp.Views
                             if (ex == null)
                             {
                                 ClearFields();
-                                dialogCoordinator.ShowMessageAsync(this, "Success", "HOUSEHOLD INFO CHANGED");
+                                dialogCoordinator.ShowMessageAsync(this, "Success", "HOUSEHOLD INFO SAVED");
                             }
                             else
                             {
-                                dialogCoordinator.ShowMessageAsync(this, "FAILURE", "FAILED TO CHANG HOUSEHOLD INFO");
+                                dialogCoordinator.ShowMessageAsync(this, "FAILURE", "UNABLE TO SAVE HOUSEHOLD INFO");
                             }
                             MessengerInstance.Send(new AddEditResultMessage<DownloadHouseholdModel>(ex, hs));
                         }, ChoosenPhoto);
@@ -92,6 +92,16 @@ namespace RescueApp.Views
                     {
                         rescueClient.UpdateHousehold(uploadHS, (ex, hs) =>
                         {
+                            if (ex == null)
+                            {
+                                ClearFields();
+                                dialogCoordinator.ShowMessageAsync(this, "Success", "HOUSEHOLD INFO UPDATED");
+                            }
+                            else
+                            {
+                                dialogCoordinator.ShowMessageAsync(this, "FAILURE", "UNABLE TO UPDATE HOUSEHOLD INFO");
+                            }
+
                             MessengerInstance.Send(new AddEditResultMessage<DownloadHouseholdModel>(ex, hs));
                         }, ChoosenPhoto);
                     }
