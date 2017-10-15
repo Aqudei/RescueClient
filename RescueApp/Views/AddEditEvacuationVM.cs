@@ -122,7 +122,7 @@ namespace RescueApp.Views
                     //};
 
                     var center = AutoMapper.Mapper.Map<Center>(this);
-
+                    center.Photo = ChoosenPhoto;
                     if (Id == 0)
                         CreateEvacuationCenter(center);
                     else
@@ -147,8 +147,6 @@ namespace RescueApp.Views
                     dialogCoordinator.ShowMessageAsync(this, "Save Operation Failed",
                         string.Format("Evacuation Center not saved.\n{0}", ex.Message));
                 }
-
-                MessengerInstance.Send(new Messages.AddEditResultMessage<Center>(ex, updatedCenter));
             });
         }
 

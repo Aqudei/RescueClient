@@ -1,4 +1,4 @@
-﻿using Microsoft.Maps.MapControl.WPF;
+﻿using GMap.NET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,6 @@ namespace RescueApp.Messages
 {
     public class NewCenterForMapMessage
     {
-        public Location Location { get; set; }
+        public PointLatLng Location { get; set; }
     }
 }

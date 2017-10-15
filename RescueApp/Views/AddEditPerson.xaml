@@ -76,13 +76,11 @@
                         <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Birthday:"/>
                         <DatePicker Width="200" SelectedDate="{Binding Birthday, Mode=TwoWay}"/>
                     </StackPanel>
+                   
                     <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Name Prefix"/>
-                        <TextBox maha:ControlsHelper.ContentCharacterCasing="Upper" 
-                                 Width="200" Text="{Binding NamePrefix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <Label Width="{Binding ActualWidth, ElementName=midNamelabel}" Content="Name Suffix"/>
+                        <TextBlock Width="{Binding ActualWidth, ElementName=midNamelabel}" 
+                                   TextWrapping="Wrap"
+                                   Text="Name Extention:" Padding="6,0,0,0"/>
                         <TextBox Width="200" maha:ControlsHelper.ContentCharacterCasing="Upper" 
                                  Text="{Binding NameSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>

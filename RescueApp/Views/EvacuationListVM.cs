@@ -2,7 +2,6 @@
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Threading;
 using MahApps.Metro.Controls.Dialogs;
-using Microsoft.Maps.MapControl.WPF;
 using RescueApp.Interfaces;
 using RescueApp.Messages;
 using RescueApp.Models;
@@ -94,7 +93,7 @@ namespace RescueApp.Views
             if (current != null)
                 MessengerInstance.Send(new NewCenterForMapMessage
                 {
-                    Location = new Location(current.Latitude, current.Longitude)
+                    Location = new GMap.NET.PointLatLng(current.Latitude, current.Longitude)
                 });
         }
 

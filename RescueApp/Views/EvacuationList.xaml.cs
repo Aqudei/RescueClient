@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using GMap.NET.WindowsPresentation;
-using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,8 +51,7 @@ namespace RescueApp.Views
                 //// Adds the pushpin to the map.
                 //_mapControl.Children.Add(pin);
                 _mapControl.Markers.Clear();
-                GMap.NET.PointLatLng latlong = new GMap.NET.PointLatLng(
-                    loc.Location.Latitude, loc.Location.Longitude);
+                GMap.NET.PointLatLng latlong = loc.Location;
 
                 GMapMarker marker = new GMapMarker(latlong);
                 marker.Shape = new Ellipse
