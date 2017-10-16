@@ -53,10 +53,23 @@
                                 Grid.Column="1" 
                                 VerticalAlignment="Center" 
                                 Margin="8,8,32,8">
-
-                            <TextBlock FontSize="24"
+                            <StackPanel Orientation="Horizontal">
+                                <Label FontSize="24" 
+                                       FontWeight="Bold" 
+                                       VerticalAlignment="Center"
+                                       VerticalContentAlignment="Center">
+                                    <Border>
+                                        <TextBlock >
+                                            <Run Text="{Binding id}" />
+                                            <Run Text=" - " />
+                                        </TextBlock>
+                                    </Border>
+                                </Label>
+                                <TextBlock FontSize="24"
                                     FontWeight="Bold"
+                                        VerticalAlignment="Center"
                                     Text="{Binding CenterName}"/>
+                            </StackPanel>
                             <TextBlock FontSize="18"
                                     Text="{Binding Address}"/>
                             <StackPanel Orientation="Horizontal">

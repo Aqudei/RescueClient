@@ -72,9 +72,9 @@ namespace RescueApp.Views.Dialogs
             // choose your provider here
             _gmap.MapProvider = GMap.NET.MapProviders.WikiMapiaMapProvider.Instance;
             _gmap.MinZoom = 2;
-            _gmap.MaxZoom = 17;
+            _gmap.MaxZoom = 18;
             // whole world zoom
-            _gmap.Zoom = 12;
+            _gmap.Zoom = 16;
             // lets the map use the mousewheel to zoom
             _gmap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             // lets the user drag the map
@@ -83,8 +83,7 @@ namespace RescueApp.Views.Dialogs
             _gmap.DragButton = MouseButton.Left;
 
             //@12.4112461,124.5903656,12
-            _gmap.Position = new GMap.NET.PointLatLng(12.4112461, 124.5903656);
-
+            _gmap.Position = new GMap.NET.PointLatLng(12.501631, 124.637833);
         }
 
         private void _gmap_MouseRightButtonUp(object sender, MouseButtonEventArgs e)

@@ -116,11 +116,14 @@
 
 
 
-                            <TextBox TextWrapping="Wrap" Text="{Binding InCharge}" CharacterCasing="Upper" d:LayoutOverrides="TopPosition, BottomPosition"/>
+                            <TextBox TextWrapping="Wrap" Text="{Binding InCharge, Mode=OneWay}"
+                                     CharacterCasing="Upper"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
-                            <Label Content="Cellphone #:" FontWeight="SemiBold" d:LayoutOverrides="TopPosition, BottomPosition"/>
-                            <TextBox TextWrapping="Wrap" Text="{Binding InChargeCellphone}" CharacterCasing="Upper" d:LayoutOverrides="TopPosition, BottomPosition"/>
+                            <Label Content="Cellphone #:" FontWeight="SemiBold" />
+                            <TextBox TextWrapping="Wrap"
+                                     Text="{Binding InChargeCellphone, Mode=TwoWay}" 
+                                     CharacterCasing="Upper" />
                         </StackPanel>
 
                     </StackPanel>
