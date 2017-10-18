@@ -19,7 +19,7 @@ namespace RescueApp.Models
         public string HouseOwnership
         {
             get { return _houseOwnership; }
-            set { Set(ref _houseOwnership , value); }
+            set { Set(ref _houseOwnership, value); }
         }
 
 
@@ -51,7 +51,17 @@ namespace RescueApp.Models
         public bool IsSafeZone
         {
             get { return _isSafeZone; }
-            set { Set(ref _isSafeZone, value); }
+            set
+            {
+                Set(ref _isSafeZone, value);
+                if (value == true)
+                {
+                    IsTsunamiProne = false;
+                    IsEarthquakeProne = false;
+                    IsFloodProne = false;
+                    IsStormSurgeProne = false;
+                }
+            }
         }
 
         private bool _isTsunamiProne;
@@ -59,7 +69,14 @@ namespace RescueApp.Models
         public bool IsTsunamiProne
         {
             get { return _isTsunamiProne; }
-            set { Set(ref _isTsunamiProne, value); }
+            set
+            {
+                Set(ref _isTsunamiProne, value);
+                if (value)
+                {
+                    IsSafeZone = false;
+                }
+            }
         }
 
 
@@ -68,7 +85,14 @@ namespace RescueApp.Models
         public bool IsEarthquakeProne
         {
             get { return _isEarthquakeProne; }
-            set { Set(ref _isEarthquakeProne, value); }
+            set
+            {
+                Set(ref _isEarthquakeProne, value);
+                if (value)
+                {
+                    IsSafeZone = false;
+                }
+            }
         }
 
 
@@ -77,7 +101,14 @@ namespace RescueApp.Models
         public bool IsFloodProne
         {
             get { return _isFloodProne; }
-            set { Set(ref _isFloodProne, value); }
+            set
+            {
+                Set(ref _isFloodProne, value);
+                if (value)
+                {
+                    IsSafeZone = false;
+                }
+            }
         }
 
         private bool _isStormSurgeProne;
@@ -85,7 +116,14 @@ namespace RescueApp.Models
         public bool IsStormSurgeProne
         {
             get { return _isStormSurgeProne; }
-            set { Set(ref _isStormSurgeProne, value); }
+            set
+            {
+                Set(ref _isStormSurgeProne, value);
+                if (value)
+                {
+                    IsSafeZone = false;
+                }
+            }
         }
     }
 

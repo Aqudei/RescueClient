@@ -65,11 +65,11 @@
         </ComboBox>
         <GroupBox Grid.Column="1" Grid.Row="4" Header="HOUSE LOCATION" Margin="2">
             <StackPanel Margin="2">
-                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsSafeZone}">Safe Zone</CheckBox>
-                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsTsunamiProne}">Tsunami Prone Area</CheckBox>
-                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsEarthquakeProne}">Earthquake  Prone Area</CheckBox>
-                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsFloodProne}">Flood Prone Area</CheckBox>
-                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsStormSurgeProne}">Storm Surge Prone Area</CheckBox>
+                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsSafeZone, Mode=TwoWay}">Safe Zone</CheckBox>
+                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsTsunamiProne, Mode=TwoWay}">Tsunami Prone Area</CheckBox>
+                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsEarthquakeProne, Mode=TwoWay}">Earthquake  Prone Area</CheckBox>
+                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsFloodProne, Mode=TwoWay}">Flood Prone Area</CheckBox>
+                <CheckBox Margin="0,2" IsChecked="{Binding Current.IsStormSurgeProne, Mode=TwoWay}">Storm Surge Prone Area</CheckBox>
             </StackPanel>
         </GroupBox>
         <Label Content="House Ownership:" FontWeight="Bold" Grid.Row="5" Margin="4"/>
