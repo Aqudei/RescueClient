@@ -131,28 +131,28 @@
                                             FontSize="18.667"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0" Height="25"
-                                                Visibility="{Binding IsSafeZone, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                Visibility="{Binding IsTsunamiProne, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <TextBlock TextWrapping="Wrap" Text="Is Tsunami Prone: " FontSize="18.667"/>
                                         <TextBlock TextWrapping="Wrap" 
                                             Text="{Binding IsTsunamiProne, Converter={StaticResource BoolToStringConverter}}"
                                             FontSize="18.667"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0" Height="25"
-                                                Visibility="{Binding IsSafeZone, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                Visibility="{Binding IsEarthquakeProne, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <TextBlock TextWrapping="Wrap" Text="Is Earthquake Prone: " FontSize="18.667"/>
                                         <TextBlock TextWrapping="Wrap" 
                                             Text="{Binding IsEarthquakeProne, Converter={StaticResource BoolToStringConverter}}"
                                             FontSize="18.667"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0" Height="25"
-                                                Visibility="{Binding IsSafeZone, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                Visibility="{Binding IsFloodProne, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <TextBlock TextWrapping="Wrap" Text="Is Flood Prone: " FontSize="18.667"/>
                                         <TextBlock TextWrapping="Wrap" 
                                             Text="{Binding IsFloodProne, Converter={StaticResource BoolToStringConverter}}"
                                             FontSize="18.667"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0" Height="25"
-                                                Visibility="{Binding IsSafeZone, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                Visibility="{Binding IsStormSurgeProne, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <TextBlock TextWrapping="Wrap" Text="Is Storm Surge Prone: " FontSize="18.667"/>
                                         <TextBlock TextWrapping="Wrap" 
                                             Text="{Binding IsStormSurgeProne, Converter={StaticResource BoolToStringConverter}}"
