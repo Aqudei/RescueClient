@@ -49,7 +49,7 @@
                 Orientation="Vertical"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
-                <Button Margin="2">Vulnerable CONSTITUENTS</Button>
+                <Button Command="{Binding VulnerablesReportCommand}" Margin="2">Vulnerable CONSTITUENTS</Button>
                 <Button 
                     Margin="2"
                     Command="{Binding HouseInDangerReportCommand}">

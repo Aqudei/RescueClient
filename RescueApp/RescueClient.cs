@@ -145,11 +145,11 @@ namespace RescueApp
                 }
             });
         }
-        public void ListInVulnerables(Action<Exception, List<HouseholdsInDangerZones>> callback)
+        public void ListInVulnerables(Action<Exception, List<TheVulnerables>> callback)
         {
             var request = new RestRequest("/api/people/list_vulnerables/", Method.GET);
 
-            _client.ExecuteAsync<List<HouseholdsInDangerZones>>(request, rslt =>
+            _client.ExecuteAsync<List<TheVulnerables>>(request, rslt =>
             {
                 if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
                 {

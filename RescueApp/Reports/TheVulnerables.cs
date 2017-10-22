@@ -10,20 +10,19 @@ namespace RescueApp.Reports
     {
         public string NameSuffix { get; set; }
         public string fullname { get; set; }
-        public DateTime? Birthday { get; set; }
+        public string Birthday { get; set; }
         public string Gender { get; set; }
         public string _Household { get; set; }
+        public string Vulnerabilities { get; set; }
 
         public int Age
         {
             get
             {
-                if (Birthday.HasValue)
-                {
-                    return (int)((DateTime.Now - Birthday.Value).TotalDays / 365);
-                }
+                if (String.IsNullOrEmpty(Birthday))
+                    return 0;
 
-                return 0;
+                return (int)((DateTime.Now - DateTime.Parse(Birthday)).TotalDays / 365);
             }
         }
 

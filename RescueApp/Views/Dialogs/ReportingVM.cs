@@ -99,7 +99,19 @@ namespace RescueApp.Views.Dialogs
             {
                 return vulnerablesReportCommand ?? (vulnerablesReportCommand = new RelayCommand(() =>
                 {
-
+                    rescueClient.ListInVulnerables((ex, rslt) =>
+                    {
+                        if (ex == null)
+                        {
+                            Reports.VulnerablePeopleReport vulnerablePeople = new Reports.VulnerablePeopleReport();
+                            vulnerablePeople.SetDataSource(rslt);
+                            Dictionary<string, object> parames = new Dictionary<string, object>();
+                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                            {
+                                dialogService.ShowReport(vulnerablePeople, parames);
+                            });
+                        }
+                    });
                 }));
             }
 
