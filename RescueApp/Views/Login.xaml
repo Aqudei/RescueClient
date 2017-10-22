@@ -31,7 +31,7 @@
             <Button x:Name="btnLogin" Margin="2" Click="btnLogin_Click">
                 Login
             </Button>
-            <Button x:Name="btnExit" Margin="2">
+            <Button Click="exitClicked" x:Name="btnExit" Margin="2">
                 Exit App
             </Button>
         </StackPanel>

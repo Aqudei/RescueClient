@@ -59,5 +59,10 @@ namespace RescueApp.Views
                 txtMessage.Visibility = Visibility.Visible;
             }
         }
+
+        private void exitClicked(object sender, RoutedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
     }
 }
