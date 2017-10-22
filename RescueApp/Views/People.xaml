@@ -48,7 +48,7 @@
                 IsSynchronizedWithCurrentItem="True"
                 ScrollViewer.VerticalScrollBarVisibility="Visible"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                BorderBrush="{x:Null}" >
+                BorderBrush="{x:Null}" Background="{x:Null}" >
                 <ListView.Resources>
                     <BitmapImage x:Key="_whoImage" 
                         UriSource="/RescueApp;component/Resources/question_sign_on_person_head.png"/>

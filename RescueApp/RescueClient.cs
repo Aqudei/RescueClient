@@ -145,6 +145,24 @@ namespace RescueApp
                 }
             });
         }
+        public void ListInVulnerables(Action<Exception, List<HouseholdsInDangerZones>> callback)
+        {
+            var request = new RestRequest("/api/people/list_vulnerables/", Method.GET);
+
+            _client.ExecuteAsync<List<HouseholdsInDangerZones>>(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    callback(null, rslt.Data);
+                    return;
+                }
+                else
+                {
+                    callback(new Exception(rslt.Content + "\n" + rslt.ErrorMessage), null);
+                    return;
+                }
+            });
+        }
 
         //EVACUATION CENTER ENDPOINTS
         public void GetCenters(Action<Exception, List<Center>> callback)
@@ -367,7 +385,6 @@ namespace RescueApp
                 callback(null, rslt.Data);
             });
         }
-
         public void SetHouseStatus(int houseId, string status, Action<Exception, HouseholdStatus> callback)
         {
             var request = new RestRequest("/api/households/" + houseId + "/set_status/", Method.POST);
@@ -400,6 +417,24 @@ namespace RescueApp
                 else
                 {
                     callback(new Exception(rslt.ErrorMessage + "\n" + rslt.Content), null);
+                    return;
+                }
+            });
+        }
+        public void ListInDangerHouseholds(Action<Exception, List<HouseholdsInDangerZones>> callback)
+        {
+            var request = new RestRequest("/api/households/list_in_dangers/", Method.GET);
+
+            _client.ExecuteAsync<List<HouseholdsInDangerZones>>(request, rslt =>
+            {
+                if (rslt.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    callback(null, rslt.Data);
+                    return;
+                }
+                else
+                {
+                    callback(new Exception(rslt.Content + "\n" + rslt.ErrorMessage), null);
                     return;
                 }
             });

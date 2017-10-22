@@ -113,6 +113,16 @@ namespace RescueApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap system_logo {
+            get {
+                object obj = ResourceManager.GetObject("system_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Website_Under_Construction {
             get {
                 object obj = ResourceManager.GetObject("Website_Under_Construction", resourceCulture);

@@ -10,6 +10,7 @@ namespace RescueApp.Models
 {
     public class UploadHouseholdModel : WithID
     {
+        public string family_head { get; set; }
         private string _address;
         private string _houseCategory;
         private string _householdNumber;

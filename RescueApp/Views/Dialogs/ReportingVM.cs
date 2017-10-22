@@ -90,6 +90,47 @@ namespace RescueApp.Views.Dialogs
             }
         }
 
+
+        private RelayCommand vulnerablesReportCommand;
+
+        public RelayCommand VulnerablesReportCommand
+        {
+            get
+            {
+                return vulnerablesReportCommand ?? (vulnerablesReportCommand = new RelayCommand(() =>
+                {
+
+                }));
+            }
+
+        }
+
+        private RelayCommand houseInDangerReportCommand;
+
+        public RelayCommand HouseInDangerReportCommand
+        {
+            get
+            {
+                return houseInDangerReportCommand ?? (houseInDangerReportCommand = new RelayCommand(() =>
+                {
+                    rescueClient.ListInDangerHouseholds((ex, rslt) =>
+                    {
+                        if (ex == null)
+                        {
+                            Reports.HouseholdsInDangerZoneReport houseInDangerRpt = new Reports.HouseholdsInDangerZoneReport();
+                            houseInDangerRpt.SetDataSource(rslt);
+                            Dictionary<string, object> parames = new Dictionary<string, object>();
+                            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                            {
+                                dialogService.ShowReport(houseInDangerRpt, parames);
+                            });
+                        }
+                    });
+                }));
+            }
+
+        }
+
         public void OnLoad()
         {
             Incidents.Clear();

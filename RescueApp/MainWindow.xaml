@@ -27,7 +27,6 @@
     </Controls:MetroWindow.RightWindowCommands>
 
     <Grid x:Name="_root" >
-
         <Grid.Resources>
             <DataTemplate DataType="{x:Type views:PeopleVM}" >
                 <views:People/>
@@ -53,10 +52,14 @@
             </DataTemplate>
 
         </Grid.Resources>
+        <Grid.Background>
+            <ImageBrush TileMode="Tile" ImageSource="Resources/system_logo.jpg" Opacity="0.15"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        
         <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
             <GroupBox  VerticalAlignment="Center"
                        Header="PEOPLE MONITORING"
@@ -100,7 +103,7 @@
         </StackPanel>
         <Controls:MetroAnimatedSingleRowTabControl SelectedItem="{Binding SelectedScreen}" 
                                                    ItemsSource="{Binding Screens}"
-                                                   Grid.Column="1">
+                                                   Grid.Column="1" Background="{x:Null}">
             <Controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Title}" Margin="16,0,16,0" />

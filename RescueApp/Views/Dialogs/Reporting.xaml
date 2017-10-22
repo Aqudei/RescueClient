@@ -15,30 +15,49 @@
     <maha:MetroWindow.DataContext>
         <Binding Path="ReportingVM" Source="{StaticResource Locator}"/>
     </maha:MetroWindow.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <maha:MetroTabControl>
+        <maha:MetroTabItem Header="Household and People Report">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-        <StackPanel Margin="8">
-            <TextBlock><Run Text="PLEASE SELECT SPECIFIC CALAMITY/DISASTER"/></TextBlock>
-            <ComboBox x:Name="comboBox" ItemsSource="{Binding Incidents}"
+                <StackPanel Margin="8">
+                    <TextBlock><Run Text="PLEASE SELECT SPECIFIC CALAMITY/DISASTER"/></TextBlock>
+                    <ComboBox x:Name="comboBox" ItemsSource="{Binding Incidents}"
                       SelectedItem="{Binding SelectedIncident, Mode=OneWayToSource}"/>
-        </StackPanel>
+                </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1"
+                <StackPanel Orientation="Horizontal" Grid.Row="1"
                     HorizontalAlignment="Center" VerticalAlignment="Center" Margin="16">
-            <RadioButton Margin="16" IsChecked="{Binding PeopleReport}" FontSize="16" FontWeight="Bold" FontFamily="Kristen ITC" Content="PEOPLE"/>
-            <RadioButton Margin="16" FontSize="16" FontWeight="Bold" FontFamily="Kristen ITC" Content="HOUSEHOLDS"/>
-        </StackPanel>
+                    <RadioButton Margin="16" IsChecked="{Binding PeopleReport}" FontSize="16" FontWeight="Bold" FontFamily="Kristen ITC" Content="PEOPLE"/>
+                    <RadioButton Margin="16" FontSize="16" FontWeight="Bold" FontFamily="Kristen ITC" Content="HOUSEHOLDS"/>
+                </StackPanel>
 
-        <StackPanel HorizontalAlignment="Center" 
+                <StackPanel HorizontalAlignment="Center" 
                     Orientation="Horizontal" Grid.Row="2">
-            <Button Command="{Binding ViewReportCommand}" 
+                    <Button Command="{Binding ViewReportCommand}" 
                     IsEnabled="{Binding SelectedItem, Converter={StaticResource NullBooleanConverter}, ElementName=comboBox}"
                     Margin="8" Content="View Report"/>
-        </StackPanel>
-    </Grid>
+                </StackPanel>
+            </Grid>
+        </maha:MetroTabItem>
+        <maha:MetroTabItem Header="Other Reports">
+            <StackPanel
+                Orientation="Vertical"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <Button Margin="2">Vulnerable CONSTITUENTS</Button>
+                <Button 
+                    Margin="2"
+                    Command="{Binding HouseInDangerReportCommand}">
+                    Households in Danger Zones
+                </Button>
+            </StackPanel>
+        </maha:MetroTabItem>
+
+    </maha:MetroTabControl>
+
 </maha:MetroWindow>
